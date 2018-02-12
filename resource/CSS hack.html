@@ -1,0 +1,54 @@
+<h3>CSS hack</h3>
+<dl>
+	<dt>属性</dt>
+	<dd>
+		<table>
+			<tr>
+				<th>前缀、后缀</th><th>IE版本</th><th>示例</th>
+			</tr>
+			<tr>
+				<td>-</td><td>IE6的前缀</td><td>-background-color:red;</td>
+			</tr>
+			<tr>
+				<td>+</td><td>IE6、IE7的前缀</td><td></td>
+			</tr>
+			<tr>
+				<td>\0(后缀)</td><td>IE8、9、10</td><td>background-color:blue<strong>\0</strong>;</td>
+			</tr>
+			<tr>
+				<td>\9\0(后缀)</td><td>IE9、10</td><td>background-color:blue<strong>\9\0</strong>;</td>
+			</tr>
+		</table>
+	</dd>
+	<dt>选择器</dt>
+	<dd>
+		<table>
+			<tr>
+				<th>前缀</th><th>IE版本</th>
+			</tr>
+			<tr>
+				<td>*div {}</td><td>IE6</td>
+			</tr>
+			<tr>
+				<td>*+div {}</td><td>IE7</td>
+			</tr>
+		</table>
+	</dd>
+	<dt>条件</dt>
+	<dd>
+		<pre class="code">
+&lt;!--[if gt IE8]&gt;
+	该段内容只在IE8以上版本执行
+	.box {
+		width:200px;
+		height:300px;
+	}
+&lt;![endif]--&gt;
+<span class="code">gte</span>表示">=",<span class="code">lt</span>表示"<",<span class="code">lte</span>表示"<=",<span class="code">!</span>表示非
+</pre>
+	</dd>
+</dl>
+
+
+
+

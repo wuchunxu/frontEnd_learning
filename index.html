@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>wuchunxu的前端笔记</title>
+	<link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+	<h1>巫春旭的前端学习笔记</h1>
+	
+	 <table class="table-1"></table>
+	<div id="shower"></div>
+	<div id="layer"></div>
+	<script src="js/util.js"></script>
+	<script>
+
+		var table = document.getElementsByClassName("table-1")[0];
+		var frontEnd = {
+			period_1: {
+				day01: ["软件的生命周期","快捷键","学子商城概要设计","服务器"],
+				day02: ["MySQL数据库的基本操作","常用的SQL语句"],
+				day03: ["数据库乱码","列类型"],
+				day04: ["简单查询","复杂查询"],
+				day05: ["性别、订单状态、政治面貌等信息的存储","如何自学一门新语言","PHP背景知识、PHP环境的搭建"],
+				day06: ["PHP数据类型","运算符","注意点"],
+				day07: ["通用小程序","数组"],
+				day08: ["foreach循环","PHP预定义数组","函数","查询字符串"],
+				day09: ["PHP连接数据库","基于表单的CRUD","phpMyAdmin","常见错误"]
+			},
+			period_2: {
+				"HTML5基础": ["meta","表格","列表","结构标记","表单"],
+				"JS基础"   : [],
+				"Ajax"     : [],
+				"CSS"      : ["选择器","表格","背景","显示和隐藏","对齐","列表","浮动","定位","生成内容"],
+				"CSS3"     : ["圆角","复杂选择器","弹性布局","转换","过渡","动画","CSS hack"]
+			},
+			period_3: {
+				"JS高级"   : ["JS内置类型","闭包","面向对象","ES5","ES6"],
+			}
+
+		}
+
+		function toTable(frontEnd){
+			var html = "";
+			var flag = true;
+			for(let period in frontEnd ){
+				flag = true;
+				for (var day in frontEnd[period] ){
+					if(flag){
+						html += `<tr><td rowspan="${Object.keys(frontEnd[period]).length}">阶段${period.slice(period.length-1)}</td><td>${day}</td><td>`;
+						flag = false;
+					}else{
+
+						html += `<tr><td>${day}</td><td>`;
+					}
+					for ( var ele of frontEnd[period][day] ){
+						html += `<span>${ele}</span>`;
+					}
+					html +='</td></tr>';
+				}
+			}
+			return html;
+		}
+		
+		table.innerHTML = toTable(frontEnd);
+
+		table.onclick = function show(e){
+			var url = "resource/"+e.target.innerHTML+".html";
+			ajax(url,{
+				success:function(resposneText){
+					var div = $("shower");
+					div.innerHTML = resposneText;
+					div.style.display = "block";
+					div.style.width = "1000px";
+					div.style.height = "800px";
+					$("layer").style.display = "block";
+					div.getElementsByClassName("menu")[0].onclick = function(event){
+						var desc = event.target.getElementsByClassName("desc")[0];
+						if (desc.style.display=="block"){
+							desc.style.display = "none";
+							desc.removeClass("active");
+							event.target.removeClass("active");
+						}else {
+							desc.style.display = "block";
+							desc.addClass("active");
+							event.target.addClass("active");
+						}
+					}
+					/*
+					div.getElementsByClassName("menu")[0].onmouseout = function(event){
+						event.target.getElementsByClassName("desc")[0].style.display = "none";
+					}
+					*/
+				}
+			});
+		}
+		$("layer").onclick = function(){
+			this.style.display = "none";
+
+			$("shower").style.display = "none";
+		}
+
+		
+	</script>
+</body>
+</html>

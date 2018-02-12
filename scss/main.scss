@@ -1,0 +1,214 @@
+@charset "UTF-8";
+$theme_color_1: #41b883;
+$theme_color_2: #bcee68;
+body {
+	background: #eee;
+}
+ul>li {
+	list-style-position:inside;
+}
+
+#layer {
+	width: 100%;
+	height: 100%;
+	position:fixed;
+	top:0;
+	right:0;
+	bottom:0;
+	left:0;
+	margin:auto;
+	background: #000;
+	opacity:.8;
+	display: none;
+}
+
+.table-1 {
+	border: 1px solid #aaa;
+	border-collapse: collapse;
+	span {
+		background-color: #41b883;
+		color:#fff;
+		padding: 5px 8px;
+		border-radius:3px;
+		margin-right:5px;
+		&:hover {
+			cursor:pointer;
+		}
+	}
+	td {
+		border: 1px solid #aaa;
+		padding:10px 10px;
+	}
+	a:visited {
+		color: #41b883;
+	}
+}
+/*弹出窗口样式*/
+#shower {
+	/*width: 1000px;*/
+	width:0px;
+	/*height: 800px;*/
+	height:0px;
+	background-color: rgba(238,238,238,.7);
+	display: none;
+	position:fixed;
+	top:0;
+	right:0;
+	bottom:0;
+	left:0;
+	margin:auto;
+	padding:10px 20px;
+	border-radius: 10px;
+	z-index:5000;
+	line-height: 2em;
+	font-weight: 100;
+	box-shadow: 0 0 6px 3px #888;
+	overflow: auto;
+	transition: all 3s ease;
+	h3 {
+		text-align: center;
+		color:#fff;
+		font-size: 30px;
+		font-weight: 100;
+		padding:10px 0 15px;
+	}
+	dl {
+		counter-reset:number;
+	}
+	dt {
+		font-weight: 100;
+		font-size: 20px;
+		border-bottom: 1px solid #fff;
+		margin-bottom:15px;
+		margin-top:15px;
+	}
+	dd {
+		&:before {
+			content: counter(number)".";
+			counter-increment: number;
+		}
+	}
+	table {
+		border: 1px solid $theme_color_1;
+		border-spacing: 0;
+		border-radius: 10px;
+		background: #fff;
+		font-family: "consolas";
+	}
+	th,.title {
+		
+		background: $theme_color_2;
+	}
+	td {
+		padding:3px 10px;
+		&:first-child {
+			text-align: center;
+		}
+	}
+	/*表格圆角*/
+	tr:first-child {
+		td:first-child,th:first-child {
+			border-top-left-radius: 10px;
+		}
+		td:last-child,th:last-child {
+			border-top-right-radius: 10px;
+		}
+	}
+	tr:last-child {
+		td:first-child {
+			border-bottom-left-radius: 10px;
+		}
+		td:last-child {
+			border-bottom-right-radius: 10px;
+		}
+	}
+	/*表格内部添加分隔线*/
+	tr+tr td {
+		border-top: 1px solid #aaa;
+	}
+	td,th {
+		border-right: 1px solid #aaa;
+	}
+	td:last-child,th:last-child {
+		border-right:0;
+	}
+	.more {
+		color:#41b883;
+		font-style: italic;
+		&:hover {
+			color:#333;
+			cursor:pointer;
+		}
+	}
+	.flex {
+		display: flex;
+		justify-content: space-between;
+	}
+	.menu{
+		display: relative;
+		width: 300px;
+		&>li {
+			padding: 5px;
+			background: #eee;
+			border-radius: 5px;
+			margin-bottom:1px;
+			&:hover {
+				cursor:pointer;
+				background: #999;
+				color:#fff;
+			}
+			&.active{
+				background: #999;
+				color:#fff;
+			}
+		}
+	}
+	.desc {
+		display:none;
+		position:absolute;
+		width: 680px;
+		height: 600px;
+		left:323px;
+		top:64px;
+		background-color: rgba(153,153,153,.8);
+		border-radius:5px;
+		padding:20px;
+		box-sizing:border-box;
+		& table {
+			color: #333!important;
+		}
+	}
+	// .desc.active {
+	// 	border: 1px solid $theme_color_2;
+	// }
+	
+}
+
+/*行内式代码样式*/
+.code {
+	background: #f9f2f4;
+	color:#c7254e;
+	font-family: "consolas";
+	padding: 0 4px;
+	font-weight: bold;
+	border-radius:3px;
+	&+.code {
+		margin-left:5px;/*相邻行内代码保持间距*/
+	}
+}
+
+pre {
+	/*代码块样式*/
+	.code {
+		text-align:left;
+		color:#333;
+		background: #fff;
+		border-radius: 8px;
+	}
+}
+
+
+table pre.code {
+	background: #eee;
+}
+

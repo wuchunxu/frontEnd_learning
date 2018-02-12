@@ -1,0 +1,20 @@
+<h3>定位--position</h3>
+<dl>
+	<dt>属性：position的取值</dt>
+	<dd>
+		<table>
+			<tr><td>static</td><td>默认值，静态</td></tr>
+			<tr><td>relative</td><td>相对定位</td></tr>
+			<tr><td>absolute</td><td>绝对定位</td></tr>
+			<tr><td>fixed</td><td>固定定位</td></tr>
+		</table>
+	</dd>
+	<dt>偏移属性</dt>
+	<dd>top/right/bottom/left</dd>
+	<dt>绝对定位</dt>
+	<dd>绝对定位会脱离文档流，不占空间；相对于离它最近的定位祖先元素</dd>
+	<dd>定位元素可能出现堆叠效果，用<span class="code">z-index</span>调整层级，注意，<strong>只有已定位的元素才能使用<span class="code">z-index</span>;父子元素间，<span class="code">z-index</span>无效，子元素永远在父元素之上</strong></dd>
+	<dd>使用场景：如弹出菜单</dd>
+	<dt>固定定位</dt>
+	<dd>固定定位相对于<span class="code">body</span>，位置不随滚动条发生变化</dd>
+</dl>
