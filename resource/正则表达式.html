@@ -1,0 +1,47 @@
+<h2>正则表达式Regular Expression</h2>
+<ul class="menu">
+	<li>
+		基础知识
+		<div class="desc">
+			<h3>什么是正则表达式</h3>
+			<p>正则表达式是用来描述字符串中字符出现规则的表达式。比如<span class="code">支付宝</span>，可以匹配“支付宝”。</p>
+			<p>但如果既要能匹配“支付宝”，又要匹配“微信”呢？可以<span class="code">支付宝|微信</span>，这里<span class="code">|</span>表示“或”的意思，“|”的两侧表示两个规则，满足其一即可。</p>
+			<p>然而，现实中的需求往往没这么简单。比如，我要匹配微信、微 信、WX、wx、weixin、wxin呢？</p>
+			<p>可以这么来：<span class="code">(微|w(ei)?)\s*(信|x(in)?)</span></p>
+			<p>在上面表达式中，<span class="code">()</span>表示分组，也就是<span class="code">(ei)</span>表示一个组，它将e和i组合在一起，这样就可以用量词来修饰，<span class="code">?</span>是量词，表示匹配0次或1次。这样，意思就是匹配w或者wei；中间<span class="code">\s</span>表示匹配任意空白，<span class="code">*</span>是量词，表示匹配任意多次（0~n）</p>
+			<p>上述小例子中，我们学习了<span class="code">|、()、\s、*、?</span></p>
+			<table>
+				<tr>
+					<td>或 |</td><td>规则1|规则2</td><td>满足规则1或规则2</td>
+				</tr>
+				<tr>
+					<td>分组 ()</td><td>(规则1规则2)</td><td>将规则1和规则2归为一组，后面可以使用量词来修饰</td>
+				</tr>
+				<tr>
+					<td rowspan="4">字符集[]</td>
+					<td>[1,2,3]</td>
+					<td>1,2,3中任意一个，注意，一个[]只能匹配1个字符</td>
+				</tr>
+				<tr><td>[0-9]</td><td>匹配一个数字</td></tr>
+				<tr><td>[a-z]</td><td>匹配一个小写字母</td></tr>
+				<tr><td>[A-Za-z]</td><td>匹配一个字母</td></tr>
+				<tr><td rowspan="4">预定义字符集</td><td>\d</td><td>数字，相当于[0-9]</td></tr>
+				<tr><td>\w</td><td>一位数字，字母或下划线[0-9A-Za-z_]</td></tr>
+				<tr><td>\s</td><td>空白</td></tr>
+				<tr><td>.</td><td>匹配除换行符以外的任意字符</td></tr>
+				<tr>
+					<td>量词</td>
+					<td></td>
+					<td></td>
+				</tr>
+			</table>
+			
+		</div>
+	</li>
+	<li>应用场景</li>
+</ul>
+<ul class="abstract">
+	<li>需求一：验证身份证格式</li>
+	<li>需求二：屏蔽聊天语句中的微信、WX、wx、wxin、weixin、WeChat</li>
+	<li>需求三：验证邮箱格式、手机号码格式、车牌号格式</li>
+</ul>

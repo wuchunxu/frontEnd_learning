@@ -47,9 +47,8 @@ ul > li {
 #shower {
   /*width: 1000px;*/
   width: 0px;
-  /*height: 800px;*/
-  height: 0px;
-  background-color: rgba(238, 238, 238, 0.7);
+  height: 900px;
+  background-color: rgba(255, 255, 255, 0.3);
   display: none;
   position: fixed;
   top: 0;
@@ -68,24 +67,24 @@ ul > li {
   /*表格圆角*/
   /*表格内部添加分隔线*/
 }
-#shower h3 {
+#shower > h2 {
   text-align: center;
   color: #fff;
-  font-size: 30px;
+  font-size: 28px;
   font-weight: 100;
   padding: 10px 0 15px;
 }
-#shower dl {
+#shower > dl {
   counter-reset: number;
 }
-#shower dt {
+#shower > dl dt {
   font-weight: 100;
   font-size: 20px;
   border-bottom: 1px solid #fff;
   margin-bottom: 15px;
   margin-top: 15px;
 }
-#shower dd:before {
+#shower > dl dd:before {
   content: counter(number) ".";
   counter-increment: number;
 }
@@ -140,7 +139,7 @@ ul > li {
 }
 #shower .menu {
   display: relative;
-  width: 300px;
+  width: 270px;
 }
 #shower .menu > li {
   padding: 5px;
@@ -160,17 +159,42 @@ ul > li {
 #shower .desc {
   display: none;
   position: absolute;
-  width: 680px;
-  height: 600px;
-  left: 323px;
+  width: 700px;
+  height: 720px;
+  left: 315px;
   top: 64px;
-  background-color: rgba(153, 153, 153, 0.8);
+  background-image: url("../images/paper.jpg");
+  background-size: cover;
   border-radius: 5px;
   padding: 20px;
   box-sizing: border-box;
+  color: #333;
+  overflow: auto;
 }
 #shower .desc table {
   color: #333 !important;
+}
+#shower .desc > h3, #shower .desc > h4, #shower .desc > h5 {
+  font-weight: bold;
+}
+#shower .desc > h3 {
+  font-size: 18px;
+}
+#shower .desc > h4 {
+  font-size: 16px;
+}
+#shower .desc > h5 {
+  font-size: 14px;
+}
+#shower .desc p {
+  text-indent: 2em;
+  font-size: 15px;
+  margin-bottom: 10px;
+  font-family: "宋体";
+}
+#shower .desc table p {
+  margin-bottom: 0px;
+  text-indent: 0;
 }
 
 /*行内式代码样式*/
