@@ -1,74 +1,75 @@
 <h2>动画</h2>
-<dl>
-	<dt>什么是动画</dt>
-	<dd>将过渡效果连起来就是动画，通过“关键帧”控制动画步骤的执行</dd>
-	<dd>
-		<table>
-			<tr>
-				<td>关键帧</td><td>动画执行的时间点，以及在该时间点的样式</td>
-			</tr>
-			<tr>
-				<td>使用步骤</td>
-				<td colspan="2">声明动画-->调用动画</td>
-			</tr>
-			<tr>
-				<td>定义动画</td>
-				<td>
+<ul class="menu">
+	<li>
+		<p>了解动画</p>
+		<div class="desc">
+			<h3>什么是动画</h3>
+			<p>将过渡效果连起来就是动画，通过“关键帧”控制动画步骤的执行。</p>
+			<p>关键帧keyframe表示动画执行的时间点以及在该时间点的样式</p>
+			<h3>如何使用动画</h3>
+			<p>声明动画-->调用动画</p>
+			<h4>声明动画</h4>
 <pre class="code">
 @keyframes my_animate {
 	0%{}
 	50%{}
 	100%{}
 }
-
 </pre>
-				</td>
-				<td>
-					<pre class="code">
+			</p>
+			<p>兼容性
+<pre class="code">
 /*兼容*/
 @-webkit-keyframes my_animate {}
 @-ms-keyframes my_animate {}
 @-o-keyframes my_animate {}
 @-moz-keyframes my_animate {}
-					</pre>
-				</td>
-			</tr>
-			<tr>
-				<td rowspan="9">调用动画</td>
-				<td><span class="code">animation-name</span></td><td></td>
-			</tr>
-			<tr>
-				<td><span class="code">animation-duration</span></td><td></td>
-			</tr>
-			<tr>
-				<td><span class="code">animation-timing-function</span></td><td>ease/linear/ease-in/ease-out/ease-in-out</td>
-			</tr>
-			<tr>
-				<td><span class="code">animation-delay</span></td><td>5s/5000ms</td>
-			</tr>
-			<tr>
-				<td><span class="code">animation-iteration-count</span></td><td>1/2...infinite</td>
-			</tr>
-			<tr>
-				<td><span class="code">animation-direction</span></td><td>normal/reverse/alternate(奇数次正向、偶数次反向)</td>
-			</tr>
-			<tr>
-				<td><span class="code">animation-fill-mode</span></td>
-				<td>规定动画在播放前或播放后的状态
-					<ul>
-						<li>none:默认值</li>
-						<li>forwards：动画播放完，将保持在最后一个帧的状态上</li>
-						<li>backwards：动画播放前，延迟时间内，动画保持在第一个帧的状态上</li>
-						<li>both：forwards和backwards的结合体</li>
-					</ul>
-				</td>
-			</tr>
-			<tr>
-			<tr>
-				<td>animation-pause-state</td><td>指定动画是处于播放还是暂停状态，取值paused、running</td>
-			</tr>
-				<td>简写</td><td colspan="2">animation: name duration timing-function delay iteration-count direction</td>
-			</tr>
-		</table>
-	</dd>
-</dl>
+</pre>
+			</p>
+			<h4>调用动画</h4>
+<pre class="code">animation: name duration timing-function delay iteration-count direction</pre>
+		</div>
+	</li>
+	<li>
+		<p>动画的相关属性</p>
+		<div class="desc">
+			<table>
+				<caption>动画的相关属性</caption>
+				<tr><th>属性</th><th>作用</th></tr>
+				<tr>
+					<td><span class="code">animation-name</span></td><td></td>
+				</tr>
+				<tr>
+					<td><span class="code">animation-duration</span></td><td></td>
+				</tr>
+				<tr>
+					<td><span class="code">animation-timing-function</span></td><td>ease/linear/ease-in/ease-out/ease-in-out</td>
+				</tr>
+				<tr>
+					<td><span class="code">animation-delay</span></td><td>5s/5000ms</td>
+				</tr>
+				<tr>
+					<td><span class="code">animation-iteration-count</span></td><td>1/2...infinite</td>
+				</tr>
+				<tr>
+					<td><span class="code">animation-direction</span></td><td>normal/reverse/alternate(奇数次正向、偶数次反向)</td>
+				</tr>
+				<tr>
+					<td><span class="code">animation-fill-mode</span></td>
+					<td>规定动画在播放前或播放后的状态
+						<ul>
+							<li>none:默认值</li>
+							<li>forwards：动画播放完，将保持在最后一个帧的状态上</li>
+							<li>backwards：动画播放前，延迟时间内，动画保持在第一个帧的状态上</li>
+							<li>both：forwards和backwards的结合体</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+				<tr>
+					<td>animation-pause-state</td><td>指定动画是处于播放还是暂停状态，取值paused、running</td>
+				</tr>
+			</table>
+		</div>
+	</li>
+</ul>

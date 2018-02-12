@@ -164,9 +164,9 @@ ul>li {
 	.desc {
 		display:none;
 		position:absolute;
-		width: 700px;
+		width: 720px;
 		height: 720px;
-		left:315px;
+		left:296px;
 		top:64px;
 		// background-color: rgba(153,153,153,.5);
 		background-image: url('../images/paper.jpg');
@@ -176,6 +176,7 @@ ul>li {
 		box-sizing:border-box;
 		color: #333;
 		overflow:auto;
+		counter-reset: desc_title;
 		& table {
 			color: #333!important;
 		}
@@ -183,12 +184,21 @@ ul>li {
 			font-weight: bold;
 			padding:10px 5px;
 		}
-
+		
 		&>h3 {
 			font-size: 18px;
+			counter-reset: desc_subtitle;
+			&:before {
+				content:counter(desc_title)"、";
+				counter-increment:desc_title;
+			}
 		}
 		&>h4 {
 			font-size: 16px;
+			&:before {
+				content: counter(desc_title)"."counter(desc_subtitle)"、";
+				counter-increment: desc_subtitle;
+			}
 		}
 		&>h5 {
 			font-size: 14px;
@@ -197,11 +207,15 @@ ul>li {
 			text-indent: 2em;
 			font-size: 15px;
 			margin-bottom:10px;
-			font-family: "宋体";
+			font-family: consolas,"宋体";
 		}
 		table p {
 			margin-bottom:0px;
 			text-indent: 0;
+		}
+		table caption {
+			font-size: 20px;
+			padding:10px;
 		}
 
 	}

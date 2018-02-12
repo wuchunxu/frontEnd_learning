@@ -11,7 +11,7 @@
 			</div>
 		</li>
 		<li>
-			<p>数组类型Array</p>
+			<p>数组类型-Array</p>
 			<div class="desc"></div>
 		</li>
 		<li>
@@ -30,6 +30,19 @@
 		<li>
 			<p>正则类型-RegExp</p>
 			<div class="desc">
+				<h3>查找一个固定关键词出现的位置--字符串的indexOf()方法</h3>
+				<p>如果找到，返回关键词的第一个字符的下标位置；如果未找到，则返回-1</p>
+				<pre class="code">var index = str.indexOf("keyword"[,fromIndex]);
+var index = str.lastIndexOf("keyword");//反向查找</pre>
+				<h3>判断是否包含某一系列关键词--正则的search()方法</h3>
+				<pre class="code">var index = str.search(/Regex/);</pre>
+				<p>如果找到，返回关键词的位置；如果未找到，返回-1</p>
+				<p>注意：正则表达式中，默认是区分大小写的，如果两者都要匹配，则加上关键词i（意思是ignore）</p>
+				<h3>需要获得关键词的内容--正则的match()方法</h3>
+				<pre class="code">var str = "this is my first regex";
+var arr = str.match(/regex/i);</pre>
+				<p>Attention! <span class="code">match()</span>方法返回值是一个数组，<span class="code">["regex", index: 17, input: "this is my first regex"]</span>；如果没有找到返回null，如果要使用，则需要先判断是否为null！</p>
+				<h3>既要找关键词的内容，亦要关键词的位置--正则的exec()</h3>
 			</div>
 		</li>
 		<li>
@@ -42,7 +55,48 @@
 		</li>
 		<li>
 			<p>Math对象--Math</p>
-			<div class="desc"></div>
+			<div class="desc">
+				<h3>Math对象</h3>
+				<p>Math对象封装了数学计算的常量和方法</p>
+				<h3>Math对象的API</h3>
+				<table>
+					<tr><th colspan="3">方法</th><th>功能</th></tr>
+					<tr><td rowspan="3">取整</td><td>向上取整</td><td>Math.ceil(number)</td><td></td></tr>
+					<tr>
+						<td rowspan="2">向下取整</td>
+						<td>Math.floor(number)</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>parseInt(number)</td><td>将字符串解析成数字（整型）</td>
+					</tr>
+					<tr>
+						<td colspan="2">四舍五入</td>
+						<td>Math.round(number)</td>
+						<td>注意：不能指定保留小数</td>
+					</tr>
+					<tr>
+						<td colspan="2">乘方</td>
+						<td>Math.pow(number,index)</td>
+						<td>Math.pow(x,y)表示x^y，x的y次幂</td>
+					</tr>
+					<tr>
+						<td colspan="2">开平方</td>
+						<td>Math.sqrt(number)</td>
+						<td>开平方</td>
+					</tr>
+					<tr>
+						<td colspan="2">随机数</td>
+						<td>Math.random()</td>
+						<td>区间为[0,1)的随机数</td>
+					</tr>
+				</table>
+				<p><span class="code">Number.prototype.toFixed(d)</span>:可以将一个数字类型的值四舍五入为保留d位小数的数，但结果是String类型
+				</p>
+				<h3>应用</h3>
+				<h4>根据两点的坐标，求方向的度数</h4>
+				<p>Math.atan2()</p>
+			</div>
 		</li>
 		<li>
 			<p>包装类型</p>
