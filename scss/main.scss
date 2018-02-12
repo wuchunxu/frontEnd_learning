@@ -98,6 +98,7 @@ ul>li {
 	}
 	th,.title {
 		background: $theme_color_2;
+		text-align:center;
 	}
 	td {
 		padding:3px 10px;
@@ -146,20 +147,17 @@ ul>li {
 	}
 	.menu{
 		display: relative;
-		width: 270px;
-		&>li {
-			padding: 5px;
+		width: 250px;
+		&>li>:first-child {
+			padding: 5px 10px;
 			background: #eee;
 			border-radius: 5px;
 			margin-bottom:1px;
-			&:hover {
-				cursor:pointer;
-				background: #999;
-				color:#fff;
-			}
 			&.active{
-				background: #999;
-				color:#fff;
+				background: #f7f0de;
+			}
+			&:hover {
+				background: #f7f0de;
 			}
 		}
 	}
@@ -183,6 +181,7 @@ ul>li {
 		}
 		&>h3,&>h4,&>h5 {
 			font-weight: bold;
+			padding:10px 5px;
 		}
 
 		&>h3 {
@@ -223,11 +222,12 @@ ul>li {
 
 pre {
 	/*代码块样式*/
-	.code {
+	&.code {
 		text-align:left;
 		color:#333;
 		background: #fff;
 		border-radius: 8px;
+		padding: 10px 20px;
 	}
 }
 

@@ -1,48 +1,60 @@
-<h3>transition(过渡)</h3>
-<dl>
-	<dt>简写</dt>
-	<dd><pre class="code">transition: all 1s ease 0s;</pre></dd>
-	<dt>分开写</dt>
-	<dd>
-		<table>
-			<tr>
-				<th colspan="2">属性</th><th>含义</th>
-			</tr>
-			<tr>
-				<td rowspan="2">transition-property</td>
-				<td>all</td>
-				<td>只要能使用过渡属性的，都使用过渡属性
-				<p><span class="code">transition-property:all;</span></p></td>
-			</tr>
-			<tr>
-				<td>具体</td>
-				<td>
-					允许使用过渡的属性：颜色、取值为数字的属性、转换、阴影、渐变、visibility
-					<ul>
-						<li><span class="code">transition-property:background;</span></li>
-						<li><span class="code">transition-property:border-radius;</span></li>
-					</ul>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">transition-duration</td><td>完成过渡所需要的时间</td>
-			</tr>
-			<tr>
-				<td colspan="2">transition-timing-function</td>
-				<td>
-					<ul>
-						<li><span class="code">ease</span>：默认值，速度由慢到快，再到慢；</li>
-						<li><span class="code">linear</span>：匀速</li>
-						<li><span class="code">ease-in</span>:慢速开始，加速结束</li>
-						<li><span class="code">ease-out</span>:快速开始，慢速结束</li>
-						<li><span class="code">ease-in-out</span>:慢速开始和结束，中间先加速后减速</li>
-					</ul>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">transition-delay</td>
-				<td>0s</td>
-			</tr>
-		</table>
-	</dd>
-</dl>
+<h2>transition(过渡)</h2>
+<ul class="menu">
+	<li>
+		<p>了解transition</p>
+		<div class="desc">
+			<h3>什么是过渡</h3>
+			<p>过渡是指，CSS的属性值在给定时间内平缓变化的效果。如果没有过渡，属性值会瞬间改变。</p>
+			<h3>过渡的写法</h3>
+			<pre class="code">transition: all 1s ease 0s;
+//transition: property duration timing-function delay;
+</pre>
+		</div>
+	</li>
+	<li>
+		<p>transition的属性</p>
+		<div class="desc">
+			<table>
+				<tr>
+					<th colspan="2">属性</th><th>含义</th>
+				</tr>
+				<tr>
+					<td rowspan="2">transition-property</td>
+					<td>all</td>
+					<td>只要能使用过渡属性的，都使用过渡属性
+					<p><span class="code">transition-property:all;</span></p></td>
+				</tr>
+				<tr>
+					<td>具体</td>
+					<td>
+						允许使用过渡的属性：颜色、取值为数字的属性、转换、阴影、渐变、visibility
+						<ul>
+							<li><span class="code">transition-property:background;</span></li>
+							<li><span class="code">transition-property:border-radius;</span></li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">transition-duration</td><td>完成过渡所需要的时间</td>
+				</tr>
+				<tr>
+					<td colspan="2">transition-timing-function</td>
+					<td>
+						<ul>
+							<li><span class="code">ease</span>：默认值，速度由慢到快，再到慢；</li>
+							<li><span class="code">linear</span>：匀速</li>
+							<li><span class="code">ease-in</span>:慢速开始，加速结束</li>
+							<li><span class="code">ease-out</span>:快速开始，慢速结束</li>
+							<li><span class="code">ease-in-out</span>:慢速开始和结束，中间先加速后减速</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">transition-delay</td>
+					<td>延迟时间，0s/1s...</td>
+				</tr>
+			</table>
+		</div>
+	</li>
+</ul>
+

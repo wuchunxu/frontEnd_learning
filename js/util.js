@@ -105,6 +105,18 @@ Element.prototype.removeClass = function(classname){
 	}
 }
 
+Element.prototype.closest = function(tagname){
+	var target = this;
+	do{
+		target = target.parentNode;
+		if(target.tagName.toUpperCase() === tagname.toUpperCase()){
+			return target;
+			
+		}
+	}while(target.tagName.toUpperCase() != "BODY")
+	return false;
+	
+}
 var EventUtil = {
 	addEvent: function(element,event,callback){
 			if(element.addEventListener){

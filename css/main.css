@@ -97,6 +97,7 @@ ul > li {
 }
 #shower th, #shower .title {
   background: #bcee68;
+  text-align: center;
 }
 #shower td {
   padding: 3px 10px;
@@ -139,22 +140,19 @@ ul > li {
 }
 #shower .menu {
   display: relative;
-  width: 270px;
+  width: 250px;
 }
-#shower .menu > li {
-  padding: 5px;
+#shower .menu > li > :first-child {
+  padding: 5px 10px;
   background: #eee;
   border-radius: 5px;
   margin-bottom: 1px;
 }
-#shower .menu > li:hover {
-  cursor: pointer;
-  background: #999;
-  color: #fff;
+#shower .menu > li > :first-child.active {
+  background: #f7f0de;
 }
-#shower .menu > li.active {
-  background: #999;
-  color: #fff;
+#shower .menu > li > :first-child:hover {
+  background: #f7f0de;
 }
 #shower .desc {
   display: none;
@@ -176,6 +174,7 @@ ul > li {
 }
 #shower .desc > h3, #shower .desc > h4, #shower .desc > h5 {
   font-weight: bold;
+  padding: 10px 5px;
 }
 #shower .desc > h3 {
   font-size: 18px;
@@ -214,11 +213,12 @@ ul > li {
 pre {
   /*代码块样式*/
 }
-pre .code {
+pre.code {
   text-align: left;
   color: #333;
   background: #fff;
   border-radius: 8px;
+  padding: 10px 20px;
 }
 
 table pre.code {

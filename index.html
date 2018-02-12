@@ -75,33 +75,46 @@
 					div.style.width = "1000px";
 					div.style.height = "800px";
 					$("layer").style.display = "block";
+					function onlyLi(lis){
+						var arr = [];
+						for(let li of lis){
+							if(li.tagName.toUpperCase()=="LI"){
+								arr.push(li);
+							}
+						}
+						return arr;
+					}
 					div.getElementsByClassName("menu")[0].onclick = function(event){
-						var desc = event.target.getElementsByClassName("desc")[0];
-						if (desc.style.display=="block"){
-							desc.style.display = "none";
-							desc.removeClass("active");
-							event.target.removeClass("active");
-						}else {
-							desc.style.display = "block";
-							desc.addClass("active");
-							event.target.addClass("active");
+						var parent = event.target.closest("li");
+						var lis = parent.parentNode.children;
+						lis = onlyLi(lis);//后续尝试filter
+						
+						var descs = parent.parentNode.getElementsByClassName("desc");
+						var desc =  parent.getElementsByClassName("desc")[0];
+						if(event.target.tagName.toUpperCase()=="P"&&event.target.parentNode.tagName.toUpperCase()=="LI"){
+							if (desc.style.display=="block"){
+								desc.style.display = "none";
+								parent.firstElementChild.removeClass("active");
+							}else {
+								//去除所有p的active，并把desc的display属性设为none
+								for(let ele of lis){
+									ele.firstElementChild.removeClass("active");
+								}
+								for(let ele of descs){
+									ele.style.display = "none";
+								}
+								parent.firstElementChild.addClass("active");
+								desc.style.display = "block";
+							}
 						}
 					}
-					/*
-					div.getElementsByClassName("menu")[0].onmouseout = function(event){
-						event.target.getElementsByClassName("desc")[0].style.display = "none";
-					}
-					*/
 				}
 			});
 		}
 		$("layer").onclick = function(){
 			this.style.display = "none";
-
 			$("shower").style.display = "none";
 		}
-
-		
 	</script>
 </body>
 </html>
