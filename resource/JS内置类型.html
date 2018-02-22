@@ -1,12 +1,23 @@
 <h2>JavaScript内置类型</h2>
-
 	<ul class="menu">
 		<li>
 			<p>String</p>
 			<div class="desc">
+				<h3>字符串</h3>
+				<p>字符串是一个字符数组，用来存储多个字符</p>
+				<h3>String类型的API</h3>
 				<table>
-					<tr><td>获取指定位置字符</td><td>str.charAt(i)/str[i]</td></tr>
+					<tr><td>获取指定位置字符</td><td>str.charAt(i)/<strong></strong>str[i]</td></tr>
 					<tr><td>获取指定位置字符的Unicode码</td><td>str.charCodeAt(i)</td></tr>
+					<tr>
+						<td>获取子串</td>
+						<td>
+							<p>slice(start[,end])</p>
+							<p>substring(start[,end])</p>
+						</td>
+					</tr>
+					<tr><td>大小写转换</td><td><p>toUpperCase()</p>toLowerCase()<p></p></td></tr>
+					<tr><td>Unicode码-->汉字</td><td>String.fromCharCode(unicode)</td></tr>
 				</table>
 			</div>
 		</li>
@@ -16,7 +27,63 @@
 		</li>
 		<li>
 			<p>函数类型-Function</p>
-			<div class="desc"></div>
+			<div class="desc">
+				<h2>函数类型</h2>
+				<h3>理解Function</h3>
+				<p>内存中保存一段代码段的对象</p>
+				<h3>创建函数</h3>
+				<table>
+					<tr>
+						<td>直接量</td>
+						<td>function fn(arg){}</td>
+					</tr>
+					<tr>
+						<td>表达式</td>
+						<td>var fn = function(){}</td>
+					</tr>
+					<tr>
+						<td>new</td>
+						<td>var fun = new Function("arg1","arg2","函数体;return xxx;");</td>
+					</tr>
+				</table>
+				<h3>声明提前(hoist)</h3>
+				<p>hoist：将变量的声明提前，函数的声明提前</p>
+				<p>函数名其实是一个普通的变量</p>
+				<p></p>
+				<pre class="code">console.log(a);//undefined
+var a = 10;
+function fun(){ console.log(1); }
+fun();//2
+function fun(){ console.log(2); }
+fun();//2</pre>
+				<h3>重载(overload)--减少API的数量</h3>
+				<p>根据传入参数的不同，执行不同的操作</p>
+				<p>js通过arguments对象来实现重载</p>
+				arguments对象是一个类数组对象
+				<pre class="code">function fn(){
+	if(arguments.length==0){
+		
+	}else if(arguments.length==1){
+		
+	}else{
+		
+	}
+}</pre>
+				<p>例子：定义add()函数，可传入任意参数，求和</p>
+<pre class="code">function add(){
+	var result = 0;
+	for(var i=0;i < arguments.length;i++){
+		result += arguments[i];
+	}
+	return result;
+}
+</pre>
+				<h3>笔试题</h3>
+				<p>以下创建函数正确的是：</p>
+				<pre class="code">function fun(a,b){return a-b}
+var fun = function(a,b){return a-b;}
+var fun = new Function(a,b,"return a-b");//错</pre>
+			</div>
 		</li>
 		<li>
 			<p>对象类型-Object</p>
@@ -29,35 +96,124 @@
 		</li>
 		<li>
 			<p>正则类型-RegExp</p>
-			<div class="desc">
-				<h3>查找一个固定关键词出现的位置--字符串的indexOf()方法</h3>
-				<p>如果找到，返回关键词的第一个字符的下标位置；如果未找到，则返回-1</p>
-				<pre class="code">var index = str.indexOf("keyword"[,fromIndex]);
-var index = str.lastIndexOf("keyword");//反向查找</pre>
-				<h3>判断是否包含某一系列关键词--正则的search()方法</h3>
-				<pre class="code">var index = str.search(/Regex/);</pre>
-				<p>如果找到，返回关键词的位置；如果未找到，返回-1</p>
-				<p>注意：正则表达式中，默认是区分大小写的，如果两者都要匹配，则加上关键词i（意思是ignore）</p>
-				<h3>需要获得关键词的内容--正则的match()方法</h3>
-				<pre class="code">var str = "this is my first regex";
-var arr = str.match(/regex/i);</pre>
-				<p>Attention! <span class="code">match()</span>方法返回值是一个数组，<span class="code">["regex", index: 17, input: "this is my first regex"]</span>；如果没有找到返回null，如果要使用，则需要先判断是否为null！</p>
-				<h3>既要找关键词的内容，亦要关键词的位置--正则的exec()</h3>
-			</div>
+			
 		</li>
 		<li>
 			<p>错误类型-Error</p>
-			<div class="desc"></div>
+			<div class="desc">
+				<h2>Error类型</h2>
+				<h3>了解Error</h3>
+				<p>Error对象用来保存错误信息。</p>
+				<p>程序发生错误会强行退出。这时错误处理就显得非常重要了。错误处理可以让程序在发生错误时而不中断运行。</p>
+				<pre class="code">
+try{
+	//代码
+}catch (error){
+	alert(error.message);
+}
+				</pre>
+				<h3>Error的问题</h3>
+				<p>被动接收错误，无法精确提示用户</p>
+				<p>try catch比正常程序执行效率低</p>
+				<h3>解决方法</h3>
+				<p>如何可以预知错误，则用if..else..来代替try..catch..</p>
+				<h3>抛出自定义错误</h3>
+				<p>在协作开发中，程序的作者用于提醒调用者错误的使用了你的程序，<span class="code">throw new Error("自定义错误信息");</span></p>
+				<h3>笔试题</h3>
+				<p>JS中有哪几种错误类型？</p>
+				<table>
+					<tr><th>错误</th><th></th></tr>
+					<tr><td>SyntaxError</td><td>语法错误</td></tr>
+					<tr><td>ReferenceError</td><td>引用错误，要用的变量未找到</td></tr>
+					<tr><td>TypeError</td><td>类型错误</td></tr>
+					<tr><td>RangeError</td><td>范围错误，参数超范围</td></tr>
+					<tr><td>URIError</td><td></td></tr>
+					<tr><td>EvalError</td><td></td></tr>
+				</table>
+			</div>
 		</li>
 		<li>
 			<p>日期类型--Date</p>
-			<div class="desc"></div>
+			<div class="desc">
+				<h2>时间类型</h2>
+				<h3>Date类型</h3>
+				<p>Date对象用来存储一个时间，并提供操作时间的相关API</p>
+				<p><strong>关于计算机中时间的存储，有一些注意点：</strong></p>
+				<ol>
+					<li>计算机中以<em>当前时间距离计算机元年(1970/01/01)所经历的毫秒数</em>来存储时间。这样做的好处是，时间不受时区的影响，同时毫秒数是一个数值，方便计算。</li>
+					<li>当需要显示给客户时，将毫秒数转换成年月日时分秒，再加上时差，就可以表示不同时区的当地时间了。</li>
+					<li></li>
+				</ol>
+				<h3>创建日期对象</h3>
+				<p>创建日期对象，可以向构造函数传入多种参数：<em>无参数、"yyyy/mm/dd hh:MM:ss"、时间对象、毫秒数</em></p>
+				<table>
+					<tr>
+						<td><strong>无参数</strong></td><td><span class="code">var now = new Date();</span></td>
+					</tr>
+					<tr>
+						<td>自定义时间</td><td><span class="code">var birthday = new Date("1993/01/01");</span></td>
+					</tr>
+					<tr>
+						<td>复制已有时间</td><td><span class="code">var date2 = new Date(birthday);</span></td>
+					</tr>
+					<tr><td><strong>毫秒数</strong></td><td>var date = new Date(ms);</td></tr>
+				</table>
+				<h3>JS中时间的单位</h3>
+				<table>
+					<tr><td>FullYear</td><td>年</td><td></td></tr>
+					<tr><td>Month</td><td>月</td><td>0~11</td></tr>
+					<tr><td>Date</td><td>日</td><td>取值范围1~31</td></tr>
+					<tr><td>Day</td><td>星期</td><td>0~6，0表示周日</td></tr>
+					<tr><td>Hours</td><td>时</td><td>0~23</td></tr>
+					<tr><td>Minutes</td><td>分</td><td>0~59</td></tr>
+					<tr><td>Seconds</td><td>秒</td><td>0~59</td></tr>
+					<tr><td>Milliseconds</td><td>毫秒</td><td></td></tr>
+				</table>
+				<p>获取年份：getFullYear()</p>
+				<p>设置年份：setFullYear()</p>
+				<p>获取当月的第几天：date.getDate()</p>
+				<p>设置第几天：<span class="code">date.setDate(2)</span>,这里要特别注意<strong>日期溢出</strong>的问题，例如
+<pre class="code">
+var date = new Date();
+date.setMonth(1);//2月份
+date.setDate(32);//由于2018年2月只有28天，32-28=4，所有日期实际设置为3月4日
+</pre></p>
+				<h3>日期格式化</h3>
+				<table>
+					<tr><th>函数</th><th>功能</th></tr>
+					<tr><td>.toString()</td><td>完整格式</td></tr>
+					<tr><td>.toLocaleString()</td><td>转为<em>当地时间简化格式</em></td></tr>
+					<tr><td>.toLocaleDateString()</td><td>当地时间简化格式，<em>只有日期</em>部分</td></tr>
+					<tr><td>.toLocaleTimeString()</td><td>当地时间简化格式，<em>只有时分秒</em></td></tr>
+					<tr><td>.toGMTString()</td><td>国际标准时间（0时区）</td></tr>
+				</table>
+				<h3>例子</h3>
+				<h4>求60天后的日期</h4>
+				<pre class="code">
+var start = new Date();
+var end = new Date(start);//创建一个副本
+end.setDate(end.getDate()+60);//拿到天数，对天数进行运算，再设置</pre>
+				<h4>合同日期的相关计算</h4>
+				<p>到期时间：hiredate+3年</p>
+				<p>续签时间：提前一个月续签，如果续签日期是周六，或周日提前到周五</p>
+				<pre class="code">
+var hiredate = new Date("2012/06/30");
+var enddate  = new Date(hiredate);
+enddate.setFullYear(enddate.getFullYear() + 3);//3年后到期
+var renewDate = new Date(enddate);//创建一个到期时间的副本
+renewDate.setMonth(renewDate.getMonth()-1);//提前一个月续签
+var day = renewDate.getDay();
+var offset = (day==0)? -2 : (day==6 ? -1 : 0);//提前的天数
+renewDate.setDate(renewDate.getDate()+offset);
+console.log(renewDate);</pre>
+			</div>
 		</li>
 		<li>
 			<p>Math对象--Math</p>
 			<div class="desc">
+				<h2>Math对象</h2>
 				<h3>Math对象</h3>
-				<p>Math对象封装了数学计算的常量和方法</p>
+				<p>Math对象封装了数学计算的常量和方法，Math对象不是类，不需要用new来创建，直接调用即可</p>
 				<h3>Math对象的API</h3>
 				<table>
 					<tr><th colspan="3">方法</th><th>功能</th></tr>
@@ -91,8 +247,16 @@ var arr = str.match(/regex/i);</pre>
 						<td>区间为[0,1)的随机数</td>
 					</tr>
 				</table>
-				<p><span class="code">Number.prototype.toFixed(d)</span>:可以将一个数字类型的值四舍五入为保留d位小数的数，但结果是String类型
+				<h4>Number.prototype.toFixed(d)</h4>
+				<p>可以将一个数字类型的值四舍五入为保留d位小数的数，但结果是String类型</p>
 				</p>
+				<h4>自定义round()</h4>
+<pre class="code">
+function round(number,digit){
+	var offset = Math.pow(10,d);
+	return Math.round(number*offset)/offset;
+}
+</pre>
 				<h3>应用</h3>
 				<h4>根据两点的坐标，求方向的度数</h4>
 				<p>Math.atan2()</p>
@@ -101,6 +265,24 @@ var arr = str.match(/regex/i);</pre>
 		<li>
 			<p>包装类型</p>
 			<div class="desc"></div>
+		</li>
+		<li>
+			<p>查找关键词</p>
+			<div class="desc">
+				<h3>查找一个固定关键词出现的位置--字符串的indexOf()方法</h3>
+				<p>如果找到，返回关键词的第一个字符的下标位置；如果未找到，则返回-1</p>
+				<pre class="code">var index = str.indexOf("keyword"[,fromIndex]);
+var index = str.lastIndexOf("keyword");//反向查找</pre>
+				<h3>判断是否包含某一系列关键词--正则的search()方法</h3>
+				<pre class="code">var index = str.search(/Regex/);</pre>
+				<p>如果找到，返回关键词的位置；如果未找到，返回-1</p>
+				<p>注意：正则表达式中，默认是区分大小写的，如果两者都要匹配，则加上关键词i（意思是ignore）</p>
+				<h3>需要获得关键词的内容--正则的match()方法</h3>
+				<pre class="code">var str = "this is my first regex";
+var arr = str.match(/regex/i);</pre>
+				<p>Attention! <span class="code">match()</span>方法返回值是一个数组，<span class="code">["regex", index: 17, input: "this is my first regex"]</span>；如果没有找到返回null，如果要使用，则需要先判断是否为null！</p>
+				<h3>既要找关键词的内容，亦要关键词的位置--正则的exec()</h3>
+			</div>
 		</li>
 	</ul>
 </div>

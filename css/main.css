@@ -177,9 +177,21 @@ h1 {
 #shower .desc table {
   color: #333 !important;
 }
+#shower .desc table th, #shower .desc table td {
+  text-align: center;
+}
+#shower .desc > h2 {
+  text-align: center;
+  margin-bottom: 15px;
+}
 #shower .desc > h3, #shower .desc > h4, #shower .desc > h5 {
   font-weight: bold;
   padding: 10px 5px;
+}
+#shower .desc em {
+  font-family: "楷体";
+  font-style: normal;
+  color: red;
 }
 #shower .desc > h3 {
   font-size: 18px;
@@ -212,6 +224,9 @@ h1 {
 #shower .desc table caption {
   font-size: 20px;
   padding: 10px;
+}
+#shower .desc .unimportant {
+  color: #999 !important;
 }
 
 /*行内式代码样式*/

@@ -1,0 +1,218 @@
+<h2>服务器Server</h2>
+<ul class="menu">
+	<li>
+		<p>了解服务器</p>
+		<div class="desc">
+			<h2>服务器</h2>
+			<p>服务器有两个层面的意思，一个是硬件，一个是软件。</p>
+			<h3>硬件服务器</h3>
+			一个电脑..
+			<h3>软件服务器</h3>
+			<p>硬件服务器必须安装服务器应用程序才具有服务器的功能。</p>
+			<h4>服务器的种类</h4>
+			<table>
+				<tr>
+					<td>DNS服务器</td>
+					<td>将域名解析为计算机的IP地址</td>
+				</tr>
+				<tr>
+					<td>Web服务器</td>
+					<td>web页面</td>
+				</tr>
+				<tr>
+					<td>数据库服务器</td>
+					<td>数据永久存储，高效查询</td>
+				</tr>
+				<tr>
+					<td>FTP服务器</td>
+					<td>文件上传和下载服务</td>
+				</tr>
+				<tr>
+					<td>SMTP/POP3服务器</td>
+					<td>邮件收发服务</td>
+				</tr>
+				<tr>
+					<td>SSH服务器</td>
+					<td>远程登录服务</td>
+				</tr>
+			</table>
+			<h3>访问服务器</h3>
+			客户端访问服务器需要提供如下信息：
+			<table>
+				<tr>
+					<td>访问协议</td>
+					<td>http、https、ftp</td>
+				</tr>
+				<tr>
+					<td>主机地址</td>
+					<td>服务器的域名或ip地址</td>
+				</tr>
+				<tr>
+					<td>端口号</td>
+					<td></td>
+				</tr>
+			</table>
+		</div>
+	</li>
+	<li>
+		<p>MySQL</p>
+		<div class="desc">
+			<h2>MySQL数据库</h2>
+			<h3>数据逻辑结构</h3>
+			<p>Server=>Datebase=>Table=>Row=>Column</p>
+			<h3>登录MySQL</h3>
+			<pre class="code">mysql.exe -h127.0.0.1 -P3306 -uroot -p</pre>
+			或者简写为
+			<pre class="code">mysql.exe -uroot</pre>
+			<h3>SQL语句执行的方式</h3>
+			<table>
+				<tr>
+					<td>交互式</td>
+					<td>在命令行里输入</td>
+				</tr>
+				<tr>
+					<td>脚本模式</td>
+					<td><span class="code">mysql.exe -uroot < e:1.sql #url </span></td>
+				</tr>
+			</table>
+			注意：脚本模式需要设置连接客户端的编码<span class="code">SET NAMES UTF8;</span>
+		</div>
+	</li>
+	<li>
+		<p>常用的MySQL命令</p>
+		<div class="desc">
+			<h2>常用的MySQL命令</h2>
+			<pre class="code">SHOW DATABASES;
+USE 库名;
+SHOW TABLES;
+DESC 表名;
+SHOW CREATE TABLE 表名;
+SHOW ERRORS;
+SHOW WARNINGS;
+			</pre>
+		</div>
+	</li>
+	<li>
+		<p>常用的SQL语句</p>
+		<div class="desc">
+			<h2>常用的SQL语句</h2>
+			<h3>DDL语句--数据定义语言</h3>
+			<h4>CREATE</h4>
+			<pre class="code">CREATE DATABASE xz;
+CREATE TABLE xz_user(
+	uid INT(16) PRIMARY KEY AUTO_INCREMENT,
+	uname VARCHAR(32) UNIQUE NOT NULL
+);</pre>
+			<h4>DROP</h4>
+			<pre class="code">DROP DATABASE IF EXISTS 库名;
+DROP TABLE 表名;</pre>
+			<h4><span class="unimportant">ALTER</span></h4>
+			<h4><span class="unimportant">TRUNCATE</span></h4>
+			<h3>DML语句--数据操作语言</h3>
+			<pre class="code">#增
+INSERT INTO xz_user VALUES();
+#删
+DELETE FROM xz_user WHERE uid=1;
+#改
+UPDATE xz_user SET uname="dangdang",age="24" WHERE uid=2;#必须加条件，否则操作全部
+			</pre>
+			<h3>DQL语句--数据查询语言</h3>
+			<h3>DCL语句</h3>
+		</div>
+	</li>
+	<li>
+		<p>数据库乱码问题</p>
+		<div class="desc">
+			<h2>数据库乱码问题</h2>
+			<h3>数据库出现乱码的原因</h3>
+			<p>编码和解码采用的字符集不一致</p>
+			<p>字符集有：ASCII、GB2312、GBK、BIG5(带繁体)、Unicode
+			</p>
+			<h3>解决方法</h3>
+			<p>脚本文件另存为UTF8；</p>
+			<p>客户端连接服务器所用的编码设置为UTF8:<span class="code">SET NAMES UTF8;</span></p>
+			<p>数据库存储设置UTF8</p>
+		</div>
+	</li>
+	<li>
+		<p>列类型</p>
+		<div class="desc">
+			<h2>列类型</h2>
+			<h3>列类型</h3>
+			<table>
+				<tr>
+					<td rowspan="7">数值类型</td><td rowspan="4">整型</td><td>TINYINT</td><td>占1字节，-128~127，如年龄</td>
+				</tr>
+				<tr><td>SMALLINT</td><td>占2字节，-32768~32767，如部门编号，人数</td></tr>
+				<tr><td>INT</td><td>占4字节，-20亿~20亿，如帖子、回复数量</td></tr>
+				<tr><td>BIGINT</td><td></td></tr>
+				<tr><td rowspan="3">浮点型</td><td>FLOAT</td><td></td></tr>
+				<tr><td>DOUBLE</td><td></td></tr>
+				<tr><td>DECIMAL(M,D)</td><td></td></tr>
+				<tr>
+					<td rowspan="3" colspan="2">字符串类型</td><td>CHAR(M)</td><td>定长类型，操作速度远快于变长类型，如手机号，M不能超过255</td>
+				</tr>
+				<tr><td>VARCHAR(M)</td><td>变长字符串，节省空间，如员工简历，M不能超过65535</td></tr>
+				<tr><td>TEXT(M)</td><td>M不超过2G</td></tr>
+				<tr><td rowspan="3" colspan="2">日期类型</td><td>DATE</td><td></td></tr>
+				<tr><td>TIME</td><td></td></tr>
+				<tr><td>DATETIME</td><td></td></tr>
+			</table>
+			<h3>数据库中日期存储格式</h3>
+			<table>
+				<tr>
+					<td>VARCHAR</td>
+					<td>不便于比较大小</td>
+				</tr>
+				<tr>
+					<td>DATE/DATETIME</td>
+					<td>方便比较大小，但不便于国际化（i18n）</td>
+				</tr>
+				<tr>
+					<td><span class="code">BIGINT</span></td>
+					<td><strong>推荐。便于比较大小，方便转换语言格式;</strong><p>数字表示距离计算机元年经过的毫秒数（1970-1-1 0:0:0）</p></td>
+				</tr>
+			</table>
+		</div>
+	</li>
+	<li>
+		<p>列约束</p>
+		<div class="desc">
+			<h2>列约束</h2>
+			<table>
+				<tr>
+					<td>主键约束</td>
+					<td>PRIMARY KEY</td>
+				</tr>
+				<tr>
+					<td>唯一约束</td>
+					<td>UNIQUE</td>
+				</tr>
+				<tr>
+					<td>非空约束</td>
+					<td>NOT NULL</td>
+				</tr>
+				<tr>
+					<td>默认值约束</td>
+					<td>DEFAULT 值,CREATE TABLE xz_user(gender CHAR(1) DEFAULT '1');</td>
+				</tr>
+				<tr>
+					<td>检查约束</td>
+					<td>CHECK，检查约束对插入之范围进行限定，MySQL不支持检查约束，执行检查约束会影响插入和修改的效率</td>
+				</tr>
+				<tr>
+					<td>外键约束</td>
+					<td>FOREIGN KEY(deptId) REFERENCES dept(did)</td>
+				</tr>
+			</table>
+		</div>
+	</li>
+	<li>
+		<p>简单查询</p>
+		<div class="desc"></div>
+	</li>
+	<li>
+		<p>复杂查询</p>
+		<div class="desc"></div>
+	</li>
+</ul>

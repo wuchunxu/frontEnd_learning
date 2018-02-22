@@ -181,12 +181,23 @@ h1 {
 		counter-reset: desc_title;
 		& table {
 			color: #333!important;
+			th,td {
+				text-align:center;
+			}
+		}
+		&>h2 {
+			text-align:center;
+			margin-bottom:15px;
 		}
 		&>h3,&>h4,&>h5 {
 			font-weight: bold;
 			padding:10px 5px;
 		}
-		
+		em {
+			font-family: "楷体";
+			font-style: normal;
+			color: red;
+		}
 		&>h3 {
 			font-size: 18px;
 			counter-reset: desc_subtitle;
@@ -219,7 +230,9 @@ h1 {
 			font-size: 20px;
 			padding:10px;
 		}
-
+		.unimportant {
+			color: #999!important;
+		}
 	}
 }
 
