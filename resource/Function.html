@@ -4,42 +4,32 @@
 		<p>垃圾回收</p>
 		<div class="desc">
 			<h2>垃圾回收(Garbage Collection)</h2>
-			<table>
-				<tr><td>什么是垃圾</td><td>一个不再被任何变量使用的对象</td></tr>
-				<tr>
-					<td>什么是垃圾回收</td>
-					<td>js引擎会自动回收不再被使用的对象的空间。</td>
-				</tr>
-				<tr>
-					<td>什么是垃圾回收器</td>
-					<td>专门负责回收垃圾对象的小程序——js引擎自带</td>
-				</tr>
-				<tr>
-					<td>工作机制</td>
-					<td>
-						<ol>
-							<li>1. 程序执行时，垃圾回收器伴随主程序执行而执行。</li>
-							<li>2. 每创建一个对象，垃圾回收器就会记录对象被几个变量引用着.</li>
-							<li>3. 如果发现一个对象不再被任何变量应用，则自动回收该对象的存储空间。</li>
-						</ol>
-					</td>
-				</tr>
-			</table>
-			<p>好的习惯：对象不再使用，将其赋值为null</p>
+			<h3>什么是垃圾回收</h3>
+			<p>在程序运行过程中，当一个对象不再使用时（没有引用指向它），它就成为“<em>垃圾</em>”，引擎会自动检测垃圾，并释放其所占的内存空间。</p>
+			<p>JS引擎自带的专门负责回收垃圾的小程序就是<em>垃圾回收器。</em></p>
+			<h3>垃圾回收器是如何工作的？</h3>
+			<p>1) 垃圾回收器伴随着主程序main()的执行而执行</p>
+			<p>2) 垃圾回收器会记录每个对象被几个变量所引用</p>
+			<p>3) 只要垃圾回收器发现一个对象不再被引用，就会自动释放该对象。</p>
+			<p>因此，强烈建议，如果一个对象不再使用，应该将它设置为null</p>
 		</div>
 	</li>
 	<li>
-		<p>匿名自调函数</p>
+		<p>匿名函数</p>
 		<div class="desc">
-			<h2>匿名自调函数</h2>
-			<h3>了解匿名函数</h3>
-			<p>匿名函数，即没有名字的函数，匿名函数调用后，由于没有引用，因此会被垃圾回收器回收，释放内存。</p>
-			<h3>匿名函数的作用</h3>
-			<h4>只调用一次的函数</h4>
-			<h4>划分临时作用域</h4>
-			<p>回调：定义函数后，自己不调用，而是传递给另一个函数去调用</p>
-			<p>自调：自定义函数后，立刻调用自己。注意：所有的js代码都要放在匿名自调函数中，以避免全局污染。</p>
-			<p><strong>立即执行函数(Immediately Invoked Function Expression)非常重要，可以避免全局污染。</strong></p>
+			<h2>匿名函数(Anonymous function)</h2>
+			<h3>匿名函数</h3>
+			<p>匿名函数，即没有名字的函数。如果一个函数，只需要使用一次，应该设置成匿名函数。因为匿名函数调用后，由于没有引用指向它，会被垃圾回收器回收，从而释放内存。</p>
+			<h3>使用匿名函数</h3>
+			<h4>回调函数</h4>
+			<pre class="code">arr.sort(function(a,b){return a-b;});
+str.replace(regex,function(keyword){return 替换值});</pre>
+			<h4>匿名函数自调</h4>
+			<p>匿名函数自调，是创建匿名函数后立刻调用自己。</p>
+			<p>使用匿名函数自调，所有在该匿名函数中声明的变量不会污染全局作用域。因此，今后，所有功能代码都要放在自调的匿名函数中。自调匿名函数还有另外一个名称--<em>立即执行函数</em>(Immediately Invoked Function Expression,IIFE)</p>
+			<pre class="code">(function(){
+	//body
+})();</pre>
 		</div>
 	</li>
 	<li>
@@ -47,21 +37,108 @@
 		<div class="desc">
 			<h2>作用域和作用域链(Scope & Scope Chain)</h2>
 			<h3>JS中的作用域</h3>
-			<p>JS中只有2种作用域，全局作用域和函数作用域。作用域规定了变量的范围。变量的查找顺序：先找局部，如果没有，去父级作用域中找。</p>
+			<p>作用域(scope),也就是变量可以使用的范围。JS中的作用域与java不同，不是以{}的开头和结尾来定的，JS没有块作用域的概念。它只有2种作用域，分别是<em>全局作用域</em>和<em>函数作用域</em>。</p>
+			<p>变量的查找顺序：先找局部，如果没有，去父级作用域中找。</p>
 			<h3>函数的生命周期</h3>
 			<table>
-				<tr><td>函数执行前</td><td>创建一个数组（执行环境栈,ECS）,用于记录正在执行的函数。由于浏览器本身也是一个程序，因此ESC中首先记录的是浏览器的主程序main()<p>main()执行时，会创建全局作用域对象（window），保存所有浏览器内置的对象和方法</p></td></tr>
-				<tr><td>函数定义时</td><td>1、在全局创建函数名变量；2、</td></tr>
-				<tr><td>函数执行前</td></tr>
-				<tr><td>函数执行前</td></tr>
+				<tr>
+					<td>执行前</td>
+					<td>
+						<p>1) 首先，创建一个数组（<em>执行环境栈,ECS</em>）,用于存储正在执行的函数。由于浏览器本身也是一个程序，因此ECS中首先进栈的是浏览器的主程序<em>main()</em>。</p>
+						<p>2) 当执行main()时，会创建全局作用域对象<em>window</em>，它保存所有浏览器内置的对象和方法;</p>
+					</td>
+				</tr>
+				<tr>
+					<td>定义时</td>
+					<td>
+						<p>3) 在全局作用域中创建一个变量(函数名称)；</p>
+						<p>4) 在window对象外，创建一个函数对象（保存定义的函数），变量通过地址引用它。<br>同时，函数对象使用scope属性，指向父作用域。</p>
+					</td>
+				</tr>
+				<tr>
+					<td>调用时</td>
+					<td>
+						<p>5) 当前调用的函数进栈，内存中创建一个<em>函数作用域对象(活动对象AO)</em>;<br>活动对象中保存着当前函数调用所需要的所有局部变量，当需要使用变量时，首先从局部中找，如果没有，再去父作用域中找。（活动对象引用着其父级作用域）</p>
+					</td>
+				</tr>
+				<tr><td>调用后</td><td><p>6) 函数执行后，从ECS中出栈，随之，<em>函数作用域对象</em>被释放，局部变量被释放，因此，局部变量不能重用。</p></td></tr>
 			</table>
-			<p></p>
+			<h3>作用域链</h3>
+			<p>多级作用域逐级引用，形成的链式结构被称为<em>作用域链(scope chain)</em>。</p>
 		</div>
 	</li>
 	<li>
-		<p>闭包-Closure</p>
+		<p>闭包</p>
 		<div class="desc">
-			<h2>闭包-Closure</h2>
+			<h2>闭包(Closure)</h2>
+			<h3>没有闭包的困惑</h3>
+			<p>函数作用域中的变量，仅能在该函数内使用，不会污染全局作用域，但是，函数调用后，就会从内存中释放，下次再调用时，已经不是原先创建的那个函数对象了，所以，函数中定义的变量不能重用。其根本原因是，函数作用域不能常驻内存中。</p>
+			<p>全局作用域，从浏览器打开时，就保存在内存中，直到浏览器关闭。因此，全局作用域中的变量可以重用。但缺点是，污染了全局，易被篡改。</p>
+			<h3>闭包的优势</h3>
+			<p>闭包既能使变量可重用，又不会污染全局变量。</p>
+			<h3>闭包的原理</h3>
+			<p>使用闭包需要3步。(1)首先，用外层函数包裹需要保护的变量以及内层函数。(2)然后，外层函数将内层函数返回到外面。(3)当调用外层函数时，外层函数之外拿到了内层函数的引用，就形成了闭包。</p>
+			
+			<pre class="code">function Outer(){
+	var i = 1;
+	return function(){
+		i++;
+		console.log(i);
+	}
+}
+var getNum = Outer();
+getNum();//2
+getNum();//3
+</pre>		
+			<p>从本质上来讲，<strong>闭包是，函数调用后作用域不被释放而常驻内存中的结果。</strong></p>
+			<div class="img"><img src="images/closure.png" alt=""></div>
+			<h3>小例子--点赞功能</h3>
+			<pre class="code">var thumb_up = function(){
+	var i = 0;
+	return function(){
+		i++;
+		this.innerHTML = `${this.innerHTML.substring(0,1)}(+${i})`;
+	}
+}
+btn_zan.onclick = thumb_up();
+btn_cai.onclick = thumb_up();
+thumb_up = null;//释放函数
+			</pre>
+			<h3>外层函数将内层函数的引用传到外部的方式</h3>
+			<pre class="code">/***************方式1***************/
+function Outer(){
+	var i = 0;
+	return function(){ console.log(++i); }
+}
+var getNum = Outer();
+/***************方式2***************/
+var getNum = null;
+function Outer(){
+	var i = 0;
+	getNum = function(){ console.log(++i); }
+}
+/***************方式3***************/
+function Outer(){
+	var i = 0;
+	var getNum = function(){ console.log(++i);}
+	return {
+		getNum:getNum
+	}
+}
+var getNum = Outer().getNum;
+</pre>
+		<h3>笔试题</h3>
+		<pre class="code">function fun(){
+	for(var i=0,arr=[];i < 3; i++){
+		arr[i] = function(){ console.log(i); }
+	}
+	return arr;
+}
+var funs = fun();
+funs[0]();//3
+funs[1]();//3
+funs[2]();//3
+</pre>
 		</div>
 	</li>
 </ul>

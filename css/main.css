@@ -189,7 +189,7 @@ h1 {
   padding: 10px 5px;
 }
 #shower .desc em {
-  font-family: "楷体";
+  font-family: consolas,"楷体";
   font-style: normal;
   color: red;
 }
@@ -220,6 +220,7 @@ h1 {
 #shower .desc table p {
   margin-bottom: 0px;
   text-indent: 0;
+  text-align: left;
 }
 #shower .desc table caption {
   font-size: 20px;
@@ -230,6 +231,12 @@ h1 {
 }
 #shower .desc ol {
   list-style-type: decimal;
+}
+#shower .desc .img {
+  width: 100%;
+}
+#shower .desc .img img {
+  width: 100%;
 }
 
 /*行内式代码样式*/

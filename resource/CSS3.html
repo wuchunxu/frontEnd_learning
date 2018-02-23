@@ -1,0 +1,438 @@
+<h2>CSS3</h2>
+<ul class="menu">
+	<li>
+		<p>圆角--border-radius</p>
+		<div class="desc">
+			<h2>圆角(border-radius)</h2>
+		</div>
+	</li>
+	<li>
+		<p>复杂选择器</p>
+		<div class="desc">
+			<h2>复杂选择器</h2>
+			<table>
+				<tr>
+					<td rowspan="2">兄弟选择器</td>
+					<td>相邻兄弟选择器</td>
+					<td>p+div{}</td>
+					<td>选择紧跟p元素后的div元素</td>
+				</tr>
+				<tr>
+					<td>通用兄弟选择器</td>
+					<td>p~div{}</td>
+					<td>选择p元素后面所有div元素</td>
+				</tr>
+				<tr>
+					<td colspan="2">属性选择器</td>
+					<td>
+						<p>[id]</p>
+						<p>[class]</p>
+						<p>div[id]</p>
+						<p>[attr1][attr2]...</p>
+						<p>[attr=value]</p>
+					</td>
+					<td>
+						<p>匹配所有带有<span class="code">id</span>属性的元素</p>
+						<p>匹配所有带有<span class="code">class</span>属性的元素</p>
+						<p>匹配所有带有<span class="code">id</span>属性的div元素</p>
+						<p>匹配同时带有多个指定属性的元素</p>
+						<p>匹配<span class="code">attr</span>属性并且值为<span class="code">value</span>的元素</p>
+					</td>
+				</tr>
+				<tr>
+					<td rowspan="4">伪类选择器</td>
+					<td>链接伪类</td>
+					<td><span class="code">:link</span><span class="code">:visited</span></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>动态伪类</td>
+					<td><span class="code">:hover</span><span class="code">:active</span><span class="code">:focus</span></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>目标伪类</td>
+					<td><span class="code">:target</span></td>
+					<td>匹配被激活的锚点,<a href="http://www.w3school.com.cn/tiy/t.asp?f=css_sel_target" target="blank">示例</a></td>
+				</tr>
+				<tr>
+				<!-- not(selector) :empty only-child-->
+					<td>结构伪类</td>
+					<td>
+						<p><span class="code">not(selector)</span></p>
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+				<!-- not(selector) :empty only-child-->
+					<td colspan="2">伪元素选择器</td>
+					<td>
+						<p><span class="code">:first-letter\::first-letter</span></p>
+						<p><span class="code">:first-line\::first-line</span></p>
+						<p><span class="code">::selection</span></p>
+					</td>
+					<td>
+						<p>匹配首个字符</p>
+						<p>匹配首行</p>
+						<p>匹配用户选中文本</p>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</li>
+	<li>
+		<p>弹性布局--flex-layout</p>
+		<div class="desc">
+			<h2>弹性布局--flex-layout</h2>
+			<h3>弹性布局的相关概念</h3>
+			<table>
+				<tr>
+					<th>名词</th><th>释义</th>
+				</tr>
+				<tr>
+					<td>弹性布局的容器</td>
+					<td>简称“容器”</td>
+				</tr>
+				<tr>
+					<td>弹性布局的项目</td>
+					<td>简称“项目”，要实现布局效果的元素</td>
+				</tr>
+				<tr>
+					<td>主轴</td>
+					<td>
+						<p>项目排列方向所在的线轴称为主轴</p>
+						<p>若项目按X轴排列，则X轴为主轴；反之，若项目按Y轴排列，则Y轴为主轴</p>
+					</td>
+				</tr>
+				<tr>
+					<td>交叉轴</td>
+					<td>
+						<p>与主轴交叉的轴为交叉轴</p>
+					</td>
+				</tr>
+			</table>
+			<h3>使用弹性布局</h3>
+			<pre class="code">/*将容器设置为弹性即可*/
+.flex-container{
+	display:flex;
+	flex-direction:row;/*水平排列，左边开始*/
+	flex-wrap:no-wrap;/*不换行*/
+}
+			</pre>
+			<p>注意点:将元素变为flex容器后，1) 其所有子元素都变为项目; 2) 子元素的<span class="code">float、clear、vertical-align</span>将失效; 3) 容器的<span class="code">text-align</span>会失效</p>
+			<h3>容器的相关属性</h3>
+			<table>
+				<tr>
+					<td><span class="code">flex-direction</span></td>
+					<td>
+						flex-direction规定容器的主轴及排列方向
+						<ul>
+							<li><span class="code">row</span>:横向排列，起点在左边</li>
+							<li><span class="code">row-reverse</span>:横向排列，起点在右侧</li>
+							<li><span class="code">column</span>：纵向排列，起点在上</li>
+							<li><span class="code">column</span>：纵向排列，起点在下方</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<td><span class="code">flex-wrap</span></td>
+					<td>
+						规定，当一个主轴排列不下所有项目时，是否需要换行。取值如下：
+						<ul>
+							<li>no-wrap:默认值，空间不够也不换行，项目会自动缩小</li>
+							<li>wrap：换行</li>
+							<li>wrap-reverse：换行并反转</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<td><span class="code">flex-flow</span></td>
+					<td>
+						<p>是flex-direction和flex-wrap的简写</p>
+						<p>flex-flow:row wrap;</p>
+					</td>
+				</tr>
+				<tr>
+					<td><span class="code">justify-content</span></td>
+					<td>
+						定义项目在主轴方向上的对齐方式，取值如下：
+						<ul>
+							<li><span class="code">flex-start</span>在主轴起点对齐</li>
+							<li><span class="code">flex-end</span>在主轴终点对齐</li>
+							<li><span class="code">center</span>:主轴上居中对齐</li>
+							<li><span class="code">space-between</span>:两端对齐，常用</li>
+							<li><span class="code">space-around</span>:元素两端边距相等对齐，不常用</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<td><span class="code">align-items</span></td>
+					<td>
+						定义项目在交叉轴方向上的对齐方式，取值如下：
+						<ul>
+							<li><span class="code">flex-start</span>在交叉轴起点对齐</li>
+							<li><span class="code">flex-end</span>在交叉轴终点对齐</li>
+							<li><span class="code">center</span>:交叉轴居中对齐</li>
+							<li><span class="code">baseline</span>:交叉轴上基线对齐</li>
+							<li><span class="code">stretch</span>:拉伸，也即，若项目未设置尺寸，在交叉轴上占满所有空间</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+			</table>
+			<h3>项目的相关属性</h3>
+			<table>
+				<tr>
+					<td>order</td>
+					<td>定义项目的排列顺序，值越小，离起点越近，默认值为0</td>
+				</tr>
+				<tr>
+					<td>flex-grow</td>
+					<td>
+						<p>定义项目的放大比例，如果容器有足够的剩余空间，可以指定项目如何放大</p>
+						<p>取值整数数字，默认值为0，不放大；取值越大，占据更多的剩余空间</p>
+					</td>
+				</tr>
+				<tr>
+					<td>flex-shrink</td>
+					<td>
+						<p>定义项目的缩小比例【空间不足时，如何缩小】</p>
+						<p>取值：默认值为1，空间不足时，等比缩小；取值为0，则不缩小</p>
+					</td>
+				</tr>
+				<tr>
+					<td>align-self</td>
+					<td>定义当前项目在交叉轴上的对齐方式
+						<ul>
+							<li>flex-start</li>
+							<li>flex-end</li>
+							<li>center</li>
+							<li>baseline</li>
+							<li>stretch</li>
+						</ul>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</li>
+	<li>
+		<p>转换--transform</p>
+		<div class="desc">
+			<h2>转换--transform</h2>
+			<h3>转换的相关属性</h3>
+			<table>
+				<tr><th colspan="2">函数</th><th>功能</th></tr>
+				<tr>
+					<td rowspan="4">位移<br>translate</td>
+					<td>translate(x)</td>
+					<td>元素在X轴上位移x</td>
+				</tr>
+				<tr>
+					<td>translate(x,y)</td>
+					<td>元素在X轴上位移x，Y轴上位移y</td>
+				</tr>
+				<tr>
+					<td>translateX(x)</td>
+					<td>元素在X轴上位移x</td>
+				</tr>
+				<tr>
+					<td>translateY(y)</td>
+					<td>元素在Y轴上位移y</td>
+				</tr>
+				<tr>
+					<td rowspan="2">缩放<br>scale</td>
+					<td>scale(value)</td>
+					<td><p>默认值为1，大于1时，放大；小于1时，缩小；</p>
+					<p>负值：放大，但水平和垂直方向都翻转180°</p></td>
+				</tr>
+				<tr>
+					<td>scale(x-v,y-v)</td>
+					<td>分别定义X和Y方向的缩放比例</td>
+				</tr>
+				<tr>
+					<td>旋转<br>rotate</td>
+					<td>rotate(xdeg)</td>
+					<td>
+						<p>transform: rotate(45deg)</p>
+						<p>注意：转换原点会影响转换效果</p>
+					</td>
+				</tr>
+				<tr>
+					<td rowspan="4">倾斜</td>
+					<td>skewX(xdeg)</td>
+					<td>将元素沿X轴方向产生倾斜效果,x>0时，Y轴向左倾斜xdeg</td>
+				</tr>
+				<tr>
+					<td>skewY(ydeg)</td>
+					<td>将元素向Y轴产生倾斜效果</td>
+				</tr>
+				<tr>
+					<td>skew(x,y)</td>
+					<td></td>
+				</tr>
+			</table>
+			<h3>转换原点</h3>
+			<table>
+				<tr>
+					<th>取值</th><th>含义</th>
+				</tr>
+				<tr>
+					<td>值的形式</td><td>数值、百分比、关键词</td>
+				</tr>
+				<tr>
+					<td>值的个数</td>
+					<td>
+						<p>2个值表示X轴和Y轴上的位置</p>
+						<p>3个值表示XYZ轴上的位置</p>
+					</td>
+				</tr>
+			</table>
+			<h3>3D转换</h3>
+			<table>
+				<tr>
+					<td>透视距离<br>perspective</td>
+					<td>
+						<p>模拟人的眼睛到3D转换元素之间的距离（Z轴）</p>
+						<p>要实现3D效果，需要在父元素上设置perspective属性</p>
+					</td>
+				</tr>
+				<tr>
+					<td>3D旋转</td>
+					<td>
+						<p>属性：transform</p>
+						<ul>
+							<li><span class="code">rotateX(xdeg)</span>:以X轴为中心轴，旋转</li>
+							<li><span class="code">rotateY(ydeg)</span>:以Y轴为中心轴，旋转</li>
+							<li><span class="code">rotateZ(zdeg)</span>:以Z轴为中心轴，旋转</li>
+							<li>
+								<span class="code">rotate3D(x,y,z,ndeg)</span>:3D旋转n°,<br>
+								x,y,z大于10时，表示参与旋转，取值为0，不参与旋转，rotate3d(1,0,0,45deg)
+							</li>
+						</ul>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</li>
+	<li>
+		<p>过渡--transition</p>
+		<div class="desc">
+			<h2>过渡--transition</h2>
+			<h3>什么是过渡</h3>
+			<p>过渡是指，CSS的属性值在给定时间内平缓变化的效果。如果没有过渡，属性值会瞬间改变。</p>
+			<h3>过渡的写法</h3>
+			<pre class="code">transition: all 1s ease 0s;
+//transition: property duration timing-function delay;
+</pre>
+			<h3>transition的相关属性</h3>
+			<table>
+				<tr>
+					<th colspan="2">属性</th><th>含义</th>
+				</tr>
+				<tr>
+					<td rowspan="2">transition-property</td>
+					<td>all</td>
+					<td>只要能使用过渡属性的，都使用过渡属性
+					<p><span class="code">transition-property:all;</span></p></td>
+				</tr>
+				<tr>
+					<td>具体</td>
+					<td>
+						允许使用过渡的属性：颜色、取值为数字的属性、转换、阴影、渐变、visibility
+						<ul>
+							<li><span class="code">transition-property:background;</span></li>
+							<li><span class="code">transition-property:border-radius;</span></li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">transition-duration</td><td>完成过渡所需要的时间</td>
+				</tr>
+				<tr>
+					<td colspan="2">transition-timing-function</td>
+					<td>
+						<ul>
+							<li><span class="code">ease</span>：默认值，速度由慢到快，再到慢；</li>
+							<li><span class="code">linear</span>：匀速</li>
+							<li><span class="code">ease-in</span>:慢速开始，加速结束</li>
+							<li><span class="code">ease-out</span>:快速开始，慢速结束</li>
+							<li><span class="code">ease-in-out</span>:慢速开始和结束，中间先加速后减速</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">transition-delay</td>
+					<td>延迟时间，0s/1s...</td>
+				</tr>
+			</table>
+		</div>
+	</li>
+	<li>
+		<p>动画--animation</p>
+		<div class="desc">
+			<h2>动画--animation</h2>
+			<h3>什么是动画</h3>
+			<p>将过渡效果连起来就是动画，通过“关键帧”控制动画步骤的执行。</p>
+			<p>关键帧keyframe表示动画执行的时间点以及在该时间点的样式</p>
+			<h3>如何使用动画</h3>
+			<p>声明动画-->调用动画</p>
+			<h4>声明动画</h4>
+<pre class="code">
+@keyframes my_animate {
+	0%{}
+	50%{}
+	100%{}
+}
+</pre>
+			</p>
+			<p>兼容性
+<pre class="code">
+/*兼容*/
+@-webkit-keyframes my_animate {}
+@-ms-keyframes my_animate {}
+@-o-keyframes my_animate {}
+@-moz-keyframes my_animate {}
+</pre>
+			</p>
+			<h4>调用动画</h4>
+<pre class="code">animation: name duration timing-function delay iteration-count direction</pre>
+			<h3>动画的相关属性</h3>
+			<table>
+				<tr><th>属性</th><th>作用</th></tr>
+				<tr>
+					<td><span class="code">animation-name</span></td><td></td>
+				</tr>
+				<tr>
+					<td><span class="code">animation-duration</span></td><td></td>
+				</tr>
+				<tr>
+					<td><span class="code">animation-timing-function</span></td><td>ease/linear/ease-in/ease-out/ease-in-out</td>
+				</tr>
+				<tr>
+					<td><span class="code">animation-delay</span></td><td>5s/5000ms</td>
+				</tr>
+				<tr>
+					<td><span class="code">animation-iteration-count</span></td><td>1/2...infinite</td>
+				</tr>
+				<tr>
+					<td><span class="code">animation-direction</span></td><td>normal/reverse/alternate(奇数次正向、偶数次反向)</td>
+				</tr>
+				<tr>
+					<td><span class="code">animation-fill-mode</span></td>
+					<td>规定动画在播放前或播放后的状态
+						<ul>
+							<li>none:默认值</li>
+							<li>forwards：动画播放完，将保持在最后一个帧的状态上</li>
+							<li>backwards：动画播放前，延迟时间内，动画保持在第一个帧的状态上</li>
+							<li>both：forwards和backwards的结合体</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+				<tr>
+					<td>animation-pause-state</td><td>指定动画是处于播放还是暂停状态，取值paused、running</td>
+				</tr>
+			</table>
+		</div>
+	</li>
+</ul>

@@ -1,0 +1,159 @@
+<h2>CSS</h2>
+<ul class="menu">
+	<li>
+		<p>选择器</p>
+		<div class="desc">
+			<h2>选择器</h2>
+		</div>
+	</li>
+	<li>
+		<p>表格--table</p>
+		<div class="desc">
+			<h2>表格样式</h2>
+		</div>
+	</li>
+	<li>
+		<p>列表--ul、ol、dl</p>
+		<div class="desc">
+			<h2>列表样式</h2>
+		</div>
+	</li>
+	<li>
+		<p>背景--background</p>
+		<div class="desc">
+			<h2>背景</h2>
+		</div>
+	</li>
+	<li>
+		<p>显示和隐藏</p>
+		<div class="desc">
+			<h2>显示和隐藏</h2>
+		</div>
+	</li>
+	<li>
+		<p>对齐</p>
+		<div class="desc">
+			<h2>对齐</h2>
+		</div>
+	</li>
+	<li>
+		<p>浮动</p>
+		<div class="desc">
+			<h2>浮动</h2>
+		</div>
+	</li>
+	<li>
+		<p>定位</p>
+		<div class="desc">
+			<h2>定位</h2>
+			<h3>定位的属性和取值</h3>
+			<p>属性：<span class="code">position:static/relative/absolute/fixed</span></p>
+			<p>属性取值：<span class="code">top/right/bottom/left</span></p>
+			<table>
+				<tr>
+					<td>static</td>
+					<td>默认值</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>relative</td>
+					<td>相对定位</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>absolute</td>
+					<td>绝对定位</td>
+					<td>
+						<p>1) 绝对定位会脱离文档流，不占空间；</p>
+						<p>2) 相对于离它最近的定位祖先元素</p>
+						<p>3) 定位元素可能出现堆叠效果，用<span class="code">z-index</span>调整层级
+						<p>使用场景：如弹出菜单</p>
+					</td>
+				</tr>
+				<tr>
+					<td>fixed</td>
+					<td>固定定位</td>
+					<td><p>固定定位相对于<span class="code">body</span>，位置不随滚动条发生变化</p></td>
+				</tr>
+			</table>
+			注意，<strong>只有已定位的元素才能使用<span class="code">z-index</span>;父子元素间，<span class="code">z-index</span>无效，子元素永远在父元素之上</strong></p>
+			
+		</div>
+	</li>
+	<li>
+		<p>生成内容</p>
+		<div class="desc">
+			<h2>生成内容</h2>
+			<h3>CSS动态生成内容</h3>
+			<p>使用CSS动态地向某元素中插入一段内容,:before {}, :after {}</p>
+			<p>可以插入文本，用content:""，也可以插入图片content:url()</p>
+			<pre class="code">//使用伪元素
+p:before {
+	content:"";
+}
+p:after {
+	content:"";
+}</pre>
+			<h3>应用</h3>
+			<h4>清除浮动</h4>
+			<p>在父元素最后添加一个空的块元素，并清除浮动，注意<span class="code">.clear</span>挂在父元素上</p>
+			<pre class="code">.clear:after {
+	content:"";
+	display:block;
+	clear:both;
+}</pre>
+			<h4>子元素外边距溢出</h4>
+			<p>在子元素之前添加空的<span class="code">table</span>子元素</p>
+			<pre class="code">.parent:before {
+	content:"";
+	display:table;
+}</pre>
+		</div>
+	</li>
+	<li>
+		<p>CSS hack</p>
+		<div class="desc">
+			<h3>属性</h3>
+			<table>
+				<tr>
+					<th>前缀、后缀</th><th>IE版本</th><th>示例</th>
+				</tr>
+				<tr>
+					<td>-</td><td>IE6的前缀</td><td>-background-color:red;</td>
+				</tr>
+				<tr>
+					<td>+</td><td>IE6、IE7的前缀</td><td></td>
+				</tr>
+				<tr>
+					<td>\0(后缀)</td><td>IE8、9、10</td><td>background-color:blue<strong>\0</strong>;</td>
+				</tr>
+				<tr>
+					<td>\9\0(后缀)</td><td>IE9、10</td><td>background-color:blue<strong>\9\0</strong>;</td>
+				</tr>
+			</table>
+			<h3>选择器</h3>
+			<table>
+				<tr>
+					<th>前缀</th><th>IE版本</th>
+				</tr>
+				<tr>
+					<td>*div {}</td><td>IE6</td>
+				</tr>
+				<tr>
+					<td>*+div {}</td><td>IE7</td>
+				</tr>
+			</table>
+			<h3>条件</h3>
+			<pre class="code">&lt;!--[if gt IE8]&gt;
+	/*该段内容只在IE8以上版本执行*/
+	.box {
+		width:200px;
+		height:300px;
+	}
+&lt;![endif]--&gt;
+<span class="code">gte</span>表示">=",<span class="code">lt</span>表示"<",<span class="code">lte</span>表示"<=",<span class="code">!</span>表示非
+</pre>
+		</div>
+	</li>
+</ul>
+

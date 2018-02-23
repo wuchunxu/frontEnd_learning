@@ -1,0 +1,45 @@
+<h2>面向对象--OOP</h2>
+<ul class="menu">
+	<li>
+		<p>面向对象</p>
+		<div class="desc">
+			<h2>面向对象</h2>
+			<h3>面向对象的3大特性</h3>
+			<p>封装：将某事物的属性和功能集中存放在一起，便于管理。</p>
+			<p>继承</p>
+			<p>多态</p>
+			<h3>创建对象</h3>
+			<h4>字面量</h4>
+			<pre class="code">var lilei = {
+	name: "Li Lei",
+	age : "15",
+	sayName: function(){
+		console.log(`I'm ${this.name},${this.age} years old.`);
+	}
+}
+lilei.sayName();
+</pre>
+			<h4>用new创建</h4>
+			<pre class="code">var lilei = new Object();
+obj.name = "Li Lei";
+obj.age = "15";
+obj.sayName = function(){
+	console.log(`I'm ${this.name},${this.age} years old.`);
+}</pre>
+			<p><strong>JS对象的底层实际就是关联数组。</strong></p>
+			<p>关联数组：1) 可用<span class="code">["下标"]</span>，也可用<span class="code">.下标</span>来访问成员；</p>
+			<p>2) 随时可在任意位置添加新成员；</p>
+			<p>3) 访问不存在的成员不会报错，返回undefined</p>
+			<h3>访问对象的属性和方法</h3>
+			<p>访问对象的属性需要在属性前面加上对象名，如<span class="code">lilei.name</span>,如果只是<span class="code">name</span>则表示一个变量，而<strong>变量只能在作用域链中查找</strong>。</p>
+		</div>
+	</li>
+	<li>
+		<p>原型--prototype</p>
+		<div class="desc"></div>
+	</li>
+	<li>
+		<p>继承</p>
+		<div class="desc"></div>
+	</li>
+</ul>

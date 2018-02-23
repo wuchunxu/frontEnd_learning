@@ -194,7 +194,7 @@ h1 {
 			padding:10px 5px;
 		}
 		em {
-			font-family: "楷体";
+			font-family: consolas,"楷体";
 			font-style: normal;
 			color: red;
 		}
@@ -225,6 +225,7 @@ h1 {
 		table p {
 			margin-bottom:0px;
 			text-indent: 0;
+			text-align:left;
 		}
 		table caption {
 			font-size: 20px;
@@ -235,6 +236,12 @@ h1 {
 		}
 		ol {
 			list-style-type:decimal;
+		}
+		.img {
+			width: 100%;
+			img {
+				width: 100%;
+			}
 		}
 	}
 }
