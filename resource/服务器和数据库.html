@@ -215,4 +215,17 @@ UPDATE xz_user SET uname="dangdang",age="24" WHERE uid=2;#必须加条件，否�
 		<p>复杂查询</p>
 		<div class="desc"></div>
 	</li>
+	<li>
+		<p>数据库存储信息</p>
+		<div class="desc">
+			<h2>数据库中存储同一类信息</h2>
+			数据库中存储同一类信息或者并列关系的信息时，用数字一一对应
+			<table>
+				<tr><td>如何存储性别</td><td>CHAR(1):'男'或'女',不便于国际化；<br>
+				TINYINT/INT,1-男,0-女</td></tr>
+				<tr><td>存储政治面貌</td><td>1-党员、2-团员、3-群众</td></tr>
+				<tr><td>存储订单状态</td><td>1-待付款、2-备货中、3-运输中、4-派送中、5-已签收</td></tr>
+			</table>
+		</div>
+	</li>
 </ul>

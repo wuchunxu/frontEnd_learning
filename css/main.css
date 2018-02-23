@@ -228,6 +228,9 @@ h1 {
 #shower .desc .unimportant {
   color: #999 !important;
 }
+#shower .desc ol {
+  list-style-type: decimal;
+}
 
 /*行内式代码样式*/
 .code {

@@ -1,0 +1,142 @@
+<h2>PHP</h2>
+<ul class="menu">
+	<li>
+		<p>面试题-如何自学一门新语言</p>
+		<div class="desc">
+			<h2>如何自学一门新语言</h2>
+			<h3>了解背景、历史、现状、应用领域</h3>
+			<h3>搭建开发运行环境，输出Hello World</h3>
+			<h3>变量和常量</h3>
+			<h3>数据类型</h3>
+			<h3>运算符</h3>
+			<h3>逻辑结构</h3>
+			<h3>通用小程序</h3>
+			<h3>函数和对象</h3>
+			<h3>第三方库、组件、框架</h3>
+			<h3>实用小项目</h3>
+		</div>
+	</li>
+	<li>
+		<p>PHP背景知识</p>
+		<div class="desc">
+			<h2>PHP背景知识</h2>
+			<h3>web服务器</h3>
+			<h4>功能</h4>
+			<p>接收客户端请求，返回需要的资源（HTML、CSS、JS、图片、音频、视频、数据库、其他服务器）</p>
+			<h4>静态web服务器</h4>
+			<p>任何人、任何时间，访问相同的内容</p>
+			<h4>动态web服务器</h4>
+			<p>不同的人、不同的时间，访问的内容可能发生变化</p>
+			<p>动态web技术有：jsp、php、asp.net、Python、Node.js</p>
+			<h3>了解PHP背景</h3>
+			<p>1994年，Personal Home Page，用于统计自己网页的访问数量。</p>
+			<p>1999年，Zend公司商业化维护该语言，更名为PHP is Hypertext Preprocessor</p>
+			<p>开源、简单、跨平台、占内存小、尤其适用于中小型、需要快速开发的WEB项目</p>
+			<h3>LAMP</h3>
+			<p>Linux+Apache+MySQL+PHP</p>
+		</div>
+	</li>
+	<li>
+		<p>PHP环境搭建</p>
+		<div class="desc">
+		<h2>PHP环境的搭建</h2>
+		<ol>
+			<li>下载并安装静态服务器，如Apache</li>
+			<li>下载并安装PHP解释器</li>
+			<li>PHP与WEB服务器整合</li>
+			<li>启动WEB服务器</li>
+		</ol>
+			注：前3步可以使用XAMPP套装一次性安装完成
+		</div>
+	</li>
+	<li>
+		<p>变量和常量</p>
+		<div class="desc">
+			<h2>变量和常量</h2>
+			<p>变量：$num = 1;</p>
+			<p>常量：const PI = 3.14;</p>
+		</div>
+	</li>
+	<li>
+		<p>数据类型</p>
+		<div class="desc">
+			<h2>PHP数据类型</h2>
+			<table>
+				<tr><td>标量类型</td><td>boolean、int、float、double、string</td></tr>
+				<tr>
+					<td>复合类型</td>
+					<td>array、object</td>
+				</tr>
+				<tr>
+					<td>其他类型</td>
+					<td>null<br>resource,如$conn</td>
+				</tr>
+			</table>
+		</div>
+	</li>
+	<li>
+		<p>运算符</p>
+		<div class="desc">
+			<h2>运算符</h2>
+			<table>
+				<tr><td rowspan="3">算术运算符</td><td>%</td><td>取模，也就是求余数</td></tr>
+				<tr><td rowspan="2">++</td><td>$i++</td><td>先取值，再自增</td></tr>
+				<tr><td>++$i</td><td>先自增，再取值</td></tr>
+				<tr><td rowspan="3">比较运算符</td><td rowspan="3"> >和< </td><td>12>3</td><td></td></tr>
+				<tr><td>"12">"3"</td><td>隐式转换为整型再比较</td></tr>
+				<tr><td>"abc" < "abd"</td><td>不转换，Unicode码比较大小</td></tr>
+				<tr><td>逻辑运算符</td><td colspan="3"></td></tr>
+				<tr><td rowspan="2">位运算符</td><td>&lt;&lt;</td><td>&lt;&lt;N</td><td>按位左移N位，相当于乘以2的N次方</td></tr>
+				<tr><td>&gt;&gt;</td><td>&gt;&gt;N</td><td>按位右移N位，相当于除以2的N次方</td></tr>
+				<tr><td rowspan="2">赋值运算符</td><td rowspan="2">=</td><td>$score = $score+5;</td><td></td></tr>
+				<tr><td>$score += 5;</td><td>性能更优，不重新开辟内存</td></tr>
+				<tr><td rowspan="2">拼接运算符</td><td>.</td><td></td><td></td></tr>
+				<tr><td>.=</td><td></td><td></td></tr>
+				<tr><td>三目运算符</td><td></td><td colspan="2">$result = (条件)?option1:option2;</td></tr>
+			</table>
+		</div>
+	</li>
+	<li>
+		<p>小知识点</p>
+		<div class="desc">
+			<h2>小知识点</h2>
+			<h3>单引号和双引号</h3>
+			<p>注意以下区别：</p>
+			<pre class="code">$msg = '姓名：$uname';
+$msg = "姓名：$uname";#双引号内，$uname被当成变量，而其中的单引号就是普通的字符串</pre></p>
+			<h3>"+"</h3>
+			<p>PHP中的“+”只用来做算术运算，字符串拼接用“<span class="code">.</span>”</p>
+		</div>
+	</li>
+	<li>
+		<p>通用小程序</p>
+		<div class="desc">
+			<h2>通用小程序</h2>
+			<h3>判断是否为闰年</h3>
+			<h3>打星星</h3>
+			<h3>九九乘法表</h3>
+			<h3>水仙花数</h3>
+			<h3>质数</h3>
+		</div>
+	</li>
+	<li>
+		<p>数组</p>
+		<div class="desc">
+			<h2>数组</h2>
+			<table>
+				<tr><td rowspan="2">索引数组</td><td>创建数组</td><td>$price= [150,200];</td></tr>
+				<tr><td>添加元素</td><td><span class="code">$price[]=130;</span></td></tr>
+				<tr>
+					<td>关联数组</td><td>创建数组</td>
+					<td>
+						<pre class="code">$emp = [
+	'eid'=>1101,
+	'ename'=>'tom',
+	'salary'=>3000
+];</pre>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</li>
+</ul>
