@@ -30,13 +30,46 @@ obj.sayName = function(){
 			<p>关联数组：1) 可用<span class="code">["下标"]</span>，也可用<span class="code">.下标</span>来访问成员；</p>
 			<p>2) 随时可在任意位置添加新成员；</p>
 			<p>3) 访问不存在的成员不会报错，返回undefined</p>
+			<p>4) 可以使用for...in...循环遍历属性</p>
+			<pre class="code">//for..in..循环遍历对象的属性
+for(var key in lilei){
+	if(typeof lilei[key] != "function"){
+		console.log(key+":"+lilei[key]);
+	}
+}</pre>
+			<h4>用构造函数</h4>
+			<p>反复创建多个相同结构的对象时，存在大量重复代码，不便于维护。构造函数类似于模板，描述同一类型所有对象同一结构的函数。</p>
+			<pre class="code">//定义构造函数
+function Person(name,age){
+	this.name = name;
+	this.age = age;
+	this.sayName = function(){
+		console.log(`My name is ${this.name} and I'm ${this.age} years old.`);
+	}
+}
+//调用构造函数
+var lilei = new Person("Li Lei","25");
+var hmm   = new Person("Han Meimei","24");
+lilei.sayName();
+hmm.sayName();
+console.dir(lilei);
+</pre>
+			<h5>构造函数的机制--执行new时，发生了什么？</h5>
+			<p>1) 创建新的空对象</p>
+			<p>2) 设置新对象继承构造函数的原型对象</p>
+			<p>3) 调用构造函数，并将构造函数中的this指向正在创建的新对象。this.name=name;意味着给新对象强行添加属性并赋值为活动对象中的name值。</p>
+			<p>4) 返回新对象的地址</p>
+			<div class="img"><img src="images/constructor.png" alt=""></div>
 			<h3>访问对象的属性和方法</h3>
 			<p>访问对象的属性需要在属性前面加上对象名，如<span class="code">lilei.name</span>,如果只是<span class="code">name</span>则表示一个变量，而<strong>变量只能在作用域链中查找</strong>。</p>
+			
 		</div>
 	</li>
 	<li>
-		<p>原型--prototype</p>
-		<div class="desc"></div>
+		<p>原型和原型链</p>
+		<div class="desc">
+			<h2>原型(prototype)</h2>
+		</div>
 	</li>
 	<li>
 		<p>继承</p>
