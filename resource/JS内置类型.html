@@ -23,7 +23,30 @@
 		</li>
 		<li>
 			<p>数组类型-Array</p>
-			<div class="desc"></div>
+			<div class="desc">
+				<h2>数组</h2>
+				<h3>深入认识JavaScript中的数组</h3>
+				<h4>数组是对象的子类型，因此数组可以像对象那样使用，比如添加属性。</h4>
+				<pre class="code">var arr = ["1",2,3];
+arr.name = "array";       //看，数组可以添加属性(属性式)
+arr["date"] = "20180233"; //键值式
+arr.length;               //但是，不改变数组的length属性，仍然是3
+arr.name;                 //通过属性方式访问name，值为"array"
+arr["4"] = "4";           //"4"转成4，arr[4]="4";
+arr.length;               //5
+arr[3];                   //undefined</pre>
+				<h4>且看for..in和for..of，发现数组属性与数组元素的区别</h4>
+				<p>JavaScript中，for..in循环是用来遍历对象属性的。注意：js中对象在底层是关联数组，或者叫哈希数组，说白了就是键值对。</p>
+				<pre class="code">//for..in循环是用来遍历对象属性
+for(var key in arr){
+	console.log(key);       //0	 1	2	name
+}
+//for..of循环用来迭代数组中存储的元素，ES6新增
+for(var ele of arr){
+	console.log(ele);       //"1"	2	3
+}
+</pre>
+			</div>
 		</li>
 		<li>
 			<p>函数类型-Function</p>
@@ -275,7 +298,29 @@ function round(number,digit){
 		</li>
 		<li>
 			<p>包装类型</p>
-			<div class="desc"></div>
+			<div class="desc">
+				<h2>包装类型</h2>
+				<h3>ES中的包装类型</h3>
+				<p>ES中简单基本类型<em>string、number、boolean</em>有对应的包装类型<em>String、Number、Boolean。</em></p>
+				<p>基本类型的值不是对象，只能保存值，没有相关的操作API。ES标准内置了包装类型，而包装类型提供了对应基本类型值相关的API，方便操作。当尝试用基本类型的值调用API时，程序会自动创建对应的包装类型对象，来帮助基本类型的值完成指定操作，操作完成后，对象会自动释放。</p>
+				<pre class="code">var num = 3.14159;
+num.toFixed(2);//"3.14"
+/*
+ 	以上代码会自动装箱(auto-boxing)
+	1) typeof num  --> number
+	2) new Number(num).toFixed(2)-->"3.14"
+	3) 自动释放Number对象
+ */</pre>
+				<h3>笔试题</h3>
+				<h4>输出的值为多少？</h4>
+				<pre class="code">var str = "hello";
+str.len = 10;
+console.log(str.len);//undefined</pre>
+				<h4>谈谈你对包装类型的理解。</h4>
+				<p>包装类型是什么？</p>
+				<p>为什么使用包装类型？</p>
+				<p>如何使用包装类型？</p>
+			</div>
 		</li>
 		<li>
 			<p>查找关键词</p>
