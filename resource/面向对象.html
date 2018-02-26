@@ -30,7 +30,7 @@
 				</tr>
 				<tr>
 					<td rowspan="10">复杂基本类型，对象</td>
-					<td rowspan="10">object</td>
+					<td rowspan="10" class="title">object</td>
 					<td>String</td>
 					<td></td>
 				</tr>
@@ -70,7 +70,7 @@
 		</div>
 	</li>
 	<li>
-		<p>创建对象</p>
+		<p>对象</p>
 		<div class="desc">
 			<h2>对象</h2>
 			<h3>面向对象的3大特性</h3>
@@ -155,25 +155,18 @@ console.dir(lilei);
 					<td><p>保存在父对象中，所有子对象共有，只能用原型对象修改。</p></td>
 				</tr>
 			</table>
-			<h3>原型的应用</h3>
-			<h4>新API兼容旧的浏览器</h4>
-			<pre class="code">//让IE8兼容ES5新增的indexOf()
-if(typeof Array.prototype.indexOf != "function"){
-	Array.prototype.indexOf = function(target,start){
-		start = start || 0;
-		for(var i = start;i < this.length;i++){
-			if(this[i]===target) return i;
-		}
-		return -1;
-	}
-}
-</pre>
-		<p><strong>开发时：去MDN官网搜索indexOf()，最下面Polyfill就是兼容方案，复制过来使用</strong></p>
-		<pre class="code">if(typeof String.prototype.trim !== "function"){
-	String.prototype.trim = function(){
-		return this.replace(/^\s+|\s+$/g,"");
-	}
-}</pre>
+			<h3>作用域链和原型链</h3>
+			<table>
+				<tr>
+					<td>作用域链</td>
+					<td>作用域链中保存的是变量</td>
+				</tr>
+				<tr>
+					<td>原型链</td>
+					<td>原型链中保存的是对象和对象的属性</td>
+				</tr>
+			</table>
+			
 			<h3>笔试题</h3>
 			<h4>判断一个对象是否为数组有几种方法？</h4>
 			<pre class="code">var obj1={},obj2=[],obj3=new Date(),obj4={};
@@ -205,11 +198,75 @@ obj4.__proto__=obj2;</pre>
 		</div>
 	</li>
 	<li>
+		<p>原型的应用--新API兼容旧的浏览器</p>
+		<div class="desc">
+			<h2>原型的应用--新API兼容旧的浏览器</h2>
+			<p><strong>开发时：去MDN官网搜索indexOf()，最下面<em>Polyfill</em>就是兼容方案，复制过来使用</strong></p>
+			<h3>让IE8兼容ES5新增的indexOf()</h3>
+			<pre class="code">if(typeof Array.prototype.indexOf != "function"){
+	Array.prototype.indexOf = function(target,start){
+		start = start || 0;
+		for(var i = start;i < this.length;i++){
+			if(this[i]===target) return i;
+		}
+		return -1;
+	}
+}
+</pre>
+			<h3>兼容String.prototype.trim</h3>
+			<pre class="code">if(typeof String.prototype.trim !== "function"){
+	String.prototype.trim = function(){
+		return this.replace(/^\s+|\s+$/g,"");
+	}
+}</pre>
+			<h3>兼容Array.isArray</h3>
+			<pre class="code">if(typeof Array.isArray !== "function"){
+	Array.isArray = function(obj){
+		return Object.prototype.toString.call(obj)==="[object Array]";
+	}
+}</pre>
+		</div>
+	</li>
+	<li>
 		<p>继承和多态</p>
 		<div class="desc">
 			<h2>继承</h2>
 			<h3>继承的实现</h3>
 			<h4>通过原型继承</h4>
+			<h3>自定义继承</h3>
+			<h4>修改对象的原型对象</h4>
+			<pre class="code">Object.setPrototypeOf(child,father);</pre>
+			<h4>修改构造函数的原型对象为一个对象</h4>
+			<pre class="code">Person.prototype = father;</pre>
+			<h4>修改构造函数的原型对象为另一个构造函数的原型对象</h4>
+			<pre class="code">function Animal(name,age,food){
+	this.name = name;
+	this.age = age;
+	this.food = food;
+}
+Animal.prototype.eat = function(){
+	console.log(`${this.name}正在吃${this.food}`);
+	this.enjoy();
+}
+function Cat(name,age,food){
+	Animal.call(this,name,age,food);
+}
+Cat.prototype.enjoy = function(){
+	console.log("喵喵喵...");
+}
+function Dog(name,age,food){
+	Animal.call(this,name,age,food);
+}
+Dog.prototype.enjoy = function(){
+	console.log("汪汪汪...");
+}
+Object.setPrototypeOf(Cat.prototype,Animal.prototype);
+Object.setPrototypeOf(Dog.prototype,Animal.prototype);
+var cat = new Cat("小猫","1","鱼");
+var dog = new Dog("小狗",2,"骨头");
+cat.eat();
+dog.eat();
+</pre>
 			<h3>重写方法(override)</h3>
 			<p>父对象的方法不适合子对象，子对象可以重写同名的函数，该函数会覆盖父对象中的同名函数。</p>
 			<p>如果要用子对象调用父对象中被覆盖的函数，需要使用函数call()</p>
@@ -218,6 +275,38 @@ arr.toString();//"1,2,3"
 Object.prototype.toString.call(arr);//"[object Array]"</pre>
 			<h3>多态</h3>
 			<p>同名函数，在不同的子类对象中表现出不同的作用，就是多态。</p>
+			
 		</div>
 	</li>
+	<li>
+		<p>Object的方法</p>
+		<div class="desc">
+			<h2>Object的方法</h2>
+			<h3>静态方法</h3>
+			<table>
+				<tr>
+					<td>设置原型对象</td>
+					<td>
+						<pre class="code">Object.setPrototypeOf(child,father)
+Object.setPrototypeOf(Cat.prototype,Animal.prototype);</pre>
+					</td>
+				</tr>
+				
+			</table>
+			<h3>原型方法</h3>
+			<table>
+				<tr>
+					<td>判断是否是原型对象</td><td>Object.prototype.isPrototypeOf(obj)</td>
+				</tr>
+				<tr><td>判断自身是否存在指定属性</td><td>Object.prototype.hasOwnProperty(prop)</td></tr>
+			</table>
+			<h3>从原型链中调用方法</h3>
+			<p>使用原型链中的方法时，如果担心这个方法被重写了，可以拿原方法，通过call()来调用。</p>
+			<pre class="code">({}).toString.call([]);//"[object Array]"
+//或者：
+Object.prototype.toString.call([]);//"[object Array]"</pre>
+
+		</div>
+	</li>
+
 </ul>

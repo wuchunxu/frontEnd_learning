@@ -1,0 +1,206 @@
+<h2>ECMAScript 5</h2>
+<ul class="menu">
+	<li>
+		<p>严格模式</p>
+		<div class="desc">
+			<h2>严格模式</h2>
+			<h3>严格模式的规定</h3>
+			<h4>禁止给未声明的变量赋值</h4>
+			<p>在ES5之前，如果给一个未声明的变量赋值，不会出错，而是在全局环境中创建，然后赋值</p>
+			<h4>将静默失败升级为错误</h4>
+			<h5>非严格模式</h5>
+			<pre class="code">var emp1 = {
+	id : 1001,
+	name : 'Eric'
+};
+Object.defineProperty(emp1,"id",{
+	writable: false
+});
+emp1.id = 1002;      <span class="note">//未改成，静默失败，不报错</span>
+console.log(emp1.id);<span class="note">//1001</span></pre>
+			<h5>严格模式</h5>
+			<pre class="code">"use strict";
+var emp1 = {
+	id : 1001,
+	name : 'Eric'
+};
+Object.defineProperty(emp1,"id",{
+	writable: false
+});
+emp1.id = 1002;      <span class="note">//Uncaught TypeError: Cannot assign to read only property 'id'...</span>
+console.log(emp1.id);<span class="note">//1001</span></pre>
+			<h4>普通函数调用和匿名函数中this不再默认指向window，而是undefined</h4>
+			<pre class="code">function Flyer(name,speed){
+	this.name = name;
+	this.speed = speed;
+}
+Flyer("F16",1000);
+window.name;    <span class="note">//"F16"</span></pre>
+严格模式
+<pre class="code">"use strict";
+function Flyer(name,speed){
+	this.name = name;
+	this.speed = speed;
+}
+Flyer("F16",1000);     <span class="note">//TypeError:cannot set property "name" of undefined</span>
+</pre>
+			<h4>不再推荐使用arguments.callee</h4>
+			<p>使用arguments.callee典型场景是用递归算法实现菲波那切数列，但是递归算法十分耗费性能，ECMAScript5中</p>
+			<pre class="code">"use strict";
+function fibonacci(n){
+	if(n < 3) return 1;
+	else return arguments.callee(n-1) + arguments.callee(n-2);
+}
+fibonacci(10);<span class="note">//Uncaught TypeError</span></pre>
+
+循环写法：
+<pre class="code"><span class="note">// 1 2 3 4 5 6
+// 1 1 2 3 5 8
+// j k s →</span>
+function fibonacci(n){
+	if(n < 3) return 1;
+	else {
+		for(var i=3,j=1,k=1,s=0;i <= n;i++){
+			s = j + k;
+			j = k;
+			k = s;
+		}
+		return s;
+	}
+}
+</pre>
+			<h3>何时使用严格模式</h3>
+			<p>1) 在新项目中，<strong>所有js文件</strong>顶部添加：<span class="code">"use strict";</span></p>
+			
+			<p>2) 而维护旧项目时，逐个函数向严格模式迁移，在<strong>函数的顶部</strong>添加<span class="code">"use strict";</span></p>
+		</div>
+	</li>
+	<li>
+		<p>保护对象</p>
+		<div class="desc">
+			<h2>保护对象</h2>
+			<p>保护对象有两个层面：属性和结构</p>
+			<table>
+				<tr>
+					<td>保护属性</td>
+					<td>JS中对象的属性可以是任意值，可以随意修改。</td>
+				</tr>
+				<tr>
+					<td>保护结构</td>
+					<td></td>
+				</tr>
+			</table>
+			<h3>ES5中属性的分类</h3>
+			<table>
+				<tr>
+					<th colspan="2">ES5属性分类</th>
+					<th>次级分类</th>
+					<th>解释</th>
+				</tr>
+				<tr>
+					<td rowspan="6">命名属性</td>
+					<td rowspan="4">数据属性</td>
+					<td>value</td>
+					<td>值</td>
+				</tr>
+				<tr>
+					<td>writable</td>
+					<td>是否可写</td>
+				</tr>
+				<tr>
+					<td>configurable</td>
+					<td>是否可配置</td>
+				</tr>
+				<tr><td>enumerable</td><td>是否可被for..in枚举</td></tr>
+				<tr>
+					<td rowspan="2">访问器属性</td>
+					<td>get</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>set</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td colspan="2">内部属性</td>
+					<td>class,constructor</td>
+					<td></td>
+				</tr>
+			</table>
+			<p>访问器属性：不存储属性值，仅提供对其他数据属性的保护。</p>
+			
+			<h3>如何查看、定义和修改属性的特性</h3>
+			<table>
+				<tr>
+					<th>方法</th>
+					<th>功能</th>
+				</tr>
+				<tr>
+					<td>获取对象属性的特性</td>
+					<td><span class="code">Object.getOwnPropertyDescriptor(obj,"prop")</span></td>
+				</tr>
+				<tr>
+					<td>定义和修改属性的特性</td>
+					<td><span class="code">Object.defineProperty(obj,"prop",{..})</span></td>
+				</tr>
+				<tr>
+					<td>定义/修改多个属性的特性</td>
+					<td><span class="code">Object.defineProperties(obj,{});</span></td>
+				</tr>
+			</table>
+			<h5>示例</h5>
+			<pre class="code">var eric = { id :1001, salary: 10000,name : "Eric" };
+<span class="note">//获取一个属性的四大特性</span>
+Object.getOwnPropertyDescriptor(eric,"id");
+<span class="note">//定义属性的特性</span>
+Object.defineProperties(eric,{
+	"id":{
+		writable: false,
+		configurable: false,
+		enumerable: true
+	},
+	"salary":{
+		writable: true,
+		configurable: false,
+		enumerable: false
+	},
+	"name":{
+		configurable: false
+	}
+});
+<span class="note">//for..in遍历（枚举）</span>
+for(var prop in eric){
+	console.log(eric[prop]);
+}
+console.log(eric.salary);
+Object.defineProperty(eric,"id",{
+	configurable: true
+});<span class="note">//TypeError: Cannot redefine property</span></pre>
+			<h3>如何添加访问器属性</h3>
+			<p>只能用Object.defineProperty()/Object.defineProperties()，添加访问器属性相当于给属性添加一个过滤器</p>
+			<pre class="code">
+var eric = {
+	id : 1001,
+	name : "Eric",
+	_age : 23
+};
+Object.defineProperty(eric,"age",{
+	//访问器属性四大特性
+	get: function(){
+		return this._age;
+	},
+	set: function(val){
+		if(val>=18 && val <=65){
+			this._age = val;
+		}else{
+			throw new Error("年龄必须介于18~65之间");
+		}
+	},
+	enumerable: true,
+	configurable: false
+});
+eric.age = 8;
+console.log(eric.age);</pre>
+		</div>
+	</li>
+</ul>

@@ -262,6 +262,10 @@ pre.code {
   background: #fff;
   border-radius: 8px;
   padding: 10px 20px;
+  line-height: 1.6em;
+}
+pre .note {
+  color: green;
 }
 
 table pre.code {
