@@ -1,0 +1,77 @@
+<h2>ES6</h2>
+<ul class="menu">
+	<li>
+		<p>let</p>
+		<div class="desc">
+			<h2>let关键字</h2>
+			<h3>let代替var</h3>
+			<p>let的出现，主要是为了解决<em>声明提前</em>和<em>没有块作用域</em>的问题。声明提前容易导致难以察觉的错误。块作用域的好处是，变量只在块作用域中有效，不会造成污染。</p>
+			<h4>使用let</h4>
+			<pre class="code">//匿名自调函数写法
+var btns = document.getElementsByTagName("button");
+for(var i=0;i < btns.length;i++){
+	(function(i){	//i参数是局部变量，不同闭包之间的i各自独立
+		btns[i].onclick = function(){
+			alert(i);
+		}
+	})(i);
+}
+//ES6 let的写法，原理其实就是上面的写法
+for(let i=0;i < btn.length;i++){
+	btns[i].onclick = function(){
+		alert(i);
+	}
+}
+</pre>
+			<p></p>
+		</div>
+	</li>
+	<li>
+		<p>参数增强</p>
+		<div class="desc">
+			<h2>参数增强</h2>
+			<h3>参数的默认值</h3>
+			<p>定义函数时，可提前为部分参数变量指定默认值。语法如下</p>
+			<pre class="code">function fn(a,b,c=1){
+	<span class="note">//注意：具有默认值的参数必须放在最后</span>
+}</pre>
+			<h3>剩余参数rest</h3>
+			<p>用来代替：arguments，arguments的问题：不是数组，只是类数组对象；只能获取完整的参数</p>
+			<pre class="code">//需求1
+function calc(name,baseSalary,bonus1,bonus2){
+	console.log(name+"总工资为"+baseSalary+bonus1+bonus2);
+}
+//需求2：bonus数量不一定，可能有多个，此时用reduce来汇总
+<span class="note">//arguments写法</span>
+function calc(name){
+	var arr = Array.prototype.slice.call(arguments);//将arguments转换成数组
+	return arr.slice(1).reduce(function(prev,ele){
+		return prev+ele;
+	});
+}
+calc("lilei",10000,1000,2000);
+calc("hmm",4000,5000,6000,1000);
+<span class="note">//rest写法</span>
+function calc(name,...sals){   //sals表示剩余的参数，sals是一个数组
+	return sals.reduce(function(prev,ele){
+		return prev+ele;
+	});
+}
+calc("lilei",10000,1000,2000);
+calc("hmm",4000,5000,6000,1000);
+function fun(a,b,...arr){
+
+}</pre>
+			
+			<h3>散播</h3>
+		</div>
+	</li>
+	<li>
+		<p>箭头函数</p>
+		<div class="desc"></div>
+	</li>
+	<li>
+		<p>模板字符串</p>
+		<div class="desc"></div>
+	</li>
+</ul>

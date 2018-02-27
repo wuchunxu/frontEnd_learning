@@ -319,7 +319,7 @@ console.log(arr.toString());
 console.log(arr2.toString());</pre></td>
 				</tr>
 			</table>
-			<h3>过滤和汇总</h3>
+			<h3>过滤和汇总(filter和reduce)</h3>
 			<h4>过滤Array.prototype.filter</h4>
 			<p>filter筛选出符合条件的值，保存到新数组中。</p>
 			<pre class="code">var arr = [1,2,3,4,5,6];
@@ -331,11 +331,15 @@ console.log(evens.toString());	</pre>
 			<h4>汇总Array.prototype.reduce</h4>
 			<p>汇总：将数组中每个元素的值汇总，计算得出一个结果</p>
 			<pre class="code">var arr = [1,2,3,4,5,6];
-var result = arr.reduce(function(prev,ele,i,arr){
+var res = arr.reduce(function(prev,ele,i,arr){
 	//prev是ele之前临时汇总和
 	return prev + ele;
 });
-console.log(result);//21</pre>
+console.log(res);//21
+var arr2 = [2,3,4,5,6,7];
+var result = arr2.reduce(function(prev,ele,i,arr){
+	return prev+ele;
+},res);<span class="note">//这里第二个参数是汇总的基数</span></pre>
 		</div>
 	</li>
 </ul>

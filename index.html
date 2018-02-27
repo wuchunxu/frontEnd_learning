@@ -8,15 +8,30 @@
 
 </head>
 <body>
+	
+	<nav>
+		<div class="logo">前端学习笔记</div>
+	</nav>
 	<h1>巫春旭的前端学习笔记</h1>
+
 	<p><em>注意：内容更新Server、PHP、CSS、JS高级</em></p>
+	<main>
+		 <div class="content">
+
+		 </div>
+	</main>
+	
+	
 	 <table class="table-1"></table>
+	 
+	
 	<div id="shower"></div>
 	<div id="layer"></div>
 	<script src="js/util.js"></script>
 	<script>
 
 		var table = document.getElementsByClassName("table-1")[0];
+		var content = document.getElementsByClassName("content")[0];
 		var frontEnd = {
 			period_1: {
 				"熟悉服务端": ["软件工程","服务器和数据库","PHP"],
@@ -52,9 +67,31 @@
 			return html;
 		}
 		
-		table.innerHTML = toTable(frontEnd);
+		//table.innerHTML = toTable(frontEnd);
 
-		table.onclick = function show(e){
+		function toArticle(frontEnd){
+			var html = "";
+			for(var period in frontEnd){
+				html += "<section>";
+				html += `<h2>·阶段${period.slice(period.length-1)}·</h2>`;
+				for(var section in frontEnd[period]){
+					html += `<h3>${section}</h3>`;
+					html += "<div class='clear'>";
+					for(var ele of frontEnd[period][section]){
+						html += `<div class="item"><img src="images/icon/${ele}.png"><p>${ele}</p></div>`;
+					}
+					html += "</div>";
+				}
+				html += "</section>";
+			}
+			return html;
+		}
+		content.innerHTML = toArticle(frontEnd);
+
+		content.onclick = function show(e){
+			if(!(e.target.hasClass("item")||e.target.parentNode.hasClass("item"))){
+				return false;
+			}
 			var url = "resource/"+e.target.closest("div").getElementsByTagName("p")[0].innerHTML+".html";
 			console.log(url);
 			ajax(url,{
