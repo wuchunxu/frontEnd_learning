@@ -30,14 +30,15 @@ Object.defineProperty(emp1,"id",{
 emp1.id = 1002;      <span class="note">//Uncaught TypeError: Cannot assign to read only property 'id'...</span>
 console.log(emp1.id);<span class="note">//1001</span></pre>
 			<h4>普通函数调用和匿名函数中this不再默认指向window，而是undefined</h4>
+			<h5>普通模式</h5>
 			<pre class="code">function Flyer(name,speed){
 	this.name = name;
 	this.speed = speed;
 }
 Flyer("F16",1000);
 window.name;    <span class="note">//"F16"</span></pre>
-严格模式
-<pre class="code">"use strict";
+			<h5>严格模式</h5>
+			<pre class="code">"use strict";
 function Flyer(name,speed){
 	this.name = name;
 	this.speed = speed;
@@ -53,7 +54,7 @@ function fibonacci(n){
 }
 fibonacci(10);<span class="note">//Uncaught TypeError</span></pre>
 
-循环写法：
+<h5>斐波那契数列的循环写法：</h5>
 <pre class="code"><span class="note">// 1 2 3 4 5 6
 // 1 1 2 3 5 8
 // j k s →</span>
@@ -79,90 +80,34 @@ function fibonacci(n){
 		<p>保护对象</p>
 		<div class="desc">
 			<h2>保护对象</h2>
-			<p>保护对象有两个层面：属性和结构</p>
-			<table>
-				<tr>
-					<td>保护属性</td>
-					<td>JS中对象的属性可以是任意值，可以随意修改。</td>
-				</tr>
-				<tr>
-					<td>保护结构</td>
-					<td></td>
-				</tr>
-			</table>
-			<h3>ES5中属性的分类</h3>
-			<table>
-				<tr>
-					<th colspan="2">ES5属性分类</th>
-					<th>次级分类</th>
-					<th>解释</th>
-				</tr>
-				<tr>
-					<td rowspan="6">命名属性</td>
-					<td rowspan="4">数据属性</td>
-					<td>value</td>
-					<td>值</td>
-				</tr>
-				<tr>
-					<td>writable</td>
-					<td>是否可写</td>
-				</tr>
-				<tr>
-					<td>configurable</td>
-					<td>是否可配置</td>
-				</tr>
-				<tr><td>enumerable</td><td>是否可被for..in枚举</td></tr>
-				<tr>
-					<td rowspan="2">访问器属性</td>
-					<td>get</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>set</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td colspan="2">内部属性</td>
-					<td>class,constructor</td>
-					<td></td>
-				</tr>
-			</table>
-			<p>访问器属性：不存储属性值，仅提供对其他数据属性的保护。</p>
-			
-			<h3>如何查看、定义和修改属性的特性</h3>
-			<table>
-				<tr>
-					<th>方法</th>
-					<th>功能</th>
-				</tr>
-				<tr>
-					<td>获取对象属性的特性</td>
-					<td><span class="code">Object.getOwnPropertyDescriptor(obj,"prop")</span></td>
-				</tr>
-				<tr>
-					<td>定义和修改属性的特性</td>
-					<td><span class="code">Object.defineProperty(obj,"prop",{..})</span></td>
-				</tr>
-				<tr>
-					<td>定义/修改多个属性的特性</td>
-					<td><span class="code">Object.defineProperties(obj,{});</span></td>
-				</tr>
-			</table>
-			<h5>示例</h5>
+			<h3>什么是保护对象</h3>
+			<p>在ES5之前，对象的属性可以随便查看，随便修改，非常不安全。ES5提供了对象的保护机制，保护对象分为两个层面：<em>保护属性</em>和<em>保护结构</em>。</p>
+			<h3>保护对象之属性</h3>
+			<p>属性分为命名属性和内部属性。命名属性又分为数据属性和访问器属性。</p>
+			<p>下面代码中，<span class="code">id、name和salary</span>就是<em>数据属性</em>。</p>
+			<pre class="code">var eric = {
+	id: 1001,     
+	name: "Eric",
+	salary: 12000
+}</pre>
+			<p>对于这些属性，可以用属性的特性来修饰，value用来存放值、writable是否可写、enumerable是否可枚举、configurable是否可配置。而这些特性可以用<span class="code">Object.getOwnPropertyDescriptor(obj,"prop")</span>查看。</p>
+			<p><em>访问器属性</em>不存储属性值，它用来控制属性的访问。就像一个过滤器，在你给属性赋值时，进行检测，通过检测的值才会被保存。</p>
+			<h4>数据属性的保护</h4>
+			<p>保护数据属性的行为有：不允许删除、不允许修改、不允许遍历</p>
 			<pre class="code">var eric = { id :1001, salary: 10000,name : "Eric" };
 <span class="note">//获取一个属性的四大特性</span>
 Object.getOwnPropertyDescriptor(eric,"id");
 <span class="note">//定义属性的特性</span>
 Object.defineProperties(eric,{
 	"id":{
-		writable: false,
-		configurable: false,
+		writable: false,     <span class="note">//只读</span>
+		configurable: false, <span class="note">//不可删除</span>
 		enumerable: true
 	},
 	"salary":{
 		writable: true,
 		configurable: false,
-		enumerable: false
+		enumerable: false    <span class="note">//不可用for..in枚举</span>
 	},
 	"name":{
 		configurable: false
@@ -176,8 +121,11 @@ console.log(eric.salary);
 Object.defineProperty(eric,"id",{
 	configurable: true
 });<span class="note">//TypeError: Cannot redefine property</span></pre>
-			<h3>如何添加访问器属性</h3>
-			<p>只能用Object.defineProperty()/Object.defineProperties()，添加访问器属性相当于给属性添加一个过滤器</p>
+			<h4>设置访问器属性</h4>
+			<p>数据属性的特性保护了数据，可以设置禁止写入、禁止遍历、禁止删除。但是，在写入属性时，不能过滤写入值。</p>
+			<p>访问器属性充当了过滤器的角色。通过<span class="code">Object.defineProperty()/Object.defineProperties()添加访问器属性。</span></p>
+			<p>要设置访问器属性，如给<span class="code">age</span>设置访问器属性，首先添加一个新属性<span class="code">this._age</span>，该属性用来存储age的值，而<span class="code">age</span>则设为访问器属性，也就是通过age设置和获取值，_age用来存储值。</p>
+			<p>访问器属性包含4个特性：<span class="code">get、set、enumerable、configurable</span></p>
 			<pre class="code">
 var eric = {
 	id : 1001,
@@ -201,6 +149,193 @@ Object.defineProperty(eric,"age",{
 });
 eric.age = 8;
 console.log(eric.age);</pre>
+		<h3>在构造函数中定义保护</h3>
+		<p>上述内容是给某个对象添加属性特性，给<strong>一个</strong>对象设置了保护。其实，我们可以在构造函数中定义保护，这样，创建出来的对象都是受保护的。</p>
+		<pre class="code">"use strict";
+function Emp(id,name,age,salary){
+	Object.defineProperties(this,{
+		"id":{
+			value: id,
+			writable: false,
+			configurable: false,
+			enumerable: true
+		},
+		"name":{
+			value: name,
+			writable: true,
+			configurable: false,
+			enumerable: true
+		},
+		"_age":{
+			writable: true,
+			configurable: true,
+			enumerable: false
+		},
+		"age": {
+			get:function(){return this._age;},
+			set:function(val){
+				if(val>=18&&val<=65) {
+					this._age = val;
+				} else {
+					throw new RangeError("年龄必须介于18~65之间");
+				}
+			}
+		},
+		"salary":{
+			value: salary,
+			writable: true,
+			configurable: false,
+			enumerable: false
+		}
+	});
+	this.age = age;
+	Object.preventExtensions(this);<span class="note">//禁止添加新属性</span>
+}
+var e1 = new Emp(1001,"Eric",26,12000);
+e1.id = 1002;
+delete e1.name;
+for(var prop in e1){
+	console.log(prop+":"+e1[prop]);
+}</pre>
+	<p>通过访问器属性age对_age的保护只是表面的，仍然可以绕过age而直接修改_age的值。如果要保护_age，可以利用闭包。<strong>原理是这样的，将_age设为变量，由于this指向全局变量e1，那么访问器属性this.age（内部函数）就暴露于全局，从而形成了闭包，我们知道，闭包中的变量是受保护的，只能通过内部函数也就是age来访问和操作它。</strong></p>
+		<h3>保护对象--结构</h3>
+		<h4>禁止扩展</h4>
+		<pre class="code">Object.preventExtensions(obj);<span class="note">//在构造函数中obj应改为this</span></pre>
+		<p>禁止扩展是禁止向对象中添加属性。其原理是，将每个对象内部隐藏属性<span class="code">extensible</span>设为false</p>
+		<h4>密封(禁止扩展和删除)</h4>
+		<p><span class="code">Object.seal(obj)</span>的原理：1) extensible设为false; 2) 将所有属性的特性configurable设为false</p>
+		<pre class="code">Object.seal(this);</pre>
+		<h4>冻结</h4>
+		<pre class="code">Object.freeze(obj);//不可扩展，不可写入，不可删除</pre>
+		<p>原理是，extensible设为false，每个属性的configurable设为false，writable设为false</p>
+		<h5>示例</h5>
+		<pre class="code">"use strict";
+var config = {
+	ip: "192.168.0.1",
+	port: "3306",
+	db: "xz",
+	user: "root",
+	pwd : ""
+};
+Object.freeze(config);
+config.ip = "192.168.0.100";//Uncaught TypeError: Cannot assign to read only property 'ip' of object</pre>
+		</div>
+
+	</li>
+	<li>
+		<p>Oject.create()</p>
+		<div class="desc">
+			<h2>create()方法</h2>
+			<h3>Object.create()</h3>
+			<p>该方法，1) 创建一个新对象；2) 继承现有父对象；3) 可以为新对象添加自有属性</p>
+			<pre class="code">var father = {
+	bal: 10000000,
+	car: "infiniti"
+};
+var hmm = Object.create(father);	//<span class="note">hmm继承father</span>
+console.log(hmm.car);</pre>
+			<p>除了继承，还可以扩展自有属性，用法如下：</p>
+			<pre class="code">var hmm = Object.create(father,{
+	<span class="note">//这里格式和defineProperties一样</span>
+	bag: {
+		value: "LV",
+		writable: true,
+		enumerable: true,
+		configurable: false
+	},
+	phone: {
+		value: "iphone X",
+		writable: true,
+		enumerable: true,
+		configurable: false
+	}
+});</pre>
+		</div>
+	</li>
+	<li>
+		<p>call(),apply(),bind()</p>
+		<div class="desc">
+			<h2>call(),apply(),bind()</h2>
+			<h3>call/apply</h3>
+			<p>call()和apply()的作用是，强行调用指定函数，并临时替换函数中this为指定对象。</p>
+			<h3>bind()</h3>
+			<p>基于原函数，创建一个新函数，并将this永久绑定为参数中的对象</p>
+			<pre class="code">var lilei_calc = calc.bind(lilei);//lilei_calc是一个函数，并且this绑定lilei</pre>
+		</div>
+	</li>
+	<li>
+		<p>数组API</p>
+		<div class="desc">
+			<h2>新增数组API</h2>
+			<h3>some()和every()</h3>
+			<h4>every()</h4>
+			<p>判断数组中是否所有元素都符合要求</p>
+			<pre class="code">var arr1 = [1,2,3,2,1];
+var arr2 = [1,3,5,7,9];
+//哪个数组中全由奇数组成
+console.log(arr1.every(function(ele,index,arr){
+	return ele%2 != 0;
+}));
+console.log(arr2.every(function(ele,index,arr){
+	return ele%2 != 0;
+}));
+//判断哪个数组是升序排列
+console.log(arr1.every(function(ele,index,arr){
+	if(index < arr.length-1){
+		return ele <= arr[index+1];
+	}else {
+		return true;
+	}
+}));
+console.log(arr2.every(function(ele,index,arr){
+	if(index < arr.length-1){
+		return ele <= arr[index+1];
+	}else {
+		return true;
+	}
+}));</pre>
+			<h4>some()</h4>
+			<h3>遍历API</h3>
+			<table>
+				<tr>
+					<th>方法</th>
+					<th>功能</th>
+				</tr>
+				<tr>
+					<td>forEach()</td>
+					<td><pre class="code">var arr = [1,2,3,4,5];
+//将原数组中所有的值*2
+arr.forEach(function(ele,i,arr){
+	arr[i]*=2;
+});
+console.log(arr.toString());
+</pre></td>
+				</tr>
+				<tr>
+					<td>map()</td>
+					<td><pre class="code">var arr2 = arr.map(function(ele,i,arr){
+	return ele*2;
+});
+console.log(arr2.toString());</pre></td>
+				</tr>
+			</table>
+			<h3>过滤和汇总</h3>
+			<h4>过滤Array.prototype.filter</h4>
+			<p>filter筛选出符合条件的值，保存到新数组中。</p>
+			<pre class="code">var arr = [1,2,3,4,5,6];
+//筛选出所有的偶数
+var evens = arr.filter(function(ele,i,arr){
+	return ele%2 == 0;
+});
+console.log(evens.toString());	</pre>
+			<h4>汇总Array.prototype.reduce</h4>
+			<p>汇总：将数组中每个元素的值汇总，计算得出一个结果</p>
+			<pre class="code">var arr = [1,2,3,4,5,6];
+var result = arr.reduce(function(prev,ele,i,arr){
+	//prev是ele之前临时汇总和
+	return prev + ele;
+});
+console.log(result);//21</pre>
 		</div>
 	</li>
 </ul>

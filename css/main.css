@@ -29,15 +29,29 @@ h1 {
   border: 1px solid #aaa;
   border-collapse: collapse;
 }
-.table-1 span {
+.table-1 .item {
   background-color: #41b883;
   color: #fff;
-  padding: 5px 8px;
-  border-radius: 3px;
-  margin-right: 5px;
+  width: 150px;
+  height: 180px;
+  display: block;
+  float: left;
+  text-align: center;
+  font-size: 20px;
+  border-radius: 6px;
+  margin-right: 10px;
+  overflow: hidden;
 }
-.table-1 span:hover {
+.table-1 .item:hover {
   cursor: pointer;
+}
+.table-1 .item img {
+  height: 48%;
+}
+.table-1 .item p {
+  height: 100px;
+  box-sizing: border-box;
+  padding-top: 25px;
 }
 .table-1 td {
   border: 1px solid #aaa;
@@ -51,7 +65,7 @@ h1 {
 #shower {
   width: 80%;
   height: 90%;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.5);
   display: none;
   position: fixed;
   top: 0;

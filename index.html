@@ -5,6 +5,7 @@
 	<title>wuchunxu的前端笔记</title>
 	<link rel="stylesheet" href="css/base.css">
 	<link rel="stylesheet" href="css/main.css">
+
 </head>
 <body>
 	<h1>巫春旭的前端学习笔记</h1>
@@ -18,17 +19,13 @@
 		var table = document.getElementsByClassName("table-1")[0];
 		var frontEnd = {
 			period_1: {
-				Server: ["软件工程","服务器和数据库"],
-				PHP: ["PHP"],
+				"熟悉服务端": ["软件工程","服务器和数据库","PHP"],
 			},
 			period_2: {
-				"HTML5基础": ["meta","表格","列表","结构标记","表单"],
-				"JS基础"   : [],
-				"Ajax"     : [],
-				"CSS"      : ["CSS","CSS3"],
+				"初入前端" : ["HTML5基础(未更新)","JS基础(未更新)","Ajax(未更新)","CSS","CSS3"],
 			},
 			period_3: {
-				"JS高级"   : ["JS内置类型","Function","面向对象","ES5","ES6"],
+				"前端之JS高级" : ["JS内置类型","Function","面向对象","ES5","ES6"],
 			}
 
 		}
@@ -47,7 +44,7 @@
 						html += `<tr><td>${day}</td><td>`;
 					}
 					for ( var ele of frontEnd[period][day] ){
-						html += `<span>${ele}</span>`;
+						html += `<div class="item"><img src="images/icon/${ele}.png"><p>${ele}</p></div>`;
 					}
 					html +='</td></tr>';
 				}
@@ -58,14 +55,13 @@
 		table.innerHTML = toTable(frontEnd);
 
 		table.onclick = function show(e){
-			var url = "resource/"+e.target.innerHTML+".html";
+			var url = "resource/"+e.target.closest("div").getElementsByTagName("p")[0].innerHTML+".html";
+			console.log(url);
 			ajax(url,{
 				success:function(resposneText){
 					var div = $("shower");
 					div.innerHTML = resposneText;
 					div.style.display = "block";
-					//div.style.width = "1000px";
-					//div.style.height = "800px";
 					$("layer").style.display = "block";
 					function onlyLi(lis){
 						var arr = [];
