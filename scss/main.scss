@@ -47,10 +47,8 @@ h1 {
 }
 /*弹出窗口样式*/
 #shower {
-	/*width: 1000px;*/
-	width:0px;
-	height: 900px;
-	// height:0px;
+	width: 80%;
+	height: 90%;
 	background-color: rgba(255,255,255,.3);
 	display: none;
 	position:fixed;
@@ -59,7 +57,8 @@ h1 {
 	bottom:0;
 	left:0;
 	margin:auto;
-	padding:10px 20px;
+	//padding:10px 20px;
+	padding:10px .5%;
 	border-radius: 10px;
 	z-index:5000;
 	line-height: 2em;
@@ -148,9 +147,12 @@ h1 {
 		justify-content: space-between;
 	}
 	.menu{
-		display: relative;
-		width: 250px;
+		//display: relative;
+		//width: 250px;
+		
 		&>li>:first-child {
+			// float:left;
+			width: 18%;
 			padding: 5px 10px;
 			background: #eee;
 			border-radius: 5px;
@@ -166,9 +168,12 @@ h1 {
 	.desc {
 		display:none;
 		position:absolute;
-		width: 720px;
-		height: 720px;
-		left:296px;
+		width: 76%;
+		//width: 720px;
+		height: 88%;
+		min-height:480px;
+		//float:left;
+		left:22%;
 		top:64px;
 		// background-color: rgba(153,153,153,.5);
 		background-image: url('../images/paper.jpg');
