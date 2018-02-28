@@ -1,4 +1,4 @@
-<h2>ES6</h2>
+<h2>ECMAScript 6</h2>
 <ul class="menu">
 	<li>
 		<p>let</p>
@@ -30,13 +30,13 @@ for(let i=0;i < btn.length;i++){
 		<p>参数增强</p>
 		<div class="desc">
 			<h2>参数增强</h2>
-			<h3>参数的默认值</h3>
+			<h3>默认值(default)</h3>
 			<p>定义函数时，可提前为部分参数变量指定默认值。语法如下</p>
 			<pre class="code">function fn(a,b,c=1){
 	<span class="note">//注意：具有默认值的参数必须放在最后</span>
 }</pre>
-			<h3>剩余参数rest</h3>
-			<p>用来代替：arguments，arguments的问题：不是数组，只是类数组对象；只能获取完整的参数</p>
+			<h3>剩余参数(rest)</h3>
+			<p>用来代替：arguments，因为arguments存在问题：<strong>1) 不是数组，只是类数组对象；2) 只能获取完整的参数</strong></p>
 			<pre class="code">//需求1
 function calc(name,baseSalary,bonus1,bonus2){
 	console.log(name+"总工资为"+baseSalary+bonus1+bonus2);
@@ -63,15 +63,80 @@ function fun(a,b,...arr){
 
 }</pre>
 			
-			<h3>散播</h3>
+			<h3>散播(spread)</h3>
+			<h4>使用场景</h4>
+			<p>如果一个函数需要传入的值是多个参数，而给的值是一个数组，此时需要将数组打散，再传参</p>
+			<pre class="code">var sals = [10000,2000,3000];
+function calc(base,bonus1,bonus2){
+	console.log("总工资为"+(base+bonus1+bonus2));
+}
+calc(...sals);<span class="note">//相当于calc(sals[0],sals[1],sals[2]);</span></pre>
+			<h4>打散的原理--如果不用ES6，该如何实现</h4>
+			<pre class="code">calc.apply(null,sals);	<span class="note">//...sals的原理</span></pre>
 		</div>
 	</li>
 	<li>
 		<p>箭头函数</p>
-		<div class="desc"></div>
+		<div class="desc">
+			<h2>箭头函数(Arrow function)</h2>
+			<h3>箭头函数的使用场景</h3>
+			<p>简化一切回调函数和匿名自调函数</p>
+			<h3>使用箭头函数</h3>
+			<h5>将function去除，改成=>放在()后面</h5>
+			<pre class="code">var str = "no zuo no die";
+<span class="note">/*
+	str = str.replace(/\b[a-z]/ig,function(kw){
+		return kw.toUpperCase();
+	});
+*/</span>
+str = str.replace(/\b[a-z]/ig,kw=>kw.toUpperCase());
+console.log(str);</pre>
+			<h5>如果函数体内只有一条语句，则可以将大括号省略。</h5>
+			<pre class="code">function(a,b){
+	console.log(a+b);
+}
+//可以写成
+(a,b)=>console.log(a+b)</pre>
+			<h5>如果那一条语句有return，则return也可以省略</h5>
+			<pre class="code">var arr = [12,123,3,1,23,2];
+arr.sort((a,b)=>a-b);<span class="note">//arr.sort(function(a,b){return a-b;});</span></pre>
+			<h4>练习</h4>
+			<pre class="code">//定时器
+setInterval(function(){
+	console.log("haha");
+},1000);
+//匿名自调函数
+(function(){
+	var t = new Date();
+	console.log(t.toLocaleString());
+})();
+//forEach和map
+arr.forEach(function(ele,i,arr){
+	arr[i] *= 2;
+});
+var arr = [1,2,3,4,5];
+console.log(arr);</pre>
+		<h3>箭头函数的注意点</h3>
+		<p><strong>箭头函数会导致内外this通用</strong></p>
+		<pre class="code">btn.onclick = function(){
+	var i = this.innerHTML;
+	i++;
+	this.innerHTML = i;
+}</pre>
+		<p><strong>这里，如果改成箭头函数，内部的this就与外部一致，也就是window。解决方法是，不用this</strong></p>
+		<pre class="code">btn.onclick = e=>{
+	var i = e.target.innerHTML;
+	i++;
+	e.target.innerHTML = i;
+}</pre>
+		</div>
 	</li>
 	<li>
 		<p>模板字符串</p>
-		<div class="desc"></div>
+		<div class="desc">
+			<h2>模板字符串</h2>
+			<h3>示例</h3>
+			
+		</div>
 	</li>
 </ul>

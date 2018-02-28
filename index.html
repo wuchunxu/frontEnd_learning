@@ -16,15 +16,10 @@
 
 	<p><em>注意：内容更新Server、PHP、CSS、JS高级</em></p>
 	<main>
-		 <div class="content">
-
-		 </div>
+		 <div class="content"></div>
 	</main>
 	
-	
-	 <table class="table-1"></table>
-	 
-	
+	 <!-- <table class="table-1"></table> -->
 	<div id="shower"></div>
 	<div id="layer"></div>
 	<script src="js/util.js"></script>
@@ -37,7 +32,7 @@
 				"熟悉服务端": ["软件工程","服务器和数据库","PHP"],
 			},
 			period_2: {
-				"初入前端" : ["HTML5基础(未更新)","JS基础(未更新)","Ajax(未更新)","CSS","CSS3"],
+				"初入前端" : ["HTML5基础(未更新)","JS基础(未更新)","Ajax(未更)","CSS","CSS3"],
 			},
 			period_3: {
 				"前端之JS高级" : ["JS内置类型","Function","面向对象","ES5","ES6"],
@@ -93,7 +88,7 @@
 				return false;
 			}
 			var url = "resource/"+e.target.closest("div").getElementsByTagName("p")[0].innerHTML+".html";
-			console.log(url);
+			//console.log(url);
 			ajax(url,{
 				success:function(resposneText){
 					var div = $("shower");

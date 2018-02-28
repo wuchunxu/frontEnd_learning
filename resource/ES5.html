@@ -260,7 +260,9 @@ console.log(hmm.car);</pre>
 			<p>call()和apply()的作用是，强行调用指定函数，并临时替换函数中this为指定对象。</p>
 			<h3>bind()</h3>
 			<p>基于原函数，创建一个新函数，并将this永久绑定为参数中的对象</p>
-			<pre class="code">var lilei_calc = calc.bind(lilei);//lilei_calc是一个函数，并且this绑定lilei</pre>
+			<pre class="code">function calc(name,base,bonus1,bonus2){}
+var lilei_calc = calc.bind(lilei);//lilei_calc是一个函数，并且this绑定lilei
+lilei_calc();</pre>
 		</div>
 	</li>
 	<li>
@@ -295,6 +297,11 @@ console.log(arr2.every(function(ele,index,arr){
 	}
 }));</pre>
 			<h4>some()</h4>
+			<pre class="code">var arr=[1,2,3,4,5];
+	console.log(arr.some(function(ele,i,arr){
+		return ele>5;
+	}));</pre>
+			<p></p>
 			<h3>遍历API</h3>
 			<table>
 				<tr>
@@ -319,6 +326,33 @@ console.log(arr.toString());
 console.log(arr2.toString());</pre></td>
 				</tr>
 			</table>
+			<h4>forEach兼容IE8</h4>
+			<pre class="code">
+var arr = [1,,3,,5];
+if(typeof Array.prototype.forEach!=="function"){
+	Array.prototype.forEach = function(callback){
+		for(var i=0;i < this.length;i++){
+			if(this[i]!==undefined)
+				callback(this[i],i,this);
+		}
+	}
+}
+if(typeof Array.prototype.map !== "function"){
+	Array.prototype.map = function(callback){
+		var result = [];
+		for(var i=0; i < this.length;i++){
+			if(this[i]!==undefined){
+				result[i] = callback(this[i],i,this);	<span class="note">//注意：这里不能用push，因为push会忽略掉undefined</span>
+			}
+		}
+		return result;
+	}
+}
+arr.forEach(function(ele,i,arr){
+	arr[i]*=2;
+});
+document.write(arr.toString());
+</pre>
 			<h3>过滤和汇总(filter和reduce)</h3>
 			<h4>过滤Array.prototype.filter</h4>
 			<p>filter筛选出符合条件的值，保存到新数组中。</p>
