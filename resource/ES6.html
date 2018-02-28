@@ -136,7 +136,216 @@ console.log(arr);</pre>
 		<div class="desc">
 			<h2>模板字符串</h2>
 			<h3>示例</h3>
+			<pre class="code"><span class="note">//数据</span>
+let goods = [
+	{pid:1001,pname:"iphone 8",price: 5888},
+	{pid:1002,pname: "iphone 8 plus",price: 8888},
+	{pid:1003,pname: "iphone X",price: 9988}
+];
+<span class="note">//表头</span>
+let html = `&lt;tr>
+		&lt;th>商品号&lt;/th>
+		&lt;th>商品名&lt;/th>
+		&lt;th>单价&lt;/th>
+	&lt;/tr>`;
+<span class="note">//主体内容</span>
+goods.forEach((ele,i,arr)=>{
+	html += `&lt;tr>
+		&lt;td>${ele.pid}&lt;/td>
+		&lt;td>${ele.pname}&lt;/td>
+		&lt;td>${ele.price}&lt;/td>
+	&lt;/tr>`;
+});
+let table = document.getElementsByTagName("table")[0];
+table.innerHTML = html;</pre>
+		</div>
+	</li>
+	<li>
+		<p>解构</p>
+		<div class="desc">
+			<h2>解构</h2>
+			<h3>解构</h3>
+			<p>解构是将一个对象或数组拆散到多个变量中。当我们需要选择对象或数组中部分属性或值时，使用解构。</p>
+			<h3>数组解构</h3>
+			<pre class="code">var date = [2018,2,28];
+var [y,m,d] = date;
+console.log(y,m,d);</pre>
+			<h4>交换两个变量的值</h4>
+			<pre class="code">var a=5,b=8;
+//方法一：异或
+a^=b,b^=a,a^=b;
+//方法二:解构
+[a,b]=[b,a];
+console.log(a,b);</pre>
 			
+			<h3>对象结构</h3>
+			<pre class="code">var dbconfig={
+	ip:"192.168.0.1",
+	port:"3306",
+	db:"xz",
+	user:"root",
+	pwd:"123456"
+}
+var {ip:ip,user:user,pwd:pwd}=dbconfig;
+console.log(ip,user,pwd);</pre>
+			<p><strong>在ES6中，如果属性名和右侧变量名称一样，可以只写一个。</strong></p>
+			<pre class="code">var {ip,user,pwd} = dbconfig;</pre>
+			<h5>示例</h5>
+			<pre class="code">var products = {
+	getProductById(){},
+	getProductByKw(){},
+	addProduct(){},
+	deleteProduct(){}
+}
+//商品查询.js
+var {getProductById,getProductByKw} = products;
+getProductById();
+getProductByKw();</pre>
+			<h3>参数解构</h3>
+			<p>参数解构的原理同对象结构。</p>
+			<p>传统的参数定义有一个问题：传入参数的顺序是固定的，无法灵活选择要传入的参数和不要传入的参数</p>
+			function fun(ip,port,db,user,pwd){}
+			<p>解决方法是：</p>
+			<pre class="code">function connect({ip:ip,port:port,db:db,user:user,pwd:pwd}){}
+//然后又可以简写为
+function connect({ip,port,db,user,pwd}){
+	console.log(ip,port,db,user,pwd);
+}
+//调用时
+connect({ip:"192.168.0.1",db:"xz"});</pre>
+		</div>
+	</li>
+	<li>
+		<p>for..of</p>
+		<div class="desc">
+			<h2>for..of循环</h2>
+			<h3>使用for...of循环</h3>
+			<p>for..of循环用来迭代数组中的元素</p>
+			<pre class="code">var colors = ["red","orange","yellow","green"];
+for(var color of colors){
+	console.log(color);
+}</pre>
+		</div>
+	</li>
+	<li>
+		<p>class</p>
+		<div class="desc">
+			<h2>class</h2>
+			<h3>ES6中的对象属性的简化写法</h3>
+			<pre class="code">var name = prompt("请输入学生姓名：");
+var age = prompt("请输入学生年龄：");
+var obj = {
+	name,	<span class="note">//name:name</span>
+	age,	<span class="note">//age:age</span>
+	intr(){
+		console.log(`I'm ${this.name},${this.age} years old`);
+	}
+}
+obj.intr();	</pre>
+			<h3>用class定义类型</h3>
+			<p>ES6对<em>构造函数</em>和<em>原型对象</em>进一步进行了封装。并将构造函数的名称提升为“类名”，而构造函数则统一改为<em>constructor</em></p>
+			<p>注意：ES6中的class(类型)实现原理和ES5中一样，class只不过是一个语法糖而已。其机制与java中的类不同，java是基于类的语言，而JavaScript中类并非必须，它仅仅是一种设计模式。</p>
+			</p>
+			<p>以下是类的写法：</p>
+			<pre class="code">class Employee{
+	constructor(name,hiredate,salary){
+		this.name = name;
+		this.hiredate = hiredate;
+		this.salary = salary;
+	}
+	<span class="note">//注意：除构造函数外，class中的所有的函数全部自动放在原型对象中</span>
+	sayName(){
+		console.log(`我是${this.name}，${this.hiredate.toLocaleDateString()}入职。`);
+	}
+}
+let e1 = new Employee("李雷",new Date("2017/5/20"),11000);
+e1.sayName();	//我是Li Lei，2017/5/20入职。
+</pre>
+			<p>但是，Employee类中的属性存在问题，比如可以随便访问和修改。</p>
+			<pre class="code">e1.name="Han Meimei";
+e1.sayName();</pre>
+		<h4>class中属性保护</h4>
+			<pre class="code">class Employee{
+	constructor(name,hiredate,salary){
+		Object.defineProperties(this,{
+			_name:{
+				writable: true,
+				enumerable: true,
+				configurable: false
+			}
+		});
+		this.name = name;
+		this.hiredate = hiredate;
+		this.salary = salary;
+	}
+	get name(){ return this._name; }
+	set name(value){
+		console.log("hah");
+		var isChinease = value.split("").every(ele=>/^[\u4e00-\u9fa5]$/.test(ele));
+		console.log(isChinease);
+		if(isChinease){
+			this._name = value;
+		}
+		else{
+			throw new Error("姓名必须是汉字");
+		}
+	}
+}
+let e1 =new Employee("Eric",new Date(),12000);
+console.log(e1.name);</pre>
+		<h5>继承</h5>
+		<pre class="code">class Flyer{
+	constructor(name,speed){
+		this.name = name;
+		this.speed = speed;
+	}
+	fly(){
+		console.log(`${this.name}以时速${this.speed}飞行`);
+	}
+}
+class Plane extends Flyer {
+	constructor(name,speed,score){
+		super(name,speed);
+		this.score = score;
+	}
+	getScore(){
+		console.log(`击落${this.name}获得${this.score}分`);
+	}
+}
+class Bee extends Flyer {
+	constructor(name,speed,award){
+		super(name,speed);
+		this.award = award;
+	}
+	getAward(){
+		console.log(`击落${this.name}获得${this.award}`);
+	}
+}
+
+var f16 = new Plane("f16",2000,500);
+f16.fly();
+f16.getScore();
+
+var b1 = new Bee("bee",3000,"一条生命");
+b1.fly();
+b1.getAward();</pre>
+		</div>
+	</li>
+	<li>
+		<p>Promise</p>
+		<div class="desc">
+			<h2>Promise</h2>
+			<h3>Promise</h3>
+			<p><em>Promise</em>用来代替异步调用中的<em>回调函数(callback)</em>。因为，异步调用<em>callback</em>存在一个问题--回调地狱。</p>
+			<pre class="code">function prev(){
+	return new Promise(function(callback){
+		//封装第一步所有代码
+		//通过条件判断，满足条件才调用callback
+	});			
+			}</pre>
+			init()--ajax
+			login()--ajax
+			show()--ajax
 		</div>
 	</li>
 </ul>

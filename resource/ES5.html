@@ -261,8 +261,8 @@ console.log(hmm.car);</pre>
 			<h3>bind()</h3>
 			<p>基于原函数，创建一个新函数，并将this永久绑定为参数中的对象</p>
 			<pre class="code">function calc(name,base,bonus1,bonus2){}
-var lilei_calc = calc.bind(lilei);//lilei_calc是一个函数，并且this绑定lilei
-lilei_calc();</pre>
+var lilei_calc = calc.bind(lilei);	<span class="note">//lilei_calc是一个函数，并且this绑定lilei</span>
+lilei_calc(10000,2000,1000);</pre>
 		</div>
 	</li>
 	<li>
