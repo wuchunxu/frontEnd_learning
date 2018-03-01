@@ -242,6 +242,7 @@ nav .logo {
   color: #333;
   overflow: auto;
   counter-reset: desc_title;
+  transition: all .4s ease-in-out;
 }
 #shower .desc table {
   color: #333 !important;

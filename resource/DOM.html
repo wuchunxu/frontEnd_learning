@@ -1,0 +1,170 @@
+<h2>DOM</h2>
+<ul class="menu">
+	<li>
+		<p>DOM</p>
+		<div class="desc">
+			<h2>DOM</h2>
+			<h3>了解DOM</h3>
+			<p>DOM,Document Object Model,文档对象模型，是专门用来操作网页内容的API标准，由W3C制定。</p>
+			<p>操作网页中的内容，必须使用DOM API标准，使用DOM API标准，几乎可以100%兼容所有浏览器。</p>
+			<p>DOM API属性原生的JS，浏览器中已经定义好了，可以直接使用。DOM API可执行五大操作：增、删、该、查、事件绑定</p>
+			<h3>DOM树</h3>
+			<p>网页中所有内容，在内存中以一颗树形结构保存。因为，网页中的内容有明显的层级和平级关系。而树形结构被证明是最直观的保存上下级/平级关系的数据结构。</p>
+			<p>DOM树中有唯一的一个根节点对象document；网页中的每项内容（元素、文本、属性）都是<em>document</em>的后代节点。</p>
+			<p>每个节点都是Node类型的对象。Node类型对象有3个公共属性。</p>
+			<table>
+				<tr>
+					<th>属性</th>
+					<th>含义</th>
+				</tr>
+				<tr>
+					<td>nodeType</td>
+					<td>节点类型，9-document、1-element、2-属性节点、3-文本节点</td>
+				</tr>
+				<tr>
+					<td>nodeName</td>
+					<td><p>节点名称，需要获取元素名称时使用，返回一个字符串的名称。</p>
+					<pre class="code">document.nodeName//"#document"
+document.getElementsByTagName("nav").nodeName;//"NAV"
+属性//属性名
+text//#text</pre>
+				<tr>
+					<td>nodeValue</td>
+					<td>节点值，几乎不用。
+					<pre class="code">document.nodeValue//null
+element//null
+属性//属性值
+text//文本内容</pre></td>
+			</table>
+			<h3>DOM操作固定步骤</h3>
+			<p>1) 查找触发事件的元素；2) 绑定事件 3) 查找要修改的元素 4) 修改、添加、删除元素</p>
+			<h3>查找元素</h3>
+			<h4>可以直接获得元素</h4>
+			<table>
+				<tr>
+					<td>document.documentElement</td>
+					<td>&lt;html&gt;</td>
+				</tr>
+				<tr>
+					<td>document.head</td>
+					<td>&lt;head&gt;</td>
+				</tr>
+				<tr>
+					<td>document.body</td>
+					<td>&lt;body&gt;</td>
+				</tr>
+				<tr>
+					<td>document.forms[i/id]</td>
+					<td>&lt;form&gt;</td>
+				</tr>
+			</table>
+			<h4>按节点关系查找</h4>
+			<p>当已经获取到一个节点时，可以通过该节点查找附近的节点</p>
+			<table>
+				<caption>节点树</caption>
+				<tr>
+					<td rowspan="4">父子关系</td>
+					<td>ele.parentNode</td>
+					<td>父节点</td>
+				</tr>
+				<tr>
+					<td>ele.childNodes</td>
+					<td>子节点</td>
+				</tr>
+				<tr>
+					<td>ele.firstChild</td>
+					<td>第一个直接子节点</td>
+				</tr>
+				<tr>
+					<td>ele.lastChild</td>
+					<td>获取最后一个直接子节点</td>
+				</tr>
+				<tr>
+					<td rowspan="2">兄弟关系</td>
+					<td>ele.previousSibing</td>
+					<td>获得前一个兄弟节点</td>
+				</tr>
+				<tr>
+					<td>ele.nextSibing</td>
+					<td>获得后一个兄弟节点</td>
+				</tr>
+			</table>
+			<h5>节点树不好用，因为它受到空字符的干扰！</h5>
+			<table>
+				<caption>元素树</caption>
+				<tr>
+					<td rowspan="4">父子关系</td>
+					<td>ele.parentElement</td>
+					<td>父元素</td>
+				</tr>
+				<tr>
+					<td>ele.children</td>
+					<td>子节点</td>
+				</tr>
+				<tr>
+					<td>ele.firstElementChild</td>
+					<td>第一个直接子元素</td>
+				</tr>
+				<tr>
+					<td>ele.lastElementChild</td>
+					<td>获取最后一个直接子元素</td>
+				</tr>
+				<tr>
+					<td rowspan="2">兄弟关系</td>
+					<td>ele.previousElementSibing</td>
+					<td>获得前一个兄弟元素</td>
+				</tr>
+				<tr>
+					<td>ele.nextElementSibing</td>
+					<td>获得后一个兄弟元素</td>
+				</tr>
+			</table>
+		<h5>注意</h5>
+		<p>children和childNode返回的是类数组对象，并且是动态集合。</p>
+		<p>动态集合：不实际存储属性的值，每次访问集合都要重新查找DOM树。缺点是，反复访问集合，会导致反复查找DOM树。因此，遍历时for(var i=0;len=children.length;i < len;i++){};优点是，首次查找返回速度快，因为，只需要返回指定的数据即可，不用返回完整数据。</p>
+		<h3>扩展--遍历元素所有后代节点</h3>
+		<h4>递归</h4>
+		<pre class="code">function allChildNodes(ele){
+	var arr = ele.childNodes;
+	for(var child of arr){
+		console.log(child.tagName);
+		arguments.callee(child);
+	}
+}</pre>
+		<h4>循环</h4>
+		<h3>HTML特征查找</h3>
+		<p>以HTML特征(<em>id,className,name,tagName</em>)查找，除了id获取的结果为一个，其他返回都是类数组，调用toString()方法返回的结果是<em>"[object HTMLCollection]"</em>，说明它是一个HTMLCollection“类型”的对象，这种类数组的对象是动态集合。</p>
+		<pre class="code">var ele = document.getElementById("id");
+var arr = document.getElementsByTagName("div");//返回动态集合，查找所有后代
+var arr= ele.getElementsByName("name");//专门查找表单中的元素
+var eles = ele.getElementsByClassName("classname");</pre>
+		<h3>用选择器查找</h3>
+
+		<p>选择器查找返回的结果是<em>非动态集合</em>，非动态集合存储值，反复访问该集合时，不会重复查找DOM树。</p>
+		<table>
+			<tr>
+				<td>查找一个元素</td>
+				<td><span class="code">var res = ele.querySelector("选择器");</span></td>
+			</tr>
+			<tr>
+				<td>查找多个元素</td>
+				<td><span class="code">var results = ele.querySelectorAll("选择器")</span></td>
+			</tr>
+		</table>
+		
+		<h3>笔试题</h3>
+		<h4>按HTML查找和按选择器查找如何选择?</h4>
+		<p>按HTML查找返回动态集合，查找效率高，但操作繁琐；按选择器查找返回非动态集合，查找效率低，但操作非常简单。</p>
+		<p>因此，如果查找条件比较简单，首选HTML查找；如果查找条件复杂，首先按选择器查找。</p>
+		<h3>DOM节点的修改</h3>
+		<p>可以修改：内容、属性、样式</p>
+		<h4>修改内容</h4>
+		<p>html片段代码：ele.innerHTML</p>
+		<p>文本内容：ele.textContent，去除了内嵌的标签，并将转义字符翻译成正文</p>
+		</div>
+	</li>
+	<li>
+		<p>DOM</p>
+		<div class="desc"></div>
+	</li>
+</ul>

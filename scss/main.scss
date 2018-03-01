@@ -245,13 +245,10 @@ nav {
 		display:none;
 		position:absolute;
 		width: 76%;
-		//width: 720px;
 		height: 88%;
 		min-height:480px;
-		//float:left;
 		left:22%;
 		top:64px;
-		// background-color: rgba(153,153,153,.5);
 		background-image: url('../images/paper.jpg');
 		background-size: cover;
 		border-radius:5px;
@@ -260,6 +257,7 @@ nav {
 		color: #333;
 		overflow:auto;
 		counter-reset: desc_title;
+		transition: all .4s ease-in-out;
 		& table {
 			color: #333!important;
 			th,td {

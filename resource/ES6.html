@@ -338,14 +338,40 @@ b1.getAward();</pre>
 			<h3>Promise</h3>
 			<p><em>Promise</em>用来代替异步调用中的<em>回调函数(callback)</em>。因为，异步调用<em>callback</em>存在一个问题--回调地狱。</p>
 			<pre class="code">function prev(){
-	return new Promise(function(callback){
-		//封装第一步所有代码
-		//通过条件判断，满足条件才调用callback
+	return new Promise(function(resolve,reject){
+		//如果正确，则执行resolve()
+		//如果错误，则reject()
 	});			
-			}</pre>
-			init()--ajax
-			login()--ajax
-			show()--ajax
+}</pre>
+			<h4>Promise中的异常处理</h4>
+			<pre class="code">function conn(){
+	return new Promise((resolve,reject)=>{
+		if(Math.random() < 0.5){
+			resolve();
+		}else{
+			reject("连接出错");
+		}
+	});
+}
+function query(){
+	return new Promise((resolve,reject)=>{
+		if(Math.random() < 0.5){
+			resolve();
+		}else{
+			reject("查询出错");
+		}
+	});
+}
+function response(){
+	alert("接收返回数据成功！");
+	
+}
+conn()
+.then(query)
+.then(response)
+.catch(function(errMsg){
+	alert(errMsg);
+})</pre>
 		</div>
 	</li>
 </ul>
