@@ -24,118 +24,135 @@
 	<div id="layer"></div>
 	<script src="js/util.js"></script>
 	<script>
-
-		var table = document.getElementsByClassName("table-1")[0];
-		var content = document.getElementsByClassName("content")[0];
-		var frontEnd = {
-			period_1: {
-				"熟悉服务端": ["软件工程","服务器和数据库","PHP"],
-			},
-			period_2: {
-				"初入前端" : ["HTML5基础(未更新)","JS基础(未更新)","Ajax(未更)","CSS","CSS3"],
-			},
-			period_3: {
-				"前端之JS高级" : ["JS内置类型","Function","面向对象","ES5","ES6"],
-				"DOM和BOM": ["DOM","BOM"]
-			}
-
-		}
-
-		function toTable(frontEnd){
-			var html = "";
-			var flag = true;
-			for(let period in frontEnd ){
-				flag = true;
-				for (var day in frontEnd[period] ){
-					if(flag){
-						html += `<tr><td rowspan="${Object.keys(frontEnd[period]).length}">阶段${period.slice(period.length-1)}</td><td>${day}</td><td>`;
-						flag = false;
-					}else{
-
-						html += `<tr><td>${day}</td><td>`;
-					}
-					for ( var ele of frontEnd[period][day] ){
-						html += `<div class="item"><img src="images/icon/${ele}.png"><p>${ele}</p></div>`;
-					}
-					html +='</td></tr>';
+		(function(){
+			var content = document.getElementsByClassName("content")[0];
+			var frontEnd = {
+				period_1: {
+					"熟悉服务端": ["软件工程","服务器和数据库","PHP"],
+				},
+				period_2: {
+					"初入前端" : ["HTML5基础(未更新)","JS基础(未更新)","Ajax(未更)","CSS","CSS3"],
+				},
+				period_3: {
+					"前端之JS高级" : ["JS内置类型","Function","面向对象","ES5","ES6"],
+					"DOM和BOM": ["DOM","BOM"]
 				}
 			}
-			return html;
+			/*
+			function toTable(frontEnd){
+				var html = "";
+				var flag = true;
+				for(let period in frontEnd ){
+					flag = true;
+					for (var day in frontEnd[period] ){
+						if(flag){
+							html += `<tr><td rowspan="${Object.keys(frontEnd[period]).length}">阶段${period.slice(period.length-1)}</td><td>${day}</td><td>`;
+							flag = false;
+						}else{
+
+							html += `<tr><td>${day}</td><td>`;
+						}
+						for ( var ele of frontEnd[period][day] ){
+							html += `<div class="item"><img src="images/icon/${ele}.png"><p>${ele}</p></div>`;
+						}
+						html +='</td></tr>';
+					}
+				}
+				return html;
+			}
+			*/
+			//展示数据
+			content.innerHTML = (function(frontEnd){
+				var html = "";
+				for(var period in frontEnd){
+					html += "<section>";
+					html += `<h2>·阶段${period.slice(period.length-1)}·</h2>`;
+					for(var section in frontEnd[period]){
+						html += `<h3>${section}</h3>`;
+						html += "<div class='clear'>";
+						for(var ele of frontEnd[period][section]){
+							html += `<div class="item"><img src="images/icon/${ele}.png"><p>${ele}</p></div>`;
+						}
+						html += "</div>";
+					}
+					html += "</section>";
+				}
+				return html;
+			})(frontEnd);
+
+			content.onclick = function show(e){
+				if(!(e.target.hasClass("item")||e.target.parentNode.hasClass("item"))) return false;
+				
+				var url = `resource/${e.target.closest("div").getElementsByTagName("p")[0].innerHTML}.html`;
+				
+				ajax(url,{
+					success:function(resposneText){
+
+						var modal = $("shower");
+						modal.innerHTML = resposneText;
+						modal.style.display = "block";
+						$("layer").style.display = "block";
+						
+						modal.getElementsByClassName("menu")[0].onclick = function(event){
+							var parent = event.target.closest("li");
+							var lis = parent.parentNode.children;
+							
+							lis = [].filter.call(lis,ele=>ele.tagName.toUpperCase()==="LI");
+							var descs = parent.parentNode.getElementsByClassName("desc");
+							var desc =  parent.getElementsByClassName("desc")[0];
+							if(event.target.tagName.toUpperCase()=="P"&&event.target.parentNode.tagName.toUpperCase()=="LI"){
+								if (desc.style.display=="block"){
+									desc.style.display = "none";
+									parent.firstElementChild.removeClass("active");
+								}else {
+									//去除所有p的active，并把desc的display属性设为none
+									for(let ele of lis){
+										ele.firstElementChild.removeClass("active");
+									}
+									for(let ele of descs){
+										ele.style.display = "none";
+									}
+									parent.firstElementChild.addClass("active");
+									desc.style.display = "block";
+								}
+							}
+						}
+					}
+				});
+			}
+			$("layer").onclick = function(){
+				this.style.display = "none";
+				$("shower").style.display = "none";
+			}
+		})();
+
+		
+		var table_select = function(){
+			//首先拿到全选按钮
+			var selectAll = document.querySelector("#select-all>thead>tr>th:first-child>input");
+			var checkboxes = document.querySelectorAll("#select-all>tbody>tr>td:first-child>input");
+			console.log(selectAll);
+			selectAll.onclick = function(){
+				for(var ele of checkboxes){
+					ele.checked = selectAll.checked;
+				}
+			}
+			//全选和单选的点击事件处理逻辑
+			var table_click = function(){
+				if(this.checked){
+					var unchecked = document.querySelector(
+						"table>tbody>tr>td:first-child>input:not(:checked)"
+					);
+					if(!unchecked) selectAll.checked = true;
+				}else {
+					selectAll.checked = false;
+				}
+			}
+			for(var ele of checkboxes){
+				ele.onclick = table_click;
+			}
 		}
 		
-		//table.innerHTML = toTable(frontEnd);
-
-		function toArticle(frontEnd){
-			var html = "";
-			for(var period in frontEnd){
-				html += "<section>";
-				html += `<h2>·阶段${period.slice(period.length-1)}·</h2>`;
-				for(var section in frontEnd[period]){
-					html += `<h3>${section}</h3>`;
-					html += "<div class='clear'>";
-					for(var ele of frontEnd[period][section]){
-						html += `<div class="item"><img src="images/icon/${ele}.png"><p>${ele}</p></div>`;
-					}
-					html += "</div>";
-				}
-				html += "</section>";
-			}
-			return html;
-		}
-		content.innerHTML = toArticle(frontEnd);
-
-		content.onclick = function show(e){
-			if(!(e.target.hasClass("item")||e.target.parentNode.hasClass("item"))){
-				return false;
-			}
-			var url = "resource/"+e.target.closest("div").getElementsByTagName("p")[0].innerHTML+".html";
-			//console.log(url);
-			ajax(url,{
-				success:function(resposneText){
-					var div = $("shower");
-					div.innerHTML = resposneText;
-					div.style.display = "block";
-					$("layer").style.display = "block";
-					function onlyLi(lis){
-						var arr = [];
-						for(let li of lis){
-							if(li.tagName.toUpperCase()=="LI"){
-								arr.push(li);
-							}
-						}
-						return arr;
-					}
-					div.getElementsByClassName("menu")[0].onclick = function(event){
-						var parent = event.target.closest("li");
-						var lis = parent.parentNode.children;
-						lis = onlyLi(lis);//后续尝试filter
-						
-						var descs = parent.parentNode.getElementsByClassName("desc");
-						var desc =  parent.getElementsByClassName("desc")[0];
-						if(event.target.tagName.toUpperCase()=="P"&&event.target.parentNode.tagName.toUpperCase()=="LI"){
-							if (desc.style.display=="block"){
-								desc.style.display = "none";
-								parent.firstElementChild.removeClass("active");
-							}else {
-								//去除所有p的active，并把desc的display属性设为none
-								for(let ele of lis){
-									ele.firstElementChild.removeClass("active");
-								}
-								for(let ele of descs){
-									ele.style.display = "none";
-								}
-								parent.firstElementChild.addClass("active");
-								desc.style.display = "block";
-							}
-						}
-					}
-				}
-			});
-		}
-		$("layer").onclick = function(){
-			this.style.display = "none";
-			$("shower").style.display = "none";
-		}
 	</script>
 </body>
 </html>

@@ -164,7 +164,93 @@ var eles = ele.getElementsByClassName("classname");</pre>
 		</div>
 	</li>
 	<li>
-		<p>DOM</p>
-		<div class="desc"></div>
+		<p>修改操作</p>
+		<div class="desc">
+			<h2>修改操作</h2>
+			<h3>属性</h3>
+			<h4>HTML标准属性：2种方式</h4>
+			核心DOM：兼容所有结构化
+			<table>
+				<tr>
+					<th>API</th>
+					<th>功能</th>
+				</tr>
+				<tr>
+					<td>ele.getAttribute("href")</td>
+					<td>获取特性的值</td>
+				</tr>
+				<tr>
+					<td>ele.setAttribute("title","welcome")</td>
+					<td>设置特性的值</td>
+				</tr>
+				<tr>
+					<td>ele.removeAttribute("title")</td>
+					<td>设置特性的值</td>
+				</tr>
+				<tr>
+					<td>ele.hasAttribute("title")</td>
+					<td>判断是否有某特性</td>
+				</tr>
+			</table>
+			<h5>HTML DOM将HTML标准属性提前封装在DOM元素的对象上，因此，可以通过访问对象属性的方式进行访问</h5>
+			<table>
+				<caption>HTML DOM对DOM API的简化</caption>
+				<tr>
+					<th>属性访问</th>
+					<th></th>
+				</tr>
+				<tr>
+					<td>ele.属性名</td>
+					<td>ele.getAttribute("属性名")</td>
+				</tr>
+				<tr>
+					<td>ele.属性名=value;</td>
+					<td>ele.setAttribute("属性名",value);</td>
+				</tr>
+				<tr>
+					<td>ele.属性名 = "";</td>
+					<td>ele.removeAttribute("属性名");</td>
+				</tr>
+			</table>
+			操作DOM极致--用一个class影响与他相关的一片元素(用兄弟选择器)
+			<h3>三大状态属性checked/disabled/selected</h3>
+			<p>三大状态属性(<em>checked、disabled、selected</em>)<strong>不能</strong>用核心DOM API访问，因为他们是boolean类型。</p>
+			<p>可以用属性访问，如<span class="code">checkbox.checked = false;</span></p>
+			<h3>自定义属性</h3>
+			<p>访问方式1：DOM核心 API</p>
+			<p>HTML5：定义时：</p>
+			<pre class="code">&lt;div data-eid="1003" id="e1">&lt;/div>
+var e1 = document.getElementById("e1");
+e1.dataset.eid;</pre>
+
+			<button>删除选定</button>
+			<h3>修改样式</h3>
+			<h4>内联样式</h4>
+			<pre class="code">var width = div.style.width;	<span class="note">//获取</span>
+div.style.width = "200px";	<span class="note">//设置</span></pre>
+			<p>这样获取样式每次只能获取一个。解决方法是，获取计算后的样式。计算后的样式被保存在一个对象中，通过该对象可以获得任意样式，如果是相对值如em，则会转换成px</p>
+			<pre class="code">var style = getComputedStyle(ele);
+style.width;	<span class="note">//注意：计算后的属性是只读的，不可修改</span></pre>
+			<h4>修改样式表中的共享样式</h4>
+			<p>获取样式表对象：网页中的每个样式表都是一个对象</p>
+			<pre class="code">var sheet = document.styleSheets[i];</pre>
+			<p>获取样式表对象中的规则：cssRule</p>
+			<pre class="code">var rule = sheet.cssRules[i];</pre>
+			<p>如果是修改keyframes中的css属性，则还需要找下一级cssRule</p>
+			
+		</div>
+	</li>
+	<li>
+		<p>添加操作</p>
+		<div class="desc">
+			<h2>添加</h2>
+			<h3>添加元素的步骤</h3>
+			<h5>1) 创建空元素</h5><pre class="code">var a = document.createElement("a");</pre>
+			<h5>2) 添加必要的属性</h5>
+			<pre class="code">a.href = url;
+a.innerHTML = html;</pre>
+			<h5>3) 将该元素添加到指定元素下</h5>
+			<pre class="code">ele.appendChild(a);</pre>
+		</div>
 	</li>
 </ul>
