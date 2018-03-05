@@ -1,6 +1,7 @@
 @charset "UTF-8";
 $theme_color_1: #41b883;
 $theme_color_2: #bcee68;
+$theme_bgc_1:#f7f0de;
 body {
 	background: #eee;
 }
@@ -195,10 +196,10 @@ nav {
 			border-radius: 5px;
 			margin-bottom:1px;
 			&.active{
-				background: #f7f0de;
+				background: $theme_bgc_1;
 			}
 			&:hover {
-				background: #f7f0de;
+				background: $theme_bgc_1;
 			}
 		}
 	}
@@ -221,8 +222,13 @@ nav {
 		transition: all .4s ease-in-out;
 		& table {
 			color: #333!important;
+			margin-left:15px;
+			margin-bottom: 10px;
 			th,td {
 				text-align:center;
+			}
+			tr:nth-child(even){
+				background: #eee;
 			}
 		}
 		&>h2 {
@@ -231,7 +237,7 @@ nav {
 		}
 		&>h3,&>h4,&>h5 {
 			font-weight: bold;
-			padding:10px 5px;
+			margin:10px 0;
 		}
 		em {
 			font-family: consolas,"楷体";
@@ -240,6 +246,12 @@ nav {
 		}
 		&>h3 {
 			font-size: 18px;
+			padding:5px 5px;
+			margin-left:5px;
+			// width:40%;
+			border-bottom:1px solid #bbb;
+			//background-clip: content-box;
+			// color: $theme_color_1;
 			counter-reset: desc_subtitle;
 			&:before {
 				content:counter(desc_title)"、";
@@ -248,10 +260,17 @@ nav {
 		}
 		&>h4 {
 			font-size: 16px;
+			padding:2px 5px;
+			margin-left:10px;
+			//border-bottom:1px solid #999;
+			//border-left: 2px solid $theme_color_1;
 			&:before {
 				content: counter(desc_title)"."counter(desc_subtitle)"、";
 				counter-increment: desc_subtitle;
 			}
+		}
+		&>h5,&>p,&>table{
+			margin-left:15px;
 		}
 		&>h5 {
 			font-size: 14px;
@@ -303,6 +322,7 @@ pre {
 	/*代码块样式*/
 	&.code {
 		text-align:left;
+		margin-left:15px;
 		color:#333;
 		background: #fff;
 		border-radius: 8px;

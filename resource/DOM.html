@@ -1,45 +1,53 @@
 <h2>DOM</h2>
 <ul class="menu">
+<!-- .............................. DOM ................................-->
 	<li>
 		<p>DOM</p>
 		<div class="desc">
 			<h2>DOM</h2>
 			<h3>了解DOM</h3>
-			<p>DOM,Document Object Model,文档对象模型，是专门用来操作网页内容的API标准，由W3C制定。</p>
-			<p>操作网页中的内容，必须使用DOM API标准，使用DOM API标准，几乎可以100%兼容所有浏览器。</p>
-			<p>DOM API属性原生的JS，浏览器中已经定义好了，可以直接使用。DOM API可执行五大操作：增、删、该、查、事件绑定</p>
+			<p>DOM(文档对象模型，Document Object Model)是专门用来操作网页内容的API标准，由W3C制定。操作网页中的内容，必须使用DOM API标准，使用该标准，几乎可完全兼容所有浏览器。</p>
+			<p>各大浏览器已经实现了DOM API标准，我们可以直接使用。DOM API可执行五大操作：<em>增、删、改、查以及事件绑定</em>。</p>
 			<h3>DOM树</h3>
-			<p>网页中所有内容，在内存中以一颗树形结构保存。因为，网页中的内容有明显的层级和平级关系。而树形结构被证明是最直观的保存上下级/平级关系的数据结构。</p>
-			<p>DOM树中有唯一的一个根节点对象document；网页中的每项内容（元素、文本、属性）都是<em>document</em>的后代节点。</p>
-			<p>每个节点都是Node类型的对象。Node类型对象有3个公共属性。</p>
+			<p><strong>在内存中，网页中所有内容以树形结构存储。</strong>因为网页中的内容呈明显层级和平级关系，而树形结构被证明是最直观的保存上下级/平级关系的数据结构。</p>
+			<p>DOM树中有唯一根节点对象<em>document</em>，而网页中的所有内容（元素、文本、属性）都是<em>document</em>的后代节点。</p>
+			<p>每个节点都是Node类型的对象，Node类型对象有3个公共属性，如下表</p>
 			<table>
 				<tr>
 					<th>属性</th>
 					<th>含义</th>
+					<th>取值</th>
 				</tr>
 				<tr>
 					<td>nodeType</td>
-					<td>节点类型，9-document、1-element、2-属性节点、3-文本节点</td>
+					<td>节点类型</td>
+					<td>9(document),1(element),2(属性节点),3(文本节点)</td>
 				</tr>
 				<tr>
 					<td>nodeName</td>
-					<td><p>节点名称，需要获取元素名称时使用，返回一个字符串的名称。</p>
-					<pre class="code">document.nodeName//"#document"
+					<td>节点名称</td>
+					<td><pre class="code">document.nodeName//"#document"
 document.getElementsByTagName("nav").nodeName;//"NAV"
 属性//属性名
 text//#text</pre>
 				<tr>
 					<td>nodeValue</td>
-					<td>节点值，几乎不用。
-					<pre class="code">document.nodeValue//null
+					<td>节点值，几乎不用</td>
+					<td><pre class="code">document.nodeValue//null
 element//null
 属性//属性值
 text//文本内容</pre></td>
 			</table>
-			<h3>DOM操作固定步骤</h3>
-			<p>1) 查找触发事件的元素；2) 绑定事件 3) 查找要修改的元素 4) 修改、添加、删除元素</p>
-			<h3>查找元素</h3>
-			<h4>可以直接获得元素</h4>
+			<h3>DOM操作</h3>
+			<p>DOM操作固定步骤:1) 查找触发事件的元素；2) 绑定事件 3) 查找要修改的元素 4) 修改、添加、删除元素</p>
+		</div>
+	</li>
+	<!-- ...........................查找元素............................. -->
+	<li>
+		<p>查找元素</p>
+		<div class="desc">
+			<h2>查找元素</h2>
+			<h3>可以直接获得的元素</h3>
 			<table>
 				<tr>
 					<td>document.documentElement</td>
@@ -58,10 +66,10 @@ text//文本内容</pre></td>
 					<td>&lt;form&gt;</td>
 				</tr>
 			</table>
-			<h4>按节点关系查找</h4>
-			<p>当已经获取到一个节点时，可以通过该节点查找附近的节点</p>
-			<table>
-				<caption>节点树</caption>
+			<h3>按节点关系查找</h3>
+			<p><strong>当已经获取到一个节点时，可以通过该节点查找附近的节点。</strong></p>
+			<h4 class="unimportant">节点树</h4>
+			<table class="unimportant">
 				<tr>
 					<td rowspan="4">父子关系</td>
 					<td>ele.parentNode</td>
@@ -89,9 +97,9 @@ text//文本内容</pre></td>
 					<td>获得后一个兄弟节点</td>
 				</tr>
 			</table>
-			<h5>节点树不好用，因为它受到空字符的干扰！</h5>
+			<h4>元素树(优先使用)</h4>
+			<p>节点树不好用，因为它受到空字符的干扰！</p>
 			<table>
-				<caption>元素树</caption>
 				<tr>
 					<td rowspan="4">父子关系</td>
 					<td>ele.parentElement</td>
@@ -119,57 +127,56 @@ text//文本内容</pre></td>
 					<td>获得后一个兄弟元素</td>
 				</tr>
 			</table>
-		<h5>注意</h5>
-		<p>children和childNode返回的是类数组对象，并且是动态集合。</p>
-		<p>动态集合：不实际存储属性的值，每次访问集合都要重新查找DOM树。缺点是，反复访问集合，会导致反复查找DOM树。因此，遍历时for(var i=0;len=children.length;i < len;i++){};优点是，首次查找返回速度快，因为，只需要返回指定的数据即可，不用返回完整数据。</p>
-		<h3>扩展--遍历元素所有后代节点</h3>
-		<h4>递归</h4>
-		<pre class="code">function allChildNodes(ele){
+			<h4>注意</h4>
+			<pre class="code">document.body.childNodes.toString();////"[object HTMLCollection]"
+document.body.children.toString();//"[object HTMLCollection]"</pre>
+			<p>从上述代码可以看出，children和childNode返回的是<em>HTMLCollection</em>类型的类数组对象，不是数组。</p>
+			<p><em>HTMLCollection</em>对象是动态集合。动态集合不实际存储属性的值，每次访问集合都要重新查找DOM树。因此，遍历时，应该用变量将length缓存起来：</p><pre class="code">for(var i=0;len=children.length;i < len;i++){};</pre><p><strong>优点是，首次查找返回速度快。</strong>因为，只需要返回指定的数据即可，不用返回完整数据。</p>
+			<h4>扩展--遍历元素所有后代节点</h4>
+			<h5>递归方式</h5>
+			<pre class="code">function allChildNodes(ele){
 	var arr = ele.childNodes;
 	for(var child of arr){
 		console.log(child.tagName);
 		arguments.callee(child);
 	}
 }</pre>
-		<h4>循环</h4>
-		<h3>HTML特征查找</h3>
-		<p>以HTML特征(<em>id,className,name,tagName</em>)查找，除了id获取的结果为一个，其他返回都是类数组，调用toString()方法返回的结果是<em>"[object HTMLCollection]"</em>，说明它是一个HTMLCollection“类型”的对象，这种类数组的对象是动态集合。</p>
-		<pre class="code">var ele = document.getElementById("id");
-var arr = document.getElementsByTagName("div");//返回动态集合，查找所有后代
-var arr= ele.getElementsByName("name");//专门查找表单中的元素
+			<h5>循环方式</h5>
+			<h3>HTML特征查找</h3>
+			<p>以HTML特征(<em>id,className,name,tagName</em>)查找，除了id获取的结果为一个，其他返回都是类数组，调用toString()方法返回的结果是<em>"[object HTMLCollection]"</em>，说明它是一个HTMLCollection“类型”的对象，这种类数组的对象是动态集合。</p>
+			<pre class="code">var ele = document.getElementById("id");
+var arr = document.getElementsByTagName("div");	<span class="note">//返回动态集合，查找所有后代</span>
+var arr= ele.getElementsByName("name");		<span class="note">//专门查找表单中的元素</span>
 var eles = ele.getElementsByClassName("classname");</pre>
-		<h3>用选择器查找</h3>
-
-		<p>选择器查找返回的结果是<em>非动态集合</em>，非动态集合存储值，反复访问该集合时，不会重复查找DOM树。</p>
-		<table>
-			<tr>
-				<td>查找一个元素</td>
-				<td><span class="code">var res = ele.querySelector("选择器");</span></td>
-			</tr>
-			<tr>
-				<td>查找多个元素</td>
-				<td><span class="code">var results = ele.querySelectorAll("选择器")</span></td>
-			</tr>
-		</table>
-		
-		<h3>笔试题</h3>
-		<h4>按HTML查找和按选择器查找如何选择?</h4>
-		<p>按HTML查找返回动态集合，查找效率高，但操作繁琐；按选择器查找返回非动态集合，查找效率低，但操作非常简单。</p>
-		<p>因此，如果查找条件比较简单，首选HTML查找；如果查找条件复杂，首先按选择器查找。</p>
-		<h3>DOM节点的修改</h3>
-		<p>可以修改：内容、属性、样式</p>
-		<h4>修改内容</h4>
-		<p>html片段代码：ele.innerHTML</p>
-		<p>文本内容：ele.textContent，去除了内嵌的标签，并将转义字符翻译成正文</p>
+			<h3>用选择器查找</h3>
+			<p>选择器查找返回的结果是<em>非动态集合</em>，非动态集合存储值，反复访问该集合时，不会重复查找DOM树。</p>
+			<table>
+				<tr>
+					<td>查找一个元素</td>
+					<td><span class="code">var res = ele.querySelector("选择器");</span></td>
+				</tr>
+				<tr>
+					<td>查找多个元素</td>
+					<td><span class="code">var results = ele.querySelectorAll("选择器")</span></td>
+				</tr>
+			</table>
+			<h3>笔试题</h3>
+			<h4>按HTML查找和按选择器查找如何选择?</h4>
+			<p>按HTML查找返回动态集合，查找效率高，但操作繁琐；按选择器查找返回非动态集合，查找效率低，但操作非常简单。</p>
+			<p>因此，如果查找条件比较简单，首选HTML查找；如果查找条件复杂，首先按选择器查找。</p>
 		</div>
 	</li>
 	<li>
 		<p>修改操作</p>
 		<div class="desc">
 			<h2>修改操作</h2>
-			<h3>属性</h3>
+			<p>我们可以修改DOM节点的<em>内容、属性、样式</em>。</p>
+			<h3>修改内容</h3>
+			<p>html片段代码：ele.innerHTML</p>
+			<p>文本内容：ele.textContent，去除了内嵌的标签，并将转义字符翻译成正文</p>
+			<h3>修改属性</h3>
 			<h4>HTML标准属性：2种方式</h4>
-			核心DOM：兼容所有结构化
+			<h5>1) 核心 DOM：兼容所有结构化文档的DOM API</h5>
 			<table>
 				<tr>
 					<th>API</th>
@@ -192,7 +199,7 @@ var eles = ele.getElementsByClassName("classname");</pre>
 					<td>判断是否有某特性</td>
 				</tr>
 			</table>
-			<h5>HTML DOM将HTML标准属性提前封装在DOM元素的对象上，因此，可以通过访问对象属性的方式进行访问</h5>
+			<h5>2) HTML DOM将HTML标准属性提前封装在DOM元素的对象上，因此，可以通过访问对象属性的方式进行访问</h5>
 			<table>
 				<caption>HTML DOM对DOM API的简化</caption>
 				<tr>
@@ -222,8 +229,6 @@ var eles = ele.getElementsByClassName("classname");</pre>
 			<pre class="code">&lt;div data-eid="1003" id="e1">&lt;/div>
 var e1 = document.getElementById("e1");
 e1.dataset.eid;</pre>
-
-			<button>删除选定</button>
 			<h3>修改样式</h3>
 			<h4>内联样式</h4>
 			<pre class="code">var width = div.style.width;	<span class="note">//获取</span>
@@ -241,7 +246,7 @@ style.width;	<span class="note">//注意：计算后的属性是只读的，不�
 		</div>
 	</li>
 	<li>
-		<p>添加操作</p>
+		<p>添加和删除操作</p>
 		<div class="desc">
 			<h2>添加</h2>
 			<h3>添加元素的步骤</h3>
@@ -251,6 +256,153 @@ style.width;	<span class="note">//注意：计算后的属性是只读的，不�
 a.innerHTML = html;</pre>
 			<h5>3) 将该元素添加到指定元素下</h5>
 			<pre class="code">ele.appendChild(a);</pre>
+			<h3>案例--二级联动列表</h3>
+			<h3>删除操作</h3>
+			<pre class="code">parent.removeChild(child);
+child.parentNode.removeChild(child);</pre>
+		</div>
+
+	</li>
+	<li>
+		<p>DOM操作的优化</p>
+		<div class="desc">
+			<h2>DOM操作的优化</h2>
+			<h3>添加和删除的优化</h3>
+			<h4>原则：尽量减少操作DOM树的次数</h4>
+			<p>HTML页面的加载原理</p>
+			<pre class="code">
+html -> DOM Tree
+	↓
+	Render Tree → Layout → paint 
+	↑
+CSS ->  COM</pre>
+			<p>每次修改DOM树，都要重新布局(layout)和绘图(paint)。而这两个步骤需要大量计算，耗费性能。因此，添加元素时，<strong>应该先在内存中将所有子元素添加到父元素上，最后一次性添加到DOM树中。</strong></p>
+			<p>如果父元素已经在DOM树上，则使用文档片段。文档片段是内存中临时保存多个平级元素的虚拟父元素。</p>
+			<pre class="code"><span class="note">//1) 创建文档片段：</span>
+var frag = document.createDocumentFragment();
+<span class="note">//2) 将子元素添加到文档片段中：</span>
+frag.appendChild(child);
+<span class="note">//3) 添加到DOM树上：</span>
+parent.appendChild(frag);<span class="note">//frag将元素添加到页面后，会自动释放</span></pre>
+		</div>
+	</li>
+	<li>
+		<p>HTML DOM常用对象</p>
+		<div class="desc">
+			<h2>HTML DOM常用对象</h2>
+			<h3>Image</h3>
+			<h4>创建img对象</h4>
+			<pre class="code">var img = new Image();</pre>
+			<h3>Select/Option</h3>
+			<h4>Select</h4>
+			<table>
+				<tr>
+					<td rowspan="3" class="title">属性</td>
+					<td><span class="code">.selectedIndex</span></td>
+					<td>当前选中option的位置</td>
+				</tr>
+				<tr>
+					<td>.options</td>
+					<td>所有option的集合</td>
+				</tr>
+				<tr>
+					<td>options.length</td>
+					<td>获得所有options的个数</td>
+				</tr>
+				<tr>
+					<td class="title">方法</td>
+					<td>.add(option)</td>
+					<td>代替appendChild 问题：不支持fragment</td>
+				</tr>
+			</table>
+			<h4>Option</h4>
+			<table>
+				<tr>
+					<td class="title">创建</td>
+					<td colspan="2">var opt = new Option(text,value);</td>
+				</tr>
+				<tr>
+					<td rowspan="3" class="title">属性</td>
+					<td>.value</td>
+					<td>option的value属性</td>
+				</tr>
+				<tr>
+					<td>.text</td>
+					<td>option的text属性，文本值</td>
+				</tr>
+				<tr>
+					<td>.index</td>
+					<td>当前option的位置，从0开始</td>
+				</tr>
+			</table>
+			<h3>Table</h3>
+			<h4>table管理着行分组</h4>
+			<pre class="code">//创建并添加
+var thead = table.createTHead();
+var tbody = table.createTBody();
+var tfoot = table.createTFoot();
+//删除行分组
+table.deleteTHead();
+table.deleteTFoot();
+//获取
+table.tHead
+table.tFoot
+table.tBodies</pre>
+			<h4>行分组--行分组操作行</h4>
+			<pre class="code">/***********添加行**********/
+var tr = tbody.insertRow(0);//在开头添加
+var tr = tbody.insertRow(i);//在i位置处添加
+var tr = tbody.insertRow();//末尾追加
+/***********删除行**********/
+tbody.deleteRow(i);//要求i是tbody内的下标
+table.deleteRow(i);//i是全表的下标
+/***********获取行**********/
+tbody.rows//获取所有行
+/***********获取行号**********/
+tr.rowIndex
+</pre>
+			<h4>行--行操作格子</h4>
+			<pre class="code">/***********添加格**********/
+var td = tr.insertCell(i);//注意：只能添加td，不能添加th
+var td = tr.insertCell();//末尾追加格
+/***********删除格**********/
+tr.deleteCell(i);
+/***********获取格**********/
+tr.cells</pre>
+			<h3>Form/element</h3>
+			<table>
+				<tr>
+					<td class="title" rowspan="2">获取</td>
+					<td>var form = document.form[0];</td>
+					<td>获取form表单</td>
+				</tr>
+				<tr>
+					<td>var ele = form.elements[i/id/name];</td>
+					<td>从表单获取元素</td>
+				</tr>
+				<tr>
+					<td rowspan="2" class="title">属性</td>
+					<td>.elements.length</td>
+					<td>获取表单中表单元素的个数</td>
+				</tr>
+				<tr>
+					<td>.length</td>
+					<td>与上面等价，简化版</td>
+				</tr>
+				<tr>
+					<td rowspan="3" class="title">方法</td>
+					<td>.submit()</td>
+					<td>手动提交表单</td>
+				</tr>
+				<tr>
+					<td>.reset()</td>
+					<td>重置</td>
+				</tr>
+				<tr>
+					<td>.focus()</td>
+					<td>让ele获得焦点</td>
+				</tr>
+			</table>
 		</div>
 	</li>
 </ul>

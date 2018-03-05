@@ -1,0 +1,202 @@
+<h2>BOM</h2>
+<ul class="menu">
+	<li>
+		<p>BOM</p>
+		<div class="desc">
+			<h2>BOM</h2>
+			<h3>了解BOM</h3>
+			<p>BOM(浏览器对象模型,Browser Object Model)，用来操作浏览器窗口的API。没有标准，存在兼容性问题。</p>
+			<h3>对象</h3>
+			<table>
+				<tr>
+					<td>window</td>
+					<td>
+						<p>代替global充当全局作用域对象</p>
+						<p>保存所有浏览器自用的BOM和DOM的API</p>
+					</td>
+				</tr>
+				<tr>
+					<td>document</td>
+					<td>DOM树的根节点</td>
+				</tr>
+				<tr>
+					<td>history</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>location</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>navigation</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>screen</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>event</td>
+					<td></td>
+				</tr>
+			</table>
+		</div>
+	</li>
+	<li>
+		<p>window</p>
+		<div class="desc">
+			<h3>打开和关闭窗口</h3>
+			<h4>打开窗口</h4>
+			<table>
+				<tr>
+					<td rowspan="2">当前窗口打开，可后退</td>
+					<td>html</td>
+					<td>&lt;a href="url" target="_self"&gt;&lt;/a&gt;</td>
+				</tr>
+				<tr>
+					<td>js</td>
+					<td>window.open("url","_self");</td>
+				</tr>
+				<tr>
+					<td>当前窗口打开，不可后退</td>
+					<td>js</td>
+					<td>location.replace("url");</td>
+				</tr>
+				<tr>
+					<td rowspan="2">新窗口中打开，可打开多个</td>
+					<td>html</td>
+					<td>&lt;a href="url" target="_blank"&gt;&lt;/a&gt;</td>
+				</tr>
+				<tr>
+					<td>js</td>
+					<td>window.open(url,"_blank");</td>
+				</tr>
+				<tr>
+					<td rowspan="2">新窗口打开，只能打开一个</td>
+					<td>html</td>
+					<td>&lt;a href="url" target="tmooc"&gt;&lt;/a&gt;</td>
+				</tr>
+				<tr>
+					<td>js</td>
+					<td>window.open(url,"tmooc");</td>
+				</tr>
+			</table>
+			<p>不可后退的原理：location.replace("new url")，该方法将history中的记录覆盖。</p>
+			<p>只能打开一个网页的原理：target会为网页生成一个name属性，浏览器规定name属性唯一。当再次打开相同name的网页，则会覆盖原先的网页。</p>
+			<h4>关闭窗口</h4>
+			<pre class="code">window.close();</pre>
+			<p>如网页几秒钟之后关闭。</p>
+		</div>
+	</li>
+	<li>
+		<p>history</p>
+		<div class="desc">
+			<h2>history</h2>
+			<h3>history</h3>
+			<p><em>history</em>：每个窗口中保存当前窗口打开后，成功访问过的url的历史记录栈。</p>
+			<p>只开放了一个API</p>
+			<table>
+				<tr>
+					<td>history.go(0)</td>
+					<td>刷新</td>
+				</tr>
+				<tr>
+					<td>history.go(1)</td>
+					<td>前进一次</td>
+				</tr>
+				<tr>
+					<td>history.go(-1)</td>
+					<td>后退一次</td>
+				</tr>
+			</table>
+		</div>
+	</li>
+	<li>
+		<p>location</p>
+		<div class="desc">
+			<h2>location</h2>
+			<h3>location</h3>
+			<p>保存当前窗口正在打开的url地址的对象。</p>
+			<table>
+
+				<tr>
+					<td rowspan="8">属性</td>
+					<td>location.href</td>
+					<td>完整的url地址</td>
+				</tr>
+				<tr>
+					<td>location.protocol</td>
+					<td>协议</td>
+				</tr>
+				<tr>
+					<td>location.host</td>
+					<td>主机名+端口号</td>
+				</tr>
+				<tr>
+					<td>location.hostname</td>
+					<td>主机名</td>
+				</tr>
+				<tr>
+					<td>location.port</td>
+					<td>端口号</td>
+				</tr>
+				<tr>
+					<td>location.pathname</td>
+					<td>相对路径</td>
+				</tr>
+				<tr>
+					<td>location.search</td>
+					<td>?查询字符串</td>
+				</tr>
+				<tr>
+					<td>location.hash</td>
+					<td>#锚点地址</td>
+				</tr>
+				<tr>
+					<td rowspan="3">方法</td>
+					<td >location.assign("url")</td>
+					<td>当前窗口打开，可后退</td>
+				</tr>
+				<tr>
+					<td>location.replace("url")</td>
+					<td>当前窗口打开，禁止刷新</td>
+				</tr>
+				<tr>
+					<td>location.reload(true)</td>
+					<td>无论本地浏览器是否有缓存，都强制从服务器获取新资源</td>
+				</tr>
+			</table>
+			<p>F5、history(0)、location.reload(false)都是普通刷新，如果有缓存，优先从缓存中获取文件</p>
+			<h3>笔试题</h3>
+			<h4>解析查询字符串为对象</h4>
+			<pre class="code"><span class="note">//?username=dingding&password=123456&gender=1</span>
+function search2Obj(){
+	var obj = [];
+	if(location.search!==""){
+		var search = location.search.slice(1);
+		var couples = search.split("&");
+		for(var couple of couples){
+			var [key,value] = couple.split("=");
+			obj[key] = value;
+		}
+	return obj;
+	}
+}</pre>
+			<h4>location.reload(true)和location.reload(false)的区别</h4>
+			<p>参数为true：不管有没有缓存，都从服务器下载资源</p>
+		</div>
+	</li>
+	<li>
+		<p>定时器</p>
+		<div class="desc">
+			<h2>定时器</h2>
+			<h3>周期性定时器</h3>
+			<p>让程序每隔一段时间执行一次任务</p>
+			<pre class="code">var timer = setInterval(task,time);</pre>
+			<p>注意：每启动一个定时器，都会为定时器添加一个唯一的序号，从1开始递增，连续不重复。只有在启动定时器时，才能获得序号。</p>
+			<h3>暂停定时器</h3>
+			<h4>手动点击按钮停止</h4>
+			<h4>自动停止</h4>
+		</div>
+	</li>
+</ul>

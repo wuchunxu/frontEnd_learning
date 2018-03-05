@@ -1,0 +1,51 @@
+<h2>JavaScript基础</h2>
+<ul class="menu">
+	<li>
+		<p>面试题-如何自学一门新语言</p>
+		<div class="desc">
+			<h2>如何自学一门新语言</h2>
+			<h3>了解背景、历史、现状、应用领域</h3>
+			<h3>搭建开发运行环境，输出Hello World</h3>
+			<h3>变量和常量</h3>
+			<h3>数据类型</h3>
+			<h3>运算符</h3>
+			<h3>逻辑结构</h3>
+			<h3>通用小程序</h3>
+			<h3>函数和对象</h3>
+			<h3>第三方库、组件、框架</h3>
+			<h3>实用小项目</h3>
+		</div>
+	</li>
+	<li>
+		<p>通用小程序</p>
+		<div class="desc">
+			<h2>通用小程序</h2>
+			<h3>杨辉三角</h3>
+			<pre class="code"><span class="note">/*
+1
+1  1
+1  2  1
+1  3  3  1
+1  4  6  4  1
+1  5  10 10 5  1	
+*/</span>
+function yanghui(row){
+	<span class="note">//第一行和第二行没有规律
+	//从有规律开始，用循环</span>
+	var result = [[1],[1,1]];	
+	for(var i=2;i < row;i++){
+		result[i]=[1];<span class="note">//第i行的第一个值为1，也可以写成result.push([1]);</span>
+		for(var j = 1;j < i;j++){
+			<span class="note">//第i行，从第二个值开始用循环，直到倒数第二个值;
+			//第i行的第j个值等于第(i-1)行的j-1位和j位值之和</span>
+			result[i][j] = result[i-1][j-1] + result[i-1][j];
+		}
+		<span class="note">//第i行的最后一个值为1;
+		//第一行有1个值，第二行有2个值，第i行有i个值。</span>
+		result[i][i] = 1;
+	}
+	return result;
+}</pre>
+		</div>
+	</li>
+</ul>

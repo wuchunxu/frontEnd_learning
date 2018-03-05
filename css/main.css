@@ -210,9 +210,14 @@ nav .logo {
 }
 #shower .desc table {
   color: #333 !important;
+  margin-left: 15px;
+  margin-bottom: 10px;
 }
 #shower .desc table th, #shower .desc table td {
   text-align: center;
+}
+#shower .desc table tr:nth-child(even) {
+  background: #eee;
 }
 #shower .desc > h2 {
   text-align: center;
@@ -220,7 +225,7 @@ nav .logo {
 }
 #shower .desc > h3, #shower .desc > h4, #shower .desc > h5 {
   font-weight: bold;
-  padding: 10px 5px;
+  margin: 10px 0;
 }
 #shower .desc em {
   font-family: consolas,"楷体";
@@ -229,6 +234,9 @@ nav .logo {
 }
 #shower .desc > h3 {
   font-size: 18px;
+  padding: 5px 5px;
+  margin-left: 5px;
+  border-bottom: 1px solid #bbb;
   counter-reset: desc_subtitle;
 }
 #shower .desc > h3:before {
@@ -237,10 +245,15 @@ nav .logo {
 }
 #shower .desc > h4 {
   font-size: 16px;
+  padding: 2px 5px;
+  margin-left: 10px;
 }
 #shower .desc > h4:before {
   content: counter(desc_title) "." counter(desc_subtitle) "、";
   counter-increment: desc_subtitle;
+}
+#shower .desc > h5, #shower .desc > p, #shower .desc > table {
+  margin-left: 15px;
 }
 #shower .desc > h5 {
   font-size: 14px;
@@ -292,6 +305,7 @@ pre {
 }
 pre.code {
   text-align: left;
+  margin-left: 15px;
   color: #333;
   background: #fff;
   border-radius: 8px;
