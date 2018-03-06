@@ -38,29 +38,6 @@
 					"DOM和BOM": ["DOM","BOM"]
 				}
 			}
-			/*
-			function toTable(frontEnd){
-				var html = "";
-				var flag = true;
-				for(let period in frontEnd ){
-					flag = true;
-					for (var day in frontEnd[period] ){
-						if(flag){
-							html += `<tr><td rowspan="${Object.keys(frontEnd[period]).length}">阶段${period.slice(period.length-1)}</td><td>${day}</td><td>`;
-							flag = false;
-						}else{
-
-							html += `<tr><td>${day}</td><td>`;
-						}
-						for ( var ele of frontEnd[period][day] ){
-							html += `<div class="item"><img src="images/icon/${ele}.png"><p>${ele}</p></div>`;
-						}
-						html +='</td></tr>';
-					}
-				}
-				return html;
-			}
-			*/
 			//展示数据
 			content.innerHTML = (function(frontEnd){
 				var html = "";
@@ -71,7 +48,7 @@
 						html += `<h3>${section}</h3>`;
 						html += "<div class='clear'>";
 						for(var ele of frontEnd[period][section]){
-							html += `<div class="item"><img src="images/icon/${ele}.png"><p>${ele}</p></div>`;
+							html += `<div class="item"><p><img src="images/icon/${ele}.png"></p><p>${ele}</p></div>`;
 						}
 						html += "</div>";
 					}
@@ -81,10 +58,10 @@
 			})(frontEnd);
 
 			content.onclick = function show(e){
-				if(!(e.target.hasClass("item")||e.target.parentNode.hasClass("item"))) return false;
+				if(!(e.target.parentNode.hasClass("item")||e.target.parentNode.parentNode.hasClass("item"))) return false;
 				
-				var url = `resource/${e.target.closest("div").getElementsByTagName("p")[0].innerHTML}.html`;
-				
+				var url = `resource/${e.target.closest("div").getElementsByTagName("p")[1].innerHTML}.html`;
+				//console.log(url);
 				ajax(url,{
 					success:function(resposneText){
 
@@ -103,16 +80,12 @@
 							if(event.target.tagName.toUpperCase()=="P"&&event.target.parentNode.tagName.toUpperCase()=="LI"){
 								if (desc.style.display=="block"){
 									desc.style.display = "none";
-									parent.firstElementChild.removeClass("active");
+									parent.children[0].removeClass("active");
 								}else {
 									//去除所有p的active，并把desc的display属性设为none
-									for(let ele of lis){
-										ele.firstElementChild.removeClass("active");
-									}
-									for(let ele of descs){
-										ele.style.display = "none";
-									}
-									parent.firstElementChild.addClass("active");
+									lis.forEach(ele=>ele.children[0].removeClass("active"));
+									[].forEach.call(descs,ele=>ele.style.display="none")
+									parent.children[0].addClass("active");
 									desc.style.display = "block";
 								}
 							}
@@ -125,34 +98,6 @@
 				$("shower").style.display = "none";
 			}
 		})();
-
-		
-		var table_select = function(){
-			//首先拿到全选按钮
-			var selectAll = document.querySelector("#select-all>thead>tr>th:first-child>input");
-			var checkboxes = document.querySelectorAll("#select-all>tbody>tr>td:first-child>input");
-			console.log(selectAll);
-			selectAll.onclick = function(){
-				for(var ele of checkboxes){
-					ele.checked = selectAll.checked;
-				}
-			}
-			//全选和单选的点击事件处理逻辑
-			var table_click = function(){
-				if(this.checked){
-					var unchecked = document.querySelector(
-						"table>tbody>tr>td:first-child>input:not(:checked)"
-					);
-					if(!unchecked) selectAll.checked = true;
-				}else {
-					selectAll.checked = false;
-				}
-			}
-			for(var ele of checkboxes){
-				ele.onclick = table_click;
-			}
-		}
-		
 	</script>
 </body>
 </html>

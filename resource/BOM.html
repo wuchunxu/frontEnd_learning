@@ -45,6 +45,7 @@
 	<li>
 		<p>window</p>
 		<div class="desc">
+			<h2>window</h2>
 			<h3>打开和关闭窗口</h3>
 			<h4>打开窗口</h4>
 			<table>
@@ -194,9 +195,134 @@ function search2Obj(){
 			<p>让程序每隔一段时间执行一次任务</p>
 			<pre class="code">var timer = setInterval(task,time);</pre>
 			<p>注意：每启动一个定时器，都会为定时器添加一个唯一的序号，从1开始递增，连续不重复。只有在启动定时器时，才能获得序号。</p>
-			<h3>暂停定时器</h3>
+			<h3>暂停/停止定时器</h3>
 			<h4>手动点击按钮停止</h4>
+			<p>给按钮绑定事件，当点击按钮时，clearInterval()</p>
 			<h4>自动停止</h4>
+			<h3>定时器原理</h3>
+			<p>定时器启动时，会创建定时器对象并保存要执行的函数。定时器对象按指定时间，自动将要执行的函数加入回调列队。注意：<strong>启动定时器仅是将任务函数对象交给定时器对象暂存。回调列队必须等主程序执行完，才开始执行。</strong></p>
+			<p><em>总结：所有回调函数，必须等主程序执行完才开始执行！</em></p>
+			<h3>笔试题</h3>
+			<h4>a和b的输出值为多少？</h4>
+			<pre class="code">var a;
+function task(){
+	a=b=10;
+}
+setTimeout(task,10);
+console.log(a);<span class="note">//undefined</span>
+console.log(b);<span class="note">//referenceError</span></pre>
+			<h4>结果输出如何？</h4>
+			<pre class="code">for(var i=0;i<3;i++){
+	setTimeout("console.log(i)",0);<span class="note">//不论等待时间多久，回调列队都要等主程序执行完才开始执行！</span>
+}</pre>
+		</div>
+	</li>
+	<li>
+		<p>navigator</p>
+		<div class="desc">
+			<h2>navigator</h2>
+			<h3>navigator对象</h3>
+			<p><em>navigator</em>对象保存浏览器配置信息，其属性有：</p>
+			<h4>cookieEnabled</h4>
+			<p>cookieEnabled属性：浏览器<em>是否启用cookie</em></p>
+			<p>cookie是客户端持久存储用户私密信息的小文件。由于程序中的数据保存在内存中，一旦程序关闭，数据就会丢失。</p>
+			<h4>plugins</h4>
+			<p>插件用来给浏览器添加新的功能，比如<em>Flash插件</em>。plugins保存浏览器已安装所有插件的集合</p>
+			<h5>判断当前浏览器是否安装了插件</h5>
+			<pre class="code">if(navigator.plugins["QQMail Plugin"]===undefined){
+	document.write("&lt;h2&gt;&lt;a href='#'&gt;未安装QQMail插件，点此下载安装&lt;/a&gt;&lt;/h2&gt;");
+}</pre>
+			<h4>userAgent</h4>
+			<p>userAgent包含浏览器名称和版本号的字符串</p>
+			<h3>笔试题</h3>
+			<h4>如何获取浏览器的名称和版本号</h4>
+			<pre class="code">function browserInfo(){
+	var ua = navigator.userAgent,
+		name,version;
+	if(ua.indexOf("MSIE") != -1){
+		name = "MSIE";
+	}else if(ua.indexOf("Firefox") != -1){
+		name = "Firefox";
+	}else if(ua.indexOf("Chrome") != -1){
+		name = "Chrome";	<span class="note">//Chrome后面有Safari，用来伪装，所以先判断Chrome</span>
+	}else if(ua.indexOf("Safari") != -1){
+		name = "Safari";
+	}
+	<span class="note">//获取版本号，版本号和浏览器名中间隔了一个字符</span>
+	var i = ua.indexOf(name);
+	i = i + name.length + 1;	<span class="note">//浏览器名称后一个</span>
+	version = parseFloat(ua.substr(i,3));	<span class="note">//截取3位</span>
+	return {
+		name: name,
+		version: version
+	};
+}</pre>
+		</div>
+	</li>
+	<li>
+		<p>event</p>
+		<div class="desc">
+			<h2>event</h2>
+			<h3>event</h3>
+			<p>页面状态发生变化叫事件发生，可由浏览器自动触发，也可由用户手动触发。<em>事件处理函数</em>是指，当事件发生时，自动执行的函数。</p>
+			<h3>绑定事件处理函数</h3>
+			<h4>HTML绑定</h4>
+			<pre class="code">
+&lt;button onclick="handle()"&gt;点我&lt;/button&gt;
+</pre>
+			<p>曾经人们更注重代码在内容、样式和行为层面实现分离。但现在，更潮流的是组件开发，组件开发意味着一个组件的html、css和js文件集中定义在一起，反而不要分离。</p>
+			<h4>DOM 0级</h4>
+			<pre class="code">var btn = document.getElementById("btn");
+btn.onclick = function(){
+	<span class="note">//to do</span>
+}</pre>
+			<p>缺陷：同一个事件只能绑定一个事件处理函数。因为再次赋值的时候，只是为事件更改处理函数的引用。</p>
+			<h4>DOM 2级</h4>
+			<pre class="code">ele.addEventListener("click",handle,false);
+//ele.removeEventListener("click",handle,false);</pre>
+			<h3>事件模型</h3>
+			<table>
+				<tr>
+					<th>阶段</th>
+					<th>发生的事情</th>
+				</tr>
+				<tr>
+					<td>捕获阶段</td>
+					<td>外层→内层，依次触发各级元素上的处理函数(有兼容性问题)</td>
+				</tr>
+				<tr>
+					<td>目标触发阶段</td>
+					<td>实际触发事件的元素</td>
+				</tr>
+				<tr>
+					<td>冒泡阶段</td>
+					<td>内→外，依次触发各级元素上的处理函数</td>
+				</tr>
+			</table>
+			<h4>阻止冒泡</h4>
+			<pre class="code">event.stopPropagation();</pre>
+			<h4>运用冒泡</h4>
+			<p>优化：尽量减少事件监听的数目。因为浏览器中所有事件监听对象都集中存储在一个大集合中。触发事件时，使用遍历的方式查找要执行的处理函数。所以，事件监听对象的个数决定响应速度。</p>
+			<h4>阻止默认行为</h4>
+			<pre class="code">e.preventDefault();</pre>
+			<p>使用场景：1) a作为按钮时，阻止添加锚点地址</p>
+			<p>2) 阻止表单提交</p>
+			<p>3) HTML5拖拽API</p>
+			<h3>鼠标位置</h3>
+			<table>
+				<tr>
+					<td>相对于屏幕左上角</td>
+					<td><p>e.screenX,e.screenY</p></td>
+				</tr>
+				<tr>
+					<td>相对于文档显示区左上角</td>
+					<td>e.clientX,e.clientY</td>
+				</tr>
+				<tr>
+					<td>相对于当前元素左上角</td>
+					<td>e.offsetX,e.offsetY</td>
+				</tr>
+			</table>
 		</div>
 	</li>
 </ul>

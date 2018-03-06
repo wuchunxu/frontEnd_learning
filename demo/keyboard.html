@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.keyboard {
+			border: 50px solid #aaa;
+			width: 1780px;
+			height: 480px;
+			background-color: #dfe9e0;
+			border-radius: 40px;
+			padding:10px;
+			vertical-align: text-top;
+			position:relative;
+		}
+		.keyboard > * {
+			float:left;
+		}
+		.row {
+			margin-bottom: 10px;
+		}
+		.row:after{
+			content:'';
+			display:block;
+			clear:both;
+		}
+		.keyboard>div:nth-child(2){
+			margin-right:40px;
+		}
+		.keyboard>div:nth-child(1) .row:first-child,
+		.keyboard>div:nth-child(2) .row:first-child {
+			margin-bottom: 30px;
+		}
+		.keyboard>div:first-child .row:nth-child(2) span:last-child {
+			width: 135px;
+		}
+		.keyboard>div:first-child .row:nth-child(3) :first-child,
+		.keyboard>div:first-child .row:nth-child(3) :last-child,
+		.keyboard>div:first-child .row:nth-child(6) :first-child{
+			width: 100px;
+		}
+		
+		.keyboard>div:first-child .row:nth-child(4) :first-child {
+			width: 125px;
+		}
+		.keyboard>div:first-child .row:nth-child(4) :last-child,
+		.keyboard>div:first-child .row:nth-child(5) :first-child {
+			width: 153px;
+		}
+		.keyboard>div:first-child .row:nth-child(5) :last-child {
+			width: 202px;
+		}
+		.keyboard>div:first-child .row:nth-child(6) >* {
+			width: 85px;
+		}
+		.keyboard>div:first-child .row:nth-child(6) :nth-child(4) {
+			width: 442px;
+		}
+		.keyboard>div:first-child .row:first-child .key:first-child {
+			margin-right: 80px;
+		}
+		.keyboard>div:first-child .row:first-child .key:nth-child(4n+5) {
+			margin-right: 51px;
+		}
+		
+		.keyboard>div:nth-child(2) .row:nth-child(3) {
+			margin-bottom: 85px;
+		}
+		.keyboard>div:nth-child(2) .row:nth-child(4) span:first-child {
+			margin-left: 77px;
+		}
+		.keyboard>div:nth-child(3) .row:first-child {
+			margin-top: 95px;
+		}
+		.keyboard>div:nth-child(3) .row:nth-child(2n) span:last-child {
+			height:140px;
+			margin-bottom:-75px;
+		}
+		.keyboard>div:nth-child(3) .row:nth-child(5) span:first-child {
+			width:140px;
+		}
+		.key {
+			float:left;
+			width: 65px;
+			height: 65px;
+			border: 1px solid #666;
+			margin-right:12px;
+			border-radius: 8px;
+			box-shadow: -8px -8px 5px 0 #888 inset;
+			padding: 5px 10px 0 8px;
+			box-sizing: border-box;
+			font-size: 14px;
+			line-height: 24px;
+			font-weight: bold;
+			color: #111;
+		}
+
+		.key:hover{
+			cursor: pointer;
+			box-shadow: -4px -4px 3px 0 #888 inset;
+			transform: translateY(1px);
+		}
+		.light {
+			position:absolute;
+			top:25px;
+			right:6px;
+		}
+		.light li {
+			width: 10px;
+			height: 10px;
+			border-radius:50%;
+			background-color: #fff;
+			box-shadow: 0 0 5px 0 #fff;
+			list-style: none;
+			display: inline-block;
+			margin-right:80px;
+		}
+		.light .active {
+			background-color: #f23030;
+			box-shadow: 0 0 5px 0 #f23030;
+		}
+	</style>
+</head>
+<body> 
+	<div class="keyboard">
+		<ul class="light">
+			<li class="active"></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+	
+	<script>
+		var keys = {
+			key_alpha:[
+				['ESC','F1','F2','F3','F4','F5','F6','F7','F8','F9','F10','F11','F12'],
+				['~<br>`','!<br>1','@<br>2','#<br>3','$<br>4','%<br>5','^<br>6','&<br>7','*<br>8','(<br>9',')<br>0','—<br>-','+<br>=','←<br>backspace'],
+				['Tab','Q','W','E','R','T','Y','U','I','O','P','{<br>[','}<br>]','|<br>\\'],
+				['Cap Lock','A','S','D','F','G','H','J','K','L',':<br>;','"<br>,','Enter'],
+				['Shift','Z','X','C','V','B','N','M','<<br>,','><br>.','?<br>/','Shift'],
+				['Ctrl','Win','Alt','space','Alt','Win','菜单','Ctrl']
+			],
+			key_function:[
+				['Print screen','Scroll Lock','Pause Break'],
+				['Insert','Home','Page<br>Up'],
+				['Delete','End','Page<br>Down'],
+				['↑'],
+				['←','↓','→']
+			],
+			key_number:[
+				['Num Lock','/','*','-'],
+				['7','8','9','+'],
+				['4','5','6'],
+				['1','2','3','Enter'],
+				['0','Del']
+			]
+		};
+
+		var keyboard = document.getElementsByClassName("keyboard")[0];
+		var ori = keyboard.innerHTML;
+		var html = "";
+		for(var part in keys){
+			html += "<div>";
+			for(var row of keys[part]){
+				html += "<div class='row'>";
+				for(var key of row){
+					html += `<span class='key'>${key}</span>`;
+				}
+				html += "</div>";
+			}
+			html += "</div>";
+		}
+		keyboard.innerHTML=html+ori;
+		
+	</script>
+</body>
+</html>

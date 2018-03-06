@@ -34,12 +34,14 @@ nav .logo {
   color: #333;
   padding: 20px 0 0;
   font-size: 28px;
+  font-weight: 100;
 }
 .content h3 {
   text-align: center;
   color: #666;
   font-size: 24px;
   padding: 10px 0;
+  font-weight: 100;
 }
 .content .clear {
   text-align: center;
@@ -61,7 +63,7 @@ nav .logo {
   background: #41b883;
 }
 .content .item img {
-  height: 48%;
+  height: 80px;
 }
 .content .item p {
   height: 100px;
@@ -198,7 +200,7 @@ nav .logo {
   min-height: 480px;
   left: 22%;
   top: 64px;
-  background-image: url("../images/paper.jpg");
+  background-image: url("../images/paper.png");
   background-size: cover;
   border-radius: 5px;
   padding: 20px;
@@ -306,6 +308,7 @@ pre {
 pre.code {
   text-align: left;
   margin-left: 15px;
+  margin-bottom: 15px;
   color: #333;
   background: #fff;
   border-radius: 8px;
@@ -317,6 +320,7 @@ pre .note {
 }
 
 table pre.code {
+  font-size: 14px;
   background: #eee;
 }
 
