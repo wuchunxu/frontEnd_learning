@@ -104,10 +104,15 @@ p:after {
 }</pre>
 			<h4>子元素外边距溢出</h4>
 			<p>在子元素之前添加空的<span class="code">table</span>子元素</p>
-			<pre class="code">.parent:before {
-	content:"";
-	display:table;
-}</pre>
+			<pre class="code">//CSS
+* { margin:0;padding:0; }
+div { margin-top:30px;height:200px;width: 300px;background-color:#eee; }
+p { margin-top:20px; width:100px; height:100px; background-color:gray; }
+div:before{ content:""; display: table; }
+//html代码
+&lt;div&gt;
+	&lt;p&gt;&lt;/p&gt;
+&lt;/div&gt;</pre>
 		</div>
 	</li>
 	<li>
