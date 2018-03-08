@@ -1,0 +1,278 @@
+<h2>jQuery</h2>
+<ul class="menu">
+	<li>
+		<p>学习新框架的方法</p>
+		<div class="desc">
+			<h2>学习新框架的方法</h2>
+			<h3>上官网看，是什么</h3>
+			<h3>看快速入门</h3>
+			<h3>下载手册，备查</h3>
+		</div>
+	</li>
+	<li>
+		<p>了解jQuery</p>
+		<div class="desc">
+			<h2>jQuery</h2>
+			<h3>jQuery</h3>
+			<p>jQuery是第三方极简化DOM操作的函数库。简化体现在以下几个方面：<em>DOM操作(增删改查)、事件绑定、动画效果、Ajax</em>。</p>
+			<p>学习jQuery实际还是在学习DOM，因为它<strong>只是API的简化</strong>。</p>
+			<p>函数库：<strong>jQuery中都是函数</strong>，用函数解决一切问题。</p>
+			<p>jQuery解决了大部分浏览器兼容性问题。</p>
+			<h3>下载</h3>
+			<h4>jQuery版本</h4>
+			<table>
+				<tr>
+					<th>版本</th>
+					<th>特性</th>
+				</tr>
+				<tr>
+					<td>1.x</td>
+					<td>兼容旧浏览器，如IE8</td>
+				</tr>
+				<tr>
+					<td>2.x</td>
+					<td>不再兼容旧浏览器</td>
+				</tr>
+				<tr>
+					<td>3.x</td>
+					<td>不再兼容旧浏览器，提供新特性</td>
+				</tr>
+			</table>
+			<h4>压缩版和未压缩版的区别</h4>
+			<table>
+				<tr>
+					<th>压缩/未压缩</th>
+					<th>特点</th>
+				</tr>
+				<tr>
+					<td>x.js(未压缩)</td>
+					<td><p>包含完备的注释，格式，变量名，可读性好。但体积大，不便于传输。适用于学习和开发阶段使用</p></td>
+				</tr>
+				<tr>
+					<td>x.min.js(压缩)</td>
+					<td><p>体积小，便于传输。去除注释和格式，变量名极简化，可读性差。生产环境使用。</p></td>
+				</tr>
+			</table>
+			<h3>引入</h3>
+			<h4>CDN引入</h4>
+			<p>什么是CDN：根据用户到网络中任意一台服务器的网络状况，自动选择最优的服务器下载资源。</p>
+			<h4>本地</h4>
+			<p>将jQuery.js下载到项目文件夹中</p>
+			
+			<h3>笔试题</h3>
+			<h4>jQuery 3.x更新了哪些内容</h4>
+			<p>1) 在严格模式下运行</p>
+			<p>2) 支持for..of循环，代替$.each()</p>
+			<p>3) 新动画API：requestAnimationFrame()</p>
+			<p>4) 支持Promise</p>
+			<p>...</p>
+		</div>
+	</li>
+	<li>
+		<p>jQuery的原理</p>
+		<div class="desc">
+			<h2>jQuery的原理</h2>
+			<h3>“jQuery类型”的构造函数和原型对象</h3>
+			<p>引入jquery.js文件，其实是在全局中添加一种新的类型<em>jQuery</em>。</p>
+			<table>
+				<tr>
+					<td>构造函数jQuery</td>
+					<td><p>用于创建jquery类型的子对象。</p></td>
+				</tr>
+				<tr>
+					<td>原型对象jquery.fn</td>
+					<td><span class="code">jQuery.fn === jQuery.prototype//true</span></td>
+				</tr>
+			</table>
+			<h3>创建jQuery对象</h3>
+			<p>jQuery对象用来保存DOM对象，并提供操作API。</p>
+			<h4>通过选择器创建对象</h4>
+			<p>按照选择器，先查找满足条件的所有元素，保存到jQuery对象中。那么就可以用jQuery对象的API才操作保存在jQuery对象中的DOM元素了。<span class="code">var jq = $("selector");</span>原理如下：</p>
+			<pre class="code unimportant">//原来以new方式创建对象
+var jq = new jQuery("selector");
+//但是比较麻烦，于是写了工厂函数，以简化对象创建
+function jQuery("selector"){
+	return new jQuery.fn.init("selector");
+}
+//所以可以这么创建jQuery对象
+var jq = jQuery("selector");
+//jQuery单词太长，又封装了$，于是可以这样创建对象
+var jq = $("selector");</pre>
+			<h4>给出DOM元素创建对象</h4>
+			<p>将现有元素包装进jQuery对象中。</p>
+			<pre class="code">var $ele = $("DOM元素");
+var $btn = $(this);</pre>
+			<h3>jQuery API三大特点</h3>
+			<h4>API一个函数2个功能</h4>
+			<p>给新值，修改；不给新值，就读取。</p>
+			<h4>自带遍历</h4>
+			<p>对jQuery对象整体调用一次API，等效于对内部每个元素都调用一次API</p>
+			<h4>链式操作</h4>
+			<p>每个函数都返回正在操作的jq对象: 链式操作!</p>
+		</div>
+	</li>
+	<li>
+		<p>查找元素</p>
+		<div class="desc">
+			<h2>查找元素</h2>
+			<h3>按选择器查找</h3>
+			<p>jQuery支持所有CSS选择器，并扩展了一些</p>
+			<table>
+				<tr>
+					<th>分类</th>
+					<th>选择器</th>
+					<th>备注</th>
+				</tr>
+				<tr>
+					<td rowspan="5">基本选择器(同CSS)</td>
+					<td>$("#id")</td>
+					<td><p>id选择器</p></td>
+				</tr>
+				<tr>
+					<td>$(".classname")</td>
+					<td><p>类选择器</p></td>
+				</tr>
+				<tr>
+					<td>$("div")</td>
+					<td><p>标签选择器</p></td>
+				</tr>
+				<tr>
+					<td>$("*")</td>
+					<td><p>通配符选择器</p></td>
+				</tr>
+				<tr>
+					<td>$("#box1,.red")</td>
+					<td><p>群组选择器</p></td>
+				</tr>
+				<tr>
+					<td rowspan="4">层级选择器(同CSS)</td>
+					<td>$(".menu li")</td>
+					<td><p>后代选择器</p></td>
+				</tr>
+				<tr>
+					<td>$(".menu>ul")</td>
+					<td><p>子元素选择器</p></td>
+				</tr>
+				<tr>
+					<td>$(".btn+.btn")</td>
+					<td><p>相邻兄弟选择器</p></td>
+				</tr>
+				<tr>
+					<td>$("p~div")</td>
+					<td><p>通用兄弟选择器</p></td>
+				</tr>
+				<tr>
+					<td rowspan="4">子元素过滤选择器<br>(同CSS)</td>
+					<td>li:first-child</td>
+					<td><p>选择每个ul下第一个li</p></td>
+				</tr>
+				<tr>
+					<td>li:last-child</td>
+					<td><p>选择每个ul下最后一个li</p></td>
+				</tr>
+				<tr>
+					<td>li:nth-child(odd/even/i)</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>:only-child</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td rowspan="3" style="background:greenyellow;">基本过滤<br>(位置过滤)(jQuery新增)</td>
+					<td>:first/last</td>
+					<td>只能选中第一个ul下第一个li</td>
+				</tr>
+				<tr>
+					<td>:gt/lt/eq(i)</td>
+					<td>大于/小于/等于(i)</td>
+				</tr>
+				<tr>
+					<td>:even/odd</td>
+					<td><p></p></td>
+				</tr>
+				<tr>
+					<td rowspan="6">属性过滤(同CSS)</td>
+					<td>[属性名]</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>[属性名=value]</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>[属性名^=value]</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>[属性名$=value]</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>[属性名*=value]</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>[属性名!=value]</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td rowspan="2">可见性过滤</td>
+					<td>:hidden</td>
+					<td><p>只能选择type="hidden"和display:"none"</p></td>
+				</tr>
+				<tr>
+					<td>:visible</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td rowspan="5" style="background:greenyellow;">内容过滤(jQuery特有)</td>
+					<td>:parent</td>
+					<td>非空元素</td>
+				</tr>
+				<tr>
+					<td>:empty</td>
+					<td>空元素</td>
+				</tr>
+				<tr>
+					<td>:contains(text)</td>
+					<td>内容包含指定文本</td>
+				</tr>
+				<tr>
+					<td>:has(.close)</td>
+					<td>选中元素，其后代包含.close</td>
+				</tr>
+				<tr>
+					<td>:not(:has(.close))</td>
+					<td>选中元素，其后代没有.close</td>
+				</tr>
+				<tr>
+					<td rowspan="4">状态过滤</td>
+					<td>:enabled</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>:disabled</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>:checked</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>:selected</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td style="background:greenyellow;">表单过滤(jQuery特有)</td>
+					<td>:type</td>
+					<td>:text :password :submit : reset :button
+					<p>:input包含input、textarea</p></td>
+				</tr>
+			</table>
+			<p>jquery特有的位置过滤器原理是，将所有符合条件的元素放在一个集合内，统一编号，从0开始。</p>
+			<p>这里要特别注意<em>CSS中子元素过滤选择器</em>和<em>jQuery特有的位置过滤选择器</em>之间的区别。利用过滤选择器，我们可以很轻松的操作表格，如设置表格隔行变色，或者设置表格列变色。</p>
+			<p>通过jQuery学习，我们以后绑定事件一律使用<span class="code">data-XXX</span>自定义属性的形式。</p>
+		</div>
+	</li>
+</ul>

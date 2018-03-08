@@ -24,6 +24,7 @@
 	<div id="layer"></div>
 	<script src="js/util.js"></script>
 	<script>
+		var getResource = null;
 		(function(){
 			var content = document.getElementsByClassName("content")[0];
 			var frontEnd = {
@@ -58,41 +59,44 @@
 				return html;
 			})(frontEnd);
 
+            getResource =  function (url){
+                ajax(url,{
+                    success:function(resposneText){
+                        var modal = $("shower");
+                        modal.innerHTML = resposneText;
+                        modal.style.display = "block";
+                        $("layer").style.display = "block";
+
+                        modal.getElementsByClassName("menu")[0].onclick = function(event){
+                            var parent = event.target.closest("li");
+                            var lis = parent.parentNode.children;
+
+                            lis = [].filter.call(lis,ele=>ele.tagName.toUpperCase()==="LI");
+                            var descs = parent.parentNode.getElementsByClassName("desc");
+                            var desc =  parent.getElementsByClassName("desc")[0];
+                            if( event.target.tagName.toUpperCase()=="P" && event.target.parentNode.tagName.toUpperCase()=="LI"){
+                                if (desc.style.display=="block"){
+                                    desc.style.display = "none";
+                                    parent.children[0].removeClass("active");
+                                }else {
+                                    //去除所有p的active，并把desc的display属性设为none
+                                    lis.forEach(ele=>ele.children[0].removeClass("active"));
+                                    [].forEach.call(descs,ele=>ele.style.display="none")
+                                    parent.children[0].addClass("active");
+                                    desc.style.display = "block";
+                                }
+                            }
+                        }
+                    }
+                });
+			}
 			content.onclick = function show(e){
 				if(!(e.target.parentNode.hasClass("item")||e.target.parentNode.parentNode.hasClass("item"))) return false;
 				
 				var url = `resource/${e.target.closest("div").getElementsByTagName("p")[1].innerHTML}.html`;
 				//console.log(url);
-				ajax(url,{
-					success:function(resposneText){
+				getResource(url);
 
-						var modal = $("shower");
-						modal.innerHTML = resposneText;
-						modal.style.display = "block";
-						$("layer").style.display = "block";
-						
-						modal.getElementsByClassName("menu")[0].onclick = function(event){
-							var parent = event.target.closest("li");
-							var lis = parent.parentNode.children;
-							
-							lis = [].filter.call(lis,ele=>ele.tagName.toUpperCase()==="LI");
-							var descs = parent.parentNode.getElementsByClassName("desc");
-							var desc =  parent.getElementsByClassName("desc")[0];
-							if(event.target.tagName.toUpperCase()=="P"&&event.target.parentNode.tagName.toUpperCase()=="LI"){
-								if (desc.style.display=="block"){
-									desc.style.display = "none";
-									parent.children[0].removeClass("active");
-								}else {
-									//去除所有p的active，并把desc的display属性设为none
-									lis.forEach(ele=>ele.children[0].removeClass("active"));
-									[].forEach.call(descs,ele=>ele.style.display="none")
-									parent.children[0].addClass("active");
-									desc.style.display = "block";
-								}
-							}
-						}
-					}
-				});
 			}
 			$("layer").onclick = function(){
 				this.style.display = "none";

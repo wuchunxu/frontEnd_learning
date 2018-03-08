@@ -1,0 +1,199 @@
+<h2>MongoDB</h2>
+<ul class="menu">
+    <li>
+        <p>了解MongoDB</p>
+        <div class="desc">
+            <h2>了解MongoDB</h2>
+            <h3>环境搭建</h3>
+            <h4>下载安装</h4>
+            <h4>创建数据目录</h4>
+            <p><span class="code">c:\data\db</span>，如果找不到，会启动失败</p>
+            <h4>配置环境变量</h4>
+            <h4>启动服务器</h4>
+            <pre class="code">mongod
+//可以带参数
+mongod --dbpath=D:\data\db</pre>
+            <h3>面向文档</h3>
+            <h4>BSON</h4>
+            <p>BSON以JSON建模，扩展了数据类型，如日期类型、二进制文件类型等。</p>
+            <h4>创建文档</h4>
+            <table>
+                <tr>
+                    <td>文档区分数据类型</td>
+                    <td>{"key":"123"}与{"key":123}不一样</td>
+                </tr>
+                <tr>
+                    <td>区分大小写</td>
+                    <td>{"key":"value"}和{"Key":"value"}不一样</td>
+                </tr>
+                <tr>
+                    <td>不能出现重复的键</td>
+                    <td>{"key":"value_1"}和{"key":"value_2"}会出错</td>
+                </tr>
+                <tr>
+                    <td>文档的键是有序的</td>
+                    <td><p>{"key_1":"value_1","key_2":"value_2"}与</p>
+                    <p>{"key_2":"value_2","key_1":"value_1"}不一样</p></td>
+                </tr>
+            </table>
+            <h3>集合</h3>
+            <h4>什么是集合</h4>
+            <p>集合是一组结构类似的文档，起一个统一的名字。但集合不要求文档结构完全一样。不过使用时，应尽量放结构类似的文档，这样可以提高索引和查询的效率。</p>
+            <h4>集合的命名</h4>
+            <p>1) 不能是空串 2)不能包含空字符  3)不能以system.开头，因为它是系统保留关键字 4) 不能包含保留字符$</p>
+            <h3>子集合</h3>
+            <p>复杂的集合可以使用<span class="code">"."</span>来分割不同命名空间的子集合，如<span class="code">weixin.msgs和weixin.audios</span></p>
+            <h4>创建集合/访问集合</h4>
+            <pre class="code"><span class="note">//创建集合</span>
+db.createCollection("books");
+<span class="note">//访问刚创建的集合</span>
+db.books;
+<span class="note">//查看当前数据库现在集合</span>
+db.getCollectionNames();</pre>
+            <h3>数据库</h3>
+            <h4>MongoDB中的数据库</h4>
+            <p>数据库是硬盘上存储数据的文件。MongoDB中，多个文档组成集合，多个集合又组成数据库。而数据库名就是文件名。</p>
+            <h4>数据库命名</h4>
+            <p>1) 不能是空字符串 2)不能违反操作系统文件命名规则 3)只能使用ASCII范围内的字母和数字 4) 区分大小写 5) 最多64个字节 6) 不能使用保留的数据库名</p>
+            <p>集合的完整命名空间：数据库名.父集合名.子集合名</p>
+            <h4>连接数据库</h4>
+            <pre class="code">mongo text <span class="note">//连接数据库，如果不带参数，则默认连接test数据库</span>
+db.createCollection("books");
+show databases<span class="note">//可以查看已有的数据库</span></pre>
+            <p>注意：命令形式的语句不需要加“;”，如果text不存在，则会自动创建一个。</p>
+            <h4>远程登录数据库</h4>
+            <pre class="code">mongo ip:port/database
+//无连接启动
+mongo -nodb //不指定要连接的数据库
+conn = new Mongo("127.0.0.1:port");
+db = conn.getDB(database);</pre>
+            <h4>脚本模式</h4>
+            <pre class="code">mongo ip:port/database script1.js script2.js</pre>
+            <p>注意：脚本中可以使用ECMAScript标准中所有特性</p>
+            <p>操作数据库时，都要通过全局变量db调用，因为只有db封装了相关API</p>
+        </div>
+    </li>
+    <li>
+        <p>操作数据库</p>
+        <div class="desc">
+            <h2>操作数据库</h2>
+            <h3>操作数据库的方式</h3>
+            <h4>shell命令</h4>
+            <table>
+                <tr>
+                    <td>show dbs</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>show collections</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>show users</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>use &lt;db name&gt;</td>
+                    <td></td>
+                </tr>
+            </table>
+            <h4>API形式</h4>
+            <p><span class="code">db.getCollectionNames();</span></p>
+            <h3>数据库的操作</h3>
+            <h4>创建文档</h4>
+            <pre class="code">var book = {
+title:"JavaScript高级程序设计",
+author:"Nicolas",
+ISBN:"978711527590",
+type:"JavaScript",
+publisher:"Wrox"};
+<span class="note">//将文档插入集合中</span>
+db.books.insert(book);
+<span class="note">//查看集合中的文档</span>
+db.books.find();</pre>
+            <h4>查询文档</h4>
+            <pre class="code">db.books.find();  <span class="note">//默认最多返回20个符合条件的文档</span>
+db.books.findOne(); <span class="note">//查看符合条件的第一个文档</span>
+db.books.findOne({type:"JavaScript"});  <span class="note">//findOne方法可以传参</span></pre>
+            <h4>更新文档</h4>
+            <pre class="code"><span class="note">//找到要更新的文档</span>
+var book = db.books.findOne({type:"JavaScript"});
+<span class="note">//强行赋值以添加属性</span>
+book.comment = [];
+<span class="note">//使用update方法将文档更新到集合中去</span>
+db.books.update({_id:book._id},book);</pre>
+            <h4>删除文档</h4>
+            <pre class="code">db.books.remove({type:"mongoDB"});</pre>
+        </div>
+    </li>
+    <li>
+        <p>数据类型</p>
+        <div class="desc">
+            <h2>数据类型</h2>
+            <h3>数据类型</h3>
+            <p>JSON中只支持6种数据类型：Boolean、Number、String、Array、NULL、Object</p>
+            <p>BSON进行了扩展</p>
+            <table>
+                <tr>
+                    <td>数值</td>
+                    <td>Double、Integer</td>
+                </tr>
+                <tr>
+                    <td>Date</td>
+                    <td>和JS中的Date一样</td>
+                </tr>
+                <tr>
+                    <td>Object ID</td>
+                    <td>文档的唯一标识符，值为一个12字节的序列
+                    <p>"_id":ObjectId("56de317c2b588f82a12b3fc5")</p></td>
+                </tr>
+                <tr>
+                    <td>Regular Expression</td>
+                    <td>存储正则表达式，与JS中的语法相同</td>
+                </tr>
+                <tr>
+                    <td>Binary data</td>
+                    <td>用于存储二进制数据</td>
+                </tr>
+                <tr>
+                    <td>JavaScript Code</td>
+                    <td>用于存储一个js函数定义的代码</td>
+                </tr>
+            </table>
+            <h3>数组</h3>
+            <pre class="code">var book = db.books.findOne({type:"JavaScript"});
+book.keywords = ["javascript","web","development"];
+db.books.update({_id:book._id},book);</pre>
+            <h3>内嵌文档</h3>
+            <h4>面向文档和关系型数据库的区别</h4>
+            <table>
+                <tr>
+                    <td rowspan="2">面向文档</td>
+                    <td>优点</td>
+                    <td>数据集中存储，查询效率高</td>
+                </tr>
+                <tr>
+                    <td>缺点</td>
+                    <td>数据冗余度高，维护更新麻烦</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">关系型数据库</td>
+                    <td>优点</td>
+                    <td>冗余少</td>
+                </tr>
+                <tr>
+                    <td>缺点</td>
+                    <td>数据分散在多个表中，查询效率低</td>
+                </tr>
+            </table>
+        </div>
+    </li>
+    <li>
+        <p>帮助文档</p>
+        <div class="desc">
+            <h2>帮助文档</h2>
+            <pre class="code">db.books.find().help();
+db.books.find</pre>
+        </div>
+    </li>
+</ul>
