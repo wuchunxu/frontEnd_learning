@@ -414,6 +414,9 @@ $(e.target);</pre>
 					<td>//return $ele</td>
 				</tr>
 			</table>
+			<p>
+				<strong>注意：attr()和prop()的区别</strong>
+			</p>
 			<h3>删除/替换/克隆</h3>
 			<table>
 				<tr>
@@ -504,6 +507,190 @@ $(e.target);</pre>
 			<p>.is()用来判断，参数为条件（选择器）</p>
 			<pre class="code">//判断select元素内是否包含当前拿到的option
 $("select").is(":has([value="+$(e.target).val()+"])")</pre>
+		</div>
+	</li>
+	<li>
+		<p>事件</p>
+		<div class="desc">
+			<h2>事件</h2>
+			<h3>DOMContentLoaded和window.onload</h3>
+			<table>
+				<tr>
+					<td>DOMContentLoaded</td>
+					<td><p>DOM加载完成就触发（html和js），因此操作不需要等待css文件和图片时，首选DOMcontentLoaded</p></td>
+					<td>
+						<p><span class="code">$(document).ready(function(){})</span></p>
+					<p><span class="code">简化：$(function(){})</span></p>
+					<p><span class="code">ES6中：$(()=>{})</span></p></td>
+				</tr>
+				<tr>
+					<td>window.onload</td>
+					<td><p>待页面所有内容加载完成才执行(html、css、js、图片)，因此，等css和图片加载完成才能执行的操作放在window.onload中</p></td>
+					<td></td>
+				</tr>
+			</table>
+			<h3>鼠标事件</h3>
+			<h4>mouseover和mouseout</h4>
+			<p>反复进入子元素，会反复触发父元素上的事件。（冒泡）</p>
+			<p><strong>解决办法是使用mouseenter和mouseleave</strong>，因为这两事件禁用了冒泡。</p>
+			<p>当同时给一个元素绑定mouseenter和mouseleave，可以简化为hover</p>
+			<pre class="code">$("#target").hover(function(){
+	$(this).toggleClass("hover");//hover中有两个参数，如果两个函数一个，可以合并为一个
+});</pre>
+			<h3>模拟触发</h3>
+			<p>$(...).trigger("click")，也可以简化为$(...).click()</p>
+
+			<h3>笔试题</h3>
+			<h4>jQuery中$的原理：4种重载</h4>
+			<p>1) 如果传入的是选择器字符串，则查找并创建jQuery对象；</p>
+			<p>2) 如果传入DOM 元素对象，则封装现有DOM元素为jQuery对象</p>
+			<p>3) 如果传入html代码片段，则创建新元素；</p>
+			<p>4) 如果传入函数，则绑定内容加载后执行</p>
+			<p>对于选择器字符串，还做了优化（speed up）：①若选择器仅是一个id，则调用getElementById；②标签，则调用getElementsByTagName()；③class，则调用getElementsByClassName()；④复杂选择器，才调用querySelectorAll()</p>
+
+		</div>
+	</li>
+	<li>
+		<p>动画</p>
+		<div class="desc">
+			<h2>动画</h2>
+			<h3>简单动画</h3>
+			<table>
+				<tr>
+					<td rowspan="3">显示和隐藏</td>
+					<td>显示</td>
+					<td>.show()</td>
+					<td>可以带参数ms</td>
+				</tr>
+				<tr>
+					<td>隐藏</td>
+					<td>.hide()</td>
+					<td>可以带参数ms</td>
+				</tr>
+				<tr>
+					<td>显示/隐藏</td>
+					<td>.toggle()</td>
+					<td>可以带参数ms</td>
+				</tr>
+				<tr>
+					<td rowspan="3">上滑下滑</td>
+					<td>上滑</td>
+					<td>.slideUp()</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>下滑</td>
+					<td>.slideDown()</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>上滑/下滑</td>
+					<td>.slideToggle()</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td rowspan="3">淡入淡出</td>
+					<td>上滑</td>
+					<td>.fadeIn()</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>下滑</td>
+					<td>.fadeOut()</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>上滑/下滑</td>
+					<td>.fadeToggle()</td>
+					<td></td>
+				</tr>
+			</table>
+			<p>如果给出时间参数，则会实现动画效果。但问题是，该动画是用js的定时器实现的动画，效率不如css；另外，该动画效果是固定的，几乎不能更改。</p>
+			<h3>万能动画</h3>
+			<h4>动画函数</h4>
+			<pre class="code">$("#btn1").click(function(){
+$("#d1").animate({
+	//width:100
+	//top:300
+	//marginLeft:300
+	//opacity:0
+	//borderWidth:10
+	"font-size":64
+},1000);
+})</pre>
+			<p>注意：只支持单个数值的CSS属性，不支持颜色和CSS3变换。animate也是用定时器实现的。</p>
+			<p>判断/选取正在播放动画的元素 <span class="code">:animated</span></p>
+			<h4>动画停止和回调</h4>
+			<pre class="code">$("#btn1").click(function(){
+	var $tar = $("#d1");
+	if($tar.is(":animated")){
+		$tar.stop();
+	}else {
+		$tar.animate({
+			top:300
+		},2000,function(){
+			alert("我到终点了");
+		})
+	}
+})</pre>
+			<h3>排队和并发</h3>
+			<h4>并发：多个CSS属性同时变化</h4>
+			<h4>排队：多个CSS属性先后依次执行</h4>
+			<p>调用动画API，实际上将动画加入动画列表。</p>
+			<p>stop()方法只能停止当前正在执行的动画，而动画列队里的其他动画并没有停止。解决办法是stop(true)，清除动画列队。</p>
+			<pre class="code">$(window).load(function(){
+	var $msg = $("#msg");
+	$msg.animate({bottom:0},1000);
+
+	$msg.find("a").click(function(){
+		$msg.animate({bottom:-200},1000),function(){
+				$msg.delay(3000).animate({bottom:0},1000)
+		}
+	});
+});</pre>
+		</div>
+	</li>
+	<li>
+		<p>类数组对象的API</p>
+		<div class="desc">
+			<h2>类数组对象API</h2>
+			<h3>遍历</h3>
+			<pre class="code">$(...).each(i,ele){
+//注意：this是当前ele
+}
+//静态each方法
+$.each(数组/集合,func)</pre>
+			<h3>获取索引</h3>
+			<pre class="code">var i = $(...).index("要找的DOM元素");
+//简化为：
+$(子元素).index()</pre>
+			<table>
+				<tr>
+					<td rowspan="2">静态方法</td>
+					<td>$.each()</td>
+					<td>可遍历数组和类数组对象</td>
+				</tr>
+				<tr>
+					<td>$.inArray()</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td rowspan="2">原型方法</td>
+					<td>$(..).each()</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>$(..).index()</td>
+					<td></td>
+				</tr>
+			</table>
+		</div>
+	</li>
+	<li>
+		<p>添加自定义API</p>
+		<div class="desc">
+			<h2>添加自定义API</h2>
+			<pre class="code">jQuery.fn.自定义方法 = function(){}</pre>
 		</div>
 	</li>
 </ul>

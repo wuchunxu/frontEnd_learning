@@ -1,9 +1,11 @@
 @charset "UTF-8";
-$theme_color_1: #41b883;
+$theme_color_1: #41b883; //#5eb761
 $theme_color_2: #bcee68;
+$theme_color_3: #5eb761;
 $theme_bgc_1:#f7f0de;
 body {
 	background: #eee;
+	z-index:0;
 }
 ul>li {
 	list-style-position:inside;
@@ -12,22 +14,49 @@ h1 {
 	padding: 10px 20px;
 }
 section {
-	background: linear-gradient(to bottom,#f2f2f2,#fff);
+	//background: linear-gradient(to bottom,#f2f2f2,#fff);
 	padding-bottom:20px;
 }
 nav {
 	width: 100%;
 	box-sizing:border-box;
 	height: 60px;
-	background-color: $theme_color_1;
+	background: #fff;
 	padding: 0 20px;
+	position:fixed;
+	top:0;
+	z-index:1000;
+	//box-shadow定义多个值的作用是什么？
+	box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42), 0 3px 20px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
 	.logo {
 		font-size: 24px;
 		line-height: 60px;
-		color:#fff;
+		color: $theme_color_1;
 	}
 }
+.color-block {
+	position: absolute;
+	left:0;
+	right:0;
+	top:0;
+	bottom:0;
+	z-index:-1;
+}
+.header-filter {
+	height: 400px;
+	background: linear-gradient(45deg,$theme_color_1 0%,$theme_color_3 100%) ;
+}
 .content {
+	box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+	border-radius:10px;
+	padding:10px;
+	position:relative;
+	margin-top:-450px;
+	background: #fff;
+	top:200px;right:0;bottom:0;left:0;
+	//margin-left:auto;
+	//margin-right:auto;
+	z-index:100;
 	h2 {
 		text-align:center;
 		color:#333;
@@ -45,6 +74,7 @@ nav {
 	.clear {
 		text-align:center;
 	}
+
 	.item {
 		background-color: lighten($theme_color_1,10%);
 		color:#fff;
@@ -58,9 +88,11 @@ nav {
 		border-radius: 6px;
 		margin-right:10px;
 		overflow:hidden;
+		transition:all .4s ease;
 		&:hover {
 			cursor:pointer;
 			background: $theme_color_1;
+			box-shadow:0 0 6px #666;
 		}
 		img {
 			//width: 100%;
@@ -85,6 +117,7 @@ nav {
 	background: #000;
 	opacity:.8;
 	display: none;
+	z-index:4999;
 }
 
 /*弹出窗口样式*/
@@ -201,9 +234,11 @@ nav {
 			margin-bottom:1px;
 			&.active{
 				background: $theme_bgc_1;
+				box-shadow: 0 0 6px #666;
 			}
 			&:hover {
 				background: $theme_bgc_1;
+				box-shadow: 0 0 6px #666;
 			}
 		}
 	}
@@ -223,12 +258,14 @@ nav {
 		color: #333;
 		overflow:auto;
 		counter-reset: desc_title;
+		box-shadow: 0 0 6px #666;
 		//transition: all .4s ease-in-out;
 
 		& table {
 			color: #333!important;
 			margin-left:15px;
 			margin-bottom: 10px;
+			//box-shadow: 0 0 6px #666;
 			th,td {
 				text-align:center;
 			}
@@ -335,15 +372,21 @@ pre {
 		border-radius: 8px;
 		padding: 10px 20px;
 		line-height: 1.6em;
+		transition: all .5s ease;
+		&:hover {
+			box-shadow: 0 0 6px #666;
+		}
 	}
 	.note {
 		color: green;
 	}
+
 }
 
 
 table pre.code {
 	font-size: 14px;
 	background: #eee;
+
 }
 
