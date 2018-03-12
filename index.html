@@ -13,8 +13,6 @@
 		<div class="logo">前端学习笔记</div>
 	</nav>
 	<h1>巫春旭的前端学习笔记</h1>
-
-	<p><em>注意：内容更新Server、PHP、CSS、JS高级</em></p>
 	<main>
 		 <div class="content"></div>
 	</main>
@@ -62,11 +60,12 @@
             getResource =  function (url){
                 ajax(url,{
                     success:function(resposneText){
+                        //请求成功后，显示弹窗和遮罩层
                         var modal = $("shower");
                         modal.innerHTML = resposneText;
                         modal.style.display = "block";
                         $("layer").style.display = "block";
-
+						//给弹窗中ul设置点击事件
                         modal.getElementsByClassName("menu")[0].onclick = function(event){
                             var parent = event.target.closest("li");
                             var lis = parent.parentNode.children;
@@ -102,6 +101,8 @@
 				this.style.display = "none";
 				$("shower").style.display = "none";
 			}
+
+
 		})();
 	</script>
 </body>

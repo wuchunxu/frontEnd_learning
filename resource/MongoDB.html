@@ -69,8 +69,13 @@ conn = new Mongo("127.0.0.1:port");
 db = conn.getDB(database);</pre>
             <h4>脚本模式</h4>
             <pre class="code">mongo ip:port/database script1.js script2.js</pre>
+            <p>进入数据库后，可以用 <span class="code">load("c:/script1.js");</span>来临时加载脚本。但是，当与数据库断开连接后，脚本中的函数和变量就会失效。解决的方法是，将要加载的script文件写在<span class="code">c:用户/管理员/mongorc.js</span>中，程序启动数据库会自动执行该脚本。在<span class="code">mongorc.js</span>中，我们可以将要添加的新功能、或者要屏蔽的原生危险的操作函数写入该文件中。用<span class="code">load()</span>的方法载入函数，而函数代码写在独立的文件中，便于维护。</p>
             <p>注意：脚本中可以使用ECMAScript标准中所有特性</p>
             <p>操作数据库时，都要通过全局变量db调用，因为只有db封装了相关API</p>
+            <pre class="code">//屏蔽dropDatabase()函数
+DB.prototype.dropDatabase = function(){
+    print("dropDatabase函数已被禁用！");
+}</pre>
         </div>
     </li>
     <li>
@@ -82,11 +87,11 @@ db = conn.getDB(database);</pre>
             <table>
                 <tr>
                     <td>show dbs</td>
-                    <td></td>
+                    <td>db.getMongo().getDBs()</td>
                 </tr>
                 <tr>
                     <td>show collections</td>
-                    <td></td>
+                    <td>db.getCollectionNames()</td>
                 </tr>
                 <tr>
                     <td>show users</td>
@@ -94,7 +99,7 @@ db = conn.getDB(database);</pre>
                 </tr>
                 <tr>
                     <td>use &lt;db name&gt;</td>
-                    <td></td>
+                    <td>db.getSisterDB("db")</td>
                 </tr>
             </table>
             <h4>API形式</h4>
@@ -186,6 +191,16 @@ db.books.update({_id:book._id},book);</pre>
                     <td>数据分散在多个表中，查询效率低</td>
                 </tr>
             </table>
+            <h3>_id和ObjectId</h3>
+            <p>MongoDB中唯一标识一个文档的标识符成为_id键。_id键是创建文档时，为文档添加的第一个属性。如果不手动创建，则会自动创建。自动创建的_id键默认是ObjectId类型的对象。</p>
+            <p>ObjectId类型是一个由12字节二进制数据组成的BSON数据类型。实际由24个16进制数字组成。<span class="code">timestamp(4字节) + machine identifier(3字节) + process id(2字节) + counter(3字节)</span>，这里要特别注意的是，timestamp存储的是秒数，不是毫秒数。</p>
+            <p>timestamp可以计算出文档创建日期</p>
+            <pre class="code">var book = db.books.findOne({publisher:"O'Reilly"});
+var _id = book._id.valueOf();//拿到_id的值
+print(_id);
+var ms = parseInt(_id.substring(0,8),16)*1000;//转成10进制的毫秒数
+var date = new Date(ms);
+print(date);</pre>
         </div>
     </li>
     <li>

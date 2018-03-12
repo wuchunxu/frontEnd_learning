@@ -55,10 +55,9 @@
 			</table>
 			<h3>引入</h3>
 			<h4>CDN引入</h4>
-			<p>什么是CDN：根据用户到网络中任意一台服务器的网络状况，自动选择最优的服务器下载资源。</p>
+			<p>什么是CDN：内容分发网络，可根据客户端到服务器的网络状况和访问量智能选择最优的服务器下载资源。</p>
 			<h4>本地</h4>
 			<p>将jQuery.js下载到项目文件夹中</p>
-			
 			<h3>笔试题</h3>
 			<h4>jQuery 3.x更新了哪些内容</h4>
 			<p>1) 在严格模式下运行</p>
@@ -85,9 +84,9 @@
 				</tr>
 			</table>
 			<h3>创建jQuery对象</h3>
-			<p>jQuery对象用来保存DOM对象，并提供操作API。</p>
+			<p>jQuery对象是一种类数组对象，用来封装DOM对象，并提供对DOM对象执行操作的简化版API。</p>
 			<h4>通过选择器创建对象</h4>
-			<p>按照选择器，先查找满足条件的所有元素，保存到jQuery对象中。那么就可以用jQuery对象的API才操作保存在jQuery对象中的DOM元素了。<span class="code">var jq = $("selector");</span>原理如下：</p>
+			<p>按照选择器，先查找满足条件的所有元素，保存到jQuery对象中。那么就可以用jQuery对象的API来操作保存在jQuery对象中的DOM元素了。<span class="code">var jq = $("selector");</span>原理如下：</p>
 			<pre class="code unimportant">//原来以new方式创建对象
 var jq = new jQuery("selector");
 //但是比较麻烦，于是写了工厂函数，以简化对象创建
@@ -101,7 +100,8 @@ var jq = $("selector");</pre>
 			<h4>给出DOM元素创建对象</h4>
 			<p>将现有元素包装进jQuery对象中。</p>
 			<pre class="code">var $ele = $("DOM元素");
-var $btn = $(this);</pre>
+$(this);
+$(e.target);</pre>
 			<h3>jQuery API三大特点</h3>
 			<h4>API一个函数2个功能</h4>
 			<p>给新值，修改；不给新值，就读取。</p>
@@ -109,14 +109,17 @@ var $btn = $(this);</pre>
 			<p>对jQuery对象整体调用一次API，等效于对内部每个元素都调用一次API</p>
 			<h4>链式操作</h4>
 			<p>每个函数都返回正在操作的jq对象: 链式操作!</p>
+			<h3>注意点</h3>
+			<p>1) 尽量减少$()的使用，因为每次都会创建jQuery对象，耗费内存</p>
+			<p>2) 尽量减少查找的次数，因为查找是遍历，反复查找效率低</p>
 		</div>
 	</li>
 	<li>
-		<p>查找元素</p>
+		<p>查找元素--选择器查找</p>
 		<div class="desc">
 			<h2>查找元素</h2>
 			<h3>按选择器查找</h3>
-			<p>jQuery支持所有CSS选择器，并扩展了一些</p>
+			<p>jQuery支持所有CSS选择器，并自定义扩展了一些。</p>
 			<table>
 				<tr>
 					<th>分类</th>
@@ -228,7 +231,7 @@ var $btn = $(this);</pre>
 				<tr>
 					<td rowspan="5" style="background:greenyellow;">内容过滤(jQuery特有)</td>
 					<td>:parent</td>
-					<td>非空元素</td>
+					<td>非空元素，相当于:not(:empty)</td>
 				</tr>
 				<tr>
 					<td>:empty</td>
@@ -273,6 +276,234 @@ var $btn = $(this);</pre>
 			<p>jquery特有的位置过滤器原理是，将所有符合条件的元素放在一个集合内，统一编号，从0开始。</p>
 			<p>这里要特别注意<em>CSS中子元素过滤选择器</em>和<em>jQuery特有的位置过滤选择器</em>之间的区别。利用过滤选择器，我们可以很轻松的操作表格，如设置表格隔行变色，或者设置表格列变色。</p>
 			<p>通过jQuery学习，我们以后绑定事件一律使用<span class="code">data-XXX</span>自定义属性的形式。</p>
+		</div>
+	</li>
+	<li>
+		<p>查找元素--节点关系查找</p>
+		<div class="desc">
+			<h2>查找元素--节点关系查找</h2>
+			<h3>按节点关系查找</h3>
+			<table>
+				<tr>
+					<th>#</th>
+					<th>jQuery</th>
+					<th>DOM</th>
+				</tr>
+				<tr>
+					<td rowspan="4">父子关系</td>
+					<td>.parent</td>
+					<td>.parentNode</td>
+				</tr>
+				<tr>
+					<td>.children("selector")</td>
+					<td>.children</td>
+				</tr>
+				<tr>
+					<td>.children(":first")<br>
+						.children().first()</td>
+					<td>.firstElementChild</td>
+				</tr>
+				<tr>
+					<td>.children(":last")<br>
+						.children().last()</td>
+					<td>.lastElementChild</td>
+				</tr>
+				<tr>
+					<td rowspan="3">兄弟关系</td>
+					<td>.prev()
+						<br>.next()</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>.prevAll()<br>.nextAll("selector")</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>siblings("selector");</td>
+					<td></td>
+				</tr>
+			</table></div>
+	</li>
+	<li>
+		<p>DOM操作</p>
+		<div class="desc">
+			<h2>DOM操作</h2>
+			<h3>修改</h3>
+			<table>
+				<tr>
+					<td rowspan="4">修改内容</td>
+					<td>HTML代码片段</td>
+					<td>.html()</td>
+					<td>.innerHTML</td>
+				</tr>
+				<tr>
+					<td>纯文本内容</td>
+					<td>.text()</td>
+					<td>.textContent</td>
+				</tr>
+				<tr>
+					<td>表单元素的值</td>
+					<td>.val()</td>
+					<td>.value</td>
+				</tr>
+				<tr>
+					<td>清空内容</td>
+					<td>.empty()</td>
+					<td>.innerHTML = "";</td>
+				</tr>
+				<tr>
+					<td rowspan="3">修改属性</td>
+					<td>HTML标准属性</td>
+					<td>.attr("属性名"[,"值"])</td>
+					<td>.属性名</td>
+				</tr>
+				<tr>
+					<td>状态属性</td>
+					<td>.prop("属性名"[,boolean])</td>
+					<td>.属性名</td>
+				</tr>
+				<tr>
+					<td>自定义属性</td>
+					<td>.attr("自定义属性")/.data()</td>
+					<td>.getAttribute("自定义属性")/.dataset.属性名</td>
+				</tr>
+				<tr>
+					<td rowspan="5">修改样式</td>
+					<td>css属性</td>
+					<td>.css("属性名"[,"value"])</td>
+					<td>.style.属性名<br>如果是获取，自动调用getComputedStyle()</td>
+				</tr>
+				<tr>
+					<td rowspan="4">class的操作</td>
+					<td>hasClass("red")</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>addClass()</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>removeClass()</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>toggleClass()</td>
+					<td></td>
+				</tr>
+			</table>
+			<h3>添加</h3>
+			<h4>创建新元素</h4>
+			<table>
+				<tr>
+					<td rowspan="4">添加元素</td>
+					<td rowspan="2">末尾追加</td>
+					<td>$parent.append($ele)</td>
+					<td>//return $parent</td>
+				</tr>
+				<tr>
+					<td>$ele.appendTo($parent)</td>
+					<td>//return $ele</td>
+				</tr>
+				<tr>
+					<td rowspan="2">开头插入</td>
+					<td>$parent.prepend($ele)</td>
+					<td>//return $parent</td>
+				</tr>
+				<tr>
+					<td>$ele.prependTo($parent)</td>
+					<td>//return $ele</td>
+				</tr>
+			</table>
+			<h3>删除/替换/克隆</h3>
+			<table>
+				<tr>
+					<td>删除</td>
+					<td>$ele.remove();</td>
+				</tr>
+				<tr>
+					<td>替换</td>
+					<td>$ele.replaceWith(新元素);<br>$(新元素).replaceAll()</td>
+				</tr>
+				<tr>
+					<td>克隆</td>
+					<td>.clone()</td>
+				</tr>
+			</table>
+			<h3>事件绑定</h3>
+			<p>jQuery中共有几种事件绑定方法，分别有什么特点？</p>
+			<table>
+				<tr>
+					<td>bind</td>
+					<td>bind("click",handle)</td>
+					<td>addEventListener()/removeEventListener()</td>
+				</tr>
+				<tr>
+					<td>unbind</td>
+					<td>
+						<p>unbind("click",handle)</p>
+						<p>unbind("click")</p>
+						<p>unbind()</p>
+					</td>
+					<td>
+						<p>移除指定事件上的一个处理函数</p>
+						<p>移除指定事件上的所有处理函数</p>
+						<p>移除所有事件所有处理函数</p>
+					</td>
+				</tr>
+				<tr>
+					<td>one</td>
+					<td>.one("事件名",handler)</td>
+					<td>只能触发一次，触发后，自动解绑</td>
+				</tr>
+				<tr>
+					<td>delegate</td>
+					<td>$parent.delegate("selector","click",handle)</td>
+					<td>"selector"代替了手动if判断，是否是自己想要的元素，并将this指回e.target</td>
+				</tr>
+				<tr>
+					<td>on/off</td>
+					<td>
+						<p>.on("click",handle)</p>
+						<p>.on("click","selector",handle)</p>
+					</td>
+					<td>
+						<p>简化了bind</p>
+						<p>简化了delegate()</p>
+					</td>
+				</tr>
+				<tr>
+					<td>.事件名</td>
+					<td>.click(handle)</td>
+					<td>bind的简化</td>
+				</tr>
+			</table>
+
+			<table>
+				<tr>
+					<td>bind</td>
+					<td>
+						<p>绑定在目标元素上</p>
+					</td>
+				</tr>
+				<tr>
+					<td>delegate</td>
+					<td>
+						<p>绑定在父元素上，只绑定一次</p>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</li>
+	<li>
+		<p>效果案例</p>
+		<div class="desc">
+			<h2>效果案例</h2>
+			<h3>表单提交</h3>
+			<p>当点击提交按钮(input[type=submit])触发事件是表单的提交事件：$("form").submit(function(){})。触发该事件时，判断用户名和密码等是否符合条件，如果不符合，阻止提交e.preventDefault()；</p>
+			<h4>判断某元素里是否包含某元素</h4>
+			<p>.is()用来判断，参数为条件（选择器）</p>
+			<pre class="code">//判断select元素内是否包含当前拿到的option
+$("select").is(":has([value="+$(e.target).val()+"])")</pre>
 		</div>
 	</li>
 </ul>

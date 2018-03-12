@@ -195,8 +195,8 @@ nav .logo {
 #shower .desc {
   display: none;
   position: absolute;
-  width: 76%;
   height: 88%;
+  width: 76%;
   min-height: 480px;
   left: 22%;
   top: 64px;
@@ -208,7 +208,6 @@ nav .logo {
   color: #333;
   overflow: auto;
   counter-reset: desc_title;
-  transition: all .4s ease-in-out;
 }
 #shower .desc table {
   color: #333 !important;
