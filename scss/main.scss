@@ -170,7 +170,7 @@ nav {
 		border-spacing: 0;
 		border-radius: 10px;
 		background: #fff;
-		font-family: "consolas";
+		font-family: "consolas","宋体";
 	}
 	th,.title {
 		background: $theme_color_2;
@@ -265,12 +265,8 @@ nav {
 			color: #333!important;
 			margin-left:15px;
 			margin-bottom: 10px;
-			//box-shadow: 0 0 6px #666;
 			th,td {
 				text-align:center;
-			}
-			tr:nth-child(even){
-				background: #eee;
 			}
 		}
 		&>h2 {

@@ -232,4 +232,67 @@ UPDATE xz_user SET uname="dangdang",age="24" WHERE uid=2;#必须加条件，否�
 			</table>
 		</div>
 	</li>
+	<li>
+		<p>Session</p>
+		<div class="desc">
+			<h2>Session</h2>
+			<h3>为什么要用Session</h3>
+			<p><strong>因为http是无状态的</strong>，用户每执行一次操作，都要与服务器重新建立一个连接。其优点是，可以快速释放资源，给其他用户，从而增大服务器的负载能力。但同一个用户建立新连接时，无法获取上次连接的状态和数据。</p>
+			<h3>什么是Session</h3>
+			<p>Session是服务器内存中的一个对象。</p>
+			<p>在php中，Session是服务器内存中的一个关联数组对象。<strong>Session允许将数据存储在Web服务器上，从而在整个会话过程中保持任何数据。</strong>用户会话是指用户在浏览某个网站时，从进入网站到关闭浏览器所经过时间。</p>
+			<h3>Session的生命周期</h3>
+			<table>
+				<tr>
+					<td>1</td>
+					<td><p>打开浏览器首次请求服务器时，浏览器与服务器建立一个session（有必要创建时才创建，由java或php编程控制）。服务器会自动给客户端分配一个唯一的标识(sessionid)，存储于客户端本地的cookie中。注意：从当前浏览器窗口打开的新链接，不再建立新的session，而是和第一个打开的窗口共用一个session。</p></td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td><p>当PHP调用session_start()函数时，服务器会根据请求中携带的SessionId，从session仓库中加载对应SessionId的session对象到内存中。</p></td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td><p>执行PHP脚本时，可使用以下方式注册session变量</p>
+						<pre class="code">session_start();
+$_SESSION["变量名"]=值;//用法同关联数组</pre></td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td><p>当PHP脚本执行完毕，未被销毁的session变量会临时保存到服务器本地一个指定路径session库中，当需要再次访问session中保存的数据时，可以从session库中加载回内存使用。这个路径可以通过php.ini文件中session.save_path指定</p></td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td><p>只要页面有提交活动，则Session所有项会保持</p></td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td><p>Session失效：页面在1440s后，若没有任何提交活动，就会失效。php.ini中<span class="code">session.gc_maxlifetime = 1440;</span></p></td>
+				</tr>
+			</table>
+			<h3>PHP中使用session</h3>
+			<h4>启动session</h4>
+			<p>根据sessionId，从硬盘中读取session到内存中的过程叫启动session。</p>
+			<pre class="code">session_start()</pre>
+			<p>首次调用时，php会自动创建session文件。</p>
+			<h4>向session中注册变量</h4>
+			<pre class="code">$_SESSION["uid"] = $uid;</pre>
+			<p>注意：session中只存id和简单的数据类型。如果存入session的是对象，则读取时，会被反序列化为内存中的对象。不建议存对象。</p>
+			<h4>销毁session</h4>
+			<pre class="code"><span class="note">//销毁一个变量</span>
+unset($_SESSION["变量名"])
+<span class="note">//销毁当前用户整个session</span>
+session_unset();//释放内存
+session_destroy();//销毁文件
+			</pre>
+			<h4>永久session</h4>
+			<p>方法1：修改php.ini，<span class="code">session.gc_maxlifetime=9999</span></p>
+			<p>方法2：客户端自动定时刷新</p>
+			<pre class="code">$(function(){
+	setInterval(function(){
+		$.getJSON("/");
+	},30*1000);
+})</pre>
+		</div>
+	</li>
 </ul>

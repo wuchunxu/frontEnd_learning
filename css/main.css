@@ -168,7 +168,7 @@ nav .logo {
   border-spacing: 0;
   border-radius: 10px;
   background: #fff;
-  font-family: "consolas";
+  font-family: "consolas","宋体";
 }
 #shower th, #shower .title {
   background: #bcee68;
@@ -253,9 +253,6 @@ nav .logo {
 }
 #shower .desc table th, #shower .desc table td {
   text-align: center;
-}
-#shower .desc table tr:nth-child(even) {
-  background: #eee;
 }
 #shower .desc > h2 {
   text-align: center;

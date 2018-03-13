@@ -13,6 +13,17 @@
             <pre class="code">mongod
 //可以带参数
 mongod --dbpath=D:\data\db</pre>
+            <h3>编写脚本</h3>
+            <p>在shell中直接编写脚本不方便，我们可以设置默认编辑器。方法是，将全局变量EDITOR设置为编辑器执行文件的路径：</p>
+            <pre class="code">EDITOR='C:/"Program Files (x86)"/EditPlus/editplus.exe';</pre>
+
+            <p>使用编辑器：<span class="code">edit 语句/变量;</span></p>
+            <pre class="code">var book = db.books.findOne();
+    edit book
+//修改后保存
+//更新文档
+db.books.update({_id:book._id},book);</pre>
+            <p>注意：在多行编辑中不要写注释。robot 3T中可以写注释</p>
             <h3>面向文档</h3>
             <h4>BSON</h4>
             <p>BSON以JSON建模，扩展了数据类型，如日期类型、二进制文件类型等。</p>
@@ -209,6 +220,61 @@ print(date);</pre>
             <h2>帮助文档</h2>
             <pre class="code">db.books.find().help();
 db.books.find</pre>
+        </div>
+    </li>
+    <li>
+        <p>高级功能</p>
+        <div class="desc">
+            <h2>高级功能</h2>
+            <h3>批量插入</h3>
+            <p>批量插入，是将一组文档一次性传递给数据库，再执行插入：</p>
+            <pro class="note">db.books.insert([book1,book2....])</pro>
+            <p>批量插入文档时，出错之前的文档正常插入，出错之后的文档不能插入</p>
+            <h3>批量删除</h3>
+            <p><span class="code">db.books.remove({})</span>会一个一个地将文档删除，耗时长，如果将books删除再重建，则更快。</p>
+            <pre class="code">db.books.drop();
+bd.createCollection("books");</pre>
+            <h3>更新修改器</h3>
+            <p>更新修改器用于对文档较小的改动。可定义增加新键，修改以后的键，删除已有键。</p>
+            <table>
+                <tr>
+                    <td>$set</td>
+                    <td>标识修改已有键的值</td>
+                </tr>
+                <tr>
+                <tr>
+                    <td>$inc</td>
+                    <td>标识将指定键的值增加到一定数值</td>
+                </tr>
+
+            </table>
+            <p>如果要修改的键不存在，则自动添加一个。</p>
+            <p>不能使用更新修改器修改_id键的值，但是替换文档时，可以被替换</p>
+            <pre class="code">db.users.update({"name":"Jack"},{$set:{favorite:"run"});
+//删除键
+db.users.update({name:"Jack"},{$unset:{favorite:null});</pre>
+            <h4>更新内嵌文档</h4>
+            <pre class="code">db.books.update({"author.name":"David"},{$set:{"author.homepage":"www.david.com"});</pre>
+            <h4>$inc</h4>
+            <pre class="code">db.books.update({title:"JavaScript权威指南"},{$inc:{$stock:-1});</pre>
+            <h4>数组的操作</h4>
+            <table>
+                <tr>
+                    <td rowspan="3">添加</td>
+                    <td>$push修改器</td>
+                    <td>db.myUser.update({查询文档},{$push:{key:value});</td>
+                </tr>
+                <tr>
+                    <td>$each操作符</td>
+                    <td>db.myUser.update({查询文档},{$push:{key:{$each:[v1,v2,v3....]}});</td>
+                </tr>
+                <tr>
+                    <td>$slice操作符</td>
+                    <td>db.myUser.update({查询文档},{$push:{key:{$each:[v1,v2,v3...],$slice:n}}});</td>
+                </tr>
+            </table>
+            <pre class="code">db.createCollection("pm25");
+    </pre>
         </div>
     </li>
 </ul>

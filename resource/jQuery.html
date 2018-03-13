@@ -684,13 +684,112 @@ $(子元素).index()</pre>
 					<td></td>
 				</tr>
 			</table>
+			<p>另外，获取select标签内选中option的位置，用DOM中属性<span class="code">selectedIndex</span>，而jQuery中，<span class="code">$select.prop("selectedIndex");</span></p>
 		</div>
 	</li>
 	<li>
-		<p>添加自定义API</p>
+		<p>jQuery插件</p>
 		<div class="desc">
-			<h2>添加自定义API</h2>
-			<pre class="code">jQuery.fn.自定义方法 = function(){}</pre>
+			<h2>jQuery插件</h2>
+			<h3>官方插件--jQuery UI</h3>
+			<p>首先下载，并引入。引入js文件应该先引入jquery.js</p>
+			<h4>效果</h4>
+			<p>jQuery UI重写了jQuery中一些API，添加了额外的效果。</p>
+			<table>
+				<tr>
+					<th>#</th>
+					<th>特性</th>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>重写了.animate方法，使其支持颜色动画</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>为addClass添加了动画效果</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>为简单动画添加了更多特效</td>
+				</tr>
+			</table>
+			<h4>部件</h4>
+			<p>部件：具有完整的样式和行为的小功能</p>
+			<h5>如何使用</h5>
+			<p>1) 引入jquery-ui.css</p>
+			<p>2) 按照部件约定，编写html内容结构</p>
+			<p>3) 引入jquery.js和jquery-ui.js</p>
+			<p>4) 在自定义脚本中，找到插件的父元素，调用插件API。该操作时侵入性的，自动添加class和行为，优点是简单，缺点是不可维护。</p>
+			<h5>Autocomplete</h5>
+			<h3>第三方插件</h3>
+			<h3>自定义插件(重点)</h3>
+			<p>自定义插件的前提是，已经用普通的HTML、CSS、JS实现了。</p>
+
+
+			<table>
+				<tr>
+					<td>jQuery UI的侵入方式</td>
+					<td>
+						<p>1) 将CSS样式代码提取到外部文件，用link引入</p>
+						<p>2) 将js代码提取到外部文件，引入</p>
+						<p>3) CSS代码无需修改，重点在于，定义一个该组件的根类名，所有的子元素都在该命名空间下，从而避免影响其他组件的样式</p>
+						<p>4) js代码放在jQuery的原型对象中，这样所有jQuery对象都可以调用，实现了代码的复用</p>
+					</td>
+				</tr>
+				<tr>
+					<td>bootstrap DIY方式</td>
+					<td>
+						<p>判断是否提前加载了jquery.js</p>
+						<p>在整个页面中查找符合条件的元素，自动绑定事件</p>
+					</td>
+				</tr>
+			</table>
+			<h4>jQuery UI的侵入方式</h4>
+			<pre class="code"><span class="note">//my_tab.js</span>
+if(typeof jQuery !== "function"){
+	throw new Error("my-ui依赖于jQuery，请先引入jQuery.js");
+}else{
+jQuery.fn.tabs = function(){
+        //侵入
+        $ul = this.children("ul");
+        $ul.addClass("tabs")
+            .children(":first").addClass("active");
+        $ul.find("li>a").attr("data-toggle","tab");
+        $ul.next().addClass("container")
+            .children(":first").addClass("active");
+      	//绑定事件
+		this.on("click","[data-toggle=tab]",e=>{
+            e.preventDefault();
+            var $tar=$(e.target);
+            if(!$tar.parent().is(".active")){
+                $tar.parent().addClass("active")
+                    .siblings().removeClass("active");
+            var id=$tar.attr("href");
+             $(id).addClass("active")
+                    .siblings().removeClass("active");
+            }
+        })
+	}
+}</pre>
+			<h4>bootstrap DIY方式</h4>
+			<pre class="code"><span class="note">my_boot.js</span>
+if(typeof jQuery !== "function"){
+	throw new Error("my-boot依赖于jQuery，请先引入jQuery.js");
+}else{
+    <span class="note">//不需要jQuery对象调用API，自动执行</span>
+    $(".tabs").on("click","[data-toggle=tab]",e=>{
+        e.preventDefault();
+        var $tar=$(e.target);
+        if(!$tar.parent().is(".active")){
+            $tar.parent().addClass("active")
+                .siblings().removeClass("active");
+        var id=$tar.attr("href");
+         $(id).addClass("active")
+                .siblings().removeClass("active");
+        }
+    })
+}
+			</pre>
 		</div>
 	</li>
 </ul>

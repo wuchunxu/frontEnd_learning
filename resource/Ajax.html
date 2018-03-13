@@ -1,0 +1,88 @@
+<h2>Ajax</h2>
+<ul class="menu">
+	<li>
+		<p>HTTP协议</p>
+		<div class="desc">
+			<h2>HTTP协议</h2>
+			<h3>HTTP协议是什么</h3>
+			<h4>HTTP协议规范了数据如何被打包和传输。</h4>
+			<p>URI：Uniform Resource Identifiers，统一资源标识符</p>
+			<p>URL：Uniform Resource Locator，统一资源定位符</p>
+			<table>
+				<tr>
+					<th>#</th>
+					<th>http协议</th>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td><p>HTTP协议规定，使用URI来传输数据和建立连接。</p></td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td><p>HTTP协议规范了请求消息的组成</p></td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td><p>HTTP协议规范了响应消息组成</p></td>
+				</tr>
+			</table>
+		</div>
+	</li>
+    <li>
+        <p>Ajax函数的封装</p>
+        <div class="desc">
+            <h2>Ajax函数的封装</h2>
+			<h3>封装功能强大的ajax函数</h3>
+			<p>这个版本ajax函数，经过多次修改，比老师上课讲的更强大、更好用。</p>
+            <pre class="code"><span class="note">//特性一：对象传参，屏蔽了参数顺序对结果的影响；</span>
+function ajax({url,method,data,datatype}){
+	<span class="note">//封装了函数，用以将data对象的数据拼接成字符串</span>
+	var makeQueryString = function(data){
+		var queryStr = "";
+		var arr = [];
+		for(var prop in data){
+				arr.push(`${encodeURIComponent(prop)}=${encodeURIComponent(data[prop])}`);<span class="note">//防止中文乱码</span>
+		}
+		queryStr = arr.join("&");
+		return queryStr;
+	}
+
+	var resolve = function(callback){
+		//将参数对象拼接成查询字符串
+		var queryStr = "";
+		if(data) queryStr = makeQueryString(data);
+		//创建xhr对象
+		var xhr = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+		//绑定事件
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				if(datatype && datatype.toUpperCase()=="JSON"){
+					callback(JSON.parse(xhr.responseText));
+				}else{
+					callback(xhr.responseText);
+				}
+			}
+		}
+		<span class="note">//open和send的选择</span>
+		if(method && method.toUpperCase() === "POST"){
+			<span class="note">//post方法</span>
+			url += "?timestamp=" + new Date().getTime();
+			xhr.open("post",url,true);
+			xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xhr.send(queryStr);
+		}else{
+			<span class="note">//get方法</span>
+			if(queryStr!=""){
+				url = url+"?"+queryStr;
+				url += "&timestamp="+new Date().getTime();
+			}
+			xhr.open("get",url,true);
+			xhr.send(null);
+		}
+	}
+	<span class="note">//返回Promise对象</span>
+	return new Promise(resolve);
+}</pre>
+        </div>
+    </li>
+</ul>
