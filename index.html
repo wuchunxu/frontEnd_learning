@@ -5,7 +5,6 @@
 	<title>wuchunxu的前端笔记</title>
 	<link rel="stylesheet" href="css/base.css">
 	<link rel="stylesheet" href="css/main.css">
-
 </head>
 <body>
 	
@@ -17,71 +16,73 @@
 	<main>
 		 <div class="content"></div>
 	</main>
-	
+
 	 <!-- <table class="table-1"></table> -->
 	<div id="shower"></div>
 	<div id="layer"></div>
 	<script src="js/util.js"></script>
 	<script>
-		var getResource = null;
-		(function(){
-			var content = document.getElementsByClassName("content")[0];
-			var frontEnd = {
-				period_1: {
-					"熟悉服务端": ["软件工程","服务器和数据库","PHP"],
-				},
-				period_2: {
-					"初入前端" : ["HTML5基础(未更新)","JS基础","Ajax","CSS","CSS3"],
-				},
-				period_3: {
-					"前端之JS高级" : ["JS内置类型","Function","面向对象","ES5","ES6"],
-					"DOM和BOM": ["DOM","BOM"],
-					"jQuery":["jQuery"]
-				}
-			}
-			//展示数据
-			content.innerHTML = (function(frontEnd){
-				var html = "";
-				for(var period in frontEnd){
-					html += "<section>";
-					html += `<h2>·阶段${period.slice(period.length-1)}·</h2>`;
-					for(var section in frontEnd[period]){
-						html += `<h3>${section}</h3>`;
-						html += "<div class='clear'>";
-						for(var ele of frontEnd[period][section]){
-							html += `<div class="item"><p><img src="images/icon/${ele}.png"></p><p>${ele}</p></div>`;
-						}
-						html += "</div>";
-					}
-					html += "</section>";
-				}
-				return html;
-			})(frontEnd);
+        var getResource = null;
+        (function () {
+            var content = document.getElementsByClassName("content")[0];
+            var frontEnd = {
+                period_1: {
+                    "熟悉服务端": ["软件工程", "服务器和数据库", "PHP"],
+                },
+                period_2: {
+                    "初入前端": ["HTML5基础(未更新)", "JS基础", "Ajax", "CSS", "CSS3"],
+                },
+                period_3: {
+                    "前端之JS高级": ["JS内置类型", "Function", "面向对象", "ES5", "ES6"],
+                    "DOM和BOM": ["DOM", "BOM"],
+                    "jQuery": ["jQuery"]
+                }
+            }
+            //展示数据
+            content.innerHTML = (function (frontEnd) {
+                var html = "";
+                for (var period in frontEnd) {
+                    html += "<section>";
+                    html += `<h2>·阶段${period.slice(period.length - 1)}·</h2>`;
+                    for (var section in frontEnd[period]) {
+                        html += `<h3>${section}</h3>`;
+                        html += "<div class='clear'>";
+                        for (var ele of frontEnd[period][section]) {
+                            html += `<div class="item"><p><img src="images/icon/${ele}.png"></p><p>${ele}</p></div>`;
+                        }
+                        html += "</div>";
+                    }
+                    html += "</section>";
+                }
+                return html;
+            })(frontEnd);
 
-            getResource =  function (url){
-                ajax(url,{
-                    success:function(resposneText){
+            getResource = function (url) {
+                ajax(url, {
+                    success: function (resposneText) {
                         //请求成功后，显示弹窗和遮罩层
-                        var modal = $("shower");
+                        var modal = document.getElementById("shower");
                         modal.innerHTML = resposneText;
                         modal.style.display = "block";
-                        $("layer").style.display = "block";
-						//给弹窗中ul设置点击事件
-                        modal.getElementsByClassName("menu")[0].onclick = function(event){
+
+                        document.getElementById("layer").style.display = "block";
+
+                        //给弹窗中ul设置点击事件
+                        modal.getElementsByClassName("menu")[0].onclick = function (event) {
                             var parent = event.target.closest("li");
                             var lis = parent.parentNode.children;
 
-                            lis = [].filter.call(lis,ele=>ele.tagName.toUpperCase()==="LI");
+                            lis = [].filter.call(lis, ele => ele.tagName.toUpperCase() === "LI");
                             var descs = parent.parentNode.getElementsByClassName("desc");
-                            var desc =  parent.getElementsByClassName("desc")[0];
-                            if( event.target.tagName.toUpperCase()=="P" && event.target.parentNode.tagName.toUpperCase()=="LI"){
-                                if (desc.style.display=="block"){
+                            var desc = parent.getElementsByClassName("desc")[0];
+                            if (event.target.tagName.toUpperCase() == "P" && event.target.parentNode.tagName.toUpperCase() == "LI") {
+                                if (desc.style.display == "block") {
                                     desc.style.display = "none";
                                     parent.children[0].removeClass("active");
-                                }else {
+                                } else {
                                     //去除所有p的active，并把desc的display属性设为none
-                                    lis.forEach(ele=>ele.children[0].removeClass("active"));
-                                    [].forEach.call(descs,ele=>ele.style.display="none")
+                                    lis.forEach(ele => ele.children[0].removeClass("active"));
+                                    [].forEach.call(descs, ele => ele.style.display = "none")
                                     parent.children[0].addClass("active");
                                     desc.style.display = "block";
                                 }
@@ -89,22 +90,22 @@
                         }
                     }
                 });
-			}
-			content.onclick = function show(e){
-				if(!(e.target.parentNode.hasClass("item")||e.target.parentNode.parentNode.hasClass("item"))) return false;
-				
-				var url = `resource/${e.target.closest("div").getElementsByTagName("p")[1].innerHTML}.html`;
-				//console.log(url);
-				getResource(url);
+            }
+            content.onclick = function show(e) {
+                if (!(e.target.parentNode.hasClass("item") || e.target.parentNode.parentNode.hasClass("item"))) return false;
 
-			}
-			$("layer").onclick = function(){
-				this.style.display = "none";
-				$("shower").style.display = "none";
-			}
+                var url = `resource/${e.target.closest("div").getElementsByTagName("p")[1].innerHTML}.html`;
+                //console.log(url);
+                getResource(url);
+            }
+            document.getElementById("layer").onclick = function () {
+                this.style.display = "none";
+                document.getElementById("shower").style.display = "none";
+            }
 
 
-		})();
-	</script>
+        })();
+        </script>
+
 </body>
 </html>

@@ -721,7 +721,7 @@ $(子元素).index()</pre>
 			<p>3) 引入jquery.js和jquery-ui.js</p>
 			<p>4) 在自定义脚本中，找到插件的父元素，调用插件API。该操作时侵入性的，自动添加class和行为，优点是简单，缺点是不可维护。</p>
 			<h5>Autocomplete</h5>
-			<h3>第三方插件</h3>
+
 			<h3>自定义插件(重点)</h3>
 			<p>自定义插件的前提是，已经用普通的HTML、CSS、JS实现了。</p>
 
@@ -790,6 +790,84 @@ if(typeof jQuery !== "function"){
     })
 }
 			</pre>
+			<h3>第三方插件</h3>
+
+			<h4>wysiwyg富文本框</h4>
+			<a href="files/wysiwyg.rar" style="text-decoration:underline;color:green;">点击下载</a>
+
+			<h4>masonry</h4>
+		</div>
+	</li>
+	<li>
+		<p>ajax</p>
+		<div class="desc">
+			<h2>jQuery中的ajax API</h2>
+			<h3>$.ajax函数</h3>
+			<pre class="code">$.ajax({
+	url:"getProductById.php",
+	type:"get",
+	data:"lid="+lid,
+	dataType:"json",
+	beforeSend:function(xhr){
+		console.log("发送请求...")
+	},
+	complete:function(){
+		console.log("请求完成");
+	}
+	success:function(data){
+
+	},
+	error:function(err){
+		console.log(err);
+	}
+)
+	</pre>
+
+		</div>
+	</li>
+	<li>
+		<p>跨域请求</p>
+		<div class="desc">
+			<h2>跨域请求</h2>
+			<h3>跨域请求</h3>
+			<p>发起请求的域名地址和要请求的目标地址不在同一域名下就是跨域请求。例如自己的应用程序要请求别人网站上的数据(股票信息、天气)。或者，项目太大，前端和后端的应用程序分布在不同的域名下。</p>
+			<p>跨域的场景：端口号不同、协议不同、二级域名不同、域名不同、同一主机ip和域名之间互访。</p>
+			<p></p>
+			<h3>跨域请求的原理</h3>
+			<p>虽然ajax中xhr不允许跨域请求，但是诸如img.src、link.href、script.src这些链接属性可以请求跨域的数据。利用这一点可以实现跨域请求数据。</p>
+			<h3>jsonp跨域</h3>
+			<h4>方式1</h4>
+			<p>客户端：不使用xhr，用script标签请求php</p>
+			<p>服务端：不只返回数据，而是将数据填充在一段js代码中返回</p>
+			<h4>方式2</h4>
+			<p>客户端：定义一个接受参数的函数，用script标签的请求php</p>
+			<pre class="code">&lt;script src="http://176.16.11.199/jquery/weather.php"&gt;&lt;/script&gt;</pre>
+			<p>服务端：</p>
+			<pre class="code"><span class="note">//weather.php</span>
+$weather = "晴 5-12度";
+echo "show('$weather')";</pre>
+			<p>该方式问题是函数名必须与服务器端统一</p>
+			<h4>方式3</h4>
+			<p>客户端：定义一个接收参数的函数，用script请求php，携带一个参数callback，值为函数名</p>
+			<pre class="code">&lt;script src="http://176.16.11.199/jquery/weather.php?callback=show"&gt;&lt;/script&gt;</pre>
+			<p>服务端</p>
+			<pre class="code">$callback = $_REQUEST["callback"];
+$weather = "晴 5-12度";
+echo "$callback('$weather')";</pre>
+			<h4>方式4</h4>
+			<p>客户端动态创建script添加到网页，用完自动删除</p>
+			<pre class="code">
+function show(){
+	alert(data);
+	$("script:last").remove(); <span class="note">//用完删除</span>
+}
+$("btnWeather").click(function(){
+	$(`&lt;script src='http://176.16.11.199/jquery/weather.php?callback=show'&gt;&lt;\/script&gt;`).appendTo(document.body);
+});
+			</pre>
+			<h3>服务端解决跨域</h3>
+			<p>服务器端可以设置允许跨域请求的网址。修改响应头，添加允许跨域的地址</p>
+			<pre class="code">header("Access-Control-Allow-Origin:http://127.0.0.1");</pre>
 		</div>
 	</li>
 </ul>

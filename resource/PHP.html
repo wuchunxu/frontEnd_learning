@@ -168,9 +168,140 @@ $msg = "姓名：$uname";#双引号内，$uname被当成变量，而其中的单
 		<div class="desc">
 			<h2>PHP操作数据库</h2>
 			<h3>PHP连接MySQL</h3>
+			<p>通常在init.php文件中拿到数据库连接，并设置连接的编码格式UTF8</p>
+			<pre class="code"><span class="note">//init.php</span>
+$conn = $mysqli_connect("127.0.0.1","root","","xz",3306);
+mysqli_query($conn,"SET NAMES UTF8");</pre>
 			<h3>基于表单的CRUD</h3>
+			<h4>增加数据--向数据库插入数据</h4>
+			<pre class="code">
+
+			</pre>
+			<h4>查询的应用--判断用户名和邮箱是否被占用</h4>
+			<pre class="code">
+/*
+	vali.php
+	判断用户名、邮箱是否已被占用
+ *
+require_once("init.php");
+@$uname = $_REQUEST["uname"];
+@$email = $_REQUEST["email"];
+
+
+function vali($result){
+	if($result){
+		$row = mysqli_fetch_assoc($result);
+		if($row){
+			echo "false";
+		}else{
+			echo "true";
+		}
+	}
+}
+if($uname){
+	$sql = "SELECT uid FROM xz_user WHERE uname='$uname'";
+	$result = mysqli_query($conn,$sql);
+	vali($result);
+}
+
+if($email){
+	$sql = "SELECT uid FROM xz_user WHERE email='$email'";
+	$result = mysqli_query($conn,$sql);
+	vali($result);
+}
+ </pre>
+			<h3>文件上传</h3>
+			<h4>前端处理</h4>
+			<h5>方式一：普通form上传</h5>
+			<pre class="code">
+ &lt;form id="form1" method="post" enctype="multipart/form-data" action="upload_file.php" &gt;
+      &lt;label&gt;选择本地文件:
+        &lt;input type="file" name="sqlfile"/&gt;
+      &lt;/label&gt;
+      &lt;br/&gt;
+      &lt;input type="submit" name="submit" value="Submit" /&gt;
+&lt;/form&gt;</pre>
+			<h5>方式二：ajax异步上传文件</h5>
+			<pre class="code"><span class="note">//这里调用jQuery中的ajax函数</span>
+$("input:button").click(function(){
+  $.ajax({
+	url:"upload_file.php",
+	type:"post",
+	data:new FormData($("#form1")[0]),<span class="note">//将form中的数据打包成对象</span>
+	processData:false,<span class="note">//不要处理数据</span>
+	contentType:false
+  }).then(()=>{
+	alert("上传成功");
+  });
+});</pre>
+			<p>前端文件表单点击submit提交后，文件即上传到服务器。在还未指定如何处理该文件时，该文件临时存储在xampp/tmp文件夹中。如果PHP中未处理该文件，并且PHP脚本已经执行完毕，那么该临时文件就会自动删除。</p>
+			<pre class="code">$file = $_FILES["sqlfile"];
+move_uploaded_file($file["tmp_name"], "upload/".$file["name"])<span class="note">//将临时文件移动到指定文件夹下</span></pre>
+
 			<h3>phpMyAdmin</h3>
 			<h3>常见的错误</h3>
+		</div>
+	</li>
+	<li>
+		<p>Session</p>
+		<div class="desc">
+			<h2>Session</h2>
+			<h3>为什么要用Session</h3>
+			<p>HTTP连接的<em>无状态性</em>，决定了用户每执行一次操作，都要与服务器重新建立连接。这样做的优点是，能快速释放资源给其他用户，增大了服务器的负载能力。然而缺点也显而易见，即同一个用户建立新连接时，无法获取上次连接的状态和数据。</p>
+			<h3>Session</h3>
+			<p>Session用来弥补http无状态的缺陷--无法保持数据。如果你看过《记忆碎片》，你就会知道，如果一个人无法记忆应该怎么解决--用笔记下来就好了。事实上，服务器也是这么做的，它只是将信息“记忆”(保存)在叫Session的对象中。PHP中，Session是关联数组对象，有了它，整个会话过程中服务器就可以保持数据了。</p>
+			<p>会话是指用户在浏览网站时，从进入该网站到关闭浏览器所经过时间。</p>
+			<h3>Session的生命周期</h3>
+			<table>
+				<tr>
+					<td>1</td>
+					<td><p>用户打开浏览器首次请求服务器时，浏览器与服务器建立一个session（有必要创建时才创建，由java或php编程控制）。服务器自动给客户端分配一个唯一的标识(sessionid)，存储于客户端本地的cookie中。注意：从当前浏览器窗口再打开新链接，不再建立新的session，而是和第一个打开的窗口共用一个session。</p></td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td><p>当PHP调用session_start()函数时，服务器会根据请求中携带的SessionId，从session仓库中加载对应SessionId的session对象到内存中。</p></td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td><p>注册session变量:<span class="code">session_start();$_SESSION["变量名"]=值;//用法同关联数组</span></p></td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td><p>当PHP脚本执行完毕，未被销毁的session变量会临时保存到服务器本地一个指定路径session库中，当需要再次访问session中保存的数据时，可以从session库中加载回内存使用。这个路径可以通过php.ini文件中session.save_path指定</p></td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td><p>只要页面有提交活动，则Session所有项会保持</p></td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td><p>Session失效：页面在1440s后，若没有任何提交活动，就会失效。php.ini中<span class="code">session.gc_maxlifetime = 1440;</span></p></td>
+				</tr>
+			</table>
+			<h3>PHP中使用session</h3>
+			<h4>启动session</h4>
+			<p>根据sessionId，从硬盘中读取session到内存中的过程叫启动session。</p>
+			<pre class="code">session_start()</pre>
+			<p>首次调用时，php会自动创建session文件。</p>
+			<h4>向session中注册变量</h4>
+			<pre class="code">$_SESSION["uid"] = $uid;</pre>
+			<p>注意：session中只存id和简单的数据类型。如果存入session的是对象，则读取时，会被反序列化为内存中的对象。不建议存对象。</p>
+			<h4>销毁session</h4>
+			<pre class="code"><span class="note">//销毁一个变量</span>
+unset($_SESSION["变量名"])
+<span class="note">//销毁当前用户整个session</span>
+session_unset();//释放内存
+session_destroy();//销毁文件
+			</pre>
+			<h4>永久session</h4>
+			<p>方法1：修改php.ini，<span class="code">session.gc_maxlifetime=9999</span></p>
+			<p>方法2：客户端自动定时刷新</p>
+			<pre class="code">$(function(){
+	setInterval(function(){
+		$.getJSON("/");
+	},30*1000);
+})</pre>
+
 		</div>
 	</li>
 </ul>

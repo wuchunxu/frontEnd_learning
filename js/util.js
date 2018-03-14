@@ -61,14 +61,6 @@ function ajax(url,option){
 	}
 }
 
-/*
-	$选择函数
-	暂时只支持id
-*/
-function $(id){
-	return document.getElementById(id);
-}
-
 
 /*********************************
 *	     Element之class操作      *
