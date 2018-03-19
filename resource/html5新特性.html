@@ -1,0 +1,136 @@
+<h2>HTML5新特性</h2>
+<ul class="menu">
+    <li>
+        <p>增强型表单</p>
+        <div class="desc">
+            <h2>增强型表单</h2>
+            <h3>新的input type</h3>
+            <table>
+                <tr>
+                    <td>h4</td>
+                    <td>text/password/radio/checkbox/submit/button/reset/file/image</td>
+                </tr>
+                <tr>
+                    <td>h5</td>
+                    <td>email/url/number/search/range/color/date/month/week</td>
+                </tr>
+            </table>
+            <h3>新的表单元素</h3>
+            <table>
+                <tr>
+                    <td>h4</td>
+                    <td>input/textarea/(select/option)/button</td>
+                </tr>
+                <tr>
+                    <td>h5</td>
+                    <td>datalist/progress/meter/output</td>
+                </tr>
+            </table>
+            <div class="container">
+                <div class="pane">
+                    <h4 class="pane-title">输入建议列表(datalist)</h4>
+                    <div class="pane-body">
+                        <p>datalist本身不可见，它为input提供一个建议输入列表，用户可以选取也可以手工输入。<label for="duckShop">知名烤鸭店：</label><input type="text"  id="duckShop" list="list3"></p>
+                        <pre class="code">&lt;datalist id="list3">
+    &lt;option>九华山&lt;/option>
+    &lt;option>便宜坊&lt;/option>
+    &lt;option>大董&lt;/option>
+&lt;/datalist>
+</pre>
+                        <datalist id="list3">
+                            <option>九华山</option>
+                            <option>便宜坊</option>
+                            <option>大董</option>
+                        </datalist>
+                    </div>
+                </div>
+                <div class="pane">
+                    <h4 class="pane-title">进度条(progress)</h4>
+                    <div class="pane-body">
+                        <pre class="code">&lt;progress value="0.1" id="progress" style="width:200px">&lt;/progress></pre>
+                        <p>进度条:<progress value="0.1" id="progress" style="width:200px"></progress></p>
+                    </div>
+                </div>
+                <div class="pane">
+                    <h4 class="pane-title">meter--刻度尺</h4>
+                    <div class="pane-body">
+                        <p>用于表示一个值所处的范围，不接接受(红色)<meter value="40" min="0" max="100" low="60" high="90" optimum="99" id="score"></meter>，可接受的(黄色)<meter value="70" min="0" max="100" low="60" high="90" optimum="99" id="score"></meter>，非常优秀(绿色)<meter value="95" min="0" max="100" low="60" high="90" optimum="99" id="score"></meter></p>
+                        <pre class="code">&lt;meter value="0" min="0" max="100" low="60" high="90" optimum="99" id="score">&lt;/meter></pre>
+                    </div>
+                </div>
+                <div class="pane">
+                    <h4 class="pane-title">output--输出</h4>
+                    <div class="pane-body">
+                        <p>输出，语义化标签，没有任何外观样式，样式等同于span</p>
+                        <table>
+                            <tr>
+                                <th>商品单价</th>
+                                <th>商品数量</th>
+                                <th>小计</th>
+                            </tr>
+                            <tr>
+                                <td>￥3.5</td>
+                                <td><input type="number" value="1"></td>
+                                <td><output>￥3.5</output></td>
+                            </tr>
+                        </table>
+                        <pre class="code">&lt;table>
+&lt;tr>
+    &lt;th>商品单价&lt;/th>
+    &lt;th>商品数量&lt;/th>
+    &lt;th>小计&lt;/th>
+    &lt;/tr>
+&lt;tr>
+    &lt;td>￥3.5&lt;/td>
+    &lt;td>&lt;input type="number" value="1">&lt;/td>
+    &lt;td>&lt;output>￥3.5&lt;/output>&lt;/td>
+    &lt;/tr>
+&lt;/table></pre>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <h3>表单元素新属性</h3>
+            <table>
+                <tr>
+                    <td>h4</td>
+                    <td>name,id,type,value,src,readonly,disabled,checked</td>
+                </tr>
+                <tr>
+                    <td rowspan="4">h5</td>
+                    <td>placeholder</td>
+                    <td>占位符</td>
+                </tr>
+                <tr>
+                    <td>autofocus</td>
+                    <td>自动获得焦点</td>
+                </tr>
+                <tr>
+                    <td>multiple</td>
+                    <td>允许输入框中输入多个值（用逗号分隔），如邮件输入域</td>
+                </tr>
+                <tr>
+                    <td>form</td>
+                    <td>用于将输入域放置在form表单外部</td>
+                </tr>
+                <tr>
+                    <td>required</td>
+                    <td>必须输入，不能为空</td>
+                </tr>
+                <tr>
+                    <td>maxlength/minlength</td>
+                    <td></td>
+                </tr>
+            </table>
+            <h4>placeholder</h4>
+            <h4>autofocus</h4>
+            <p>自动获取焦点 <input type="text" autofocus></p>
+            <pre class="code">&lt;input type="text" autofocus></pre>
+
+        </div>
+    </li>
+</ul>

@@ -246,6 +246,32 @@ nav .logo {
   counter-reset: desc_title;
   box-shadow: 0 0 6px #666;
 }
+#shower .desc .container:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+#shower .desc .container .pane {
+  float: left;
+  width: 46%;
+  margin-right: 1%;
+  margin-bottom: 10px;
+}
+#shower .desc .container .pane .pane-title {
+  padding: 5px 20px;
+  background: #19e651;
+  border-radius: 6px 6px 0 0;
+  font-size: 16px;
+}
+#shower .desc .container .pane .pane-body {
+  border: 1px solid #19e651;
+  background: #fff;
+  padding: 5px;
+}
+#shower .desc .container .pane pre.code {
+  background: #eee;
+  margin-left: 0;
+}
 #shower .desc table {
   color: #333 !important;
   margin-left: 15px;
@@ -339,6 +365,8 @@ pre {
   /*代码块样式*/
 }
 pre.code {
+  word-wrap: break-word;
+  white-space: pre-wrap;
   text-align: left;
   margin-left: 15px;
   margin-bottom: 15px;
@@ -347,10 +375,6 @@ pre.code {
   border-radius: 8px;
   padding: 10px 20px;
   line-height: 1.6em;
-  transition: all .5s ease;
-}
-pre.code:hover {
-  box-shadow: 0 0 6px #666;
 }
 pre .note {
   color: green;
