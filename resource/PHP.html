@@ -11,6 +11,7 @@
 			<h3>运算符</h3>
 			<h3>逻辑结构</h3>
 			<h3>通用小程序</h3>
+			<p>判断是否为闰年、打星星、九九乘法表、水仙花数、质数</p>
 			<h3>函数和对象</h3>
 			<h3>第三方库、组件、框架</h3>
 			<h3>实用小项目</h3>
@@ -50,17 +51,16 @@
 		</div>
 	</li>
 	<li>
-		<p>变量和常量</p>
+		<p>基础知识</p>
 		<div class="desc">
-			<h2>变量和常量</h2>
-			<p>变量：$num = 1;</p>
-			<p>常量：const PI = 3.14;</p>
-		</div>
-	</li>
-	<li>
-		<p>数据类型</p>
-		<div class="desc">
-			<h2>PHP数据类型</h2>
+			<h2>PHP基础知识</h2>
+			<h3>变量和常量</h3>
+			<pre class="code"><span class="note">//变量</span>
+$num = 1;
+<span class="note">常量</span>
+const PI = 3.14;
+			</pre>
+			<h3>数据类型</h3>
 			<table>
 				<tr><td>标量类型</td><td>boolean、int、float、double、string</td></tr>
 				<tr>
@@ -72,12 +72,7 @@
 					<td>null<br>resource,如$conn</td>
 				</tr>
 			</table>
-		</div>
-	</li>
-	<li>
-		<p>运算符</p>
-		<div class="desc">
-			<h2>运算符</h2>
+			<h3>运算符</h3>
 			<table>
 				<tr><td rowspan="3">算术运算符</td><td>%</td><td>取模，也就是求余数</td></tr>
 				<tr><td rowspan="2">++</td><td>$i++</td><td>先取值，再自增</td></tr>
@@ -94,35 +89,7 @@
 				<tr><td>.=</td><td></td><td></td></tr>
 				<tr><td>三目运算符</td><td></td><td colspan="2">$result = (条件)?option1:option2;</td></tr>
 			</table>
-		</div>
-	</li>
-	<li>
-		<p>小知识点</p>
-		<div class="desc">
-			<h2>小知识点</h2>
-			<h3>单引号和双引号</h3>
-			<p>注意以下区别：</p>
-			<pre class="code">$msg = '姓名：$uname';
-$msg = "姓名：$uname";#双引号内，$uname被当成变量，而其中的单引号就是普通的字符串</pre></p>
-			<h3>"+"</h3>
-			<p>PHP中的“+”只用来做算术运算，字符串拼接用“<span class="code">.</span>”</p>
-		</div>
-	</li>
-	<li>
-		<p>通用小程序</p>
-		<div class="desc">
-			<h2>通用小程序</h2>
-			<h3>判断是否为闰年</h3>
-			<h3>打星星</h3>
-			<h3>九九乘法表</h3>
-			<h3>水仙花数</h3>
-			<h3>质数</h3>
-		</div>
-	</li>
-	<li>
-		<p>数组</p>
-		<div class="desc">
-			<h2>数组</h2>
+			<h3>数组</h3>
 			<table>
 				<tr><td rowspan="2">索引数组</td><td>创建数组</td><td>$price= [150,200];</td></tr>
 				<tr><td>添加元素</td><td><span class="code">$price[]=130;</span></td></tr>
@@ -137,30 +104,16 @@ $msg = "姓名：$uname";#双引号内，$uname被当成变量，而其中的单
 					</td>
 				</tr>
 			</table>
-		</div>
-	</li>
-	<li>
-		<p>foreach循环</p>
-		<div class="desc">
-			<h2>foreach循环</h2>
-		</div>
-	</li>
-	<li>
-		<p>PHP预定义数组</p>
-		<div class="desc">
-			<h2>PHP预定义数组</h2>
-		</div>
-	</li>
-	<li>
-		<p>函数</p>
-		<div class="desc">
-			<h2>函数</h2>
-		</div>
-	</li>
-	<li>
-		<p>查询字符串</p>
-		<div class="desc">
-			<h2>查询字符串</h2>
+			<h3>foreach循环</h3>
+			<h3>预定义数组</h3>
+			<h3>函数</h3>
+			<h3>小知识点</h3>
+			<h4>单引号和双引号</h4>
+			<pre class="code"><span class="note">注意以下区别：</span>
+$msg = '姓名：$uname';
+$msg = "姓名：$uname";<span class="note">#双引号内，$uname被当成变量，而其中的单引号就是普通的字符串</span> </pre>
+			<h4>PHP中的“+”</h4>
+			<p>PHP中的“+”只用来做算术运算，字符串拼接用“<span class="code">.</span>”</p>
 		</div>
 	</li>
 	<li>
@@ -243,6 +196,100 @@ move_uploaded_file($file["tmp_name"], "upload/".$file["name"])<span class="note"
 		</div>
 	</li>
 	<li>
+	    <p>php登录功能</p>
+	    <div class="desc">
+			<h2>后端登录功能</h2>
+            <pre class="code"><span class="note">//修改响应的数据格式为json</span>
+header("Content-Type:application/json;charset=UTF-8");
+
+@$aname = $_REQUEST["aname"];
+@$apwd = $_REQUEST["apwd"];
+<span class="note">/*
+	创建正则表达式进行验证
+	aname 字母或数字 3~12
+	apwd 字母或数字 3~12
+*/</span>
+$reg = '/^[a-zA-Z0-9]{3,12}$/';
+$rs = preg_match($reg,$aname);
+
+if(!$rs){
+  die('{"code":-1,"msg":"用户名格式有误，请检查"}');
+}
+$rs = preg_match($reg,$apwd);
+if(!$rs){
+  die('{"code":-1,"msg":"密码格式有误，请检查"}');
+}
+
+//连接数据库
+$conn = mysqli_connect("127.0.0.1","root","","xz",3306);
+mysqli_query($conn,"SET NAMES UTF8");
+//创建sql语句查询xz_admin中是否存在此记录
+$sql = "SELECT aid FROM `xz_admin` WHERE aname = '$aname' AND binary apwd = md5('$apwd')";
+
+<span class="note">//发送sql语句，并获取返回的结果</span>
+$result = mysqli_query($conn,$sql);
+<span class="note">//如果出错，输出错误信息</span>
+if(mysqli_error($conn))  echo mysqli_error($conn);
+
+$row = mysqli_fetch_row($result);
+if(!$row){
+  echo '{"code":-1,"msg":"用户名或密码有误"}';
+}else{
+  echo '{"code":1,"msg":"登录成功"}';
+}
+/*
+  ----------实际开发中的特殊需求-------------
+  1、所有表添加4列
+  cuid ctime {创建记录用户编号，创建时间} INSERT
+  muid mtime {修改记录用户的编号，修改时间} UPDATE
+  2、所有记录不允许DELETE操作
+  isdel       {0正常数据 1已经被删除}
+*/</pre>
+        </div>
+	</li>
+	<li>
+	    <p>PHP错误集锦</p>
+	    <div class="desc">
+	        <h2>PHP错误集锦</h2>
+	        <h3>header中的错误</h3>
+	        <pre class="code">header("Content-Type:application/json;charset=UTF-8");</pre>
+	        <p>声明头信息不能有任何错误，否则可能出现<em>乱码/下载/发送json错误</em></p>
+	        <h3>json格式书写错误</h3>
+	        <pre class="code">echo '{"code":1,"msg":"登录成功"}';
+<span class="note">//以下是错误写法,json里写了单引号</span>
+echo "{'code':1,'msg':'登录成功'}";</pre>
+			<p>当json格式书写错误，ajax无法识别该错误，视为服务器出错，因此，很难调试。这时候查看response响应数据就可以查找到错误。</p>
+			<h3>清空缓存</h3>
+			<p>编码时，<span class="code"> Chrome F12--Network--disable cache</span>禁用缓存，可避免一些不必要的错误。</p>
+        </div>
+	</li>
+	<li>
+		<p>实际开发中的知识</p>
+		<div class="desc">
+			<h2>实际开发中的知识</h2>
+			<h3>特殊需求</h3>
+			<h4>所有表添加4列</h4>
+			<pre class="code">
+----------实际开发中的特殊需求-------------
+1、所有表添加4列
+cuid ctime {创建记录用户编号，创建时间} INSERT
+muid mtime {修改记录用户的编号，修改时间} UPDATE
+2、所有记录不允许DELETE操作
+isdel       {0正常数据 1已经被删除}
+$sql = "SELECT aid FROM `xz_admin` WHERE aname = '$aname' AND binary apwd = md5('$apwd') AND isdel=0";
+3、为了适应项目的扩展性，习惯添加几列--备用
+vi1 vi2 INT
+vs1 vs2 VARCHAR(255)
+ALTER TABLE xz_admin ADD isdel INT;
+表格数据很多的时候，添加列十分耗费性能，100w条记录添加列至少消耗1h
+如果项目中有查询非常频繁数据，而且要求查询速度快，那么将数据复制一份到redis，程序查询redis
+redis查询速度快，每秒2w，mysql只有25</pre>
+				
+
+		</div>
+	</li>
+	<li>
+
 		<p>Session</p>
 		<div class="desc">
 			<h2>Session</h2>

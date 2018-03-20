@@ -89,11 +89,6 @@
                     </div>
                 </div>
             </div>
-
-
-
-
-
             <h3>表单元素新属性</h3>
             <table>
                 <tr>
@@ -101,7 +96,7 @@
                     <td>name,id,type,value,src,readonly,disabled,checked</td>
                 </tr>
                 <tr>
-                    <td rowspan="4">h5</td>
+                    <td rowspan="8">h5</td>
                     <td>placeholder</td>
                     <td>占位符</td>
                 </tr>
@@ -123,14 +118,183 @@
                 </tr>
                 <tr>
                     <td>maxlength/minlength</td>
-                    <td></td>
+                    <td>字符串最大长度/最小长度</td>
+                </tr>
+                <tr>
+                    <td>max/min</td>
+                    <td>定义数值的最大值和最小值</td>
+                </tr>
+                <tr>
+                    <td>pattern</td>
+                    <td>正则表达式</td>
                 </tr>
             </table>
             <h4>placeholder</h4>
             <h4>autofocus</h4>
             <p>自动获取焦点 <input type="text" autofocus></p>
             <pre class="code">&lt;input type="text" autofocus></pre>
-
+        </div>
+    </li>
+    <li>
+        <p>视频和音频</p>
+        <div class="desc">
+            <h2>视频和音频</h2>
+            <h3>flash</h3>
+            <p>未来flash会被H5所替代，体现在如下几个方面：</p>
+            <table>
+                <tr>
+                    <th>Flash</th>
+                    <th>HTML5</th>
+                </tr>
+                <tr>
+                    <td>Flash绘制</td>
+                    <td>Canvas/SVG</td>
+                </tr>
+                <tr>
+                    <td>Flash动画</td>
+                    <td>定时器/Canvas</td>
+                </tr>
+                <tr>
+                    <td>Flash视频和音频</td>
+                    <td>video/audio</td>
+                </tr>
+                <tr>
+                    <td>Flash客户端存储</td>
+                    <td>WebStorage</td>
+                </tr>
+            </table>
+            <h3>视频</h3>
+            <pre class="code">&lt;video src="res/x.mp4">&lt;/video>
+//兼容性写法
+&lt;video>
+    &lt;source src="x.mp4">
+    &lt;source src="x.ogg">
+    &lt;source src="x.webm">
+    您的浏览器版本太低，请下载最新版本！
+&lt;/video></pre>
+            <p>video本身是一个300*150的inline-block</p>
+            <table>
+                <tr>
+                    <th>属性</th>
+                    <th>功能</th>
+                </tr>
+                <tr>
+                    <td>autoplay</td>
+                    <td>默认false，是否自动播放</td>
+                </tr>
+                <tr>
+                    <td>controls</td>
+                    <td>默认false,是否显示播放控件</td>
+                </tr>
+                <tr>
+                    <td>loop</td>
+                    <td>默认false,是否循环播放</td>
+                </tr>
+                <tr>
+                    <td>muted</td>
+                    <td>默认false,是否静音</td>
+                </tr>
+                <tr>
+                    <td>poster:""</td>
+                    <td>在播放第一帧之间显示海报</td>
+                </tr>
+                <tr>
+                    <td>preload</td>
+                    <td>
+                        <p>auto:预加载视频元数据和缓冲一定时长视频</p>
+                        <p>metadata:仅加载视频元数据(尺寸，时长，第一帧)</p>
+                        <p>none:不预加载任何数据</p>
+                    </td>
+                </tr>
+            </table>
+            <h4>js对象属性</h4>
+            <table>
+                <tr>
+                    <td rowspan="5">成员属性</td>
+                    <td>currentTime</td>
+                    <td>当前播放时长</td>
+                </tr>
+                <tr>
+                    <td>duration</td>
+                    <td>总时长</td>
+                </tr>
+                <tr>
+                    <td>paused</td>
+                    <td>是否处于暂停状态</td>
+                </tr>
+                <tr>
+                    <td>volume</td>
+                    <td>当前音量 0~1   0.5</td>
+                </tr>
+                <tr>
+                    <td>playbackRate</td>
+                    <td>播放速率 大于1快放,小于1慢放</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">成员方法</td>
+                    <td>play()</td>
+                    <td>播放视频</td>
+                </tr>
+                <tr>
+                    <td>pause()</td>
+                    <td>暂停暂放</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">成员事件</td>
+                    <td>onplay</td>
+                    <td>当视频开始播放时触发事件</td>
+                </tr>
+                <tr>
+                    <td>onpause</td>
+                    <td>当视频暂停时触发事件</td>
+                </tr>
+            </table>
+            <h3>音频</h3>
+            <pre class="code">&lt;audio src="res/x.mp4">&lt;/audio>
+//兼容性写法
+&lt;audio>
+    &lt;source src="x.mp4">
+    &lt;source src="x.ogg">
+    &lt;source src="x.webm">
+    您的浏览器版本太低，请下载最新版本！
+&lt;/audio></pre>
+            <p>audio本身是一个300*30的inline-block，单若没有controls属性，则display:none;</p>
+     
+            
+        </div>
+    </li>
+    <li>
+        <p>Canvas</p>
+        <div class="desc">
+            <h2>Canvas绘图</h2>
+            <h3>了解绘图</h3>
+            <p>网页中的特效，实时走势图，统计图，网页游戏，地图应用使用绘图技术，有三种绘图技术:</p>
+            <table>
+                <tr>
+                    <td>svg 绘图</td>
+                    <td><p>2D矢量绘图技术，2000年出现，后纳入H5</p></td>
+                </tr>
+                <tr>
+                    <td>canvas绘图</td>
+                    <td><p>2D位图绘图技术，H5提出的绘图技术</p></td>
+                </tr>
+                <tr>
+                    <td>webgl绘图</td>
+                    <td><p>3D绘图技术，尚未纳入H5标准</p></td>
+                </tr>
+            </table>
+            <h3>canvas</h3>
+            <p>canvas:画布，是h5提供的2D绘图技术。canvas标签在浏览器中默认300*150 inline-block，画布宽度和高度只能使用html/js来赋值，不能用css样式赋值。</p>
+            <p>每个画布上有且只有一个画笔对象</p>
+            <pre class="code">var ctx = canvas.getContext("2d");<span class="note">//获得画笔</span></pre>
+            <h4>绘制矩形</h4>
+            <pre class="code">
+ctx.lineWidth = 1;         <span class="note">//描边宽度</span> 
+ctx.fillStyle = "#000";      <span class="note">//填充样式</span>
+ctx.strokeStyle = "#000";   <span class="note">//描边样式</span>
+ctx.fillRect(x,y,w,h)        <span class="note">//填充一个矩形</span>
+ctx.strokeRect(x,y,w,h);    <span class="note">//描边一个矩形</span>
+ctx.clearRect(x,y,w,h);     <span class="note">//清除一个矩形范围内所有绘图</span>           </pre>
         </div>
     </li>
 </ul>

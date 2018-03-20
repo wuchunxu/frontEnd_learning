@@ -1,0 +1,39 @@
+<h2>Node.js</h2>
+<ul class="menu">
+    <li>
+        <p>了解Node.js</p>
+        <div class="desc">
+            <h2>了解后端知识</h2>
+            <h3>进程和线程</h3>
+            <p>进程是操作系统分配资源的基本单位；线程是cpu调度和分配的基本单位。</p>
+            <p>进程和线程的关系：进程中可以包括多个线程，线程必须依赖于进程存在；每个进程至少有一个线程，称为主线程</p>
+            <h3>全局对象</h3>
+            <h4>console对象</h4>
+            <p>console对象负责向stdout/stderr输出信息console.log/warn/error/assert</p>
+            <pre class="code">//断言 ：用在测试
+console.assert(expression,'断言执行失败')
+//如果expression执行结果为真，就是执行下句话，否则抛出异常,程序结束</pre>
+            <h4>process对象</h4>
+            <p>进程对象，当前解释器运行所在的进程对象。通过该对象，可以获取当前操作系统及运行信息，并操作脚本所在执行的进程。</p>
+            <pre class="code">process.arch //获取CPU架构类型
+process.platform //获取操作系统类型
+process.env       //获取操作系统环境变量
+process.pid      //进程编号
+process.kill(123) //结束掉进程编号为123的进程
+process.hrtime() //获取纳秒级别的高精准度的时间
+
+process.cwd()     //获取当前所在工作目录
+process.execPath    //获取解释器所在目录
+process.execArgv    //获取解释器执行参数
+process.argv        //获取解释器运行时的命令行参数
+process.versions   //获取Node.js版本信息
+process.uptime()    //获取Node.js解释器运行时间(s)
+process.memoryUsage() //获取内存信息
+
+process.pid        //获取进程ID号
+process.kill( pid )  //向指定进程ID号发送退出信号
+
+            </pre>
+        </div>
+    </li>
+</ul>
