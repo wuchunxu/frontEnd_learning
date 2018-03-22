@@ -306,7 +306,77 @@ ctx.strokeText(str,x,y)     <span class="note">//描边一段文本</span>
             <h5>练习：渐变对象柱子：宽50，高350</h5>
 
             <h5>练习：sales.php创建一组数值</h5>
-            
+            <h3>使用canvas进行绘图--路径</h3>
+            <p>由多个坐标点组成的任意形状，路径不可见，可用于"描边","填充","裁剪"</p>
+            <table>
+                <tr>
+                    <td>ctx.beginPath();</td>
+                    <td>开始一条新路径</td>
+                </tr>
+                <tr>
+                    <td>ctx.closePath();</td>
+                    <td>闭合当前路径</td>
+                </tr>
+                <tr>
+                    <td>ctx.moveTo(x,y)</td>
+                    <td>移动到指定点</td>
+                </tr>
+                <tr>
+                    <td>ctx.lineTo(x,y)</td>
+                    <td>从当前点到指定点画直线</td>
+                </tr>
+                <tr>
+                    <td>ctx.arc(cx,cy,r,start,end);</td>
+                    <td>绘制圆拱路径</td>
+                </tr>
+                <tr>
+                    <td>ctx.stroke();</td>
+                    <td>对当前路径描边</td>
+                </tr>
+                <tr>
+                    <td>ctx.fill();</td>
+                    <td>对当前路径填充</td>
+                </tr>
+                <tr>
+                    <td>ctx.clip();</td>
+                    <td>使用当前路径裁剪</td>
+                </tr>
+            </table>
+            <h3>canvas--绘制图像</h3>
+            <p> canvas属于客户端技术，图片保存于服务器上，所以浏览器必须先下载图片再进制绘制，且等待图片下载完成再进行。</p>
+            <pre class="code">var p3 = new Image();        #创建图片对象
+p3.src = "x.jpg";             #下载图片
+p3.onload = function(){       #图片下载完成后触发事件
+    ctx.drawImage(p3,x,y);     #绘制原始原始大小图片
+    ctx.drawImage(p3,x,y,w,h);  #拉伸图片
+}</pre>
+           <h3>canvas--变形操作</h3>
+           <p>canvas绘图中变形技术:可以针对某一个图像/图形的绘制过程进变形:rotate,scale,translate</p>
+            <table>
+                <tr>
+                    <td>ctx.rotate(弧度);</td>
+                    <td>旋转(画笔),轴点画布原点</td>
+                </tr>
+                <tr>
+                    <td>ctx.translate(x,y);</td>
+                    <td>将画布的原点平移到指定点</td>
+                </tr>
+                <tr>
+                    <td>ctx.save();</td>
+                    <td>保存画笔状态(原点,角度,颜色...)</td>
+                </tr>
+                <tr>
+                    <td>ctx.restore();</td>
+                    <td>恢复画笔状态到最近一次保存</td>
+                </tr>
+            </table>
+
+ 
+ 
+       
+     
+
+        
         </div>
     </li>
 </ul>

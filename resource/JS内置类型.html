@@ -3,6 +3,7 @@
 		<li>
 			<p>String</p>
 			<div class="desc">
+				<h2></h2>
 				<h3>字符串</h3>
 				<p>字符串是一个字符数组，用来存储多个字符</p>
 				<h3>String类型的API</h3>
@@ -118,18 +119,16 @@ fun(1,2);</pre>
 			</div>
 		</li>
 		<li>
-			<p>对象类型-Object</p>
-			<div class="desc"></div>
-		</li>
-		<li>
-			<p>全局对象-Global</p>
-			<div class="desc"></div>
-			
-		</li>
-		<li>
 			<p>正则类型-RegExp</p>
 			<div class="desc">
 				<h2>正则表达式类型(RegExp)</h2>
+				<h3>创建正则表达式的方式</h3>
+				<pre class="code">var reg = /((微|w(ei)?)\s*(信|x(in)?))|wechat/ig
+//构造函数方式
+var reg_exp = new ExpReg("((微|w(ei)?)\s*(信|x(in)?))|wechat","ig"); 
+				</pre>
+				<p><strong>构造函数形式的好处是，参数传入的是字符串，因此，可以动态替换。</strong></p>
+				<h3>正则类型的API</h3>
 			</div>
 		</li>
 		<li>
