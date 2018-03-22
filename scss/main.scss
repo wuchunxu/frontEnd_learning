@@ -22,7 +22,7 @@ nav {
 	box-sizing:border-box;
 	height: 60px;
 	background: #fff;
-	padding: 0 20px;
+	padding: 0 80px;
 	position:fixed;
 	top:0;
 	z-index:1000;
@@ -32,6 +32,41 @@ nav {
 		font-size: 24px;
 		line-height: 60px;
 		color: $theme_color_1;
+		float:left;
+	}
+	.navi-menu {
+		float:right;
+		font-size: 18px;
+		line-height: 60px;
+		li {
+			position: relative;
+			&>p {
+				padding:0 10px;
+				display:block;
+				height: 60px;
+				line-height: 60px;
+				&:hover {
+					background: $theme_color_1;
+					color:#fff;
+					
+				}
+			}
+			
+			.detail {
+				background-color: #fff;
+				position: absolute;
+				width: 300px;
+				top: 60px;
+				left:-150px;
+				height: 0;
+				padding:0 15px;
+				overflow:hidden;
+				transition: all .5s ease;
+				&.in {
+					height: 100px;
+				}
+			}
+		}
 	}
 }
 .color-block {

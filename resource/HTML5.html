@@ -298,15 +298,21 @@ ctx.clearRect(x,y,w,h);     <span class="note">//清除一个矩形范围内所�
 </pre>
             <h4>绘制文本</h4>
             <pre class="code"><span class="note">/*********文本绘制*************/</span>
+ctx.baseLine = "top";
 ctx.font = "12px sans-serif";<span class="note">//文本字体大小</span>
 ctx.fillText(str,x,y);      <span class="note">//填充文本</span>
 ctx.strokeText(str,x,y)     <span class="note">//描边一段文本</span>
             </pre>
             <h4>绘制渐变色</h4>
+            <pre class="code">var g = ctx.createLinearGradient(x1,y1,x2,y2);
+g.addColorStop(0,"red");
+g.addColorStop(0.5,"green");
+ctx.fillStyle = g;
+            </pre>
             <h5>练习：渐变对象柱子：宽50，高350</h5>
 
             <h5>练习：sales.php创建一组数值</h5>
-            <h3>使用canvas进行绘图--路径</h3>
+            <h4>使用canvas进行绘图--路径</h4>
             <p>由多个坐标点组成的任意形状，路径不可见，可用于"描边","填充","裁剪"</p>
             <table>
                 <tr>
@@ -342,7 +348,7 @@ ctx.strokeText(str,x,y)     <span class="note">//描边一段文本</span>
                     <td>使用当前路径裁剪</td>
                 </tr>
             </table>
-            <h3>canvas--绘制图像</h3>
+            <h4>canvas--绘制图像</h4>
             <p> canvas属于客户端技术，图片保存于服务器上，所以浏览器必须先下载图片再进制绘制，且等待图片下载完成再进行。</p>
             <pre class="code">var p3 = new Image();        #创建图片对象
 p3.src = "x.jpg";             #下载图片
@@ -350,7 +356,7 @@ p3.onload = function(){       #图片下载完成后触发事件
     ctx.drawImage(p3,x,y);     #绘制原始原始大小图片
     ctx.drawImage(p3,x,y,w,h);  #拉伸图片
 }</pre>
-           <h3>canvas--变形操作</h3>
+           <h4>canvas--变形操作</h4>
            <p>canvas绘图中变形技术:可以针对某一个图像/图形的绘制过程进变形:rotate,scale,translate</p>
             <table>
                 <tr>
@@ -370,13 +376,95 @@ p3.onload = function(){       #图片下载完成后触发事件
                     <td>恢复画笔状态到最近一次保存</td>
                 </tr>
             </table>
-
- 
- 
-       
-     
-
-        
+        </div>
+    </li>
+    <li>
+        <p>H5新特性--SVG标签</p>
+        <div class="desc">
+            <h2>SVG绘图</h2>
+            <h3>canvas与svg的区别</h3>
+            <table>
+                <tr>
+                    <th></th>
+                    <th>Canvas</th>
+                    <th>SVG</th>
+                </tr>
+                <tr>
+                    <td>类型</td>
+                    <td>2d位图</td>
+                    <td>2d矢量图</td>
+                </tr>
+                <tr>
+                    <td>如何绘图</td>
+                    <td>js代码绘图</td>
+                    <td>标签绘图</td>
+                </tr>
+                <tr>
+                    <td>事件绑定</td>
+                    <td>每个图形不是一个元素，无法直接绑定事件</td>
+                    <td>每个图形都是元素，可以直接绑定事件监听</td>
+                </tr>
+                <tr>
+                    <td>应用场景</td>
+                    <td>统计图/特效/游戏</td>
+                    <td>图标/地图</td>
+                </tr>
+            </table>
+            <h3>SVG绘图的注意点</h3>
+            <p>(1)所有图形默认只有填充色（黑色），没有描边色</p>
+            <p>(2)SVG图形的样式，可以由元素属性声明，也可以用css形式声明，但只能用SVG专用样式声明。如边框stroke，而不是border</p>
+            <p>(3)图形可以使用js来对属性赋值，但不能用HTML DOM形式，只能用核心DOM。<span class="code">r2.x=10;//无效</span></p>
+            <p>(4)动态添加svg图片的方式有，svg.innerHTML="";和创建元素的方式</p>
+            <pre class="code">var node = document.createElementNS("http://www.w3.org/2000/svg","元素名");</pre>
+            <h3>svg绘图</h3>
+            <table>
+                <tr>
+                    <td>矩形</td>
+                    <td><span class="code">&lt;rect x y w h fill>&lt;/rect></span></td>
+                </tr>
+                <tr>
+                    <td>圆</td>
+                    <td><span class="code">&lt;circle r cx cy>&lt;/circle></span></td>
+                </tr>
+                <tr>
+                    <td>椭圆</td>
+                    <td><span class="code">&lt;ellipse rx ry cx cy>&lt;/ellipse></span></td>
+                </tr>
+                <tr>
+                    <td>直线</td>
+                    <td><span class="code">&lt;line x1 x2 y1 y2>&lt;/line></span></td>
+                </tr>
+                <tr>
+                    <td>折线</td>
+                    <td><span class="code">&lt;polyline points>&lt;/polyline></span></td>
+                </tr>
+                <tr>
+                    <td>文本</td>
+                    <td><span class="code">&lt;text font-size>&lt;/text></span></td>
+                </tr>
+                <tr>
+                    <td>图片</td>
+                    <td><span class="code">&lt;image xlink:href="x.png">&lt;/image></span></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><pre class="code">&lt;defs>
+    &lt;linearGradient id x1 y1 x2 y2>
+        &lt;stop offset="0%" stop-color="red">&lt;/stop>
+        &lt;stop offset="100%" stop-color="yellow">&lt;/stop>
+    &lt;/linearGradient>
+&lt;/defs></pre></td>
+                </tr>
+            </table>
+            <p>可以画出汉堡菜单</p>
+            <svg width="500" height="400" style="background:#fff;">
+                <line x1="90" y1="100" x2="92" y2="100" stroke="black" stroke-width="5" stroke-linecap="round"></line>
+                <line x1="90" y1="110" x2="92" y2="110" stroke="black" stroke-width="5" stroke-linecap="round"></line>
+                <line x1="90" y1="120" x2="92" y2="120" stroke="black" stroke-width="5" stroke-linecap="round"></line>
+                <line x1="100" y1="100" x2="120" y2="100" stroke="black" stroke-width="5" stroke-linecap="round"></line>
+                <line x1="100" y1="110" x2="120" y2="110" stroke="black" stroke-width="5" stroke-linecap="round"></line>
+                <line x1="100" y1="120" x2="120" y2="120" stroke="black" stroke-width="5" stroke-linecap="round"></line>
+            </svg>
         </div>
     </li>
 </ul>

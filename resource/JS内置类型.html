@@ -122,13 +122,76 @@ fun(1,2);</pre>
 			<p>正则类型-RegExp</p>
 			<div class="desc">
 				<h2>正则表达式类型(RegExp)</h2>
-				<h3>创建正则表达式的方式</h3>
+				<h3>创建正则类型对象</h3>
 				<pre class="code">var reg = /((微|w(ei)?)\s*(信|x(in)?))|wechat/ig
-//构造函数方式
+<span class="note">//构造函数方式</span>
 var reg_exp = new ExpReg("((微|w(ei)?)\s*(信|x(in)?))|wechat","ig"); 
 				</pre>
 				<p><strong>构造函数形式的好处是，参数传入的是字符串，因此，可以动态替换。</strong></p>
 				<h3>正则类型的API</h3>
+				<h4>RegExp.prototype.exec</h4>
+				<pre class="code"><span class="note">//即找关键词内容，又找位置:找出所有的明明和静静的内容和位置</span>
+var str5_1 = "明明喜欢我，却不告诉我。别理我，我想静静。静静是谁？你先告诉我明明是谁？";
+var reg = /明明|静静/g;
+var result = [];
+do{
+	var arr = reg.exec(str5_1);
+	if(arr===null)break;
+	result.push({
+		kw: arr[0],
+		index:arr.index
+	});
+}while(true);
+console.log(result);</pre>
+				<h3>String的API</h3>
+				<h4>String.prototype.search</h4>
+				<pre class="code"><span class="note">//查找符合规则的关键词，目标：我卧槽艹曹cao草操</span>
+var str = "那天，我去了她家，我说，我曹，你家真大。卧槽";
+var i = str.search(/[我卧]([操艹曹槽]|cao)/);
+console.log(i);</pre>
+				<h4>String.prototype.match</h4>
+				<pre class="code"><span class="note">//match方法--输出第一个匹配字符子串的内容和位置，如果未匹配到返回null</span>
+var arr = str.match(/[我卧]([操艹曹槽]|cao)/i);
+console.log(`位置：${arr.index},内容：${arr[0]}`);
+<span class="note">//如果查找全局，则返回结果没有索引</span>
+var arr2 = str.match(/[我卧]([操艹曹槽]|cao)/ig);
+console.log(arr2);//[ '我曹', '卧槽' ]</pre>
+				<h4>String.prototype.replace</h4>
+				<pre class="code"><span class="note">//拦截：微信 微 信 weixin wei xin wx w x wechat</span>
+var reg = /((微|w(ei)?)\s*(信|x(in)?))|wechat/ig
+str.replace(reg,"**");
+
+<span class="note">//高级替换：将单词首字母替换为大写</span>
+var str4 = str2.replace(/\b[a-z]/g,kw=>{
+    return kw.toUpperCase();
+});
+console.log(str4);</pre>
+				
+				<h3>正则的例子</h3>
+				<table>
+					<tr>
+						<td>车牌号正则:京A·NB380</td>
+						<td><span class="code">/^[\u4E00-\u9fa5][A-Z]·[A-Z0-9]{5}$/</span></td>
+					</tr>
+					<tr>
+						<td>手机号:+86或0086 18862161802</td>
+						<td><span class="code">/^(\+86|0086)?\s*1[3-9]\d{9}$/</span></td>
+					</tr>
+					<tr>
+						<td>用正则实现trim()</td>
+						<td><pre class="code">function trim(str){
+	return str.replace(/^\s+|\s+$/g,"")
+}</pre></td>
+					</tr>
+					<tr>
+						<td>反选，如不包含4和7</td>
+						<td><span class="code">/^[^47]$/</span></td>
+					</tr>
+					<tr>
+						<td>选择单词no，不选nothing</td>
+						<td><span class="code">/\bno\b/</span></td>
+					</tr>
+				</table>
 			</div>
 		</li>
 		<li>
@@ -328,11 +391,11 @@ console.log(str.len);//undefined</pre>
 				<p>如果找到，返回关键词的第一个字符的下标位置；如果未找到，则返回-1</p>
 				<pre class="code">var index = str.indexOf("keyword"[,fromIndex]);
 var index = str.lastIndexOf("keyword");//反向查找</pre>
-				<h3>判断是否包含某一系列关键词--正则的search()方法</h3>
+				<h3>判断是否包含某一系列关键词--字符串的search()方法</h3>
 				<pre class="code">var index = str.search(/Regex/);</pre>
 				<p>如果找到，返回关键词的位置；如果未找到，返回-1</p>
 				<p>注意：正则表达式中，默认是区分大小写的，如果两者都要匹配，则加上关键词i（意思是ignore）</p>
-				<h3>需要获得关键词的内容--正则的match()方法</h3>
+				<h3>需要获得关键词的内容--字符串的match()方法</h3>
 				<pre class="code">var str = "this is my first regex";
 var arr = str.match(/regex/i);</pre>
 				<p>Attention! <span class="code">match()</span>方法返回值是一个数组，<span class="code">["regex", index: 17, input: "this is my first regex"]</span>；如果没有找到返回null，如果要使用，则需要先判断是否为null！</p>

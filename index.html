@@ -9,7 +9,15 @@
 <body>
 	
 	<nav>
-		<div class="logo">前端学习笔记</div>
+        <div class="logo">前端学习笔记</div>
+        <ul class="navi-menu">
+            <li>
+                <p>联系我</p>
+                <div class="detail">
+                    <p>wcxcapricorn@foxmail.com</p>
+                </div>
+            </li>
+        </ul>
 	</nav>
 	<div class="header-filter"></div>
 
@@ -106,6 +114,14 @@
 
 
         })();
+
+        var li = document.querySelector(".navi-menu>li");
+        li.onmouseover = function(e){
+            this.children[1].addClass("in");
+        }
+        li.onmouseout = function(e){
+            this.children[1].removeClass("in");
+        }
         </script>
 
 </body>
