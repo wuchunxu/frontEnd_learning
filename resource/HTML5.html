@@ -556,7 +556,8 @@ target.onleave = function(){
 
 
             <h4>Chrome浏览器线程模型</h4>
-            <p>只有一个UI主线程，绘制网页中的内容并且执行js代码。</p>
+            <p>一个Chrome进程内，有多个线程“并发”向web服务器发起http请求，以获得所需要的资源。(资源请求线程)</p>
+            <p>还有一个线程(UI主线程)，负责绘制网页中内容并且解析js程序。</p>
             <h3>比较精确执行一段js代码的小技巧</h3>
             <pre class="code">var start = new Date().getTime();//1 创建一个变量保存当前时间戳
 do{

@@ -40,6 +40,7 @@ process.kill( pid )  //向指定进程ID号发送退出信号
         <p>核心模块</p>
         <div class="desc">
             <h2>核心模块</h2>
+            <p>学习Node.js要经常查看<strong><a href="https://nodejs.org/api/">官方文档</a></strong>。</p>
             <h3>Console模块</h3>
             <p>Console模块，控制台模块，提供了一种控制台调试输出的机制。该模块向外导出了两个成员：</p>
             <table>
@@ -66,15 +67,67 @@ os.networkInterface()<span class="note">//返回所有网络接口信息</span><
             <h3>Readline模块</h3>
             <p>Readline模块提供的Interface对象，可以从标准输入对象或其他输入流对象中<em>一行一行地</em>读取数据。</p>
             <pre class="code">const readline = require("readline");
-var reader = readline.createInterface({
+const fs = require("fs");
+const os = require("os");
+var rl = readline.createInterface({
     input: process.stdin,
     output:process.stdout
 });
-reader.question("请输入用户名：",line=>{
-    console.log(line);
+let outFile = fs.createWriteStream("./user");
+rl.question("请输入用户名：",line=>{
+    outFile.write(line+os.EOL);
     reader.close();
 });
             </pre>
+            <p>readline有事件成员，如line，每当遇到换行符就会触发该事件。如果我们需要不停的读取行数据，就可以给rl对象注册line监听</p>
+            <pre class="code">rl.on("line",line=>{
+    if(line!=="exit"){
+        outFile.write(line+EOL);
+    }else{
+        rl.close();
+        outFile.close();
+    }
+});</pre>
+            <p>createInterface()可以输入很多参数</p>
+            <pre class="code">const readline = require("readline");
+const fs = require("fs");
+const os = require("os");
+
+let outFile = fs.createWriteStream("./copy.html");
+let inFile  = fs.createReadStream("./src.html");
+
+let rl = readline.createInterface({
+    input: inFile,
+    output:process.stdout,
+    terminal: false
+});
+
+let counter = 0;
+rl.on("line",line=>{
+    console.log(++counter+" "+line+os.EOL);
+    outFile.write(counter+ " " + line+os.EOL);
+});</pre>
+        <h3>Query String模块</h3>
+        <p>Query String模块提供了处理URL中查询字符串部分的相关操作。</p>
+        <pre class="code">const qs = require("querystring");
+let data = {
+    "uname":"丁大壮",
+    "gender":"男",
+    "upwd":"123456"
+};
+
+let str = qs.stringify(data);<span class="note">//将json转化成query string，这样node.js可以作为客户端发送数据</span>
+let json = qs.parse(str);<span class="note">//node.js可以将query string解析成json对象，方便使用</span>
+
+console.log(str);<span class="note">//uname=%E4%B8%81%E5%A4%A7%E5%A3%AE&gender=%E7%94%B7&upwd=123456</span>
+console.log(json);<span class="note">//{ uname: '丁大壮', gender: '男', upwd: '123456' }</span></pre>
+        <h3>url模块</h3>
+        <p>url模块提供的parse方法可以将url解析成对象，第二个参数为true时，查询字符串也解析成对象。此外还提供resolve方法拼接基地址。</p>
+        <pre class="code">const url = require("url");
+let base = "http://tmooc.cn/sub/index.html";//基地址
+let src = "../img/logo.png";
+let result = url.resolve(base,src);
+console.log(result);</pre>
         </div>
     </li>
 </ul>
