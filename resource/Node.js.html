@@ -36,4 +36,45 @@ process.kill( pid )  //向指定进程ID号发送退出信号
             </pre>
         </div>
     </li>
+    <li>
+        <p>核心模块</p>
+        <div class="desc">
+            <h2>核心模块</h2>
+            <h3>Console模块</h3>
+            <p>Console模块，控制台模块，提供了一种控制台调试输出的机制。该模块向外导出了两个成员：</p>
+            <table>
+                <tr>
+                    <td>Console class</td>
+                    <td>用于向任意Node.js<em>输出流对象</em>执行输出</td>
+                </tr>
+                <tr>
+                    <td>global.console</td>
+                    <td>global.console=new Console(process.stdout,process.stderr);</td>
+                </tr>
+            </table>
+            <h3>OS模块</h3>
+            <p>OS模块提供了很多用于获得当前操作系统信息的方法。</p>
+            <pre class="code">os.EOL //代表OS End-Of-Line常量
+os.tmpdir()         <span class="note">//返回OS的临时目录</span>
+os.hostname()       <span class="note">//返回当前主机名称</span>
+os.platform()       <span class="note">//返回当前OS平台类型</span>
+os.uptime()         <span class="note">//返回当前已经运行的时间，时间秒</span>
+os.totalmem()       <span class="note">//返回OS总内存大小，单位字节</span>
+os.freemem()        <span class="note">//返回所有CPU内核信息</span>
+os.cpus()           <span class="note">//返回所有CPU内核信息</span>
+os.networkInterface()<span class="note">//返回所有网络接口信息</span></pre>
+            <h3>Readline模块</h3>
+            <p>Readline模块提供的Interface对象，可以从标准输入对象或其他输入流对象中<em>一行一行地</em>读取数据。</p>
+            <pre class="code">const readline = require("readline");
+var reader = readline.createInterface({
+    input: process.stdin,
+    output:process.stdout
+});
+reader.question("请输入用户名：",line=>{
+    console.log(line);
+    reader.close();
+});
+            </pre>
+        </div>
+    </li>
 </ul>

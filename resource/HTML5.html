@@ -264,7 +264,7 @@
         </div>
     </li>
     <li>
-        <p>Canvas</p>
+        <p>Canvas绘图</p>
         <div class="desc">
             <h2>Canvas绘图</h2>
             <h3>了解绘图</h3>
@@ -379,7 +379,7 @@ p3.onload = function(){       #图片下载完成后触发事件
         </div>
     </li>
     <li>
-        <p>H5新特性--SVG标签</p>
+        <p>SVG绘图</p>
         <div class="desc">
             <h2>SVG绘图</h2>
             <h3>canvas与svg的区别</h3>
@@ -465,6 +465,103 @@ p3.onload = function(){       #图片下载完成后触发事件
                 <line x1="100" y1="110" x2="120" y2="110" stroke="black" stroke-width="5" stroke-linecap="round"></line>
                 <line x1="100" y1="120" x2="120" y2="120" stroke="black" stroke-width="5" stroke-linecap="round"></line>
             </svg>
+        </div>
+    </li>
+    <li>
+        <p>地理定位</p>
+        <div class="desc">
+            <h2>地理定位(重点)</h2>
+            <h3>了解Geolocation</h3>
+            <p>Geolocation:地理定位，使用js获取当前浏览器所有地理坐标（经度，纬度，海拨，速度）数据，用于实现LBS应用(Location Based Service) 如饿了么，美团，高德导航...</p>
+            <h4>手机浏览器如何获取定位信息</h4>
+            <p>(1)首选手机中GPS芯片与卫星通信，定位精度在米</p>
+            <p>(2)次选手机通信基站进行定位获取，定位精度公里</p>
+            <h4>PC浏览器如何获取定位信息</h4>
+            <p>通过IP地址进行反向解析，定位精度几十公里。解决方案：使用百度地图、腾讯地图。</p>
+            <h3>geolocation</h3>
+            <p>html5中提供一个新对象：geolocation获取当前浏览器定位信息。</p>
+            <pre class="code">window.navigator.geolocation{
+    getCurrentPosition:fn     //获得当前定信息
+    watchPosition:fn         //监视定位数据改变
+    clearWatch:fn           //取消监视
+}</pre>
+            <p><strong>由于特殊原因不能使用该应用。</strong></p>
+            <h3>使用百度地图</h3>
+            <p>(1)注册百度开发者帐户，http://lbsyun.baidu.com/</p>
+            <p>(2)创建一个网站，为网站申请密钥AccessKey</p>
+            <p>(3)把自己的网页中嵌入百度提供API</p>
+
+            <pre class="code">var map = new BMap.Map("container");//放地图的容器
+var pointer = new BMap.Point("经度","纬度");//创建坐标点
+map.centerAndZoom(point,17);//以指定点为中心，并缩放
+map.add();</pre>
+        </div>
+    </li>
+    <li>
+        <p>拖拽API</p>
+        <div class="desc">
+            <h2>拖拽API</h2>
+            <h3>拖动元素触发的事件</h3>
+            <pre class="code">box.ondragstart = function(){
+    <span class="note">//拖拽开始</span>
+}
+box.ondrag = function(){
+    <span class="note">//拖拽中</span>
+}
+box.ondragend = function(){
+    <span class="note">//拖拽结束</span>
+}</pre>
+            <h3>目标元素触发的事件</h3>
+            <pre class="code">target.ondragenter = function(){
+    <span class="note">//进入触发</span>
+}
+target.ondragover = function(e){
+    <span class="note">//悬停</span>
+    e.preventDefault();<span class="note">//如果不阻止悬停事件的默认行为，则无法触发释放事件</span>
+}
+target.ondrop = function(){
+    <span class="note">//释放触发</span>
+}
+target.onleave = function(){
+    <span class="note">//离开触发</span>
+}</pre>
+            
+            <p>HTML5提供了拖拽API，支持3个事件：</p>
+            
+            <p>随鼠标拖动的原理：1)拖拽开始时，获取鼠标与当前元素的上边距和左边距的距离，也就是e.offsetY和e.offsetX；2)拖拽中，获取鼠标距离定位父元素的左边距(e.clientX)和上边距(e.clientY)，并修改该元素的left和top值，注意单位，拖拽结束时，将设置当前的位置。</p>
+            <svg width="400" height="300" style="background: #fff; border-radius:8px;">
+                <rect x="200" y="150" width="150" height="100" fill="pink"></rect>
+                <circle r="3" cx="320" cy="220" fill="red"></circle>
+        
+                <polyline points="320,220 320,0 322,8 320,0 318,8" stroke="green" fill="transparent" stroke-width="2"></polyline>
+                <polyline points="320,220 0,220 8,218 0,220 8,222" stroke="green" fill="transparent" stroke-width="2"></polyline>
+                <polyline points="322,220 322,150 324,158 322,150 320,158" stroke="red" fill="transparent" stroke-width="2"></polyline>
+                <polyline points="322,222 200,222 208,220 200,222 208,224" stroke="red" fill="transparent" stroke-width="2"></polyline>
+        
+                <text font-family="consolas" font-size="20" x="200" y="80" fill="green">e.clientY-offsetY</text>
+                <text font-family="consolas" font-size="20" x="10" y="210" fill="green">e.clientX-offsetX</text>
+        
+                <text font-family="consolas" font-size="20" x="320" y="200" fill="red">offsetY</text>
+                <text font-family="consolas" font-size="20" x="220" y="240" fill="red">offsetX</text>
+            </svg>
+        </div>
+    </li>
+    <li>
+        <p>Web Worker</p>
+        <div class="desc">
+            <h2>Web Worker</h2>
+            <h3>几个概念</h3>
+            <p>程序(program):被CPU执行的代码，存在硬盘中。</p>
+            <p>进程(process/Task)：硬盘中的代码加载到内存中，分配空间</p>
+
+
+            <h4>Chrome浏览器线程模型</h4>
+            <p>只有一个UI主线程，绘制网页中的内容并且执行js代码。</p>
+            <h3>比较精确执行一段js代码的小技巧</h3>
+            <pre class="code">var start = new Date().getTime();//1 创建一个变量保存当前时间戳
+do{
+    var end = new Date().getTime();//2 在do while循环中创建时间戳
+}while(end-start < 5000);//3 在判断条件中计算，如果循环中时间戳-开始时间戳小于5000，继续执行</pre>
         </div>
     </li>
 </ul>
