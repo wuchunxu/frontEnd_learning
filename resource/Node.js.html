@@ -131,6 +131,108 @@ console.log(result);</pre>
         </div>
     </li>
     <li>
+        <p>包</p>
+        <div class="desc">
+            <h3>CommonJS规范</h3>
+            <p>CommonJS不是一门语言，而是为js定义的API标准和规范，从而拓宽js的应用范围。最终提供类似Python、Ruby和Java语言一样丰富的功能。</p>
+            <p>Node.js实现了CommonJS规范。</p>
+            <h4>CommonJS包规范</h4>
+            <p>package：包，在模块的基础上更深一步抽象，类似于java的类库。它将某种独立的功能封装起来，用于发布、更新、依赖管理和版本控制。</p>
+            <table>
+                <tr>
+                    <td>1</td>
+                    <td>一个package.json文件应该存在于包顶级目录下</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>二级制文件应该包含在bin目录下</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>js代码应该包含在lib目录下</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>文档应该在doc目录下</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>单元测试应该在itest目录下</td>
+                </tr>
+            </table>
+            <p>Node.js中require()函数可以引入文件模块外，还可以引入符合上述规范的包。</p>
+            <h3>常用的第三方包</h3>
+            <p>browserify、gulp、npm、grunt-li、grunt、cordva、bower、express、forever</p>
+            <table>
+                <tr>
+                    <td>colors</td>
+                    <td>命令行彩色输出</td>
+                </tr>
+                <tr>
+                    <td>event-stream</td>
+                    <td>Stream流操作工具</td>
+                </tr>
+                <tr>
+                    <td>mocha</td>
+                    <td>单元测试</td>
+                </tr>
+                <tr>
+                    <td>mysql</td>
+                    <td>连接MySQL</td>
+                </tr>
+                <tr>
+                    <td>request</td>
+                    <td>HTTP客户端</td>
+                </tr>
+                <tr>
+                    <td>restify</td>
+                    <td>REST API搭建</td>
+                </tr>
+                <tr>
+                    <td>socket.io</td>
+                    <td>WebSocket实时通信</td>
+                </tr>
+                <tr>
+                    <td>xml2js</td>
+                    <td>XML转换工具</td>
+                </tr>
+            </table>
+        </div>
+    </li>
+    <li>
+        <p>npm</p>
+        <div class="desc">
+            <h3>NPM</h3>
+            <p>npm，Node Package Manager，是非官方提供的用于下载、安装、查找、更新、删除第三方Node.js包的工具，同时，还可以执行打包、发布模块，解决模块间依赖性等功能，已经成为Node.js包管理的标准。</p>
+            <p>Node.js安装文件汇总，已经集成了npm包管理工具。</p>
+            <h4>创建包</h4>
+            <pre class="code">npm init</pre>
+            <p>npm会帮助我们创建package.json</p>
+            <p>npm package json</p>
+            <h4>发布包</h4>
+            <pre class="code">//(1)注册npm账号
+//(2)npm adduser 命令登录账号
+//(3)npm publish发布包</pre>
+            <h4>下载包</h4>
+            <pre class="code">npm install &lt;pkg>
+npm install &lt;pkg>@&lt;version>
+npm install &lt;pkg> --save/--save-dev
+            </pre>
+            <h4>本地安装和全局安装</h4>
+            <p>本地安装：安装包保存在./node_module下，如果没有则创建一个</p>
+            <pre class="code">npm i packageName</pre>
+            <p>全局安装：安装包保存在/usr/local，可以直接在命令行里运行。</p>
+            <h4>维护包</h4>
+            <pre class="code">nmp ls //列出本地目录已经安装的包
+npm ls -g //列出全局目录已经安装的包
+nmp ls &lt;pkg> //列出包的版本信息
+npm info &lt;pkg> //详细信息
+npm update &lt;pkg> //更新已安装的包
+npm uninstall &lt;pkg> //卸载已安装包
+            </pre>
+        </div>
+    </li>
+    <li>
         <p>事件驱动和非阻塞模型</p>
         <div class="desc">
             <h2>事件驱动和非阻塞模型</h2>

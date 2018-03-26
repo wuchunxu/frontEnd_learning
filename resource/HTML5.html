@@ -550,19 +550,111 @@ target.onleave = function(){
         <p>Web Worker</p>
         <div class="desc">
             <h2>Web Worker</h2>
-            <h3>几个概念</h3>
+            <h3>程序、进程和线程</h3>
             <p>程序(program):被CPU执行的代码，存在硬盘中。</p>
             <p>进程(process/Task)：硬盘中的代码加载到内存中，分配空间</p>
 
 
             <h4>Chrome浏览器线程模型</h4>
             <p>一个Chrome进程内，有多个线程“并发”向web服务器发起http请求，以获得所需要的资源。(资源请求线程)</p>
-            <p>还有一个线程(UI主线程)，负责绘制网页中内容并且解析js程序。</p>
+            <p>还有一个线程(UI主线程)，<strong>负责绘制网页中内容并且解析js程序</strong>。（<em>只有一个）</em></p>
+            <p>解决方案：创建一个新线程(worker)来执行耗时的js任务。</p>
+            <pre class="code">&lt;script>
+    var worker = new Worker("02.js");
+&lt;/script></pre>
+            <p>要注意，<strong>浏览器不允许Worker线程操作任何DOM和BOM对象</strong>，原因是，如果多个线程操作DOM，页面可能会混乱。因此，jQuery代码不能放在worker线程里。</p>
+            <p>Worker线程可以给UI线程发送数据，反之也行。</p>
+            <pre class="code"><span class="note">/*
+    worker线程---->ui线程                
+*/
+//worker.js</span>
+postMessage(str);
+<span class="note">//UI线程.html</span>
+var worker = new Worker("x.js");
+worker.onmessage = function(e){
+    <span class="note">//e.data</span>
+}
+<span class="note">/*
+    ui线程---->worker线程
+*/
+//UI主线程</span>
+var worker = new Worker("x.js");
+worker.postMessage(str);
+<span class="note">//worker线程</span>
+onmessage = function(e){
+    <span class="note">//操作e.data</span>
+}
+            </pre>
+            <h4>项目中Worker使用场景</h4>
+            <p>(1)只要js中有DOM和BOM就不能用worker</p>
+            <p>(2)适用于执行耗时的js任务，复杂计算，加密和解密..</p>
             <h3>比较精确执行一段js代码的小技巧</h3>
             <pre class="code">var start = new Date().getTime();//1 创建一个变量保存当前时间戳
 do{
     var end = new Date().getTime();//2 在do while循环中创建时间戳
 }while(end-start < 5000);//3 在判断条件中计算，如果循环中时间戳-开始时间戳小于5000，继续执行</pre>
+        </div>
+    </li>
+    <li>
+        <p>Web storage</p>
+        <div class="desc">
+            <h2>Web storage</h2>
+            <h3>Web storage</h3>
+            <p>web storage在浏览器中存储当前用户专用数据，如内容定制，样式定制。</p>
+            <h3>在客户端存储数据可选方式</h3>
+            <table>
+                <tr>
+                    <th>#</th>
+                    <th>技术</th>
+                    <th>特性</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Cookie</td>
+                    <td>浏览器兼容性好，但不能超过4KB，操作复杂</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Flash</td>
+                    <td>依赖于FLASH播放器</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>H5 WebStorage</td>
+                    <td>不能超过8M，操作简单</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>indexDB</td>
+                    <td>可存储大量的数据，还不是标准技术</td>
+                </tr>
+            </table>
+            <h3>webstorage的对象</h3>
+            <h4>window.sessionStorage</h4>
+            <p>类数组对象，会话级数据存储。在浏览器进程中分配内存，存储本次会话使用的数据，该会话中所有页面共享此数据，当浏览器关闭，该数据消失。</p>
+            <p>在同一个会话汇总所有页面共享的数据，如昵称。</p>
+            <pre class="code">sessionStorage[key] = value;        <span class="note">//保存数据</span>
+sessionStorage.setItem(key,value);  <span class="note">//保存数据</span>
+var value = sessionStorage[key];
+var value = sessionStorage.getItem(key);
+sessionStorage.removeItem(key);     <span class="note">//删除一组数据</span>
+sessionStorage.clear();             <span class="note">//清除所有数据</span>
+sessionStorage.length;              <span class="note">//数据个数</span>
+var key = sessionStorage.key(i);    <span class="note">//获取第i个key</span></pre>
+            <p>Chrome中查看session storage:<span class="code">application--storage</span></p>
+            <h5>利用sessionStorage对象可以做出登录、注销客户端效果。</h5>
+            <pre class="code"><span class="note">//login.html</span>
+sessionStorage.setItem("uname","dingding");
+href.location = "index.html";
+<span class="note">//index.html</span>
+var uname = sessionStorage.getItem("uname");
+if(uname){
+    userMsg.innerHTML = `欢迎回来，${uname},&lt;a href="logout.html">退出&lt;/a>`;
+}
+<span class="note">//logout.html</span>
+sessionStorage.removeItem("uname");
+location.href = "index.html";</pre>
+            <h4></h4>
         </div>
     </li>
 </ul>

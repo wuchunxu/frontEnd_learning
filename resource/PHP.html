@@ -351,4 +351,76 @@ session_destroy();//销毁文件
 
 		</div>
 	</li>
+	<li>
+		<p>上传文件(重点)</p>
+		<div class="desc">
+			<h2>上传文件</h2>
+			<h3>创建程序</h3>
+			<p>(1)服务器创建上传文件目录(upload)</p>
+			<p>(2)创建客户端程序 load.html</p>
+			<p>(3)创建服务器端程序 load.php</p>
+			<h3>load.html</h3>
+			<pre class="code">&lt;form action="data/load.php" method="post" enctype="multipart/form-data">
+	&lt;input type="file" name="mypic">
+	&lt;input type="submit">
+&lt;/form></pre>
+			<h3>load.php</h3>
+			<pre class="code"><span class="note">//获取上传文件信息，大小和文件类型</span>
+<span class="note">//$_FILES数组保存所有上传文件的信息</span>
+
+<span class="note">//var_dump($_FILES["mypic"]);</span>
+$picname = $_FILES["mypic"]["name"];
+
+<span class="note">//获取上传文件大小</span>
+$picsize = $_FILES["mypic"]["size"]/1000;
+<span class="note">//判断文件是否过大，如果超过512kb，禁止上传</span>
+if($picsize>512){
+	die('{"code":"-1","msg":"上传文件过大，请检查"}');
+}
+<span class="note">//4.创建新文件名</span>
+$ext = strstr($picname,".");
+$file = "upload/".time().rand(1,999).$ext;
+
+<span class="note">//5.将临时文件移动到指定upload目录。并修改文件名</span>
+move_uploaded_file($_FILES["mypic"]["tmp_name"],"../$file");
+echo '{"code":"1","msg":"上传成功"}';</pre>
+			<h3>特殊需求</h3>
+			<p>允许上传文件大小>2M，则需要修改php.ini配置文件。修改之前，一定要备份</p>
+			<table>
+				<tr>
+					<td>file_upload</td>
+					<td>On/Off</td>
+					<td>是否允许上传文件</td>
+				</tr>
+				<tr>
+					<td>upload_tmp_dir</td>
+					<td>"C:\xampp\tmp"</td>
+					<td>上传文件临时目录</td>
+				</tr>
+				<tr>
+					<td>upload_max_filesize</td>
+					<td>108M</td>
+					<td>上传文件最大值</td>
+				</tr>
+				<tr>
+					<td>post_max_size</td>
+					<td>30</td>
+					<td>post传递数据最大值</td>
+				</tr>
+				<tr>
+					<td>max_execution_time</td>
+					<td>600</td>
+					<td>单个php运行时长,600秒，也就是10min</td>
+				</tr>
+				<tr>
+					<td>memory_limit</td>
+					<td>128M</td>
+					<td>单个php最大使用内存</td>
+				</tr>
+			</table>
+			<h3>上传文件的建议</h3>
+			<p>建议使用优酷、爱奇艺的服务器，上传可以过滤文件内容</p>
+
+		</div>
+	</li>
 </ul>
