@@ -270,6 +270,38 @@ npm uninstall &lt;pkg> //卸载已安装包
                 </tr>
             </table>
             <h3>事件循环</h3>
+            <h4>事件列队(Event Queue)</h4>
+            <p><strong>事件触发时，处理函数并不是立即执行，而是加入事件列队。只有当主线程中代码都执行完毕，才开始执行事件列队中任务。</strong>这样会导致一些问题，例如，点击某个元素，不能立刻执行绑定的函数，其原因是：等运行的代码运行结束，可能之前还有排队的事件。</p>
+            <h4>事件循环</h4>
+            <p>主线程执行完毕，就去事件列队中读取，再运行，再读取，如此循环。</p>
+            <img src="images/event_loop1.png" title="event loop">
+            <h3>深入理解定时器</h3>
+            <p>有一个误区，"给定时器设置0ms运行一次就是尽可能频繁的运行该事件"，这句话看似很合理，但设计者并不是这样设计的。HTML规范：延时/时间颗粒度最小值为4ms。每秒大概触发200多次，而while循环每秒触发400万次/秒，Node达到500万次。--javascript异步编程</p>
+            <p>如果需要更细的事件颗粒度？</p>
+            <p>(1)Node.js中，process.nextTick；</p>
+            <p>(2)现代浏览器(IE9+)支持requestAnimationFrame函数，该函数允许60+帧/秒的速度运行js动画</p>
+            <h3>process.nextTick和setImmediate的区别</h3>
+            <table>
+                <tr>
+                    <td>process.nextTick</td>
+                    <td>
+                        <p>在当前“执行栈”后插入回调函数，也就是说，总是在任务列队所有任务之前执行</p>
+                        <p>不用检查“任务列队”，执行效率高</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>setImmediate</td>
+                    <td><p>追加在任务列队的尾部，在下一次event loop时执行</p></td>
+                </tr>
+            </table>
+
+
+
+
+
+
+
+
         </div>
     </li>
 </ul>

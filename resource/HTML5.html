@@ -654,7 +654,43 @@ if(uname){
 <span class="note">//logout.html</span>
 sessionStorage.removeItem("uname");
 location.href = "index.html";</pre>
-            <h4></h4>
+            <h4>localStorage</h4>
+            <p>在硬盘中存储用户的专用数据，可供此次会话中后续页面共同使用，即使浏览器关闭也不会消失。用来存储所有会话共享数据，但很少使用。</p>
+        </div>
+    </li>
+    <li>
+        <p>WebSocket</p>
+        <div class="desc">
+            <h2>WebSocket</h2>
+            <h3>HTTP协议</h3>
+            <h4>HTTP协议的劣势</h4>
+            <p>超文本传输协议，用来传输网络资源（html、css、image、mp3、mp4）。是“请求-响应”模型，只有客户端发起请求消息，服务器才会返回响应消息；一个请求只能得到一个响应。此模型在有些场景有些力不从心--比如实时股票走势图。</p>
+            <h3>解决方案</h3>
+            <h4>长轮询/心跳请求</h4>
+            <p>定时器+ajax;</p>
+            <h4>WebSocket协议</h4>
+            <p>该协议属于“广播-收听”模型，客户端连接到服务器就不再断开了，永久连接，双方都可以随时向对方发送消息，WS在实时走势应用有着特别的优势。</p>
+            <table>
+                <tr>
+                    <td>WS服务器的应用</td>
+                    <td><p>监听指定端口，接收客户端请求，向对方发送消息，并接收消息，可以使用PHP/JAVA/Node.js等编程实现。</p></td>
+                </tr>
+                <tr>
+                    <td>WS客户端应用</td>
+                    <td><p>主动发起连接请求，保持永久连接，向对方发送消息，并接受消息，可以用HTML5对象。</p></td>
+                </tr>
+            </table>
+            <h4>使用H5创建WS客户端应用</h4>
+            <pre class="code"><span class="note">//连接ws服务器</span>
+var socket = new WebSocket("ws://127.0.0.1:9001");
+<span class="note">//向服务端发送消息</span>
+socket.send(str);
+<span class="note">//接收服务端的消息</span>
+socket.onmessage = function(e){
+    //e.data
+}
+<span class="note">//断开连接</span>
+socket.close();</pre>
         </div>
     </li>
 </ul>
