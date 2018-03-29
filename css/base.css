@@ -48,4 +48,10 @@ header, main {
   box-sizing: border-box;
 }
 
+@media screen and (max-width: 767px) {
+  header, main {
+    width: 100%;
+  }
+}
+
 /*# sourceMappingURL=base.css.map */

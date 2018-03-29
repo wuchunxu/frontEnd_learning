@@ -272,6 +272,7 @@ npm uninstall &lt;pkg> //卸载已安装包
             <h3>事件循环</h3>
             <h4>事件列队(Event Queue)</h4>
             <p><strong>事件触发时，处理函数并不是立即执行，而是加入事件列队。只有当主线程中代码都执行完毕，才开始执行事件列队中任务。</strong>这样会导致一些问题，例如，点击某个元素，不能立刻执行绑定的函数，其原因是：等运行的代码运行结束，可能之前还有排队的事件。</p>
+            <p>事件列队的顺序：timers/iocallbacks/immediate/close event</p>
             <h4>事件循环</h4>
             <p>主线程执行完毕，就去事件列队中读取，再运行，再读取，如此循环。</p>
             <img src="images/event_loop1.png" title="event loop">

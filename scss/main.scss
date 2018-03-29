@@ -139,6 +139,20 @@ nav {
 			padding-top:25px;
 		}
 	}
+
+}
+@media screen and (max-width:767px){
+	.content {
+		width: 100%;
+		padding:0 0 0 2%;
+		.item {
+			width: 48%;
+			//height: 360px;
+			float:left;
+			margin-right:2%;
+			margin-bottom:2%;
+		}
+	}
 }
 #layer {
 	width: 100%;
@@ -176,6 +190,9 @@ nav {
 	box-shadow: 0 0 6px 3px #888;
 	overflow: auto;
 	transition: all 3s ease;
+	&>back{
+		display:none;
+	}
 	&>h2 {
 		text-align: center;
 		color:#fff;
@@ -183,22 +200,22 @@ nav {
 		font-weight: 100;
 		padding:10px 0 15px;
 	}
-	&>dl {
-		counter-reset:number;
-		dt {
-			font-weight: 100;
-			font-size: 20px;
-			border-bottom: 1px solid #fff;
-			margin-bottom:15px;
-			margin-top:15px;
-		}
-		dd {
-			&:before {
-				content: counter(number)".";
-				counter-increment: number;
-			}
-		}
-	}
+	// &>dl {
+	// 	counter-reset:number;
+	// 	dt {
+	// 		font-weight: 100;
+	// 		font-size: 20px;
+	// 		border-bottom: 1px solid #fff;
+	// 		margin-bottom:15px;
+	// 		margin-top:15px;
+	// 	}
+	// 	dd {
+	// 		&:before {
+	// 			content: counter(number)".";
+	// 			counter-increment: number;
+	// 		}
+	// 	}
+	// }
 	
 	table {
 		border: 1px solid $theme_color_1;
@@ -405,7 +422,66 @@ nav {
 		}
 	}
 }
+@media screen and (max-width:767px){
+	#shower {
+		width: 100%;
+		height: 100%;
+		border-radius: 0;
+		box-shadow: none;
+		background: #eee;
+		padding:0;
+		&>.back {
+			display:block;
+			position: absolute;
+			width: 60px;
+			height: 30px;
+			top:10px;
+			left:10px;
+			border:1px solid #fff;
+			background:$theme_color_1;
+			outline:none;
+			color:#fff;
+			border-radius:5px;
+			&:hover {
+				cursor: pointer;
+				background:darken($theme_color_1,10%);
+			}
+		}
+		&>h2 {
+			background:$theme_color_1;
+			color:#fff;
+			border-bottom:1px solid #ccc;
+			font-size: 24px;
+		}
+		.menu {
+			&>li>:first-child{
+				width: 100%;
+				position:sticky;
+				top:0px;
+				border-radius:0;
+				border-bottom:1px solid #fff;
+				text-align: center;
+				&.active{
+					background: $theme_bgc_1;
+					box-shadow: 0 3px 3px #aaa;
+					font-size: 24px;
+					
+				}
+				&:hover {
+					background: $theme_bgc_1;
+					
+				}
+			}
+			.desc {
+				position:static;
+				width: 100%;
+				box-shadow: none;
 
+			}
+			
+		}
+	}
+}
 /*行内式代码样式*/
 .code {
 	background: #f9f2f4;

@@ -1,0 +1,88 @@
+<h2>Bootstrap</h2>
+<button class="back">返回</button>
+<ul class="menu">
+    <li>
+        <p>编写响应式网站</p>
+        <div class="desc">
+            <h2>响应式</h2>
+            <h3>如何编写响应式网站</h3>
+            <h4>声明viewport(视口)元标签</h4>
+            <pre class="code">&lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;</pre>
+            <p>早期3G手机为浏览器大尺寸网页，只能强行页面缩小,导致图片/文字/链接很小。IOS提出“视口”概念，视口用来盛放网页内容，尺寸可以指定，超过部分可以滑动网页来查看。</p>
+            <p><span class="code">width=device-width</span>宽度等于设备宽度</p>
+            <p><span class="code">initial-scale=1</span>初始化缩放比例为1</p>
+            <h4>使用流式布局</h4>
+            <p>float:left;/display:inline-block;</p>
+            <h4>使用相对尺寸</h4>
+            <p>容器、文字、图片都使用相对尺寸</p>
+            <pre class="code">.container{
+    width:50%;
+}
+body{
+    font-size:2em;
+}
+img{
+    width:25%;
+}</pre>
+        <h4>【重点】媒体查询技术(CSS3--Media Query)</h4>
+        <p>Media:指浏览网页的设备，如screen(pc/pad/phone),print,tv。</p>
+        <p>Media Query:查询当前浏览网页<em>设备类型</em>、特性(<em>解析度、对比、尺寸、手持方向</em>等),而选择性执行某些css代码，而忽略另外一些。</p>
+        <p>使用媒体查询有两种方法:</p>
+        <h5>(1)根据媒体查询的结果执行不同的CSS文件；</h5>
+        <pre class="code">&lt;link  media="screen and (min-width:768px) and (max-width:991px)" rel="stylesheet" href="1.css"/>
+&lt;link  media="print" href="2.css"/></pre>
+        <h5>(2)根据媒体查询结果执行CSS片段汇总不同的部分。</h5>
+        <pre class="code">/*pad*/
+@media screen and (min-width:768px) and (max-width:991px){
+    //css code
+}</pre>
+        <table>
+            <tr>
+                <td>PC</td>
+                <td>>=992px</td>
+            </tr>
+            <tr>
+                <td>pad</td>
+                <td>768~991px</td>
+            </tr>
+            <tr>
+                <td>phone</td>
+                <td>&lt;=767px</td>
+            </tr>
+        </table>
+        </div>
+    </li>
+    <li>
+        <p>起步</p>
+        <div class="desc">
+            <h2>Bootstrap</h2>
+            <p>下载dist[css/fonts/js]</p>
+            <h3>基本模板</h3>
+            <pre class="code">&lt;html lang="zh-CN"&gt;<span class="note">//language:指定当前网页所用的自然语言，如<em>zh-CN,zh-HK,en-US</em>;作用：为浏览器翻译软件确定基语言，为读屏软件确定基础发音。</span>
+&lt;meta http-equiv="X-UA-Compatible" content="IE=edge"><span class="note">//扩展HTTP响应头部消息，IE-edge告诉IE使用最新引擎渲染网页</span>
+
+
+<span class="note">//</span>
+&lt;script src="html5shiv.js" &gt;&lt;/script&gt;
+&lt;script src="respond.js" &gt;&lt;/script&gt;
+            </pre>
+            <p></p>
+        </div>
+    </li>
+    <li>
+        <p>全局CSS样式</p>
+        <div class="desc"></div>
+    </li>
+    <li>
+        <p>组件</p>
+        <div class="desc"></div>
+    </li>
+    <li>
+        <p>js插件</p>
+        <div class="desc"></div>
+    </li>
+    <li>
+        <p>定制</p>
+        <div class="desc"></div>
+    </li>
+</ul>
