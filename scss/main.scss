@@ -510,17 +510,17 @@ nav {
 			// padding-left:2%;
 			width: 100%;
 			&>li>:first-child{
-				width: 98%;
+				width: 96%;
 				position:sticky;
 				
 				border-radius:5px;
-				margin:10px 1%;
+				margin:10px 2%;
 				border:1px solid rgba(0,0,0,.15);
 				text-align: center;
 				font-size: 16px;
 				font-weight: bold;
 				background:#fff;
-				padding:10px;
+				padding:1%;
 				&.active{
 					background: $theme_bgc_1;
 					box-shadow: 0 3px 3px #aaa;
@@ -537,15 +537,20 @@ nav {
 			}
 			.desc {
 				position:static;
-				padding:0 1%;
+				padding:0 2%;
 				width: 100%;
 				box-shadow: none;
 				&>h2{
 					display: none;
+					padding:10px 5px;
 				}
+
+				
 				p {
 					width: 98%;
-					word-break: break-all;
+					text-indent: 2em;
+					margin:0;
+					padding:0 2% 5px;
 				}
 				& table {
 					color: #333!important;
@@ -580,7 +585,7 @@ pre {
 		word-wrap: break-word;
 		white-space: pre-wrap;
 		text-align:left;
-		margin-left:15px;
+		margin:10px 15px;
 		margin-bottom: 15px;
 		color:#333;
 		background: #fff;

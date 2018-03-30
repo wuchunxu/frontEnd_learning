@@ -477,16 +477,16 @@ nav .navi-menu li .detail.in {
     width: 100%;
   }
   #shower .menu > li > :first-child {
-    width: 98%;
+    width: 96%;
     position: sticky;
     border-radius: 5px;
-    margin: 10px 1%;
+    margin: 10px 2%;
     border: 1px solid rgba(0, 0, 0, 0.15);
     text-align: center;
     font-size: 16px;
     font-weight: bold;
     background: #fff;
-    padding: 10px;
+    padding: 1%;
   }
   #shower .menu > li > :first-child.active {
     background: #f7f0de;
@@ -502,16 +502,19 @@ nav .navi-menu li .detail.in {
   }
   #shower .menu .desc {
     position: static;
-    padding: 0 1%;
+    padding: 0 2%;
     width: 100%;
     box-shadow: none;
   }
   #shower .menu .desc > h2 {
     display: none;
+    padding: 10px 5px;
   }
   #shower .menu .desc p {
     width: 98%;
-    word-break: break-all;
+    text-indent: 2em;
+    margin: 0;
+    padding: 0 2% 5px;
   }
   #shower .menu .desc table {
     color: #333 !important;
@@ -543,7 +546,7 @@ pre.code {
   word-wrap: break-word;
   white-space: pre-wrap;
   text-align: left;
-  margin-left: 15px;
+  margin: 10px 15px;
   margin-bottom: 15px;
   color: #333;
   background: #fff;
