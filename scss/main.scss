@@ -512,7 +512,7 @@ nav {
 			&>li>:first-child{
 				width: 98%;
 				position:sticky;
-				top:0px;
+				
 				border-radius:5px;
 				margin:10px 1%;
 				border:1px solid rgba(0,0,0,.15);
@@ -527,6 +527,8 @@ nav {
 					font-size: 20px;
 					margin:0;
 					width: 100%;
+					top:-2px;
+					left:0px;
 				}
 				&:active {
 					border:1px solid $theme_color_1;
@@ -535,6 +537,7 @@ nav {
 			}
 			.desc {
 				position:static;
+				padding:0 1%;
 				width: 100%;
 				box-shadow: none;
 				&>h2{
