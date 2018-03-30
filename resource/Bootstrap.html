@@ -137,7 +137,7 @@ img{
             <table>
                 <tr>
                     <td>无提示符号</td>
-                    <td><span class="code">.list-unstyle</span></td>
+                    <td><span class="code">.list-unstyled</span></td>
                 </tr>
                 <tr>
                     <td>行列列表</td>
@@ -188,6 +188,60 @@ img{
             </table>
             <p>注意：<strong>.table-responsive应该添加在table的父元素上，如果添加在表格本身上，不会报错。</strong></p>
             <p>不过，可以用Bootlint来检测。Bootlint是Bootstrap官方提供HTML检测工具，检测出网页中常见的HTML/CSS错误，还能检测class层级结构错误!</p>
+            <h3>栅格系统</h3>
+            <h4>最外层必须套上容器</h4>
+            <pre class="code">div.container/container-fluid</pre>
+            <h4>容器中可以放置任何内容。但，若想使用栅格系统，必须使用<span class="code">.row</span></h4>
+            <pre class="code">div.container>.div.row</pre>
+            <h4><span class="code">.row</span>中只能放置<span class="code">.col</span>，<span class="code">.col</span>中可以放置任何内容。</h4>
+            <h4>每行默认分为12等分，每个列必须指定占比</h4>
+            <h4>栅格系统针对不同的屏幕提供了不同的class，<span class="code">.col-lg-1,.col-md-1,.col-sm-1,.col-xs-1</span></h4>
+            <h4>可以使用“列偏移”实现指定列及其后的列向右偏移的效果。<span class="code">.col-md-offset-2</span></h4>
+            <h4>注意不同屏幕下列的适用性问题</h4>
+            <table>
+                <tr>
+                    <td>.col-xs-*</td>
+                    <td>适用于<em>xs/sm/md/lg</em>屏幕</td>
+                </tr>
+                <tr>
+                    <td>.col-sm-*</td>
+                    <td>适用于<em>sm/md/lg</em>屏幕</td>
+                </tr>
+                <tr>
+                    <td>.col-md-*</td>
+                    <td>适用于<em>md/lg</em>屏幕</td>
+                </tr>
+                <tr>
+                    <td>.col-lg-*</td>
+                    <td>适用于<em>lg</em>屏幕</td>
+                </tr>
+            </table>
+            <h4>一个列可以指定不同屏幕下的宽度占比</h4>
+            <pre class="code">div.col-xs-12.col-sm-9.col-md-6</pre>
+            <p>常见的错误：<span class="code">div.col-xs-6.col-md-6</span>，前者已经声明了后者的效果。</p>
+            <h4>一个列可以指定特定的屏幕隐藏</h4>
+            <table>
+                <tr>
+                    <td>.hidden-xs</td>
+                    <td>仅在xs屏幕下隐藏</td>
+                </tr>
+                <tr>
+                    <td>.hidden-sm</td>
+                    <td>仅在sm屏幕下隐藏</td>
+                </tr>
+                <tr>
+                    <td>.hidden-md</td>
+                    <td>仅在md屏幕下隐藏</td>
+                </tr>
+                <tr>
+                    <td>.hidden-lg</td>
+                    <td>仅在lg 屏幕下隐藏</td>
+                </tr>
+                <tr>
+                    <td>.hidden</td>
+                    <td></td>
+                </tr>
+            </table>
         </div>
     </li>
     <li>

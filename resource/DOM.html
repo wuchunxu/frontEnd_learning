@@ -13,31 +13,32 @@
 			<p><strong>在内存中，网页中所有内容以树形结构存储。</strong>因为网页中的内容呈明显层级和平级关系，而树形结构被证明是最直观的保存上下级/平级关系的数据结构。</p>
 			<p>DOM树中有唯一根节点对象<em>document</em>，而网页中的所有内容（元素、文本、属性）都是<em>document</em>的后代节点。</p>
 			<p>每个节点都是Node类型的对象，Node类型对象有3个公共属性，如下表</p>
+			<h4>Node类型公共属性</h4>
+			
 			<table>
 				<tr>
 					<th>属性</th>
-					<th>含义</th>
 					<th>取值</th>
 				</tr>
 				<tr>
-					<td>nodeType</td>
-					<td>节点类型</td>
+					<td>nodeType<br>节点类型</td>
 					<td>9(document),1(element),2(属性节点),3(文本节点)</td>
 				</tr>
 				<tr>
-					<td>nodeName</td>
-					<td>节点名称</td>
-					<td><pre class="code">document.nodeName//"#document"
-document.getElementsByTagName("nav").nodeName;//"NAV"
-属性//属性名
-text//#text</pre>
+					<td>nodeName<br>节点名称</td>
+					<td>
+						<p>document.nodeName//"#document"</p>
+						<p>nav.nodeName;//"NAV"</p>
+						<p>属性//属性名</p>
+						<p>text//#text</p>
 				<tr>
-					<td>nodeValue</td>
-					<td>节点值，几乎不用</td>
-					<td><pre class="code">document.nodeValue//null
-element//null
-属性//属性值
-text//文本内容</pre></td>
+					<td>nodeValue<br>节点值</td>
+					<td>
+						<p>document.nodeValue//null</p>
+						<p>element//null</p>
+						<p>属性//属性值</p>
+						<p>text//文本内容</p>
+					</td>
 			</table>
 			<h3>DOM操作</h3>
 			<p>DOM操作固定步骤:1) 查找触发事件的元素；2) 绑定事件 3) 查找要修改的元素 4) 修改、添加、删除元素</p>

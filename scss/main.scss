@@ -507,16 +507,17 @@ nav {
 			font-weight: bold;
 		}
 		.menu {
-			padding-left:2%;
+			// padding-left:2%;
+			width: 100%;
 			&>li>:first-child{
-				width: 96%;
+				width: 98%;
 				position:sticky;
 				top:0px;
 				border-radius:5px;
-				margin:10px 2%;
+				margin:10px 1%;
 				border:1px solid rgba(0,0,0,.15);
 				text-align: center;
-				
+				font-size: 16px;
 				font-weight: bold;
 				background:#fff;
 				padding:10px;
@@ -524,10 +525,11 @@ nav {
 					background: $theme_bgc_1;
 					box-shadow: 0 3px 3px #aaa;
 					font-size: 20px;
-					
+					margin:0;
+					width: 100%;
 				}
-				&:hover {
-					background: $theme_bgc_1;
+				&:active {
+					border:1px solid $theme_color_1;
 					
 				}
 			}
@@ -537,6 +539,10 @@ nav {
 				box-shadow: none;
 				&>h2{
 					display: none;
+				}
+				p {
+					width: 98%;
+					word-break: break-all;
 				}
 				& table {
 					color: #333!important;

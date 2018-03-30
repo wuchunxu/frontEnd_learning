@@ -474,16 +474,17 @@ nav .navi-menu li .detail.in {
     font-weight: bold;
   }
   #shower .menu {
-    padding-left: 2%;
+    width: 100%;
   }
   #shower .menu > li > :first-child {
-    width: 96%;
+    width: 98%;
     position: sticky;
     top: 0px;
     border-radius: 5px;
-    margin: 10px 2%;
+    margin: 10px 1%;
     border: 1px solid rgba(0, 0, 0, 0.15);
     text-align: center;
+    font-size: 16px;
     font-weight: bold;
     background: #fff;
     padding: 10px;
@@ -492,9 +493,11 @@ nav .navi-menu li .detail.in {
     background: #f7f0de;
     box-shadow: 0 3px 3px #aaa;
     font-size: 20px;
+    margin: 0;
+    width: 100%;
   }
-  #shower .menu > li > :first-child:hover {
-    background: #f7f0de;
+  #shower .menu > li > :first-child:active {
+    border: 1px solid #41b883;
   }
   #shower .menu .desc {
     position: static;
@@ -503,6 +506,10 @@ nav .navi-menu li .detail.in {
   }
   #shower .menu .desc > h2 {
     display: none;
+  }
+  #shower .menu .desc p {
+    width: 98%;
+    word-break: break-all;
   }
   #shower .menu .desc table {
     color: #333 !important;
