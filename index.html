@@ -26,8 +26,6 @@
 	<main>
 		 <div class="content"></div>
 	</main>
-
-	 <!-- <table class="table-1"></table> -->
 	<div id="shower"></div>
 	<div id="layer"></div>
 	<script src="js/util.js"></script>
@@ -112,7 +110,7 @@
                 var html = "";
                 for (var period in frontEnd) {
                     html += "<section>";
-                    html += `<h2>·阶段${period.slice(period.length - 1)}·</h2>`;
+                    html += `<h2>阶段${period.slice(period.length - 1)}</h2>`;
                     for (var section in frontEnd[period]) {
                         html += `<h3>${section}</h3>`;
                         html += "<div class='clear'>";

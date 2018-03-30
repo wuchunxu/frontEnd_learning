@@ -153,6 +153,15 @@ nav {
 @media screen and (max-width:767px){
 	nav {
 		padding:0 10px;
+		background: linear-gradient(45deg,$theme_color_1 0%,$theme_color_3 100%);
+		color:#fff;
+		.logo {
+			color:#fff;
+		}
+		.navi-menu {
+			display:none;
+		}
+
 	}
 	.header-filter {
 		display:none;
@@ -164,10 +173,18 @@ nav {
 		margin-top:0px;
 		top:0;
 		.item {
-			width: 48%;
+			width: 30%;
 			float:left;
-			margin-right:2%;
-			margin-bottom:2%;
+			margin-right:2.5%;
+			margin-bottom:2.5%;
+			height:auto;
+			img {
+				height: 60px;
+			}
+			p{
+				height: 70px;
+				padding-top:15px;
+			}
 		}
 	}
 }
@@ -497,6 +514,14 @@ nav {
 				box-shadow: none;
 				&>h2{
 					display: none;
+				}
+				& table {
+					color: #333!important;
+					width: 96%;
+					margin:0 2% 2%;
+					th,td {
+						text-align:center;
+					}
 				}
 
 			}

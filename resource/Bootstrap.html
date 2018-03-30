@@ -63,15 +63,132 @@ img{
 
 
 <span class="note">//</span>
-&lt;script src="html5shiv.js" &gt;&lt;/script&gt;
-&lt;script src="respond.js" &gt;&lt;/script&gt;
+&lt;script src="html5shiv.js" &gt;&lt;/script&gt;<span class="note">//让老浏览器支持H5新标签</span>
+&lt;script src="respond.js" &gt;&lt;/script&gt; <span class="note">//让老浏览器支持媒体查询</span>
             </pre>
             <p></p>
         </div>
     </li>
     <li>
         <p>全局CSS样式</p>
-        <div class="desc"></div>
+        <div class="desc">
+            <h2>全局样式</h2>
+            <h3>按钮<span class="code">.btn</span></h3>
+            <table>
+                <tr>
+                    <td>默认颜色</td>
+                    <td>.btn-default</td>
+                </tr>
+                <tr>
+                    <td>五种颜色</td>
+                    <td>.btn-info/success/danger...</td>
+                </tr>
+                <tr>
+                    <td>大小</td>
+                    <td>.btn-lg/md/sm/xs</td>
+                </tr>
+                <tr>
+                    <td>块级按钮</td>
+                    <td>.btn-block</td>
+                </tr>
+            </table>
+            <h3>图片</h3>
+            <table>
+                <tr>
+                    <td>圆角图片</td>
+                    <td>.img-round</td>
+                </tr>
+                <tr>
+                    <td>圆形图片</td>
+                    <td>.img-circle</td>
+                </tr>
+                <tr>
+                    <td>缩略图片</td>
+                    <td>.img-thumbnail</td>
+                </tr>
+                <tr>
+                    <td>响应式图片</td>
+                    <td>.img-response</td>
+                </tr>
+            </table>
+            <h3>文本</h3>
+            <table>
+                <tr>
+                    <td>文本色</td>
+                    <td>text-success/danger...</td>
+                </tr>
+                <tr>
+                    <td>背景色</td>
+                    <td>.bg-danger/warning/success</td>
+                </tr>
+                <tr>
+                    <td>对齐</td>
+                    <td>.text-left/center/right/justify</td>
+                </tr>
+                <tr>
+                    <td>转换大小写</td>
+                    <td>.text-uppercase<br>
+                    lowercase/capitalize</td>
+                </tr>
+            </table>
+            <p>注意：bootstrap中大小写转换用的是CSS3新属性：<span class="code">text-transform:lowercase</span></p>
+    
+            <h3>列表</h3>
+            <table>
+                <tr>
+                    <td>无提示符号</td>
+                    <td><span class="code">.list-unstyle</span></td>
+                </tr>
+                <tr>
+                    <td>行列列表</td>
+                    <td><span class="code">.list-inline</span></td>
+                </tr>
+            </table>
+            <h3>Bootstrap中屏幕分类</h3>
+            <table>
+                <tr>
+                    <td>大型PC</td>
+                    <td>lg</td>
+                    <td>>=1200</td>
+                </tr>
+                <tr>
+                    <td>中型PC</td>
+                    <td>md</td>
+                    <td>992~1199</td>
+                </tr>
+                <tr>
+                    <td>pad</td>
+                    <td>sm</td>
+                    <td>768~991</td>
+                </tr>
+                <tr>
+                    <td>Phone</td>
+                    <td>xs</td>
+                    <td>~767</td>
+                </tr>
+            </table>
+            <h3>表格<span class="code">.table</span></h3>
+            <table>
+                <tr>
+                    <td>带边框的表格</td>
+                    <td><span class="code">.table-bordered</span></td>
+                </tr>
+                <tr>
+                    <td>隔行变色</td>
+                    <td><span class="code">.table-striped</span></td>
+                </tr>
+                <tr>
+                    <td>带悬停变色</td>
+                    <td><span class="code">.table-hover</span></td>
+                </tr>
+                <tr>
+                    <td>响应式表</td>
+                    <td><span class="code">.table-responsive</span></td>
+                </tr>
+            </table>
+            <p>注意：<strong>.table-responsive应该添加在table的父元素上，如果添加在表格本身上，不会报错。</strong></p>
+            <p>不过，可以用Bootlint来检测。Bootlint是Bootstrap官方提供HTML检测工具，检测出网页中常见的HTML/CSS错误，还能检测class层级结构错误!</p>
+        </div>
     </li>
     <li>
         <p>组件</p>

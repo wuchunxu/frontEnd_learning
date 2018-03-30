@@ -144,6 +144,14 @@ nav .navi-menu li .detail.in {
 @media screen and (max-width: 767px) {
   nav {
     padding: 0 10px;
+    background: linear-gradient(45deg, #41b883 0%, #5eb761 100%);
+    color: #fff;
+  }
+  nav .logo {
+    color: #fff;
+  }
+  nav .navi-menu {
+    display: none;
   }
 
   .header-filter {
@@ -158,10 +166,18 @@ nav .navi-menu li .detail.in {
     top: 0;
   }
   .content .item {
-    width: 48%;
+    width: 30%;
     float: left;
-    margin-right: 2%;
-    margin-bottom: 2%;
+    margin-right: 2.5%;
+    margin-bottom: 2.5%;
+    height: auto;
+  }
+  .content .item img {
+    height: 60px;
+  }
+  .content .item p {
+    height: 70px;
+    padding-top: 15px;
   }
 }
 @media screen and (min-width: 768px) and (max-width: 991px) {
@@ -464,6 +480,14 @@ nav .navi-menu li .detail.in {
   }
   #shower .menu .desc > h2 {
     display: none;
+  }
+  #shower .menu .desc table {
+    color: #333 !important;
+    width: 96%;
+    margin: 0 2% 2%;
+  }
+  #shower .menu .desc table th, #shower .menu .desc table td {
+    text-align: center;
   }
 }
 /*行内式代码样式*/
