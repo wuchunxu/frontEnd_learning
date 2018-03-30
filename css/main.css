@@ -446,7 +446,7 @@ nav .navi-menu li .detail.in {
     height: 100%;
     border-radius: 0;
     box-shadow: none;
-    background: #eee;
+    background: #fff;
     padding: 0;
   }
   #shower > .back {
@@ -471,20 +471,27 @@ nav .navi-menu li .detail.in {
     color: #fff;
     border-bottom: 1px solid #ccc;
     font-size: 24px;
+    font-weight: bold;
+  }
+  #shower .menu {
+    padding-left: 2%;
   }
   #shower .menu > li > :first-child {
-    width: 100%;
+    width: 96%;
     position: sticky;
     top: 0px;
-    border-radius: 0;
-    border-bottom: 1px solid #fff;
+    border-radius: 5px;
+    margin: 10px 2%;
+    border: 1px solid rgba(0, 0, 0, 0.15);
     text-align: center;
-    margin: 0;
+    font-weight: bold;
+    background: #fff;
+    padding: 10px;
   }
   #shower .menu > li > :first-child.active {
     background: #f7f0de;
     box-shadow: 0 3px 3px #aaa;
-    font-size: 24px;
+    font-size: 20px;
   }
   #shower .menu > li > :first-child:hover {
     background: #f7f0de;
