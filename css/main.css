@@ -121,12 +121,6 @@ nav .navi-menu li .detail.in {
   border-radius: 6px;
   margin-right: 10px;
   overflow: hidden;
-  transition: all .4s ease;
-}
-.content .item:hover {
-  cursor: pointer;
-  background: #41b883;
-  box-shadow: 0 0 6px #666;
 }
 .content .item img {
   height: 80px;
@@ -137,13 +131,46 @@ nav .navi-menu li .detail.in {
   padding-top: 25px;
 }
 
-@media screen and (max-width: 991px) {
+@media screen and (min-width: 992px) {
+  .content {
+    transition: all .4s ease;
+  }
+  .content .item:hover {
+    cursor: pointer;
+    background: #41b883;
+    box-shadow: 0 0 6px #666;
+  }
+}
+@media screen and (max-width: 767px) {
+  nav {
+    padding: 0 10px;
+  }
+
+  .header-filter {
+    display: none;
+  }
+
+  .content {
+    border-radius: 0;
+    width: 100%;
+    padding: 0 0 0 2%;
+    margin-top: 0px;
+    top: 0;
+  }
+  .content .item {
+    width: 48%;
+    float: left;
+    margin-right: 2%;
+    margin-bottom: 2%;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 991px) {
   .content {
     width: 100%;
     padding: 0 0 0 2%;
   }
   .content .item {
-    width: 48%;
+    width: 22.5%;
     float: left;
     margin-right: 2%;
     margin-bottom: 2%;
@@ -381,7 +408,7 @@ nav .navi-menu li .detail.in {
   width: 100%;
 }
 
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 767px) {
   #shower {
     width: 100%;
     height: 100%;
@@ -420,6 +447,7 @@ nav .navi-menu li .detail.in {
     border-radius: 0;
     border-bottom: 1px solid #fff;
     text-align: center;
+    margin: 0;
   }
   #shower .menu > li > :first-child.active {
     background: #f7f0de;
@@ -433,6 +461,9 @@ nav .navi-menu li .detail.in {
     position: static;
     width: 100%;
     box-shadow: none;
+  }
+  #shower .menu .desc > h2 {
+    display: none;
   }
 }
 /*行内式代码样式*/

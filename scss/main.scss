@@ -123,12 +123,7 @@ nav {
 		border-radius: 6px;
 		margin-right:10px;
 		overflow:hidden;
-		transition:all .4s ease;
-		&:hover {
-			cursor:pointer;
-			background: $theme_color_1;
-			box-shadow:0 0 6px #666;
-		}
+		
 		img {
 			//width: 100%;
 			height: 80px;
@@ -141,19 +136,58 @@ nav {
 	}
 
 }
-@media screen and (max-width:991px){
+//***************PC*******************
+@media screen and (min-width:992px){
 	.content {
+		transition:all .4s ease;
+		.item {
+			&:hover {
+				cursor:pointer;
+				background: $theme_color_1;
+				box-shadow:0 0 6px #666;
+			}
+		}
+	}
+}
+//*************phone******************
+@media screen and (max-width:767px){
+	nav {
+		padding:0 10px;
+	}
+	.header-filter {
+		display:none;
+	}
+	.content {
+		border-radius: 0;
 		width: 100%;
 		padding:0 0 0 2%;
+		margin-top:0px;
+		top:0;
 		.item {
 			width: 48%;
-			//height: 360px;
 			float:left;
 			margin-right:2%;
 			margin-bottom:2%;
 		}
 	}
 }
+//**************phone*****************
+//**************pad*******************
+@media screen and (min-width:768px) and (max-width:991px){
+	.content {
+		width: 100%;
+		padding:0 0 0 2%;
+		.item {
+			width: 22.5%;
+			float:left;
+			margin-right:2%;
+			margin-bottom:2%;
+		}
+	}
+}
+
+
+//**************pad*******************
 #layer {
 	width: 100%;
 	height: 100%;
@@ -200,22 +234,6 @@ nav {
 		font-weight: 100;
 		padding:10px 0 15px;
 	}
-	// &>dl {
-	// 	counter-reset:number;
-	// 	dt {
-	// 		font-weight: 100;
-	// 		font-size: 20px;
-	// 		border-bottom: 1px solid #fff;
-	// 		margin-bottom:15px;
-	// 		margin-top:15px;
-	// 	}
-	// 	dd {
-	// 		&:before {
-	// 			content: counter(number)".";
-	// 			counter-increment: number;
-	// 		}
-	// 	}
-	// }
 	
 	table {
 		border: 1px solid $theme_color_1;
@@ -422,7 +440,7 @@ nav {
 		}
 	}
 }
-@media screen and (max-width:991px){
+@media screen and (max-width:767px){
 	#shower {
 		width: 100%;
 		height: 100%;
@@ -461,6 +479,7 @@ nav {
 				border-radius:0;
 				border-bottom:1px solid #fff;
 				text-align: center;
+				margin:0;
 				&.active{
 					background: $theme_bgc_1;
 					box-shadow: 0 3px 3px #aaa;
@@ -476,6 +495,9 @@ nav {
 				position:static;
 				width: 100%;
 				box-shadow: none;
+				&>h2{
+					display: none;
+				}
 
 			}
 			
