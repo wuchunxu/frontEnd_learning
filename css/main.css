@@ -263,6 +263,13 @@ nav .navi-menu li .detail.in {
   /*表格圆角*/
   /*表格内部添加分隔线*/
 }
+#shower .loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -40px;
+  margin-top: -40px;
+}
 #shower > .back {
   display: none;
 }

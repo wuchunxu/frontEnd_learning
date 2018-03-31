@@ -282,6 +282,13 @@ nav {
 	box-shadow: 0 0 6px 3px #888;
 	overflow: auto;
 	transition: all 3s ease;
+	.loading{
+		position: absolute;
+		left:50%;
+		top:50%;
+		margin-left:-40px;
+		margin-top:-40px;
+	}
 	&>.back{
 		display:none;
 	}
@@ -514,6 +521,7 @@ nav {
 		box-shadow: none;
 		background: #fff;
 		padding:0;
+		
 		&>.back {
 			display:block;
 			position: absolute;
