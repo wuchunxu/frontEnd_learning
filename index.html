@@ -30,99 +30,100 @@
 	<div id="layer"></div>
 	<script src="js/util.js"></script>
 	<script>
-
-        var getResource = null;
+        var getResource = null;//定义全局，供其他地方使用
         (function () {
-            var shower =  document.getElementById("shower");
-            var content = document.getElementsByClassName("content")[0];
-            var layer = document.getElementById("layer");
-            var frontEnd = {
-                period_1: {
-                    "熟悉服务端": ["软件工程", "服务器和数据库", "PHP"],
-                },
-                period_2: {
-                    "初入前端": ["HTML(未更新)", "JS基础", "Ajax", "CSS", "CSS3"],
-                },
-                period_3: {
-                    "JS高级": ["JS内置类型", "Function", "面向对象", "ES5", "ES6","DOM", "BOM","jQuery"],
-                },
-				period_4: {
-                    "HTML、CSS、JS进阶":["HTML5","Bootstrap","Node.js"]
-				}
+            //获取页面内容载体、弹窗和遮罩层
+            var content = document.getElementsByClassName("content")[0],
+                shower  = document.getElementById("shower"),
+                layer   = document.getElementById("layer");
+            /*
+                初始化页面数据
+            */
+            var pageData = {
+                "熟悉服务端": ["软件工程", "服务器和数据库", "PHP"],
+                "初入前端": ["HTML(未更新)", "JS基础", "Ajax", "CSS", "CSS3"],
+                "JS高级": ["JS内置类型", "Function", "面向对象", "ES5", "ES6","DOM", "BOM","jQuery"],
+                "HTML、CSS、JS进阶":["HTML5","Bootstrap","Node.js"]
+            }
+            
+            function showModal(){
+                shower.style.display = "block";
+                layer.style.display = "block";
+            }
+            function hideModal(){
+                shower.style.display = "none";
+                layer.style.display = "none";
+            }
+            Element.prototype.is = function (tagName){
+                return this.tagName.toUpperCase() === tagName.toUpperCase();
             }
             getResource = function (url) {
                 ajax(url, {
-                    success: function (resposneText) {
+                    success: function (data) {
                         //请求成功后，显示弹窗和遮罩层
-                        var modal = document.getElementById("shower");
-                        modal.innerHTML = resposneText;
-                        modal.style.display = "block";
-
-                        document.getElementById("layer").style.display = "block";
-
+                        shower.innerHTML = data;
+                        showModal();
+                        var menu = shower.getElementsByClassName("menu")[0];
                         //给弹窗中ul设置点击事件
-                        modal.getElementsByClassName("menu")[0].onclick = function (event) {
-                            var parent = event.target.closest("li");
-                            var lis = parent.parentNode.children;
-
-                            lis = [].filter.call(lis, ele => ele.tagName.toUpperCase() === "LI");
-                            var descs = parent.parentNode.getElementsByClassName("desc");
-                            var desc = parent.getElementsByClassName("desc")[0];
-                            if (event.target.tagName.toUpperCase() == "P" && event.target.parentNode.tagName.toUpperCase() == "LI") {
-                                if (desc.style.display == "block") {
-                                    desc.style.display = "none";
-                                    parent.children[0].removeClass("active");
-                                } else {
-                                    //去除所有p的active，并把desc的display属性设为none
-                                    lis.forEach(ele => ele.children[0].removeClass("active"));
-                                    [].forEach.call(descs, ele => ele.style.display = "none")
-                                    parent.children[0].addClass("active");
-                                    desc.style.display = "block";
-                                }
+                        menu.addEventListener("click",function(e){
+                            var tar = e.target;
+                            var lis = menu.querySelectorAll(".menu>li");
+                            
+                            if( tar.is("p") && tar.parentNode.is("li") ){
+                                var cur_li = tar.parentNode;
+                                //记录当前li的激活状态
+                                var is_active = cur_li.hasClass("active");
+                                //将所有的li去除激活状态
+                                [].forEach.call(lis,ele=>ele.removeClass("active"));
+                                //如果当前li没有激活，则设置为active
+                                if(!is_active) cur_li.addClass("active");
                             }
-                        }
+                        });
                     }
                 });
             }
-            shower.addEventListener("click",function(e){
+            /*
+                监听在shower的点击事件上，如果点击返回，则隐藏模态弹窗
+            */
+            shower.onclick = function(e){
                 e.preventDefault();
-                var tar = e.target;
-                console.log("haha");
-                if(tar.hasClass("back")){
-                    shower.style.display = "none";
-                    layer.style.display = "none";
-                    console.log("haha");
-                }
-            });
-            content.addEventListener("click",function(e){
-                if (!(e.target.parentNode.hasClass("item") || e.target.parentNode.parentNode.hasClass("item"))) return false;
-
-                var url = `resource/${e.target.closest("div").getElementsByTagName("p")[1].innerHTML}.html`;
-                //console.log(url);
-                getResource(url);
-            }) 
-            layer.onclick = function () {
-                this.style.display = "none";
-               shower.style.display = "none";
+                if(e.target.hasClass("back")) hideModal();
             }
-            //展示数据
-            content.innerHTML = (function (frontEnd) {
-                var html = "";
-                for (var period in frontEnd) {
-                    html += "<section>";
-                    html += `<h2>阶段${period.slice(period.length - 1)}</h2>`;
-                    for (var section in frontEnd[period]) {
-                        html += `<h3>${section}</h3>`;
-                        html += "<div class='clear'>";
-                        for (var ele of frontEnd[period][section]) {
-                            html += `<div class="item"><p><img src="images/icon/${ele}.png"></p><p>${ele}</p></div>`;
-                        }
-                        html += "</div>";
-                    }
-                    html += "</section>";
+            /*
+                点击遮罩层，隐藏弹窗
+            */
+            layer.onclick = hideModal;
+            /*
+                监听页面加载的内容，如果是item，则加载资源
+            */
+           content.onclick = function(e){
+                var tar = e.target;
+                if(tar.hasClass("click-layer")){
+                    var url = `resource/${tar.dataset.title}.html`;
+                    getResource(url);
                 }
-                return html;
-            })(frontEnd);
+           }
+
+            function loadPage(data){
+                var html = "";
+                var i = 1;
+                for(var prop in data){
+                    html += `<section><h2><div class="line"></div><span class="title">阶段${i}:${prop}</span></h2>`;
+                    html += `<div class="clear">`;
+                    for(var ele of data[prop]){
+                        html += `<div class="item">
+                                    <p><img src="images/icon/${ele}.png"></p>
+                                        <p>${ele}</p>
+                                        <div class="click-layer" data-title="${ele}"></div>
+                                    </div>`;
+                    }
+                    html += `</section>`;
+                    i++;
+                }
+                content.innerHTML = html;
+            }
+            loadPage(pageData);
+            
         })();
 
         var li = document.querySelector(".navi-menu>li");
@@ -132,7 +133,6 @@
         li.onmouseout = function(e){
             this.children[1].removeClass("in");
         }
-        </script>
-
+    </script>
 </body>
 </html>
