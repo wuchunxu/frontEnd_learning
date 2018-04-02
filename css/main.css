@@ -333,6 +333,10 @@ nav .navi-menu li .detail.in {
 #shower .menu > li .desc {
   display: none;
 }
+#shower .menu > li.active > :first-child {
+  background: #f7f0de;
+  box-shadow: 0 0 6px #666;
+}
 #shower .menu > li.active .desc {
   display: block;
 }
@@ -342,10 +346,6 @@ nav .navi-menu li .detail.in {
   background: #eee;
   border-radius: 5px;
   margin-bottom: 1px;
-}
-#shower .menu > li > :first-child.active {
-  background: #f7f0de;
-  box-shadow: 0 0 6px #666;
 }
 #shower .menu > li > :first-child:hover {
   background: #f7f0de;
@@ -496,23 +496,25 @@ nav .navi-menu li .detail.in {
     background: #349268;
   }
   #shower > h2 {
-    background: #41b883;
+    background: linear-gradient(45deg, #41b883 0%, #5eb761 100%);
     color: #fff;
-    border-bottom: 1px solid #ccc;
     font-size: 24px;
     font-weight: bold;
   }
   #shower .menu {
     width: 100%;
   }
-  #shower .menu > li.active > p {
-    background: #f7f0de;
+  #shower .menu > li.active > p:first-child {
+    background: linear-gradient(45deg, #41b883 0%, #5eb761 100%);
+    color: #fff;
     box-shadow: 0 3px 3px #aaa;
     font-size: 20px;
     margin: 0;
     width: 100%;
     top: -2px;
     left: 0px;
+    border-radius: 0;
+    box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42), 0 3px 20px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
   }
   #shower .menu > li > :first-child {
     width: 96%;
@@ -525,11 +527,14 @@ nav .navi-menu li .detail.in {
     text-align: center;
     font-size: 16px;
     font-weight: bold;
-    background: #fff;
-    padding: 1%;
+    padding: 0 1%;
+    height: 50px;
+    line-height: 50px;
   }
-  #shower .menu > li > :first-child:active {
-    border: 1px solid #41b883;
+  #shower .menu > li > :first-child:hover, #shower .menu > li > :first-child:active {
+    background: #41b883;
+    color: #fff;
+    font-size: 20px;
   }
   #shower .menu .desc {
     position: static;

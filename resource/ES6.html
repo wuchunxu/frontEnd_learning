@@ -275,7 +275,7 @@ e1.sayName();</pre>
 				configurable: false
 			}
 		});
-		this.name = name;
+		this.name = name;	<span class="note">//name赋值必须放在属性保护之后，this.name指向set访问器属性</span>
 		this.hiredate = hiredate;
 		this.salary = salary;
 	}

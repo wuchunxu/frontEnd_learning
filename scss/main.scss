@@ -366,6 +366,10 @@ nav {
 				display:none;
 			}
 			&.active{
+				&>:first-child {
+					background: $theme_bgc_1;
+					box-shadow: 0 0 6px #666;
+				}
 				.desc {
 					display:block;
 				}
@@ -377,10 +381,6 @@ nav {
 			background: #eee;
 			border-radius: 5px;
 			margin-bottom:1px;
-			&.active{
-				background: $theme_bgc_1;
-				box-shadow: 0 0 6px #666;
-			}
 			&:hover {
 				background: $theme_bgc_1;
 				box-shadow: 0 0 6px #666;
@@ -540,9 +540,9 @@ nav {
 			}
 		}
 		&>h2 {
-			background:$theme_color_1;
+			background:linear-gradient(45deg,$theme_color_1 0%,$theme_color_3 100%);
 			color:#fff;
-			border-bottom:1px solid #ccc;
+			//border-bottom:1px solid #ccc;
 			font-size: 24px;
 			font-weight: bold;
 		}
@@ -550,14 +550,17 @@ nav {
 			width: 100%;
 			&>li{
 				&.active {
-					&>p {
-						background: $theme_bgc_1;
+					&>p:first-child {
+						background: linear-gradient(45deg,$theme_color_1 0%,$theme_color_3 100%);
+						color:#fff;
 						box-shadow: 0 3px 3px #aaa;
 						font-size: 20px;
 						margin:0;
 						width: 100%;
 						top:-2px;
 						left:0px;
+						border-radius: 0;
+						box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42), 0 3px 20px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
 					}
 				}
 			}
@@ -572,11 +575,17 @@ nav {
 				text-align: center;
 				font-size: 16px;
 				font-weight: bold;
-				background:#fff;
-				padding:1%;
-				&:active {
-					border:1px solid $theme_color_1;
+				//background:#fff;
+				padding:0 1%;
+				height: 50px;
+				line-height: 50px;
+				&:hover,&:active {
+					background: $theme_color_1;
+					color:#fff;
+					font-size: 20px;
+					//border:1px solid $theme_color_1;
 				}
+				
 			}
 			.desc {
 				position:static;

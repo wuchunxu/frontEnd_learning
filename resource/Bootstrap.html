@@ -242,11 +242,56 @@ img{
                     <td></td>
                 </tr>
             </table>
+            <h3>表单</h3>
+            <h4>默认表单</h4>
+            <pre class="code">&lt;form&gt;
+    &lt;div class="form-group">
+        &lt;label for="" class="control-label">用户名&lt;/label>
+        &lt;input type="text" class="form-control">
+        &lt;span class="help-block">用户名格式:6~12位&lt;/span>
+    &lt;/div>
+&lt;/form&gt;</pre>
+            <h4>行内表单</h4>
+            <pre class="code">&lt;form&gt;
+&lt;div class="form-inline">
+    &lt;input type="text" class="form-control">
+    &lt;span class="sr-only">用户名格式:6~12位&lt;/span>
+&lt;/div>
+&lt;/form&gt;
+
+            </pre>
+            <h4>水平表单</h4>
+            <p>水平表单=表单+栅格系统</p>
+            <table>
+                <tr>
+                   <th></th>
+                   <th>栅格系统</th>
+                   <th>水平表单</th>
+                </tr>
+                <tr>
+                    <td>最外层</td>
+                    <td><span class="code">div.container</span></td>
+                    <td><span class="code">form.form-horizontal</span></td>
+                </tr>
+                <tr>
+                    <td>行</td>
+                    <td>div.row</td>
+                    <td>div.form-group</td>
+                </tr>
+                <tr>
+                    <td>列</td>
+                    <td>div.col-...</td>
+                    <td>div.col-</td>
+                </tr>
+            </table>
+            <p>也就是说，form相当于容器，form-group相当于row，label、input、help-block则放在列中</p>
         </div>
     </li>
     <li>
         <p>组件</p>
-        <div class="desc"></div>
+        <div class="desc">
+
+        </div>
     </li>
     <li>
         <p>js插件</p>
