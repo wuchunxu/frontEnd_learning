@@ -615,11 +615,13 @@ $("#d1").animate({
 		<div class="desc">
 			<h2>类数组对象API</h2>
 			<h3>遍历</h3>
-			<pre class="code">$(...).each(i,ele){
-//注意：this是当前ele
-}
+			<pre class="code">$(...).each(function(i,ele){
+	<span class="note">//注意：this是当前ele</span>
+})
+
+
 //静态each方法
-$.each(数组/集合,func)</pre>
+$.each(数组/集合,callback)</pre>
 			<h3>获取索引</h3>
 			<pre class="code">var i = $(...).index("要找的DOM元素");
 //简化为：

@@ -2,18 +2,94 @@
 <button class="back">返回</button>
 <ul class="menu">
     <li>
-        <p>了解Node.js</p>
+        <p>回忆服务器的知识</p>
         <div class="desc">
-            <h2>了解后端知识</h2>
+            <h2>关于服务器</h2>
+            <h3>客户端和服务器的通信过程</h3>
+            <h4>面试题--用户在浏览器输入www.taobao.com回车，直到看到页面，之间发生了什么？</h4>
+            <p>(1)操作系统访问网络上的DNS服务器，将域名转为ip地址</p>
+            <p>(2)浏览器通过ip地址向淘宝服务器发送HTTP请求</p>
+            <p>(3)淘宝web服务器收到请求，解析请求消息，并查找指定资源，其中有可能会访问数据库，构建并返回HTTP响应消息</p>
+            <p>(4)浏览器接收并解析响应消息</p>
+            <p>(5)浏览器缓存接收到的消息，解析并渲染</p>
+            <h3>静态网页和动态网页</h3>
+            <h4>静态和动态网页概念</h4>
+            <table>
+                <tr>
+                    <td>静态</td>
+                    <td>
+                        <p>网页内容任何人在任何时候访问都是不变的</p>
+                        <p>(HTML/CSS/JS/Flash/视频/音频)</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>动态</td>
+                    <td>
+                        <p>网页内容随人和时间的不同而可能不同</p>
+                        <p>(JSP/PHP/ASP/Node.js)</p>
+                    </td>
+                </tr>
+            </table>
+            <h4>了解动态网页技术</h4>
+            <table>
+                <tr>
+                    <td>JSP</td>
+                    <td>
+                        <p>HTML+JAVA，功能强大可靠适合<strong>大型项目</strong></p>
+                        <p>淘宝(php+mysql)(php+oracle)(jsp+oracle)(服务器+小型机)(jsp+mysql+集群)</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>PHP</td>
+                    <td><p>简单易用，适合互联网项目</p></td>
+                </tr>
+                <tr>
+                    <td>ASP.NET</td>
+                    <td>
+                        <p>易用，适合windows，费用昂贵</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Node.js</td>
+                    <td><p>HTML+"JS"，性能好，适合IO密集型项目，不适合CPU密集型项目</p></td>
+                </tr>
+            </table>
+            <h3>IO密集型和CPU密集型</h3>
+            <table>
+                <tr>
+                    <td>CPU密集型</td>
+                    <td>滴滴打车，天气预报</td>
+                </tr>
+                <tr>
+                    <td>IO密集型(多)</td>
+                    <td>查询、修改</td>
+                </tr>
+            </table>
             <h3>进程和线程</h3>
             <p>进程是操作系统分配资源的基本单位；线程是cpu调度和分配的基本单位。</p>
             <p>进程和线程的关系：进程中可以包括多个线程，线程必须依赖于进程存在；每个进程至少有一个线程，称为主线程</p>
+            
+        </div>
+    </li>
+    <li>
+        <p>了解Node.js</p>
+        <div class="desc">
+            <h2>了解Node.js</h2>
+            <h3>模块</h3>
+            <p>Node.js中每个模块都是一个独立的函数，解析器会为每个js文件添加如下代码：</p>
+            <pre class="code">(function(exports,require,module,__filename,__dirname){
+    exports:{}
+    require:fn用于导入其他模块，创建指定模块对象
+    module:代表当前模块对象
+    __filename:当前模块绝对路径
+    __dirname:当前模块所处目录的绝对路径
+})</pre>
             <h3>全局对象</h3>
             <h4>console对象</h4>
             <p>console对象负责向stdout/stderr输出信息console.log/warn/error/assert</p>
             <pre class="code">//断言 ：用在测试
-console.assert(expression,'断言执行失败')
-//如果expression执行结果为真，就是执行下句话，否则抛出异常,程序结束</pre>
+            console.assert(expression,'断言执行失败')
+            //如果expression执行结果为真，就是执行下句话，否则抛出异常,程序结束</pre>
             <h4>process对象</h4>
             <p>进程对象，当前解释器运行所在的进程对象。通过该对象，可以获取当前操作系统及运行信息，并操作脚本所在执行的进程。</p>
             <pre class="code">process.arch //获取CPU架构类型
@@ -34,7 +110,7 @@ process.memoryUsage() //获取内存信息
 process.pid        //获取进程ID号
 process.kill( pid )  //向指定进程ID号发送退出信号
 
-            </pre>
+</pre>
         </div>
     </li>
     <li>
@@ -297,7 +373,24 @@ npm uninstall &lt;pkg> //卸载已安装包
                 </tr>
             </table>
 
-
+            <h3>添加事件回调</h3>
+            <p>Node.js中可以使用以下五种方法添加事件回调函数到事件列队中：</p>
+            <table>
+                <tr><td>原生模块预定义的事件和事件监听器</td></tr>
+                <tr><td>异步IO库</td></tr>
+                <tr><td>定时器回调</td></tr>
+                <tr><td>全局对象process.nextTick()函数</td></tr>
+                <tr><td>自定义事件</td></tr>
+            </table>
+            <h4>原生模块预定义的事件</h4>
+            <pre class="code">socket.on("close",()=>{
+    console.log("connection closed");
+    var index = sockets.indexOf("socket");
+    <span class="note">//服务器端断开相应连接</span>
+    socket.splice(index,1);
+});</pre>
+            <h4>http模块</h4>
+            
 
 
 

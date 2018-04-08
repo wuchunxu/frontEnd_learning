@@ -290,16 +290,162 @@ img{
     <li>
         <p>组件</p>
         <div class="desc">
+            <h2>组件</h2>
+            <h3>标签页导航</h3>
 
+
+            <h3>胶囊式导航</h3>
+            <h3>图标字体</h3>
+            <h4>fontAwesome</h4>
+            <p>fontAwesome支持675个免费字体图标</p>
+            <h4>Glyphicons</h4>
+            <p>Glyphicons支持800个收费图标</p>
+            <h3>服务器字体的使用</h3>
+            <p>(1)web服务器项目目录下必须有字体文件</p>
+            <p>(2)CSS中声明一个新的字体文件，并指定下载位置</p>
+            <pre class="code">
+@font-face {
+    font-family: "Glyphicons Halfings";
+    src:url('../fonts/Glyphicons-halfings-regular.eot');
+    src: url('../fonts/glyphicons-halflings-regular.eot?#iefix');
+}
+            </pre>
+            <p>(3)声明一个基础class使用字体</p>
+            <pre class="code">.glyphicon {
+    font-family:"Glyphicons Halfings";
+}</pre>
+            <p>(4)在HTML页面中输入图标对应的编码</p>
+            <h3>进度条</h3>
+            <p>难度系数：h5(0.1);div+css(20);bootstrap(5);canvas(50)</p>
+            .progress>.progress-bar
+            <h3>警告框</h3>
+            <pre class="code">&lt;div class="alert alert-danger">
+    &lt;span class="close" data-dismiss="alert">x&lt;/span>
+    &lt;p>&lt;/p>
+&lt;/div></pre>
+            <h3>小组件</h3>
+            <table>
+                <tr>
+                    <td>面包屑</td>
+                    <td><span class="code">.breadcrumb</span></td>
+                </tr>
+                <tr>
+                    <td>分页条</td>
+                    <td>
+                        <span class="code">.pagination 当前页.active 不可点击.disabled </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>徽章</td>
+                    <td><span class="code">span.badge</span></td>
+                </tr>
+                <tr>
+                    <td>巨幕</td>
+                    <td><span class="code">div.jumbotron>h1+p</span></td>
+                </tr>
+                <tr>
+                    <td>水井</td>
+                    <td><span class="code">div.well</span></td>
+                </tr>
+            </table>
+            <h3>缩略图<span class="code">.thumbnail</span></h3>
+            <p>缩略图+栅格系统实现响应式</p>
+            <h3>媒体对象<span class="code">.media</span></h3>
+            <pre class="code">&lt;div class="media">
+    &lt;div class="media-left">
+        &lt;img src="" alt="">
+    &lt;/div>
+    &lt;div class="media-body">
+        &lt;h3 class="media-heading">世界名画&lt;/h3>
+    &lt;/div>
+    &lt;div class="media-right">花茶&lt;/div>
+&lt;/div></pre>
+            <h3>面板<span class="code">.panel</span></h3>
+            <pre class="code">&lt;div class="panel panel-default">
+    &lt;div class="panel-heading">&lt;/div>
+    &lt;div class="panel-body">&lt;/div>
+    &lt;div class="panel-footer">&lt;/div>
+&lt;/div></pre>
         </div>
     </li>
     <li>
         <p>js插件</p>
-        <div class="desc"></div>
+        <div class="desc">
+            <h2>js插件</h2>
+            <h3>Bootstrap插件</h3>
+            <p>Bootstrap基于jQuery，提供十多个插件，调用方法如下：</p>
+            <h4>js编码方法</h4>
+            <pre class="code">$(".dropdown>a").dropdown();</pre>
+            <h4>data扩展方法</h4>
+            <pre class="code">&lt;a href="" data-toggle="dropdown">&lt;/a></pre>
+            <h3>折叠(collapse)</h3>
+            <pre class="code">&lt;a href="#my-target" data-toggle="collpase">展开/收起&lt;/a>
+<span class="note">//&lt;button data-toggle="collapse" data-target="my-target">展开/收起&lt;/button></span>
+&lt;div id="my-target">隐藏内容&lt;/div></pre>
+            <h3>导航条</h3>
+            .navbar-toggle媒体查询：>768px,隐藏
+            .navbar-collapse媒体查询：>768px，绝对定位在navbar-header内，否则相对定位在导航条的下方
+
+            <h4>导航条颜色</h4>
+            <h4>导航条定位方式</h4>
+            <p>相对定位，默认</p>
+            
+        </div>
     </li>
     <li>
         <p>定制</p>
-        <div class="desc"></div>
+        <div class="desc">
+            <h2>定制</h2>
+            <h3>LESS</h3>
+            <h4>静态样式语言</h4>
+            <p>CSS可以直接被浏览器解析，但作为一门语言，CSS并不完整，缺少编程语言必须的概念：数据类型、变量、运算符、函数、继承等。导致样式的可维护性查。</p>
+            <h4>动态样式语言</h4>
+            <p>Sass、Stylus、Less在CSS基础上添加动态编程语言的特性。</p>
+            <h3>在服务器端使用less</h3>
+            <p>(1)下载并安装Node.js</p>
+            <p>(2)下载less编译程序</p>
+            <pre class="code">npm install less</pre>
+            <p>(3)启动js解释器</p>
+            <h3>less语法</h3>
+            <h4>变量</h4>
+            <h4>混入(mixin)</h4>
+            <h4>样式函数</h4>
+            <table>
+                <tr>
+                    <td>ceil()</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>floor()</td>
+                    <td>向下取整</td>
+                </tr>
+                <tr>
+                    <td>percentage(num)</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>darken()</td>
+                    <td>颜色加深</td>
+                </tr>
+                <tr>
+                    <td>lighten()</td>
+                    <td>颜色变淡</td>
+                </tr>
+                <tr>
+                    <td>img-width(url)</td>
+                    <td>指定图片的宽度</td>
+                </tr>
+                <tr>
+                    <td>img-height(url)</td>
+                    <td>指定图片的高度</td>
+                </tr>
+            </table>
+            <h3>定制</h3>
+            <h4>瘦身</h4>
+            <p>注释掉bootstrap.less中不需要的@import</p>
+            <h4>粗粒度定制</h4>
+            <p>variables.less中的变量</p>
+        </div>
     </li>
     <li>
         <p>从农耕到工业</p>
