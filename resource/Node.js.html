@@ -68,15 +68,15 @@
             <h3>进程和线程</h3>
             <p>进程是操作系统分配资源的基本单位；线程是cpu调度和分配的基本单位。</p>
             <p>进程和线程的关系：进程中可以包括多个线程，线程必须依赖于进程存在；每个进程至少有一个线程，称为主线程</p>
-            
         </div>
     </li>
     <li>
-        <p>了解Node.js</p>
+        <p>模块系统</p>
         <div class="desc">
-            <h2>了解Node.js</h2>
-            <h3>模块</h3>
-            <p>Node.js中每个模块都是一个独立的函数，解析器会为每个js文件添加如下代码：</p>
+            <h2>模块(module)</h2>
+            <h3>什么是模块</h3>
+            <p>Node.js中的模块类似于其他语言中的“包package”或“命名空间namespace”，用来将特定功能的代码进行封装。</p>
+            <p>每一个被加载的文件对应一个模块对象。解析器会为每个js文件添加如下代码：</p>
             <pre class="code">(function(exports,require,module,__filename,__dirname){
     exports:{}
     require:fn用于导入其他模块，创建指定模块对象
@@ -84,12 +84,97 @@
     __filename:当前模块绝对路径
     __dirname:当前模块所处目录的绝对路径
 })</pre>
+            <p>模块加载后，会在内存中保存对应的缓存对象，多次重复引入会使用该缓存对象。</p>
+            <h3>模块的原理</h3>
+            <h4>封装</h4>
+            <p>每个js文件都是一个模块，有自己的模块作用域。Node.js在编译模块文件时，对其收尾进行了如下包装：</p>
+            <pre class="code">(function(exports,require,module,__filename,__dirname)){
+    module.exports = {};
+    exports = module.exports;
+    <span class="note">//模块文件中原有内容</span>
+    return module.exports;
+});</pre>
+            <h4>模块作用域变量</h4>
+            <table>
+                <tr>
+                    <td>__dirname:String</td>
+                    <td>当前模块所在目录名</td>
+                </tr>
+                <tr>
+                    <td>__filename:String</td>
+                    <td>当前模块文件的文件名</td>
+                </tr>
+                <tr>
+                    <td>module:Object</td>
+                    <td>指向当前模块</td>
+                </tr>
+                <tr>
+                    <td>module.exports:Object</td>
+                    <td>导出对象</td>
+                </tr>
+                <tr>
+                    <td>require:Function</td>
+                    <td>引入其他模块</td>
+                </tr>
+            </table>
+            <h4>exports和module.exports对象的区别</h4>
+            <p>Node.js中真正用来向外界导出成员的是module.exports对象。而exports只是module.exports的一个引用。如果向该对象上添加一个属性，操作的是同一个对象，能正常导出。但是如果想要导出一个对象，比如<span class="code">exports={age:10}</span>是不能实现导出的，这时，必须赋值给module.exports对象。</p>
+            <pre class="code">exports.age = 10;<span class="note">//等同于module.exports.age=10</span>
+exports = {age:10};<span class="note">//exports失效，不能导出新对象</span>
+module.exports={age:10};<span class="code">//正常导出</span></pre>
+            <h3>模块的分类</h3>
+            <h4>核心模块</h4>
+            <p>被编译成二级制执行文件，可以被解释器直接使用，加载速度最快。</p>
+            <table>
+                <tr>
+                    <td>global</td>
+                    <td>全局对象模块</td>
+                </tr>
+                <tr>
+                    <td>console</td>
+                    <td>控制台模块</td>
+                </tr>
+                <tr>
+                    <td>util</td>
+                    <td>提供常用函数的集合</td>
+                </tr>
+                <tr>
+                    <td>events</td>
+                    <td>实现了Node.js的事件驱动型异步调用</td>
+                </tr>
+                <tr>
+                    <td>fs</td>
+                    <td>文件系统I/O操作模块</td>
+                </tr>
+                <tr>
+                    <td>http</td>
+                    <td>基于HTTP协议的请求和响应</td>
+                </tr>
+            </table>
+            <h4>文件模块</h4>
+            <p>没有后缀和.js后缀的文件模块作为js文本加载；</p>
+            <p>.json后缀的文件模块，作为json字符串加载；</p>
+            <p>.node后缀文件模块，作为C/C++二进制插件加载；</p>
+            <h4>目录模块</h4>
+            <p>方式一：目录名m4,其中index.js向外界导出数据；</p>
+            <p>方式三：创建一个目录，名为node_modules，其中放入文件夹，该文件夹内需要有一个package.json文件，在main属性中声明主js文件。</p>
+            <pre class="code"><span class="note">node_modules
+    |--m6
+        |--package.json {"main":"6.js"}
+        |--6.js</span></pre>
+            
+        </div>
+    </li>
+    <li>
+        <p>全局对象和核心模块</p>
+        <div class="desc">
+            <h2>核心模块</h2>
             <h3>全局对象</h3>
             <h4>console对象</h4>
             <p>console对象负责向stdout/stderr输出信息console.log/warn/error/assert</p>
-            <pre class="code">//断言 ：用在测试
-            console.assert(expression,'断言执行失败')
-            //如果expression执行结果为真，就是执行下句话，否则抛出异常,程序结束</pre>
+            <pre class="code"><span class="note">//断言 ：用在测试</span>
+console.assert(expression,'断言执行失败')
+<span class="note">//如果expression执行结果为真，就是执行下句话，否则抛出异常,程序结束</span></pre>
             <h4>process对象</h4>
             <p>进程对象，当前解释器运行所在的进程对象。通过该对象，可以获取当前操作系统及运行信息，并操作脚本所在执行的进程。</p>
             <pre class="code">process.arch //获取CPU架构类型
@@ -108,31 +193,26 @@ process.uptime()    //获取Node.js解释器运行时间(s)
 process.memoryUsage() //获取内存信息
 
 process.pid        //获取进程ID号
-process.kill( pid )  //向指定进程ID号发送退出信号
-
-</pre>
-        </div>
-    </li>
-    <li>
-        <p>核心模块</p>
-        <div class="desc">
-            <h2>核心模块</h2>
-            <p>学习Node.js要经常查看<strong><a href="https://nodejs.org/api/">官方文档</a></strong>。</p>
+process.kill( pid )  //向指定进程ID号发送退出信号</pre>
+            <p>学习Node.js要经常查看<strong><a href="https://nodejs.org/api/" target="_blank">官方文档</a></strong>。</p>
             <h3>Console模块</h3>
             <p>Console模块，控制台模块，提供了一种控制台调试输出的机制。该模块向外导出了两个成员：</p>
-            <table>
-                <tr>
-                    <td>Console class</td>
-                    <td>用于向任意Node.js<em>输出流对象</em>执行输出</td>
-                </tr>
-                <tr>
-                    <td>global.console</td>
-                    <td>global.console=new Console(process.stdout,process.stderr);</td>
-                </tr>
-            </table>
+            <h4>Console class</h4>
+            <p>用于向任意Node.js<em>输出流对象</em>执行输出。</p>
+            <pre class="code">const fs = require("fs");
+const out = fs.createWriteStream("./appout.log");
+const err = fs.createWriteStream("./apperr.log");
+
+const logger = new Console(out,err);
+logger.log("count:%d",count);
+logger.err("count:%d",count);
+            </pre>
+            <h4>global.console</h4>
+            <pre class="code">global.console=new Console(process.stdout,process.stderr);</pre>
             <h3>OS模块</h3>
             <p>OS模块提供了很多用于获得当前操作系统信息的方法。</p>
-            <pre class="code">os.EOL //代表OS End-Of-Line常量
+<pre class="code">
+os.EOL              <span class="note">//代表OS End-Of-Line常量</span>
 os.tmpdir()         <span class="note">//返回OS的临时目录</span>
 os.hostname()       <span class="note">//返回当前主机名称</span>
 os.platform()       <span class="note">//返回当前OS平台类型</span>
@@ -205,11 +285,25 @@ let base = "http://tmooc.cn/sub/index.html";//基地址
 let src = "../img/logo.png";
 let result = url.resolve(base,src);
 console.log(result);</pre>
+        <h3>Path模块</h3>
+        <p>path模块提供了对文件路径相关操作的方法</p>
+        <pre class="code">console.log(path.parse("c:/user/local/img/1.jpg"));</pre>
+        <p>resolve()、format(obj)</p>
+        <h3>DNS模块</h3>
+        <p>DNS模块提供了域名到IP地址的双向解析功能，包含如下三个主要方法：</p>
+        <h3>Error模块</h3>
+        <p>Node.js中错误对象分为4种类型：</p>
+        <p>(1)原生JS提供的错误类型，如EvalError、SyntaxError、RangeError、ReferenceError、TypeError、URIError</p>
+        <p>(2)由操作系统底层限制引起的自动错误，如打开不存在的文件、向关闭流中写出数据</p>
+        <p>(3)断言错误</p>
+        <p>(4)应用程序抛出的用户自定义错误</p>
+        <p>Node.js中所有的错误对象都是Error类型的实例，Error对象可以使用throw关键字进行抛出。</p>
         </div>
     </li>
     <li>
-        <p>包</p>
+        <p>CommonJS规范、包和NPM</p>
         <div class="desc">
+            <h2>CommonJS规范</h2>
             <h3>CommonJS规范</h3>
             <p>CommonJS不是一门语言，而是为js定义的API标准和规范，从而拓宽js的应用范围。最终提供类似Python、Ruby和Java语言一样丰富的功能。</p>
             <p>Node.js实现了CommonJS规范。</p>
@@ -274,30 +368,24 @@ console.log(result);</pre>
                     <td>XML转换工具</td>
                 </tr>
             </table>
-        </div>
-    </li>
-    <li>
-        <p>npm</p>
-        <div class="desc">
             <h3>NPM</h3>
-            <p>npm，Node Package Manager，是非官方提供的用于下载、安装、查找、更新、删除第三方Node.js包的工具，同时，还可以执行打包、发布模块，解决模块间依赖性等功能，已经成为Node.js包管理的标准。</p>
+            <p>npm，Node Package Manager，是非官方提供的用于<em>下载、安装、查找、更新、删除</em>第三方Node.js包的工具，同时，还可以执行打包、发布模块，解决模块间依赖性等功能，已经成为Node.js包管理的标准。</p>
             <p>Node.js安装文件汇总，已经集成了npm包管理工具。</p>
-            <h4>创建包</h4>
-            <pre class="code">npm init</pre>
-            <p>npm会帮助我们创建package.json</p>
-            <p>npm package json</p>
-            <h4>发布包</h4>
-            <pre class="code">//(1)注册npm账号
+            <h4 class="unimportant">创建包</h4>
+            <pre class="code unimportant">npm init</pre>
+            <p class="unimportant">npm会帮助我们创建package.json</p>
+            <h4 class="unimportant">发布包</h4>
+            <pre class="code unimportant">//(1)注册npm账号
 //(2)npm adduser 命令登录账号
 //(3)npm publish发布包</pre>
-            <h4>下载包</h4>
+            <h4>下载和安装</h4>
             <pre class="code">npm install &lt;pkg>
 npm install &lt;pkg>@&lt;version>
 npm install &lt;pkg> --save/--save-dev
-            </pre>
+</pre>
             <h4>本地安装和全局安装</h4>
-            <p>本地安装：安装包保存在./node_module下，如果没有则创建一个</p>
-            <pre class="code">npm i packageName</pre>
+            <p>本地安装：安装包保存在./node_module下，如果没有则创建一个，这里以mysql包为例：</p>
+            <pre class="code">npm i mysql</pre>
             <p>全局安装：安装包保存在/usr/local，可以直接在命令行里运行。</p>
             <h4>维护包</h4>
             <pre class="code">nmp ls //列出本地目录已经安装的包
@@ -305,8 +393,7 @@ npm ls -g //列出全局目录已经安装的包
 nmp ls &lt;pkg> //列出包的版本信息
 npm info &lt;pkg> //详细信息
 npm update &lt;pkg> //更新已安装的包
-npm uninstall &lt;pkg> //卸载已安装包
-            </pre>
+npm uninstall &lt;pkg> //卸载已安装包</pre>
         </div>
     </li>
     <li>
@@ -317,6 +404,7 @@ npm uninstall &lt;pkg> //卸载已安装包
             <p>进程：操作系统将可执行文件从磁盘载入内存，为其分配必需的可执行代码内存和数据内存。<strong>进程是操作系统分配内存的基本单位。</strong></p>
             <p>线程Thread：是进程内部执行代码的基本单位。一个进程内可以同时创建多个线程，并发执行多段代码。</p>
             <p>每个线程需要自己独立的数据内存空间，大小为2MB。</p>
+            <p>CPU在并发执行操作系统中所有线程时，采用的是“时间片轮转法”，即每个线程最多只能执行5ns，即使没有执行完所有代码，也必须让出CPU。好处：所有线程都会得到执行；不足：过多的线程切换意味着较大的上下文切换。</p>
             <h3>面试题</h3>
             <h4>进程和线程的关系</h4>
             <p>进程是操作系统分配内存的基本单位；而线程是CPU调度的基本单位。</p>
@@ -340,12 +428,8 @@ npm uninstall &lt;pkg> //卸载已安装包
             <p>2) 所有的请求都会在“事件循环列队”中等待；</p>
             <p>3) 请求服务线程依次为每个请求服务，但不会为任何请求而阻塞。</p>
             <h3>阻塞和非阻塞</h3>
-            <table>
-                <tr>
-                    <td>阻塞</td>
-                    <td>block、synchronize</td>
-                </tr>
-            </table>
+            <p>阻塞和非阻塞表示的是程序工作的方式。对于阻塞，两个程序完成一个完整任务，一定是一个等待另一个工作。而对于非阻塞，一个工作，另一个也在工作。</p>
+            
             <h3>事件循环</h3>
             <h4>事件列队(Event Queue)</h4>
             <p><strong>事件触发时，处理函数并不是立即执行，而是加入事件列队。只有当主线程中代码都执行完毕，才开始执行事件列队中任务。</strong>这样会导致一些问题，例如，点击某个元素，不能立刻执行绑定的函数，其原因是：等运行的代码运行结束，可能之前还有排队的事件。</p>
@@ -389,14 +473,239 @@ npm uninstall &lt;pkg> //卸载已安装包
     <span class="note">//服务器端断开相应连接</span>
     socket.splice(index,1);
 });</pre>
-            <h4>http模块</h4>
+            
             
 
-
-
-
-
-
         </div>
+    </li>
+    <li>
+        <p>Buffer</p>
+        <div class="desc">
+            <h2>Buffer</h2>
+            <h3>理解缓冲区</h3>
+            <p>在计算机中，CPU的处理速度很快，而磁盘/网络的IO操作相对慢很多--不同数量级的差距。解决的办法是，将需要CPU处理的数据（多读一些）和处理完成的数据（多攒一些），暂存在一块特殊的内存中，这样，就不要频繁的进行磁盘IO操作了。这里，用于临时存储数据的内存区域就是“缓冲区Buffer”。</p>
+            <p>客户端JS中没有表示缓冲区的对象，也没有直接存储二进制数据的对象。</p>
+            <p>Node.js中使用
+                <span class="code">global.Buffer</span>对象代表一块内存缓冲区，专门用于暂存要处理和处理完成的数据(在V8引擎堆内存之外)。其中，可以存储2种类型的数据：</p>
+            <table>
+                <tr>
+                    <td>字符数据</td>
+                    <td>具有特定字符编码的字符，如UTF-8、GBK</td>
+                </tr>
+                <tr>
+                    <td>字节数据</td>
+                    <td>二进制数据，如图片、音视频等</td>
+                </tr>
+            </table>
+            <p>注意，Buffer是global的成员，使用该模块无需引入。
+                <strong>Buffer类型的实例类似一个整型数组，一旦创建，大小不可改变。</strong>
+            </p>
+            <h3>Buffer</h3>
+            <h4>创建Buffer实例</h4>
+            <pre class="code"><span class="note">//创建一个长度为3字节的Buffer对象</span>
+            <span class="note">//alloc()方法，创建3个字节的缓冲区</span>
+            const bf1 = Buffer.alloc(3);
+            console.log(bf1);
+            <span class="note">//buffer底层以16进制存储</span>
+            <span class="note">//from()方法，创建数组缓冲区</span>
+            const bf2 = Buffer.from([97,0x62,0x63]);
+            console.log(bf2);
+            <span class="note">//from()方法，创建字符串缓冲区</span>
+            const bf3 = Buffer.from("abc");
+            const bf4 = Buffer.from("一二","utf8");</pre>
+            <h4>Buffer.prototype.toString</h4>
+            <p>Buffer重写了toString()方法，用来查看缓冲区对象的字符串形式。</p>
+            <pre class="code"><span class="note">//将缓冲区内容转换为特定编码的字符串</span>
+            console.log(bf1.toString());
+            console.log(bf1.toString("binary"));<span class="note">//hex、ascii、utf8、base64</span></pre>
+            <h4>Buffer的遍历</h4>
+            <p>Buffer实例类似整型数组，那么遍历的方式类似数组的遍历。1) for循环；2) for...of循环；3) 迭代器遍历buffer.values(),buffer.keys(),buffer.entries()</p>
+            <pre class="code">for(var e of buffer){
+    console.log("%d--%s",e,e.toString(16));
+}</pre>
+            <h4>Buffer常见操作</h4>
+            <table>
+                <tr>
+                    <td>buf.compare()</td>
+                    <td>比较两份缓冲区的大小</td>
+                </tr>
+                <tr>
+                    <td>buf.copy()</td>
+                    <td>拷贝缓冲区的（部分）内容</td>
+                </tr>
+                <tr>
+                    <td>buf.equals()</td>
+                    <td>判断两个缓冲区的内容是否完全相同</td>
+                </tr>
+                <tr>
+                    <td>buf.fill()</td>
+                    <td>使用指定的值填充缓冲区</td>
+                </tr>
+                <tr>
+                    <td>buf.indexOf()</td>
+                    <td>指定值在缓冲区中的开始下标</td>
+                </tr>
+                <tr>
+                    <td>buf.includes()</td>
+                    <td>判断是否包含指定值</td>
+                </tr>
+                <tr>
+                    <td>buf.slice()</td>
+                    <td>返回同一个缓冲区中的部分值</td>
+                </tr>
+                <tr>
+                    <td>buf.toJSON()</td>
+                    <td>转换为JSON字符串格式</td>
+                </tr>
+                <tr>
+                    <td>buf.write()</td>
+                    <td>向缓冲区指定位置写出指定值</td>
+                </tr>
+            </table>
+        </div>
+    </li>
+    <li>
+        <p>fs模块</p>
+        <div class="desc">
+            <h2>fs模块</h2>
+            <h3>fs模块</h3>
+            <p>fs模块提供了符合POSIX规范的<em>操作文件和目录</em>的基本方法。这些方法都有同步和异步两种形式。在I/O操作密集的应用中，推荐使用异步调用方式，避免处理过程的阻塞。</p>
+            <pre class="code">const fs = require("fs");
+let data = fs.readFileSync("f1"); <span class="note">//同步的方式适用于加载应用的初始数据</span>
+<span class="note">//异步读取文件</span>
+fs.readFile("f1",(err,data)=>{
+    if(err){
+        throw err;
+    }
+    console.log(data);
+});</pre>
+            <p>异步IO以回调方式向事件循环列队添加回调函数，不会阻塞主线程。</p>
+            <h4>常用类</h4>
+            <table>
+                <tr>
+                    <td>fs.Stats</td>
+                    <td>文件目录统计信息</td>
+                </tr>
+                <tr>
+                    <td>fs.ReadStream</td>
+                    <td>stream.Readable接口实现对象</td>
+                </tr>
+                <tr>
+                    <td>fs.WriteStream</td>
+                    <td>实现了stream.Writable接口</td>
+                </tr>
+                <tr>
+                    <td>fs.FSWatcher</td>
+                    <td>监视文件修改</td>
+                </tr>
+            </table>
+            <h4>常用的方法</h4>
+            <table>
+                <tr>
+                    <td>fs.mkdir()</td>
+                    <td>创建目录</td>
+                </tr>
+                <tr>
+                    <td>fs.rmdir()</td>
+                    <td>删除目录</td>
+                </tr>
+                <tr>
+                    <td>fs.readFile()</td>
+                    <td>读取文件内容</td>
+                </tr>
+                <tr>
+                    <td>fs.writeFile()</td>
+                    <td>向文件写入内容</td>
+                </tr>
+                <tr>
+                    <td>fs.appendFile()</td>
+                    <td>向文件中追加内容</td>
+                </tr>
+                <tr>
+                    <td>fs.unlink()</td>
+                    <td>删除文件</td>
+                </tr>
+                <tr>
+                    <td>fs.rename()</td>
+                    <td>重命名文件</td>
+                </tr>
+            </table>
+            <h3>读写文件</h3>
+            <p>fs模块提供了3中读写文件的方法：</p>
+            <p>(1)一次性全部读取/写入</p>
+            <p>(2)在文件指定位置读取/写入特定长度的数据</p>
+            <p>(3)流式读取/写入文件</p>
+            <h4>一次性读取全部</h4>
+            <p>对于数据量不是很大的文件，可以一次性读写其中的全部内容。</p>
+            <table>
+                <tr>
+                    <td>fs.readFile(file[,options],callback)</td>
+                    <td>读</td>
+                </tr>
+                <tr>
+                    <td>fs.writeFile(file,data[,options],callback)</td>
+                    <td>写</td>
+                </tr>
+                <tr>
+                    <td>fs.appendFile(file,data[,option],callback)</td>
+                    <td>追加</td>
+                </tr>
+            </table>
+            <pre class="code"><span class="note">//同步的fs操作</span>
+var data = fs.readFileSync(fileName);
+fs.writeFileSync(filename,str/buffer);<span class="note">//向文件中写入数据，写之前先清空</span>
+fs.appendFileSync(filename,str/buffer); <span class="note">//追加数据到文件</span>
+            </pre>
+            <p>同步和异步错误处理有所不同，同步读取中产生的错误可以用try..catch捕获处理；异步读取中的错误必须手动抛出或者处理，fs模块不会自动抛出。</p>
+            <pre class="code">fs.readFile(src,(err,data)=>{
+    if(err){
+        throw err;
+    }
+    console.log(data.toString());<span class="note">//toString("base64")可以将图片字符形式输出</span>
+})</pre>
+            <p>Base64编码：将二进制数据（如图片、音频）用64个可打印字符来表示。具体表示规则可以参考RFC2045~2049。</p> 
+            <p><strong>web应用中，可以将不大且常用的图片转换为Base64编码的字符串，拼接在HTML中输出到客户端，从而减少对服务器的请求次数。</strong></p> 
+            <h4>读写文件部分内容</h4> 
+            <p>当文件内容很多，无需一次性全部读取，使用部分读取的方法：</p>
+
+            <pre class="code">const fs = require("fs");
+const src = ",/log/full.txt";
+<span class="note">//打开文件,获取文件描述符file descriptor</span>
+fs.open(src,"r",(err,fd)=>{
+    <span class="note">//fd是拿到的文件描述符</span>
+    if(err) throw err;
+    const buffer = Buffer.alloc(1024);
+    fs.read(fd,buffer,0,1024,0,(err,count,buf)=>{
+        if(err) throw err;
+        console.log(buffer.toString("UTF-8",0,count));
+        <span class="note">//关闭文件</span>
+        fs.close(fd);
+    })
+});
+
+fs.open(path,flags[,mode],callback);
+<span class="note">//读取或写入</span>
+fs.read();</pre>
+        </div>
+    </li>
+    <li>
+        <p>http模块</p>
+        <div class="desc"></div>
+    </li>
+    <li>
+        <p>mysql模块</p>
+        <div class="desc"></div>
+    </li>
+    <li>
+        <p>Express框架</p>
+        <div class="desc"></div>
+    </li>
+    <li>
+        <p>child_process模块和cluster模块</p>
+        <div class="desc"></div>
+    </li>
+    <li>
+        <p>Socket</p>
+        <div class="desc"></div>
     </li>
 </ul>
