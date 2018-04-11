@@ -630,6 +630,43 @@ fs.readFile("f1",(err,data)=>{
                     <td>重命名文件</td>
                 </tr>
             </table>
+            <h3>文件模式</h3>
+            <table>
+                <tr>
+                    <td>r</td>
+                    <td>read</td>
+                    <td>4</td>
+                </tr>
+                <tr>
+                    <td>w</td>
+                    <td>write</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>x</td>
+                    <td>execute</td>
+                    <td>1</td>
+                </tr>
+            </table>
+            <p>不同用户又分为3种类型: </p>
+            <table>
+                <tr>
+                    <td>u</td>
+                    <td>User，文件所有者</td>
+                </tr>
+                <tr>
+                    <td>g</td>
+                    <td>Group,所有者所在组的其他用户</td>
+                </tr>
+                <tr>
+                    <td>o</td>
+                    <td>other,其他用户</td>
+                </tr>
+            </table>
+            <pre class="code">-rwx------普通文件，所有着具有读写执行的权限，其他用户无任何权限。-rwxr--r--普通文件，其他用户只读
+-rw-rw-r-x文件所有者和组员可读写，其他用户可读和执行
+drwx--x--x目录所有者读写进入，组员和其他用户只能进入，不可读。
+            </pre>
             <h3>读写文件</h3>
             <p>fs模块提供了3中读写文件的方法：</p>
             <p>(1)一次性全部读取/写入</p>
@@ -665,6 +702,7 @@ fs.appendFileSync(filename,str/buffer); <span class="note">//追加数据到文�
 })</pre>
             <p>Base64编码：将二进制数据（如图片、音频）用64个可打印字符来表示。具体表示规则可以参考RFC2045~2049。</p> 
             <p><strong>web应用中，可以将不大且常用的图片转换为Base64编码的字符串，拼接在HTML中输出到客户端，从而减少对服务器的请求次数。</strong></p> 
+            <pre class="code">&lt;img src="data:image/png;base64,编码"</pre>
             <h4>读写文件部分内容</h4> 
             <p>当文件内容很多，无需一次性全部读取，使用部分读取的方法：</p>
 
@@ -690,15 +728,277 @@ fs.read();</pre>
     </li>
     <li>
         <p>http模块</p>
-        <div class="desc"></div>
+        <div class="desc">
+            <h2>http模块</h2>
+            <h3>HTTP协议</h3>
+            <h4>了解HTTP协议</h4>
+            <p><strong>HTTP协议规定了请求消息和响应消息的具体格式，遵循HTTP协议，可以实现“超文本内容”在服务端和客户端之间的传输。</strong>比如，传输HTML、CSS、JS、图片、音频等。</p>
+            <p>另外，请了解：HTTP协议属于TCP/IP协议家族中<em>应用层协议</em>。(TCP/IP知识暂时挂起)</p>
+            <table>
+                <tr>
+                    <td>应用层</td>
+                    <td>HTTP、HTTPS、FTP、SSH、DNS...</td>
+                </tr>
+                <tr>
+                    <td>传输层</td>
+                    <td>TCP、UDP</td>
+                </tr>
+                <tr>
+                    <td>网络层</td>
+                    <td>IP、ICMP、IGMP</td>
+                </tr>
+                <tr>
+                    <td>网络接口层</td>
+                    <td>以太网、令牌环、光线数据交换接口</td>
+                </tr>
+            </table>
+            <p>HTTP协议是典型的基于“<em>请求-响应</em>”模型的协议，只有客户端发出请求，服务器才会响应，且一个请求一个响应。</p>
+            <h4>HTTP协议的版本</h4>
+            <p>HTTP协议目前有3个版本：HTTP/1.0(1996年发布)、HTTP/1.1(1999年发布)、HTTP/2(2015年发布)</p>
+            <table>
+                <tr>
+                    <th>版本</th>
+                    <th>特性</th>
+                </tr>
+                <tr>
+                    <td>HTTP/1.1</td>
+                    <td>
+                        <p>支持虚拟主机，持久连接，代理连接</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>HTTP/2</td>
+                    <td><p>二级制协议、多路复用流、优先权和依赖、头部压缩、请求重置、服务器推送、流量控制</p></td>
+                </tr>
+            </table>
+            <h4>请求头解析</h4>
+            <table>
+                <tr>
+                    <td>1xx提示性信息</td>
+                    <td>
+                        <p>100 Continue</p>
+                        <p>101 Switching protocol http/https切换</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2xx 成功响应</td>
+                    <td>
+                        <p>200 OK正确响应</p>
+                        <p>201 Created创建成功(PUT)</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3xx 重定向</td>
+                    <td>
+                        <p></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4xx</td>
+                    <td>
+                        <p>400：Bad Request</p>
+                        <p>403：Forbidden 访问被拒绝（权限）</p>
+                        <p>404：Not Found </p>
+                        <p>405: Method Not Allowed</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>5xx</td>
+                    <td>
+                        <p>500：Interval Server Error服务器内部出错</p>
+                        <p>501：Not Implemented 没有实现</p>
+                        <p>503：Service Unavaliable </p>
+                    </td>
+                </tr>
+            </table>
+            <p>虚拟主机：一台服务器上同时支持多个主机(host)，比如一台服务器跑了好几个网站。通过Apache可以配置虚拟主机。</p>
+            <p>持久化连接：在网络请求中，如果出现<em>多次请求，中间不断开连接</em>。这样避免每次请求数据都要“<em>3次握手和4次挥手</em>”。</p>
+            <p></p>
+            <h3>http模块</h3>
+            <p>Node.js内置的http模块提供了一些非常底层的方法，用于创建使用http协议的客户端应用或者服务端应用。</p>
+            <p>Web客户端：创建并发起请求消息，等待并解析响应消息</p>
+            <p>Web服务器：接收并解析请求消息，构建并发送响应消息</p>
+            <pre class="code">
+<span class="note">//引入模块</span>
+const http = require("http");
+const fs = require("fs");
+const url = require("url");
+const qs = require("querystring");
+<span class="note">//创建server对象</span>
+let server = http.createServer();
+server.listen(3030);<span class="note">//设置监听端口</span>
+<span class="note">//添加事件处理函数</span>
+server.on("request",(req,res)=>{ 
+    var obj = url.parse(req.url,true);
+    if(obj.pathname==="/register.html"){
+        res.statusCode = 200;<span class="note">//设置状态码</span>
+        res.setHeader("Content-Type","text/html;charset=utf-8");<span class="note">//设置响应头</span>
+        fs.readFile("./register.html",(err,data)=>{
+            if(err)throw err;
+            res.write(data);
+            res.end();
+        });
+    }else if(obj.pathname==="/register.do"){ 
+        res.statusCode = 200; 
+        res.setHeader("Content-Type","text/html;charset=utf-8");
+        fs.appendFile('./user.txt',qs.stringify(obj.query),()=>{ 
+            res.end("注册成功"); 
+        }); 
+    }else{ 
+        res.statusCode = 404; 
+        res.setHeader("Content-Type","text/html;charset=utf-8");
+        res.end("&lt;h1>您查找的页面不存在:(&lt;/h1>"); 
+    } 
+});</pre>
+            
+        </div>
     </li>
     <li>
         <p>mysql模块</p>
-        <div class="desc"></div>
+        <div class="desc">
+            <h2>mysql模块</h2>
+            <h3>Node.js访问mysql数据库</h3>
+            <p>为精简Node.js解释器，官方未提供访问任何数据库相关的模块，必须使用npm工具下载第三方模块。</p>
+            <pre class="code">
+const mysql = require("mysql");
+
+<span class="note">//创建数据库连接</span>
+let conn = mysql.createConnection({});
+<span class="note">//发送sql语句</span>
+            </pre>
+
+            <h3>数据库的安全漏洞：sql注入</h3>
+            <p>利用特殊字符<span class="code"># ' or 1=1 DROP  select into info</span>完成对数据的入侵操作。</p>
+            <p>解决方法:利用#sql占位符,Node.js会对传入的数据进行过滤</p>
+            <pre class="code">function userLogin(uname,upwd){ 
+    let sql = `SELECT uid FROM xz_user WHERE uname=? AND binary upwd=?`;
+    conn.query(sql,[uname,upwd],(err,result)=>{
+            if(err) throw err; 
+            if(result.length==0){ 
+                conn.end(); 
+                console.log("登录失败"); 
+            }else{ 
+                conn.end(); 
+                console.log("登录成功"); 
+            } 
+        }) 
+    }</pre>
+            <h3>连接池</h3>
+            <p>通常项目中，web服务器和数据库都是独立的计算机，甚至远隔千里。每次服务器接收到http请求，都要建立到数据库的连接，这会影响响应速度，导致客户端较长时间的等待。</p>
+            <p>解决的办法是，在web服务器启动时，事先创建好若干个数据库连接对象，保存在一个集合对象中；每次请求时，直接从集合中获取一个连接对象，完成后，归还给集合。这里的集合对象就是“<em>数据库连接池（Pool）</em>”。</p>
+            <h3>使用连接池</h3>
+            <pre class="code">const mysql = require("mysql");
+<span class="note">//创建连接池对象</span>
+let pool = mysql.createPool({
+    connectionLimit:10,
+    host:"127.0.0.1",
+    user:"root",
+    password:"",
+    database:"xz"
+});
+<span class="note">//从连接池中获取连接</span>
+pool.getConnection((err,conn)=>{
+    if(err) console.log(err);
+    let sql = "SELECT fid,fname FROM xz_laptop_family";
+    conn.query(sql,(err,result)=>{
+        if(err) console.log(err);
+        console.log(result);
+        conn.release();
+    })
+})
+            </pre>
+            <p>使用连接池有简化方法，用<strong>连接池对象直接执行查询</strong>，系统会自动获取一个连接，执行结束后，自动归还。</p>
+            <pre class="code"><span class="note">//连接池对象执行查询</span>
+let sql = "SELECT fname FROM xz_laptop_family WHERE fid = ?";
+pool.query(sql,[10],(err,result)=>{
+    if(err) console.log(err);
+    console.log(result);
+});</pre>
+        </div>
     </li>
     <li>
         <p>Express框架</p>
-        <div class="desc"></div>
+        <div class="desc">
+            <h2>express模块</h2>
+            <h3>什么是express模块</h3>
+            <p>使用官方提供的http模块可以创建web服务器应用，但是此模块非常底层，要处理各种情形，比较繁琐。推荐使用其简化版-express，基于http模块编写的高层模块，简化web服务器的开发。</p>
+            <h3>express模块的使用步骤</h3>
+            <pre class="code">const http = require("http");
+const express = require("express");
+    <span class="note">//创建对象</span>
+let app = express();
+    <span class="note">//创建服务器对象</span>
+let server = http.createServer(app);
+server.listen(3000);
+    <span class="note">//接收不同客户端请求</span>
+app.get(url,(req,res)=>{
+    <span class="note">//get方式</span>
+})
+app.post(url,(req,res)=>{
+    <span class="note">//post方式</span>
+})
+app.delete(url,(req,res)=>{
+<span class="note">//delete方式</span>
+})
+app.put(url,(req,res)=>{
+<span class="note">//put方式</span>
+})
+            </pre>
+            <h3>几个请求方法的含义</h3>
+            <table>
+                <tr>
+                    <th>请求方式</th>
+                    <th>含义</th>
+                </tr>
+                <tr>
+                    <td>get</td>
+                    <td>客户端想要获得资源</td>
+                </tr>
+                <tr>
+                    <td>post</td>
+                    <td>客户端想上传/添加数据给服务器</td>
+                </tr>
+                <tr>
+                    <td>put</td>
+                    <td>客户端想上传/更新服务器指定资源</td>
+                </tr>
+                <tr>
+                    <td>delete</td>
+                    <td>客户端想删除服务器指定资源</td>
+                </tr>
+            </table>
+            <h3>使用express接收不同客户请求</h3>
+            <p>express路由：= Method+path+fn</p>
+            <pre class="code">app.get(url,(req,res)=>{
+    res.send("...");
+    res.sendFile(__dirname+"/向客户端输出指定文件内容");              
+    res.json(obj); <span class="note">//obj-->json</span>
+});</pre>
+            <h3>接收GET请求查询字符串</h3>
+<pre class="code"><span class="note">#GET /user?uid=10&loc=sz</span>
+app.get("/user",(req,res)=>{
+    <span class="note">#express为每个req对象添加params属性</span>
+    console.log(req.query.uid);
+    console.log(req.query.loc);
+});
+<span class="note">#GET /user/20/bj</span>
+app.get("user/:uid/:loc",(req,res)=>{
+    <span class="note">#express为每个req对象添加params属性</span>
+    console.log(req.params.uid);
+    console.log(req.params.loc);
+});
+app.get("/stu/:sid",(req,res)=>{
+    let sid = req.params.sid;
+    let sql = "select sid,sname,score,schooltime from stu where sid = ?";
+    pool.query(sql,[sid],(err,result)=>{
+        if(err) throw err;
+        res.json(result);
+    })
+});
+</pre>
+            <h3>接收POST请求</h3>
+
+        </div>
     </li>
     <li>
         <p>child_process模块和cluster模块</p>
