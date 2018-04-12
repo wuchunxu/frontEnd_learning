@@ -5,26 +5,148 @@
 		<p>HTTP协议</p>
 		<div class="desc">
 			<h2>HTTP协议</h2>
-			<h3>HTTP协议是什么</h3>
+			<h3>什么是HTTP协议</h3>
+			<p><strong>HTTP协议规定使用URI来传输数据和建立连接，并规定了请求消息和响应消息的具体格式。遵循HTTP协议，可以实现“超文本内容”在服务端和客户端之间的传输。</strong>比如，传输HTML、CSS、JS、图片、音频等。</p>
+			<p>另外，请了解：HTTP协议属于TCP/IP协议家族中
+				<em>应用层协议</em>。(TCP/IP知识暂时挂起)</p>
+			<table>
+				<tr>
+					<td>应用层</td>
+					<td>HTTP、HTTPS、FTP、SSH、DNS...</td>
+				</tr>
+				<tr>
+					<td>传输层</td>
+					<td>TCP、UDP</td>
+				</tr>
+				<tr>
+					<td>网络层</td>
+					<td>IP、ICMP、IGMP</td>
+				</tr>
+				<tr>
+					<td>网络接口层</td>
+					<td>以太网、令牌环、光线数据交换接口</td>
+				</tr>
+			</table>
+			<p><strong>HTTP协议的工作模式：</strong>HTTP协议是典型的基于“
+				<em>请求-响应</em>”模型的协议，只有客户端发出请求，服务器才会响应，且一个请求一个响应。</p>
+			<h3>HTTP协议的版本</h3>
+			<p>HTTP协议目前有3个版本：HTTP/1.0(1996年发布)、HTTP/1.1(1999年发布)、HTTP/2(2015年发布)</p>
+			<table>
+				<tr>
+					<th>版本</th>
+					<th>特性</th>
+				</tr>
+				<tr>
+					<td>HTTP/1.1</td>
+					<td>
+						<p>支持虚拟主机，持久连接，代理连接</p>
+					</td>
+				</tr>
+				<tr>
+					<td>HTTP/2</td>
+					<td>
+						<p>二级制协议、多路复用流、优先权和依赖、头部压缩、请求重置、服务器推送、流量控制</p>
+					</td>
+				</tr>
+			</table>
+			<h3>HTTP协议对传输数据格式的规定</h3>
+			<h4>请求数据格式</h4>
+			<table>
+				<tr>
+					<td>1xx提示性信息</td>
+					<td>
+						<p>100 Continue</p>
+						<p>101 Switching protocol http/https切换</p>
+					</td>
+				</tr>
+				<tr>
+					<td>2xx 成功响应</td>
+					<td>
+						<p>200 OK正确响应</p>
+						<p>201 Created创建成功(PUT)</p>
+					</td>
+				</tr>
+				<tr>
+					<td>3xx 重定向</td>
+					<td>
+						<p>301 Moved Permanently，资源永久移动</p>
+						<p>303 See Other</p>
+						<p>302 重定向</p>
+						<p>304 Not Modified，命中缓存</p>
+					</td>
+				</tr>
+				<tr>
+					<td>4xx</td>
+					<td>
+						<p>400：Bad Request</p>
+						<p>403：Forbidden 访问被拒绝（权限）</p>
+						<p>404：Not Found </p>
+						<p>405: Method Not Allowed</p>
+					</td>
+				</tr>
+				<tr>
+					<td>5xx</td>
+					<td>
+						<p>500：Interval Server Error服务器内部出错</p>
+						<p>501：Not Implemented 没有实现</p>
+						<p>503：Service Unavaliable </p>
+					</td>
+				</tr>
+			</table>
+			<p>虚拟主机：一台服务器上同时支持多个主机(host)，比如一台服务器跑了好几个网站。通过Apache可以配置虚拟主机。</p>
+			<p>持久化连接：在网络请求中，如果出现
+				<em>多次请求，中间不断开连接</em>。这样避免每次请求数据都要“
+				<em>3次握手和4次挥手</em>”。</p>
+			
 			<h4>HTTP协议规范了数据如何被打包和传输。</h4>
 			<p>URI：Uniform Resource Identifiers，统一资源标识符</p>
 			<p>URL：Uniform Resource Locator，统一资源定位符</p>
+			
+			<h4>Content-Type(响应主体类型)</h4>
 			<table>
 				<tr>
-					<th>#</th>
-					<th>http协议</th>
+					<td>text/plain</td>
+					<td>纯文本</td>
 				</tr>
 				<tr>
-					<td>1</td>
-					<td><p>HTTP协议规定，使用URI来传输数据和建立连接。</p></td>
+					<td>text/html</td>
+					<td>超文本</td>
 				</tr>
 				<tr>
-					<td>2</td>
-					<td><p>HTTP协议规范了请求消息的组成</p></td>
+					<td>text/css</td>
+					<td>css</td>
 				</tr>
 				<tr>
-					<td>3</td>
-					<td><p>HTTP协议规范了响应消息组成</p></td>
+					<td>application/json</td>
+					<td>json</td>
+				</tr>
+				<tr>
+					<td>application/javascript</td>
+					<td>javascript</td>
+				</tr>
+			</table>
+		</div>
+	</li>
+	<li>
+		<p>AJAX</p>
+		<div class="desc">
+			<h2>Ajax</h2>
+			<h3>什么是Ajax</h3>
+			<p>Ajax(Asynchronous javascript And XML)，即异步的js和xml，重点在于异步。</p>
+			<h3>参与工作的对象、属性、方法和事件</h3>
+			<h4>XMLHttpRequest对象</h4>
+			<p>用于发起异步请求，并接受返回数据</p>
+			<pre class="code">var xhr = XMLHttpRequest? new XMLHttpRequest : new ActiveXObject("Microsoft.XML");</pre>
+			<h4>属性</h4>
+			<table>
+				<tr>
+					<td>readState</td>
+					<td>
+						<p>0,消息未发送</p>
+						<p>1,Opened，xhr打开到服务器的连接</p>
+						<p>2,</p>
+						<p></p>
+					</td>
 				</tr>
 			</table>
 		</div>
@@ -93,6 +215,13 @@ function ajax({url,method,data,datatype}){
 			<h3>ajax请求错误</h3>
 			<h4>用ajax请求php文件时，期望返回json，实际返回的是php文件</h4>
 			<p>原因1：端口不同，造成跨域。webstorm快捷打开用的服务器不一样</p>
+		</div>
+	</li>
+	<li>
+		<p>跨域</p>
+		<div class="desc">
+			<h2>跨域</h2>
+			<h3>跨域参见jQuery笔记部分</h3>
 		</div>
 	</li>
 </ul>
