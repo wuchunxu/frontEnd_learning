@@ -123,4 +123,20 @@ new Vue({
 
         </div>
     </li>
+    <li>
+        <p>组件</p>
+        <div class="desc">
+            <h2>组件</h2>
+            <h3>组件的使用</h3>
+            <h4>创建组件</h4>
+            <pre class="code">Vue.component("my-component",{
+    template:"&lt;h3>This is a component.&lt;/h3>"
+});</pre>
+            <h4>调用组件</h4>
+            <pre class="code">&lt;my-component>&lt;/my-component></pre>
+            <h4>注意事项</h4>
+            <p>(1)每个组件只能有一个根标签</p>
+            <p>(2)组件创建位置一定要在实例化一个vue对象之前。</p>
+        </div>
+    </li>
 </ul>

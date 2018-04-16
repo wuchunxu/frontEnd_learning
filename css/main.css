@@ -475,6 +475,10 @@ nav .navi-menu li .detail {
 }
 
 @media screen and (max-width: 767px) {
+  .content {
+    margin-bottom: 0;
+  }
+
   #shower {
     width: 100%;
     height: 100%;
