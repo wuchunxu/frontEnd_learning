@@ -838,30 +838,34 @@ pool.query(sql,[10],(err,result)=>{
         <p>Express框架</p>
         <div class="desc">
             <h2>express模块</h2>
-            <h3>什么是express模块</h3>
-            <p>使用官方提供的http模块可以创建web服务器应用，但是此模块非常底层，要处理各种情形，比较繁琐。推荐使用其简化版-express，基于http模块编写的高层模块，简化web服务器的开发。</p>
-            <h3>express模块的使用步骤</h3>
+            <h3>起步</h3>
+            <h4>什么是express模块</h4>
+            <p>使用官方提供的http模块可以创建web服务器应用，但是此模块非常底层，要处理各种情形，比较繁琐。Express是一个基于Node.js平台的极简、灵活的Web应用开发框架，提供一系列强大的特性，简化web服务器的开发。</p>
+            <h4>下载和安装</h4>
+            <pre class="code">npm install express --save</pre>
+            <h4>Express构建简单的Web服务器</h4>
+            <p>从Express 4开始，Express将自己明确定位为一个HTTP请求处理对象，可以作为Node.js的http模块创建的Web服务器请求处理回调函数。</p>
             <pre class="code">const http = require("http");
 const express = require("express");
-    <span class="note">//创建对象</span>
+
 let app = express();
-    <span class="note">//创建服务器对象</span>
 let server = http.createServer(app);
-server.listen(3000);
-    <span class="note">//接收不同客户端请求</span>
-app.get(url,(req,res)=>{
-    <span class="note">//get方式</span>
-})
-app.post(url,(req,res)=>{
-    <span class="note">//post方式</span>
-})
-app.delete(url,(req,res)=>{
-<span class="note">//delete方式</span>
-})
-app.put(url,(req,res)=>{
-<span class="note">//put方式</span>
-})
-            </pre>
+server.listen(3000);</pre>
+            <h3>Express模块的三大核心概念</h3>
+            <table>
+                <tr>
+                    <td>路由</td>
+                    <td><p>路由定义了url中子路径的处理</p></td>
+                </tr>
+                <tr>
+                    <td>中间件</td>
+                    <td><p>请求被处理前后执行的特殊的处理函数，有种拦截并处理的意味。</p></td>
+                </tr>
+                <tr>
+                    <td>模板引擎</td>
+                    <td><p>指定如何将动态数据混编入静态内容</p></td>
+                </tr>
+            </table>
             <h3>几个请求方法的含义</h3>
             <table>
                 <tr>
@@ -885,12 +889,15 @@ app.put(url,(req,res)=>{
                     <td>客户端想删除服务器指定资源</td>
                 </tr>
             </table>
+            <h3>路由</h3>
+            <p>客户端发来请求，服务端根据请求方法和请求URI来确定响应方法，在Express中称为定义了一个路由。路由包括三个部分：方法(METHOD)、路径(PATH)和路由句柄(handler)</p>
             <h3>使用express接收不同客户请求</h3>
             <p>express路由：= Method+path+fn</p>
+            <p>使用Express路由方法中的get()方法处理客户端提交的GET请求：</p>
             <pre class="code">app.get(url,(req,res)=>{
-    res.send("...");
+    res.send("...");<span class="note">//发送字符串</span>
     res.sendFile(__dirname+"/向客户端输出指定文件内容");              
-    res.json(obj); <span class="note">//obj-->json</span>
+    res.json(obj); <span class="note">//以json格式发送</span>
 });</pre>
             <h3>接收GET请求查询字符串</h3>
 <pre class="code"><span class="note">#GET /user?uid=10&loc=sz</span>
@@ -904,6 +911,8 @@ app.get("user/:uid/:loc",(req,res)=>{
     <span class="note">#express为每个req对象添加params属性</span>
     console.log(req.params.uid);
     console.log(req.params.loc);
+    <span class="note">//req.header 请求头部</span>
+    <span class="note">//req.xhr 判断是否为xhr请求</span>
 });
 app.get("/stu/:sid",(req,res)=>{
     let sid = req.params.sid;
@@ -914,6 +923,7 @@ app.get("/stu/:sid",(req,res)=>{
     })
 });
 </pre>
+
             <h3>接收POST请求</h3>
 
             <h3>中间件</h3>
@@ -966,21 +976,48 @@ app.use((req,res,next)=>{
                 (3.2)配置产品路由模块
                 app.use("/product",routerProduct);
             </pre>
-            <h4>路由模块--以用户模块为例</h4>
+            <h4>路由模块--以产品模块为例</h4>
             <p>(1)定义路由模块</p>
             <pre class="code"><span class="note">//引入模块</span>
 const express = require("express");
-const pool    = require("../pool");
-<span class="note">
-/*
-*创建并配置路由对象
-* */</span>
+const pool    = require("../pool");<span class="note">//←自定模块，准备好连接池</span>
+<span class="note">/*****创建并配置路由对象*****/</span>
 let router = express.Router();
 router.get("/list",(req,res)=>{
-    res.json({code:1,msg:"用户列表"});
-})
-<span class="note">//导出路由对象</span>
+<span class="note">/*
+    1) 通过req.query对象获取客户端传来的参数 ;
+    2) 用正则验证参数 ;
+    3) 编写sql语句，并执行
+    4) 处理返回结果，发送到客户端
+*/</span>
+});
+router.get("/del",(req,res)=>{
+    ...
+});
+...
+<span class="note">/****最后，导出路由对象****/</span>
 module.exports = router;</pre>
+        </div>
+    </li>
+    <li>
+        <p>错误集锦</p>
+        <div class="desc">
+            <h2>错误集锦</h2>
+            <h3>Error: can't set headers after they are send</h3>
+        </div>
+    </li>
+    <li>
+        <p>webpack打包工具</p>
+        <div class="desc">
+            <h2>打包处理工具</h2>
+            <h3>webpack</h3>
+            <p>webpack是一款处理加载器打包工具，它能把各种资源(js,jsx,less,sass,图片)打包到一个或多个文件中。</p>
+            <h3>安装和配置</h3>
+            <pre class="code">//全局安装webpack，然后在本地项目中再安装一次
+npm install webpack@3.3.0 -g
+//在项目中再安装一次
+npm install webpack@3.3.0 --save-dev
+            </pre>
         </div>
     </li>
 </ul>

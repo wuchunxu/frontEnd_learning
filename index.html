@@ -14,7 +14,7 @@
         <div class="logo">前端学习笔记</div>
         <ul class="navi-menu">
             <li>
-                <p>联系我</p>
+                <a href="" data-toggle="dropdown">联系我</a>
                 <div class="detail">
                     <p>wcxcapricorn@foxmail.com</p>
                 </div>
@@ -45,7 +45,8 @@
                 "熟悉服务端": ["软件工程", "服务器和数据库", "PHP"],
                 "初入前端": ["HTML(未更新)", "JS基础", "Ajax", "CSS", "CSS3"],
                 "JS高级": ["JS内置类型", "Function", "面向对象", "ES5", "ES6","DOM", "BOM","jQuery"],
-                "HTML、CSS、JS进阶":["HTML5","Bootstrap","Node.js"]
+                "HTML、CSS、JS进阶":["HTML5","Bootstrap","Node.js"],
+                "前端框架":["Vue","Angular","React"]
             }
             
             function showModal(){
@@ -151,12 +152,19 @@
         })();
 
         var li = document.querySelector(".navi-menu>li");
-        li.onmouseover = function(e){
-            this.children[1].addClass("in");
+        li.onclick = function(e){
+            e.preventDefault();
+            var tar = e.target;
+            var detail = tar.nextElementSibling;
+            if(tar.dataset.toggle=="dropdown"){
+                if(this.hasClass("active")){
+                    this.removeClass("active");
+                }else{
+                    this.addClass("active");
+                }
+            }
         }
-        li.onmouseout = function(e){
-            this.children[1].removeClass("in");
-        }
+       
     </script>
 </body>
 </html>

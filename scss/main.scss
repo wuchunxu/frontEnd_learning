@@ -40,7 +40,7 @@ nav {
 		line-height: 60px;
 		li {
 			position: relative;
-			&>p {
+			&>a {
 				padding:0 10px;
 				display:block;
 				height: 60px;
@@ -48,7 +48,16 @@ nav {
 				&:hover {
 					background: $theme_color_1;
 					color:#fff;
-					
+				}
+				
+			}
+			&.active{
+				&>a {
+					background: $theme_color_1;
+					color:#fff;
+				}
+				&>.detail {
+					height: 100px;
 				}
 			}
 			
@@ -62,9 +71,6 @@ nav {
 				padding:0 15px;
 				overflow:hidden;
 				transition: all .5s ease;
-				&.in {
-					height: 100px;
-				}
 			}
 		}
 	}
@@ -87,6 +93,7 @@ nav {
 	padding:10px;
 	position:relative;
 	margin-top:-450px;
+	margin-bottom:50px;
 	background: #fff;
 	top:200px;right:0;bottom:0;left:0;
 	z-index:100;

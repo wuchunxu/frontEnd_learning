@@ -50,6 +50,101 @@
 				</tr>
 			</table>
 			<h3>HTTP协议对传输数据格式的规定</h3>
+			<h4>请求起始行</h4>
+			<pre class="code"><span class="note">//请求方式 请求地址 协议版本</span>
+GET /script/images_new/icon1_unity.png HTTP/1.1</pre>
+			<h5>请求方式</h5>
+			<table>
+				<tr>
+					<td>GET</td>
+					<td>获取服务器数据</td>
+				</tr>
+				<tr>
+					<td>POST</td>
+					<td>向服务器发送数据</td>
+				</tr>
+				<tr>
+					<td>PUT</td>
+					<td>向服务器上传文件</td>
+				</tr>
+				<tr>
+					<td>DELETE</td>
+					<td>删除服务器上指定资源</td>
+				</tr>
+				<tr>
+					<td>HEAD</td>
+					<td><p>获取服务器上的数据，不要内容，只要响应头信息</p></td>
+				</tr>
+				<tr>
+					<td>TRACE</td>
+					<td>追踪</td>
+				</tr>
+				<tr>
+					<td>CONNECT</td>
+					<td>连接</td>
+				</tr>
+				<tr>
+					<td>OPTION</td>
+					<td>备选</td>
+				</tr>
+			</table>
+			<h5>GET和POST区别</h5>
+			<table>
+				<tr>
+					<td rowspan="2">发送数据大小</td>
+					<td>GET</td>
+					<td>1KB</td>
+				</tr>
+				<tr>
+					<td>POST</td>
+					<td>无限制</td>
+				</tr>
+				<tr>
+					<td rowspan="2">语义</td>
+					<td>GET</td>
+					<td>获取数据</td>
+				</tr>
+				<tr>
+					<td>POST</td>
+					<td>发送数据</td>
+				</tr>
+				<tr>
+					<td rowspan="2">请求主体</td>
+					<td>GET</td>
+					<td>无请求主体</td>
+				</tr>
+				<tr>
+					<td>POST</td>
+					<td>有请求主体</td>
+				</tr>
+				<tr>
+					<td>安全性</td>
+					<td colspan="2">GET/POST都不安全</td>
+				</tr>
+			</table>
+			<h5>发送GET/POST请求的方式</h5>
+			<table>
+				<tr>
+					<td rowspan="6">发送 GET请求</td>
+					<td>地址栏输入url 回车</td>
+				</tr>
+				<tr>
+					<td>form method="GET"</td>
+				</tr>
+				<tr><td>AJAX GET</td></tr>
+				<tr><td>&lt;a href="1.php">...&lt;/a></td></tr>
+				<tr><td>&lt;img src="1.php"></td></tr>
+				<tr><td>&lt;script src="1.php"></td></tr>
+				<tr>
+					<td rowspan="2">发送 POST请求</td>
+					<td>ajax post</td>
+				</tr>
+				<tr>
+					<td>form method="post"</td>
+				</tr>
+			</table>
+			<h4>请求头</h4>
+			<pre class="code"></pre>
 			<h4>请求数据格式</h4>
 			<table>
 				<tr>

@@ -1,0 +1,126 @@
+<h2>Vue</h2>
+<ul class="menu">
+    <li>
+        <p>初识Vue</p>
+        <div class="desc">
+            <h2>Vue</h2>
+            <h3>框架和库的区别</h3>
+            <p>框架(framework)，基于项目的构建，更多的关注数据。</p>
+            <p>而库(library)，基于某个点，更多的关注DOM的操作，如jQuery函数库。</p>
+            <h3>Vue概述</h3>
+            <p>Vue是一款渐进式的JavaScript框架，具有完善的中文文档手册，上手容易，体积非常小，采用MVVM的设置模式。</p>
+            <h3>安装使用</h3>
+            <p>方式1：script标签引入vue.js</p>
+            <p>方式2：通过命令行安装（脚手架安装，全家桶安装）</p>
+            <h3>插值表达式</h3>
+            <pre class="code">{{expression}}</pre>
+            <h3>MVVM模式</h3>
+            <div class="img">
+                <img src="images/mvvm.png" alt="">
+            </div>
+        </div>
+    </li>
+    <li>
+        <p>指令</p>
+        <div class="desc">
+            <h2>指令</h2>
+            <p>指令，其实就是扩展了html的标签属性</p>
+            <h3>选择指令<span class="code">(v-if/v-else-if/v-else)</span></h3>
+            <pre class="code">&lt;div id="app">
+    &lt;h2>星期&lt;/h2>
+    &lt;ul>
+        &lt;li v-if="day==0">星期日&lt;/li>
+        &lt;li v-else-if="1">星期一&lt;/li>
+        ...
+        &lt;li v-else>请输入正确的星期&lt;/li>
+    &lt;/ul>
+&lt;/div></pre>
+            <h3>循环指令<span class="code">(v-for)</span></h3>
+            <pre class="code">&lt;div id="app">
+&lt;ul>&lt;li v-for="(ele,i) in arr">{{"["+i+"]"+ele}}&lt;/li>&lt;/ul>
+&lt;/div>
+<span class="note">//javascript</span>
+new Vue({
+    el: "#app",
+    data: {
+        msg: "Hello Vue",
+        arr: [100,200,300]
+    }
+});</pre>
+            <h3>事件绑定指令<span class="code">(v-on:click/@click)</span></h3>
+            <p><span class="code">v-on:click="handler(parm)"</span>，事件绑定指令有语法糖：<span class="code">@click="handler(parm)"</span></p>
+            <h4>事件修饰符<span class="code">@click[.stop/.prevent]</h4>
+            <table>
+                <tr>
+                    <td>阻止默认行为</td>
+                    <td><span class="code">&lt;a href="#" v-on:click.prevent="handler" &lt;/a></span></td>
+                </tr>
+                <tr>
+                    <td>阻止冒泡</td>
+                    <td><span class="code">&lt;a href="#" v-on:click.stop="handler" &lt;/a></span></td>
+                </tr>
+            </table>
+            <pre class="code">&lt;div id="app">
+    &lt;h2>{{msg}}&lt;/h2>
+    &lt;button v-on:click="handleClick('hello vue')">点我&lt;/button>
+&lt;/div>
+            
+<span class="note">//javascript</span>
+new Vue({
+    el: "#app",
+    data: {
+        msg: "Hello Vue"
+    },
+    <span class="note">//methods用于存放函数</span>
+    methods:{
+        handleClick:function(str){
+            console.log(str);
+        }
+    }
+});</pre>
+            <h3>属性绑定<span class="code">(v-bind:src/:src)</span></h3>
+            <h4>普通属性绑定<span class="code">(v-bind:src="exp")</span></h4>
+            <pre class="code">&lt;img v-bind:src="expression">
+&lt;img :src="expression"><span class="note">//对应语法糖</span></pre>
+            <h4>style属性和class绑定<span class="code">(:class="box:isBox,red:isRed")</span></h4>
+            <p>等号后面是一个对象，isRed是布尔型变量，控制<span class="code">.red</span>是否渲染</p>
+            <pre class="code">&lt;p v-bind:style="{background:myColor,fontSize:mySize}" &lt;/p>
+&lt;p v-bind:class="{red:isRed,italic:isItalic}" &lt;/p></pre>
+            <h3>双向数据绑定<span class="code">(v-model)</span></h3>
+            <p>双向数据绑定<strong>只能在表单中使用</strong>，使用<span class="code">v-model</span>指令</p>
+            <table>
+                <tr>
+                    <td>v-model</td>
+                    <td>v-model="msg"</td>
+                </tr>
+                <tr>
+                    <td>v-model.number</td>
+                    <td>修饰符，将里面的值转为数值型</td>
+                </tr>
+            </table>
+            <h3><span class="code">v-html/v-text</span></h3>
+            <table>
+                <tr>
+                    <td>v-html</td>
+                    <td>将html字符串渲染成html标签</td>
+                </tr>
+                <tr>
+                    <td>v-text</td>
+                    <td>以文本形式插入，效果同{{}}</td>
+                </tr>
+            </table>
+           <h3>v-if和v-show的区别</h3>
+           <table>
+               <tr>
+                   <td>相同点</td>
+                   <td>false不显示，true显示</td>
+               </tr>
+               <tr>
+                   <td>不同点</td>
+                   <td>v-if如果为false不渲染内容，而v-show值为false时，渲染内容，但是添加display:none;</td>
+               </tr>
+           </table>
+
+        </div>
+    </li>
+</ul>

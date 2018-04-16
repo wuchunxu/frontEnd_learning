@@ -41,15 +41,22 @@ nav .navi-menu {
 nav .navi-menu li {
   position: relative;
 }
-nav .navi-menu li > p {
+nav .navi-menu li > a {
   padding: 0 10px;
   display: block;
   height: 60px;
   line-height: 60px;
 }
-nav .navi-menu li > p:hover {
+nav .navi-menu li > a:hover {
   background: #41b883;
   color: #fff;
+}
+nav .navi-menu li.active > a {
+  background: #41b883;
+  color: #fff;
+}
+nav .navi-menu li.active > .detail {
+  height: 100px;
 }
 nav .navi-menu li .detail {
   background-color: #fff;
@@ -61,9 +68,6 @@ nav .navi-menu li .detail {
   padding: 0 15px;
   overflow: hidden;
   transition: all .5s ease;
-}
-nav .navi-menu li .detail.in {
-  height: 100px;
 }
 
 .color-block {
@@ -86,6 +90,7 @@ nav .navi-menu li .detail.in {
   padding: 10px;
   position: relative;
   margin-top: -450px;
+  margin-bottom: 50px;
   background: #fff;
   top: 200px;
   right: 0;
