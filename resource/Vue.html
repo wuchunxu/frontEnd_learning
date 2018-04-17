@@ -138,6 +138,156 @@ new Vue({
             <h4>注意事项</h4>
             <p>(1)每个组件只能有一个根标签</p>
             <p>(2)组件创建位置一定要在实例化一个vue对象之前。</p>
+            <h3>组件的生命周期(lifecycle)</h3>
+            <h4>生命周期钩子函数</h4>
+            <table>
+                <tr>
+                    <td>beforeCreate</td>
+                    <td>基本初始化，未初始化数据</td>
+                </tr>
+                <tr>
+                    <td>created</td>
+                    <td>初始化data中的数据</td>
+                </tr>
+                <tr>
+                    <td>beforeMount</td>
+                    <td>挂载前</td>
+                </tr>
+                <tr>
+                    <td>mounted</td>
+                    <td>挂载完成</td>
+                </tr>
+                <tr>
+                    <td>beforeUpdate</td>
+                    <td>更新前</td>
+                </tr>
+                <tr>
+                    <td>updated</td>
+                    <td>更新完成</td>
+                </tr>
+                <tr>
+                    <td>beforeDestroy</td>
+                    <td>销毁前</td>
+                </tr>
+                <tr>
+                    <td>destroyed</td>
+                    <td>销毁完成</td>
+                </tr>
+            </table>
+            <div class="img"><img src="images/vue_lifecycle.png" alt=""></div>
+            <h3>组件的相关属性</h3>
+            <table>
+                <tr>
+                    <td>templates</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>data</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>methods</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>directives</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>filters</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>components</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>lifecycle hook(8个)</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>watch</td>
+                    <td>用来监听数据的变化(v-model)</td>
+                </tr>
+                <tr>
+                    <td>computed</td>
+                    <td>计算属性，常用于一些复杂的业务逻辑，带有缓存功能</td>
+                </tr>
+            </table>
+        </div>
+    </li>
+    <li>
+        <p>自定义指令和过滤器</p>
+        <div class="desc">
+            <h2>自定义指令</h2>
+            <h3>自定义指令</h3>
+            <p>除了默认设置的核心指令，Vue也允许注册自定义指令。在Vue2.0里，代码复用主要形式和抽象是组件。但是，有些情况，仍然需要对纯DOM元素进行底层操作，这时就会用到自定义指令。</p>
+            <p>指令定义函数提供了几个钩子函数(可选)：</p>
+            <table>
+                <tr>
+                    <td>bind</td>
+                    <td><p>指令第一次绑定到元素时调用，只调用一次，该函数用于定义绑定时执行的初始化动作。</p></td>
+                </tr>
+                <tr>
+                    <td>inserted</td>
+                    <td><p>被绑定元素插入到父节点时调用（父节点存在即可，不必存在于document中）</p></td>
+                </tr>
+                <tr>
+                    <td>update</td>
+                    <td>被帮顶元素所在模板更新时调用，而不论绑定值是否变化。通过比较更新前后绑定值，可以忽略不必要的模板更新。</td>
+                </tr>
+                <tr>
+                    <td>unbind</td>
+                    <td>只调用一次，指令与元素解绑时调用。</td>
+                </tr>
+            </table>
+            <h4>全局自定义指令</h4>
+            <pre class="code">Vue.directive("focus",{
+    <span class="note">//bind钩子函数，第一次绑定时执行</span>
+    bind:function(ele,bindings){
+        <span class="note">//ele：当前绑定元素；
+        //bindings：指令相关信息对象</span>
+    },
+    <span class="note">//update钩子函数，数据更新时执行</span>
+    update:function(){},
+    <span class="note">//inserted钩子函数，挂载到页面时执行</span>
+    inserted:function(ele){
+        ele.focus();
+    }
+});
+</pre>
+            <h4>局部自定义指令</h4>
+            <pre class="code">new Vue({
+    directives:{
+        "color":{
+            bind:function(){
+
+            }
+        }
+    }
+});</pre>
+        <h3>自定义过滤器</h3>
+        <p>过滤器的本质是有返回值的函数。</p>
+<pre class="code"><span class="note">/******HTML*******/</span>
+&lt;div id="app">
+    &lt;h2>{{msg | upperCase}}&lt;/h2>
+    &lt;h3>{{msg | lowerCase}}&lt;/h3>
+&lt;/div>
+<span class="note">/******javascript*******/</span>
+new Vue({
+    el: "#app",
+    data: {
+        msg: "Hello Vue"
+    },
+    filters:{
+        upperCase:function(str){
+            return str.toUpperCase();
+        },
+        lowerCase:function(str){
+            return str.toLowerCase();
+        }
+    }
+});</pre>
         </div>
     </li>
 </ul>
