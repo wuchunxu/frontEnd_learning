@@ -373,6 +373,11 @@ nav .navi-menu li .detail {
   counter-reset: desc_title;
   box-shadow: 0 0 6px #666;
 }
+#shower .desc .special {
+  font-family: "Microsoft Yahei";
+  color: #333;
+  border: 1px solid #eee;
+}
 #shower .desc .container:after {
   content: "";
   display: block;

@@ -55,7 +55,7 @@ function ajax(url,option){
 	}else{
 		//get方法
 		url = url+"?"+queryStr;
-		//url += "&timestamp="+new Date().getTime();
+		url += "&timestamp="+new Date().getTime();
 		xhr.open("get",url,true);
 		xhr.send(null);
 	}

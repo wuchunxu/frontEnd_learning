@@ -30,13 +30,13 @@
 				<h3>深入认识JavaScript中的数组</h3>
 				<h4>数组是对象的子类型，因此数组可以像对象那样使用，比如添加属性。</h4>
 				<pre class="code">var arr = ["1",2,3];
-arr.name = "array";       //看，数组可以添加属性(属性式)
-arr["date"] = "20180233"; //键值式
-arr.length;               //但是，不改变数组的length属性，仍然是3
-arr.name;                 //通过属性方式访问name，值为"array"
-arr["4"] = "4";           //"4"转成4，arr[4]="4";
-arr.length;               //5
-arr[3];                   //undefined</pre>
+arr.name = "array";       <span class="note">//看，数组可以添加属性(属性式)</span>
+arr["date"] = "20180233"; <span class="note">//键值式</span>
+arr.length;               <span class="note">//但是，不改变数组的length属性，仍然是3</span>
+arr.name;                 <span class="note">//通过属性方式访问name，值为"array"</span>
+arr["4"] = "4";           <span class="note">//"4"转成4，arr[4]="4";</span>
+arr.length;               <span class="note">//5</span>
+arr[3];                   <span class="note">//undefined</span></pre>
 				<h4>且看for..in和for..of，发现数组属性与数组元素的区别</h4>
 				<p>JavaScript中，for..in循环是用来遍历对象属性的。注意：js中对象在底层是关联数组，或者叫哈希数组，说白了就是键值对。</p>
 				<pre class="code">//for..in循环是用来遍历对象属性
@@ -180,9 +180,7 @@ console.log(str4);</pre>
 					</tr>
 					<tr>
 						<td>用正则实现trim()</td>
-						<td><pre class="code">function trim(str){
-	return str.replace(/^\s+|\s+$/g,"")
-}</pre></td>
+						<td><span class="code">function trim(){return str.replace(/^\s+|\s+$/g,"")}</span></td>
 					</tr>
 					<tr>
 						<td>反选，如不包含4和7</td>

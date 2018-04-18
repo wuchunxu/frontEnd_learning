@@ -410,7 +410,11 @@ nav {
 		overflow:auto;
 		counter-reset: desc_title;
 		box-shadow: 0 0 6px #666;
-
+		.special{
+			font-family:"Microsoft Yahei";
+			color: #333;
+			border:1px solid #eee;
+		}
 		.container {
 			&:after {
 				content: "";
