@@ -261,9 +261,8 @@ Content-Type: <span class="note">//请求主体类型</span></pre>
         <div class="desc">
             <h2>Ajax函数的封装</h2>
 			<h3>封装功能强大的ajax函数</h3>
-			<p>这个版本ajax函数，经过多次修改，比老师上课讲的更强大、更好用。</p>
             <pre class="code"><span class="note">//特性一：对象传参，屏蔽了参数顺序对结果的影响；</span>
-function ajax({url,method,data,datatype}){
+function ajax({url,method,data,dataType}){
 	<span class="note">//封装了函数，用以将data对象的数据拼接成字符串</span>
 	var makeQueryString = function(data){
 		var queryStr = "";
@@ -284,7 +283,7 @@ function ajax({url,method,data,datatype}){
 		//绑定事件
 		xhr.onreadystatechange = function(){
 			if(xhr.readyState == 4 && xhr.status == 200){
-				if(datatype && datatype.toUpperCase()=="JSON"){
+				if(dataType && dataType.toUpperCase()=="JSON"){
 					callback(JSON.parse(xhr.responseText));
 				}else{
 					callback(xhr.responseText);

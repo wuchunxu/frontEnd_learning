@@ -407,4 +407,52 @@ tr.cells</pre>
 			</table>
 		</div>
 	</li>
+    <li>
+        <p>元素的大小</p>
+        <div class="desc">
+            <h2>元素的大小</h2>
+            <h3>偏移量</h3>
+            <p>偏移量(offset dimension)。</p>
+            <table>
+                <tr>
+                    <td>offsetHeight</td>
+                    <td><p>元素在垂直方向上占的空间大小，单位px</p></td>
+                </tr>
+                <tr>
+                    <td>offsetWidth</td>
+                    <td><p>元素在水平方向上占用空间大小，单位px</p></td>
+                </tr>
+                <tr>
+                    <td>offsetLeft</td>
+                    <td><p>元素左外边框至包含元素左内边框距离</p></td>
+                </tr>
+                <tr>
+                    <td>offsetTop</td>
+                    <td><p>元素上外边框至包含元素上内边框距离</p></td>
+                </tr>
+            </table>
+            
+            
+            <div class="img">
+                <img src="images/offset.png" alt=""/>
+            </div>
+
+            <h3>客户区大小(client dimension)</h3>
+            <div class="img">
+                <img src="images/clientHeight.png" alt=""/>
+            </div>
+            <p>客户区大小是元素内部空间大小，<strong>不包括滚动条占用的空间</strong>。客户区大小的使用场景：获取视口大小：</p>
+            <pre class="code">function getViewport(){
+    return {
+        width: document.documentElement.clientWidth,
+        height: document.documentElement.clientHeight
+    }
+}
+//不兼容IE7</pre>
+            <h3>滚动大小(scroll dimension)</h3>
+            <div class="img">
+                <img src="images/scrollHeight.png" alt=""/>
+            </div>
+        </div>
+    </li>
 </ul>

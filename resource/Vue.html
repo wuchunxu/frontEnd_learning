@@ -451,9 +451,10 @@ new Vue({
         <div class="desc">
             <h2>路由</h2>
             <h3>什么是路由</h3>
-            <p>构建web单页面应用需要使用<em>组件</em>和<em>路由</em>。所谓路由，是用来设定访问路径，将路径和组件映射起来。</p>
+            <p>构建web单页面应用(Single Page Application,SPA)需要使用<em>组件</em>和<em>路由</em>。所谓路由，是用来设定访问路径，将路径和组件映射起来。</p>
             <p>传统页面应用，是用一些超链接来实现页面的切换和跳转，而Vue构建的单页面应用中，则是路径之间的切换，也就是<strong>组件的切换</strong>。</p>
             <h3>使用路由</h3>
+            <p>route:路线，路由；router:路由器</p>
             <pre class="code"><span class="note">//(1)首先指定一个盛放组件的容器(HTML中)</span>
 &lt;router-view>&lt;/router-view>
 <span class="note">//(2)创建组件</span>
@@ -461,7 +462,8 @@ var login = Vue.component("login-component",{...});
 var register = Vue.component("register-component",{...});
 <span class="note">//(3)创建路由对象，并配置路由</span>
 var router = new VueRouter({
-    routers:[
+    routes:[
+        <span class="note">{path:"/",redirect:"/login"}</span>,//重定向
         {path:"/login",component:login},
         {path:"/register",component:register}
     ]
@@ -472,7 +474,99 @@ new Vue({
     router:router
 });
 </pre>
-            
+            <h3>工作步骤</h3>
+            <p>解析路径</p>
+            <p>根据路径找到对应组件</p>
+            <p>ajax获取数据</p>
+            <p>将数据渲染到页面中</p>
+            <h3>路由跳转</h3>
+            <h4>路由标签</h4>
+            <pre class="code">&lt;router-link to="/login">登录&lt;/router-link></pre>
+            <h4>通过js跳转</h4>
+            <p>通过一个点击事件执行如下代码：</p>
+            <pre class="code">this.$router.push("/login")</pre>
+            <h3>路由中传递参数</h3>
+            <p>传递： /detail/1</p>
+            <p>接收： 在路由配置中 path: "/detail/:id"</p>
+            this.$route.parms.id
+            <h3>router单词汇总</h3>
+            <table>
+                <tr>
+                    <td>routes</td>
+                    <td>路由，配置路由时使用</td>
+                </tr>
+                <tr>
+                    <td>router</td>
+                    <td>路由器，路由实例，注册路由时使用</td>
+                </tr>
+                <tr>
+                    <td>$router</td>
+                    <td>路由跳转，this.$router.push("/")</td>
+                </tr>
+                <tr>
+                    <td>$route</td>
+                    <td>获取参数，this.$route.params.id</td>
+                </tr>
+            </table>
+        </div>
+    </li>
+    <li>
+        <p>过渡动画</p>
+        <div class="desc">
+            <h2>过渡动画</h2>
+            <p>Vue在插入、更新或者移除DOM时，提供多种不同方式的应用过渡效果。</p>
+            <table>
+                <tr>
+                    <td><span class="code">.v-enter</span></td>
+                    <td>定义过渡的开始状态，元素插入时生效。</td>
+                </tr>
+                <tr>
+                    <td><span class="code">.v-enter-active</span></td>
+                    <td>定义过渡的状态。在元素整个过渡过程中起作用，元素插入时生效，在transition/animation完成之后移除。</td>
+                </tr>
+                <tr>
+                    <td><span class="code">.v-enter-to</span></td>
+                    <td>定义过渡的结束状态。在元素被插入一帧后生效。</td>
+                </tr>
+            </table>
+            需要切换的部分放在transition标签之间
+            设置动画的样式
+
+        </div>
+    </li>
+    <li>
+        <p>请求资源</p>
+        <div class="desc">
+            <h2>请求资源</h2>
+            <h3>Vue中请求资源</h3>
+            <p>Vue中借助vue-resource模块来进行异步请求或跨域请求。</p>
+            <h3>使用vue-resource插件</h3>
+            <p>引入插件</p>
+<pre class="code"> this.$http.get("http://localhost/vue/day04/data/productlist.php")
+.then((data)=>{
+    console.log(data.body);
+});</pre>
+        </div>
+    </li>
+    <li>
+        <p>CLI的使用</p>
+        <div class="desc">
+            <h2>使用命令行搭建Vue项目</h2>
+            <h3>安装vue</h3>
+            <p>下载tpls包，在该包内安装依赖的node包<span class="code">npm install</span>，然后启动项目<span class="code">npm start</span></p>
+            <h3>了解项目文件结构</h3>
+            <pre class="code">
+TPLS
+    > build
+    > config
+    > node_modules
+    > src
+        > assets
+        > components
+            > todo
+            </pre>
+            <p>用CLI写Vue项目时，与之前学习的引入<span class="code">vue.js</span>是有所不同的。</p>
+
         </div>
     </li>
 </ul>
