@@ -1,0 +1,118 @@
+<h2>Angular</h2>
+<button class="back">返回</button>
+<ul class="menu">
+    <li>
+        <p>软件的设计原则和模式</p>
+        <div class="desc">
+            <h2>软件的设计原则</h2>
+
+        </div>
+    </li>
+    <li>
+        <p>了解Angular</p>
+        <div class="desc">
+            <h2>Angular</h2>
+            <h3>背景</h3>
+            <p>AngularJS诞生于2009年，是一个用于开发单页面应用程序(SPA)的JS框架，易于构建页面的CRUD操作。</p>
+            <p>基本操作思路与DOM及jQuery的“先查找元素再操作元素”不同，它是“创建数据、绑定数据、修改数据和更新数据”，一切操作以数据为中心。</p>
+            <h3>七大核心概念</h3>
+            <p><strong>(1)模块、(2)指令、(3)组件、(4)模板、(5)数据绑定、(6)服务、(7)依赖注入</strong></p>
+            <h3>工作原理</h3>
+            <h3>安装</h3>
+            <h4>angular-cli</h4>
+            <pre class="code">npm install -g @angular/cli
+ng new my-app
+cd my-app
+ng serve --open</pre>
+            <h4>quick start安装</h4>
+            <p>解压quickstart-master.zip，然后将node_modules拷贝到quickstart文件夹并解压。</p>
+            <pre class="code">npm start</pre>
+            <h3>Angular启动流程</h3>
+            <pre class="code"><span class="note">npm start:
+        --> npm build --> src/index.html
+        --> src/main.ts -->./src/app/app.module.ts
+        --> ./src/app/app.components.ts</span>
+            </pre>
+            <h3>目录结构</h3>
+            <pre class="code"><span class="note">
+src  工程目录
+ > main.ts     入口文件
+ > app         模块(组件)目录
+    > app.module.ts   根模块
+            </span></pre>
+            <h3>Angular架构</h3>
+            <div class="img"><img src="images/angular_frame.png" alt=""/></div>
+        </div>
+    </li>
+    <li>
+        <p>模块</p>
+        <div class="desc">
+            <h2>模块</h2>
+        </div>
+    </li>
+    <li>
+        <p>组件</p>
+        <div class="desc">
+            <h2>组件</h2>
+            <h3>组件</h3>
+            <h4>定义一个组件</h4>
+            <pre class="code">
+<span class="note">//demo.component.ts</span>
+import {Component} from '@angular/core'<span class="note">//导入核心库</span>
+<span class="note">//使用装饰器，将Component类装饰成一个组件</span>
+@Component({
+    <span class="note">//这里是元数据</span>
+    selector: 'demo01',
+    template:`&lt;h2>Demo component&lt;/h2>`
+})
+
+<span class="note">//导出组件类</span>
+export class Demo01Component{}</pre>
+            <p>到此为止，一个组件已经创建好了。不过，他还处于“游离”状态，因为，组件需要依附于模块而生存。于是，我们需要在根模块中声明，声明之后，该组件才算加入到我们的项目中。</p>
+            <pre class="code">import { NgModule }  from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent }  from './app.component';
+<span class="note">import { Demo01Component } from './demo01/demo01.component'</span>
+
+@NgModule({
+  imports:      [ BrowserModule ],
+  declarations: [ AppComponent,<span class="note">Demo01Component</span> ],
+  bootstrap:    [ AppComponent ]
+})
+export class AppModule { }</pre>
+        <p>根模块<span class="code">app/app.module.ts</span>会被主函数<span class="code">main.ts</span>导入，然后主函数中指定项目从根模块启动。</p>
+        </div>
+    </li>
+    <li>
+        <p>指令</p>
+        <div class="desc">
+            <h2>指令</h2>
+            <h3>指令</h3>
+            <h4>循环指令(<span class="code">*ngFor</span>)</h4>
+            <pre class="code">`&lt;ul>
+    &lt;li <span class="note">*ngFor="let ele of list;let i = index"</span>>[{{i+1}}]{{ele}}&lt;/li>
+&lt;/ul>`</pre>
+            <h4>选择指令(<span class="code">*ngIf</span>)</h4>
+            <pre class="code">&lt;ng-container *ngFor="let ele of books;let i=index">
+    &lt;tr <span class="note">*ngIf="ele.price>50"</span>>
+        &lt;td>{{i+1}}&lt;/td>
+        &lt;td>{{ele.name}}&lt;/td>
+        &lt;td>{{ele.author}}&lt;/td>
+        &lt;td>{{ele.price}}&lt;/td>
+    &lt;/tr>
+&lt;/ng-container></pre>
+            <p>注意：一个标签内只能放一个指令，如果需要放置多个指令，把多余的放到ng-container标签中</p>
+            <h4>多重分支</h4>
+            <pre class="code">&lt;ul <span class="note">[ngSwitch]="str"</span>>
+    &lt;li <span class="note">*ngSwitchCase="'a'"</span>>A&lt;/li>
+    &lt;li <span class="note">*ngSwitchCase="'b'"</span>>B&lt;/li>
+    &lt;li <span class="note">*ngSwitchCase="'c'"</span>>C&lt;/li>
+&lt;/ul></pre>
+            <h4>属性绑定(<span class="code">[myProp]</span>)</h4>
+            <pre class="code">&lt;a <span class="note">[href]="myLink"</span>>点我&lt;/a></pre>
+            <h4>事件绑定(<span class="code">(click)</span>)</h4>
+            <pre class="code">&lt;button <span class="note">(click)="handleClick()"</span>>点我&lt;/button></pre>
+        </div>
+    </li>
+
+</ul>

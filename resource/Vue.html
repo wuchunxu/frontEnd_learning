@@ -287,6 +287,7 @@ Vue.component("child",{
     });</pre>
             <h4>打通父子通信</h4>
             <p>ref用来给元素或子组件注册引用信息，而引用信息注册在父组件的$refs对象上。若在普通DOM元素上使用，引用指向DOM元素；若使用于子组件，引用指向组件实例。</p>
+            <p>通过该方法，<strong>父组件可以调用子组件的方法，子组件也可以调用父组件的方法。</strong></p>
 <pre class="code"><span class="note">//父组件</span>
 Vue.component("parent",{
     data:function(){
