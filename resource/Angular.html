@@ -4,7 +4,25 @@
     <li>
         <p>软件的设计原则和模式</p>
         <div class="desc">
-            <h2>软件的设计原则</h2>
+            <h2>软件的设计原则和模式</h2>
+            <h3>设计原则</h3>
+            <h4>简单原则</h4>
+            <h4>避免重复原则</h4>
+            <h4>单一责任原则</h4>
+            <h4>开闭原则</h4>
+            <p>(1)对扩展开放，对修改关闭</p>
+            <p>(2)可变性不应该散落在代码的各个角落，而应该被封装到一个对象中</p>
+            <p>(3)一种可变性不应当与另外一种可变性混合在一起</p>
+            <h4>高聚合低耦合原则(High Cohesion & Low Coupling)</h4>
+            <p>内聚：度量一个类独立王城某项工作的能力</p>
+            <p>耦合：度量系统内或系统之间依赖关系的复杂度</p>
+            <h4>迪米特法则(Law of Demeter)</h4>
+            <p>一个对象或者模块应该尽可能减少与其他对象或模块之间的通信</p>
+            <h3>软件的设计模式</h3>
+            <p>不同的应用场景中，对象和类之间有不同的交互方式，这就是设计模式。设计模式是被人们反复使用、代码经验的总结。</p>
+            <p>设计模式有：工厂模式、抽象工厂模式、建造者模式、原型模式、单例模式、适配器模式、桥接模式、组合模式、装饰模式、门面模式、享元模式、代理模式、责任链模式、命令模式、解析器模式、迭代器模式、中介模式、备忘录模式、观察者模式、状态模式、策略模式、模板模式、访问者模式、MVC模式</p>
+            <h4>MVC模式</h4>
+            <p>MVC模式，即模型-视图-控制器模式。<strong>减少视图与具体数据的耦合，使得多个视图可以访问相同的数据。</strong></p>
 
         </div>
     </li>
@@ -17,7 +35,30 @@
             <p>基本操作思路与DOM及jQuery的“先查找元素再操作元素”不同，它是“创建数据、绑定数据、修改数据和更新数据”，一切操作以数据为中心。</p>
             <h3>七大核心概念</h3>
             <p><strong>(1)模块、(2)指令、(3)组件、(4)模板、(5)数据绑定、(6)服务、(7)依赖注入</strong></p>
+            <h4>模块</h4>
+            <pre class="code">@ngModule({
+    declaration:[],
+    imports:[],
+    providers:[]
+})</pre>
+            <h4>组件</h4>
+            <p>封装的html</p>
+            <h4>模板</h4>
+            <p>组件中，扩展了HTML语法</p>
+            <h4>装饰器</h4>
+            <p>将导入的类，装饰成指定功能</p>
+            <h4>指令</h4>
+            <pre class="code">@Directive(selector:"[test]");</pre>
+            <h4>管子</h4>
+            <p>过滤器</p>
+            <pre class="code">@Pipe({name:"myUpperCase"})</pre>
+            <h4>服务</h4>
+            <p>用来封装常用的业务逻辑，也就是说，组件中不应该存在大量的业务逻辑，如果有，应该封装到服务中。</p>
             <h3>工作原理</h3>
+            <p>使用Angular扩展语法编写HTML模板，用<em>组件类</em>管理这些模板，用<em>服务</em>添加应用逻辑，用<em>模块</em>打包发布组件和服务。然后，我们通过<em>引导根模块</em>来启动该应用。</p>
+            <p>Angular在浏览器中接管、展现应用的内容，并根据我们提供的操作指令响应用户的交互。</p>
+            <h3>TypeScript</h3>
+            <p>TypeScript的设计目标是开发大型应用，然后转译成JavaScript。</p>
             <h3>安装</h3>
             <h4>angular-cli</h4>
             <pre class="code">npm install -g @angular/cli
@@ -45,9 +86,20 @@ src  工程目录
         </div>
     </li>
     <li>
+        <p>TypeScript</p>
+        <div class="desc">
+
+        </div>
+    </li>
+    <li>
         <p>模块</p>
         <div class="desc">
             <h2>模块</h2>
+            <pre class="code">@ngModule({
+    declaration:[],
+    imports:[],
+    providers:[]
+})</pre>
         </div>
     </li>
     <li>
@@ -110,9 +162,197 @@ export class AppModule { }</pre>
 &lt;/ul></pre>
             <h4>属性绑定(<span class="code">[myProp]</span>)</h4>
             <pre class="code">&lt;a <span class="note">[href]="myLink"</span>>点我&lt;/a></pre>
+            <h4>style和class属性绑定(<span class="code">[ngStyle]、[ngClass]</span>)</h4>
+            <pre class="code">&lt;p [ngStyle]="{'opacity'=my_opacity}">{{city}}&lt;/p>
+&lt;p [ngClass]="{'red'=true}">{{city}}&lt;/p></pre>
             <h4>事件绑定(<span class="code">(click)</span>)</h4>
             <pre class="code">&lt;button <span class="note">(click)="handleClick()"</span>>点我&lt;/button></pre>
+            <h4>双向数据绑定</h4>
+            <p>双向数据绑定需要导入表单模块<span class="code">FormsModule</span></p>
+            <pre class="code">import {FormsModule} from '@angular/forms';
+@ngModule({
+    imports:[FormsModule]
+})
+export class Demo05Component {
+    constructor(){}
+    city:string = "";
+    handleChange(){ console.log(this.city);}
+}
+//demo05.component.html
+&lt;input <span class="note">[(ngModel)]="city" (ngModelChange)="handleChange"</span>>
+&lt;p>{{city}}&lt;/p></pre>
+            <h3>自定义指令</h3>
+            <p>自定义指定，首先导入angular核心包中的<span class="code">Directive</span>类，然后用装饰器将该类装饰成指令，并导出指令类。</p>
+            <pre class="code">import { <span class="note">Directive,ElementRef</span> } from '@angular/core'
+@Directive({
+    selector:"<span class="note">[test]</span>"
+})
+export class TestDirective{
+    constructor(<span class="note">private eleRef: ElementRef</span>){
+        console.log("test指令被调用");
+        console.log(this.eleRef.nativeElement);
+        <span class="note">this.eleRef.nativeElement.style.background= "green";</span>
+    }
+}</pre>
         </div>
     </li>
+    <li>
+        <p>管子pipe(过滤器)</p>
+        <div class="desc">
+            <h2>pipe</h2>
+            <h3>angular提供的管子</h3>
+            <h4>字符串管子</h4>
+            <pre class="code">{{uname | <span class="note">lowercase</span>}}
+{{uname | <span class="note">uppercase</span>}}
+<span class="note">//字符串切割</span>
+{{uname | <span class="note">slice:3:6}}</span></pre>
+            <h4>日期管子</h4>
+            <p>angular中，管子传参用 <span class="code">:</span>表示</p>
+            <pre class="code">{{nowDate | date}}
+{{nowDate | <span class="note">date:'yyyy-MM-dd hh:mm:ss'</span>}}</pre>
+            <h3>自定义管子</h3>
+            <p>快捷键<span class="code">a-p</span>，创建好pipe后，同样需要在根模块中声明</p>
+            <pre class="code">import { Pipe, PipeTransform } from '@angular/core';
+@Pipe({
+    name: 'myuppercase'
+})
+export class Demo10Pipe implements PipeTransform {
+    transform(value: any, ...args: any[]): any {
+        if(args[0]){
+            return value.toUpperCase();
+        }else{
+            return value.toLowerCase();
+        }
+    }
+}</pre>
+        </div>
+    </li>
+    <li>
+        <p>服务</p>
+        <div class="desc">
+            <h2>Service</h2>
+            <h3>创建http请求服务</h3>
+            <p>使用vscode，快捷键</p>
+            <pre class="code"><span class="note">//a-service-http</span>
+    sendRequest(url:string){
+        <span class="note">//a-http-get</span>
+        return this.http.get().map((req:Request)=>{req.json()})
+    }
+            </pre>
+            <h3>注册服务</h3>
+            <p>服务创建好之后，需要在根模块中导入，并添加到服务供应商中</p>
+            <h3>组件中注入服务</h3>
+            <p>在需要使用服务的组件中，导入服务类，在构造器中注入该服务类的实例(依赖注入)</p>
+            <h3>带证书的get请求</h3>
+            <p>如果请求的url带有session数据，添加证书</p>
+            <pre class="code">this.http.get(url,{widthCredentials:true});</pre>
+            <p>在php中，设置跨域，不能为*</p>
+            <pre class="code">header("Access-Control-Allow-Origin:localhost:3000");
+header("Access-Control-Allow-Credentials:true");</pre>
+        </div>
+    </li>
+    <li>
+        <p>组件之间的通信</p>
+        <div class="desc">
+            <h2>组件之间的通信</h2>
+            <h3>父传子</h3>
+            <p>父组件在子组件标签中绑定属性</p>
+            <pre class="code">
+import {Input} from '@angular/core';
+@Input() msg:string="";//表示msg是接收过来的</pre>
+            <h3>子→父</h3>
+            <pre class="code"><span class="note">//父组件</span>
+import {Input} from '@angular/core';
+...
+&lt;son (childToParent)="handleMsg($event)">&lt;/son>
+<span class="note">//子组件</span>
+import {Output,EventEmitter} from '@angular/core';
+...
+@Output() childToParent = new EventEmitter();<span class="note">//声明一个output，为EventEmitter对象</span>
+private sendMsg():void{
+    this.childToParent.emit();
+}</pre>
+        </div>
+    </li>
+    <li>
+        <p>路由(Router)</p>
+        <div class="desc">
+            <h2>路由</h2>
+            <h3>创建和配置路由模块</h3>
+            <h4>创建路由模块(app/app.router.ts)</h4>
+            <pre class="code"><span class="note">/*
+    快捷键a-module-routing，生成一个路由模块的模板
+    导入需要的类
+*/</span>
+import { NgModule } from '@angular/core';
+import { RouterModule,Routes } from '@angular/router';
+import {CartComponent,...} from ...<span class="note">//导入组件</span>
+<span class="note">//配置路由对象</span>
+const routes:Routes = [
+    {path:"cart",component:CartComponent},
+    {path:"pay",component:PayComponent},
+    {path:"",redirectTo:"pay"},
+    {path:"**",component:FileNotFoundComponent}<span class="note">//404</span>
+];
+@NgModule({
+    imports:[RouterModule.forRoot(routes)],
+    exports:[RouterModule]
+})
+export class AppRoutingModule{}</pre>
+            <h4>将路由模块导入根模块</h4>
+            <pre class="code">import { AppRoutingModule } from './app.router';
+@NgModule({
+    imports:[ AppRoutingModule ]
+})</pre>
+            <h4>路由显示区(路由出口)</h4>
+            <pre class="code">&lt;router-outlet>&lt;/router-outlet></pre>
+            <p>配置好之后，改变url就可以实现组件跳转了。每次要手动改路径显然不够灵活、人性化。我们需要使用其他的跳转方法。</p>
+            <h3>更多的路由跳转方法</h3>
+            <h4>路由链接</h4>
+            <pre class="code">&lt;a <span class="note">routerLink="/cart"</span>>购物车&lt;/a>
+<span class="note">//如果是动态的，则用属性绑定，表达式传参</span>
+&lt;a <span class="note">[routerLink]="'/checkout/'+price"</span>>去结算&lt;/a>
+</pre>
+            <h4>js控制路由跳转</h4>
+            <pre class="code">import { Router } from '@angular/router';
+this.router.navigateByUrl('/cart');</pre>
+            <h4>前进和后退</h4>
+            <p>点击事件绑定方法，组件构造器中注入Location实例location</p>
+            <pre class="code">this.location.back();
+this.location.forward();</pre>
+            <h3>路由的传参</h3>
+            <pre class="code"><span class="note">//配置路由</span>
+{path:'detail/:uid'}
+<span class="note">//在接收的组件中</span>
+import { ActivatedRoute } from '@angular/router'
+constructor( private ar:ActivatedRoute ){}
+ngOnInit(){
+    this.ar.params.subscribe(result=>{
+        console.log(result);
+    });
+}
+&lt;a routerLink="/detail/1">&lt;/a></pre>
+            <h3>子路由</h3>
+            <pre class="code">const routes:Routes = [
+    {
+        path:"mail",
+        component:MailComponent,
+        children:[
+            {path:"",redirectTo:"inbox"},
+            {path:"inbox",component:InboxComponent},
+            {path:"outbox",component:OutboxComponent}
+        ]}
+];</pre>
+            <p>url中：<span class="code">/mail/inbox</span>进行子路由的切换，注意这里与Vue的区别。</p>
+            <h3>路由守卫</h3>
+            <p>作用是拦截对某个组件的直接访问。</p>
+            <h4>创建一个守卫服务(sendGuard.service.ts)</h4>
+            <pre class="code"><span class="note">//快捷键：a-guard-can-activate</span>
+return false;//表示禁止直接访问
+return true;//允许直接访问</pre>
+            <h4>在路由模块中给指定路径添加守卫</h4>
+            <pre class="code">{path:"manager",component:ManagerComponent,<span class="note">canActivated:[sendGuard]</span>}</pre>
 
+        </div>
+    </li>
 </ul>
