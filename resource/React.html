@@ -1,0 +1,99 @@
+<h2>React</h2>
+<button class="back">返回</button>
+<ul class="menu">
+    <li>
+        <p>了解React</p>
+        <div class="desc">
+            <h2>React</h2>
+            <h3>概述</h3>
+            <p>React包括ReactJS、ReactNative、ReactVR</p>
+            <h4>ReactJS</h4>
+            <p>ReactJS是一个js库，专注用来实现UI，由Facebook公司开发。</p>
+            <h3>Why React?</h3>
+            <h4>大量的DOM操作，带来浏览器的性能瓶颈</h4>
+            <p>VDOM(Virtual DOM)虚拟DOM</p>
+            <h4>维护大量的代码，成本越来越高</h4>
+            <p>解决方案：单向数据流</p>
+            <h3>何时使用React?</h3>
+            <table>
+                <tr>
+                    <td>Vue</td>
+                    <td>渐进式JS框架，可以实现数据操作非常频繁的SPA</td>
+                </tr>
+                <tr>
+                    <td>Angular</td>
+                    <td>实现非常频繁数据操作的SPA，定位大型商业项目</td>
+                </tr>
+                <tr>
+                    <td>React</td>
+                    <td>ReactJS核心库用来实现UI层，主要考虑频繁的操作DOM</td>
+                </tr>
+            </table>
+            <p>awesome react</p>
+            <h3>如何使用React</h3>
+            <h4>直接引入对应js文件</h4>
+            <h4>采用命令行的方式</h4>
+            <pre class="code"><span class="note">//安装工具</span>
+npm install create-react-app
+<span class="note">//创建app</span>
+create-react-app myapp
+<span class="note">//安装依赖</span>
+npm install
+npm start</pre>
+            <h3>Hello React</h3>
+            <pre class="code">
+&lt;script type="text/babel">
+    ReactDOM.render(
+        &lt;h1>Hello React&lt;/h1>,
+        document.getElementById("example")
+    );
+&lt;/script></pre>
+            <h4>Babel</h4>
+            <p>将ES6/jsx编译成ES5/js</p>
+            <h4>ReactDOM.render(要渲染的元素,容器);</h4>
+            <h4>JSX</h4>
+            <p>全称：JavaScriptXML，允许在js中调用标签</p>
+            <p>如果遇到&lt;，则以html语法解析</p>
+            <p>如果遇到{，就会用js来解析并执行花括号中的表达式，并将结果输出到对应标签</p>
+        </div>
+    </li>
+    <li>
+        <p>组件</p>
+        <div class="desc">
+            <h2>组件</h2>
+            <h3>创建组件</h3>
+            <pre class="code">var MyHeader = React.createClass({
+    render:function(){
+        return &lt;h3>这是页头&lt;/h3>
+    }
+});
+ReactDOM.render(
+    &lt;MyHeader>&lt;/MyHeader>,
+    document.getElementById("example")
+);</pre>
+            <h4>注意点</h4>
+            <table>
+                <tr>
+                    <td>1</td>
+                    <td><p>变量必须是全驼峰形式，如果是myHeader，则无法显示</p></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><p>返回的结果，必须有一个顶层的标签</p></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td><p>组件类在渲染模板的时候，返回的第一个元素是不允许直接换行的</p></td>
+                </tr>
+            </table>
+
+            <h3>复合组件</h3>
+            <p>复合组件不是一个新概念，只不过是允许在一个组件中调用其他组件</p>
+            <h3>常见的问题</h3>
+
+            <h3>进阶知识</h3>
+            <p>每个组件类实例化之后，都有一个props属性，而props对应的数据是一个对象，对象的属性和调用组件时传的属性是一一对应的。但是，有一个例外，this.props.children</p>
+            <p>建议通过React.Children.map()放来来对this.props.children执行遍历操作，以防止出现类型错误(没有子元素是undefined，一个是object，多个是array)</p>
+        </div>
+    </li>
+</ul>
