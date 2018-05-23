@@ -1,0 +1,312 @@
+<h2>混合编程</h2>
+<button class="back">返回</button>
+<ul class="menu">
+    <li>
+        <p>Hybrid App</p>
+        <div class="desc">
+            <h2>混合编程</h2>
+            <h3>Android开发的基本流程</h3>
+            <p>在res/layout/***.xml中，完成视图和样式的指定；</p>
+            <p>在src/com.example.demo01/**.java完成数据和方法的处理</p>
+            <h3>HybridApp</h3>
+            <h4>方案一:将web前端代码放在assets文件夹下面</h4>
+            <p>(1)编写移动端前端代码，保证功能测试通过;</p>
+            <p>(2)创建一个Android工程,将前端工程的html/css/js等，拷贝到Android工程目录assets</p>
+            <p>(3)编写java代码，载入指定网页：</p>
+            <pre class="code">WebView myWv = new WebView(); <span class="note">//注意：这里要导包，用alt+/快捷键可自动导入</span>
+myWv.loadUrl("file:///android_asset/demo01.html");
+setContentView(myWv);</pre>
+            <p>(4)运行，生成一个可以安装在手机上的app</p>
+            <h4>方案二：将前端文件部署在服务器端</h4>
+            <h5>(1)创建前端工程，保证前端移动端的页面已经编写、测试完毕</h5>
+            <h5>(2)创建Android工程</h5>
+            <h5>(3)编写java代码，载入指定网页:</h5>
+            <pre class="code">WebView wv = new WebView(getApplicationContenxt()); <span class="note">//创建WebView对象</span>
+wv.loadUrl("http://172.163.100.127/framework/webapp/day01/demo03.html"); <span class="note">//加载url</span>
+wv.getSettings().setJavaScriptEnabled(true); <span class="note">//获取setting对象，并通过它设置允许运行js代码</span>
+setContentView(wv); <span class="note">//设置显示内容为webview</span></pre>
+            <h5>(4)设置app允许访问网络(添加网络权限)</h5>
+            <pre class="code"><span class="note">工程根目录 -> AndroidManifest.xml 
+    -> permissions -> add -> uses permission
+        -> android.permission.Internet
+    ->保存</span></pre>
+            <h3>小技巧</h3>
+            <h4>怎么查看logcat所输出的日志信息？</h4>
+            <p>windows->show view ->other ->logcat</p>
+            <h4>怎么设置允许查看console.log所输出的日志信息？</h4>
+            <pre class="code"><span class="note">//设置查看日志信息</span>
+wv.setWebChromeClient(new WebChromeClient(){
+    @Override
+    public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
+        // TODO Auto-generated method stub
+        return super.onConsoleMessage(consoleMessage);
+    }
+});</pre>
+            <h3>注意事项</h3>
+            <p>Android4.4以下的所有的设备 ，实现hybridApp，不允许执行ES6新特性、CSS3高级特性。</p>
+        </div>
+    </li>
+    <li>
+        <p>Angular知识回顾</p>
+        <div class="desc">
+            <h2>Angular知识回顾</h2>
+            <p>Angular以模块为基本单位，模块中可以包含组建类、服务类、指令类、管道类等等。</p>
+            <h3>组件类</h3>
+            <p>组件是可以被反复使用、带有特定功能的视图。</p>
+            <h4>创建组件类</h4>
+            <pre class="code"><span class="note">//装饰器告诉angular该类是一个组件类</span>
+@Component({
+    <span class="note">//metadata元数据，描述了该组件的一些特性，或者说提供了一些必要的参数</span>
+    selector:'login',
+    template:``,
+    templateUrl:'',
+    styleUrls:['','']
+})
+            </pre>
+            <h4>使用组件类</h4>
+            <pre class="code"><span class="note">//到模块中声明app.module.ts</span>
+import { Login } from "./component/login";
+@NgModule({
+    declarations:[ Login ]
+})</pre>
+            <h3>服务类</h3>
+            <p>Angular中，数据和处理数据的方法都应该放在服务类(Service)中，以方便复用。</p>
+            <h4>创建服务类</h4>
+            <pre class="code"><span class="note">//</span>
+@injectable()
+export class HeartBeatService {
+    start(){}
+    stop(){}
+}</pre>
+            <h4>模块中声明服务商</h4>
+            <pre class="code"><span class="note">//</span>
+import { HeartBeatService } from '';
+@NgModule({
+    providers:[ HeartBeatService ]
+})</pre>
+            <h4>使用服务</h4>
+            <pre class="code">import { HeartBeatService } from '';
+    <span class="note">//注入依赖</span>
+    constructor(private myService:JeartBeatService){}
+    beat(){
+        this.myService.***();
+    }
+            </pre>
+            <h3>指令</h3>
+            <h4>循环指令</h4>
+            <pre class="code">*ngFor="let ele of list;let i = index"</pre>
+            <h4>条件指令</h4>
+            <pre class="code">&lt;any *ngIf="expression">&lt;/any></pre>
+            <h4>事件绑定</h4>
+            <pre class="code">&lt;button (click)="handleClick()">&lt;/button></pre>
+            <h4>属性绑定</h4>
+            <pre class="code">&lt;img [src]="'../assets/'+myImageName"</pre>
+            <h4>双向数据绑定</h4>
+            <p>注意：先导入FormsModule</p>
+            <pre class="code">&lt;input [(ngModel)] = "uname"/></pre>
+        </div>
+    </li>
+    <li>
+        <p>Ionic</p>
+        <div class="desc">
+            <h2>Ionic</h2>
+            <h3>Ionic简介</h3>
+            <p>Ionic = angular + icon图标 + Cordova/phoneGap</p>
+            <h3>环境搭建</h3>
+            <pre class="code">npm install ionic -g <span class="note">//全局安装</span>
+ionic start helloWorld blank[/tabs/sidemenu]
+cd helloWorld
+ionic serve -l <span class="note">//-l参数表示显示手机端</span>
+            </pre>
+            <p>ionic start一个工程可能会出现<span class="code">node-sass下载错误</span>，其原因是下载地址被墙了。解决办法是，提前将地址改成淘宝镜像：</p>
+            <pre class="code">npm config set sass_binary_site https://npm.taobao.org/mirrors/node-sass/</pre>
+            <h3>命令</h3>
+            <pre class="code">ionic g page demo01 <span class="note">//在pages文件夹中生成一个文件夹demo01</span></pre>
+            <h3>ionic中的生命周期钩子函数</h3>
+            <table>
+                <tr>
+                    <td>ionViewCanEnter</td>
+                    <td>是否可以进入（守卫）</td>
+                </tr>
+                <tr>
+                    <td>ionViewDidLoad</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>ionViewWillEnter</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>ionViewDidEnter</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>ionViewCanLeave</td>
+                    <td>是否可以离开(守卫)</td>
+                </tr>
+                <tr>
+                    <td>ionViewWillLeave</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>ionViewDidLeave</td>
+                    <td></td>
+                </tr>
+            </table>
+            <h3>ionic中的标签</h3>
+            <h4>button</h4>
+            <pre class="code">&lt;button <span class="note">ion-button</span>>&lt;/button>
+&lt;button <span class="note">ion-button color="primary"</span>>&lt;/button></pre>
+            <table>
+                <tr>
+                    <td rowspan="5">颜色</td>
+                    <td>primary</td>
+                    <td>蓝色</td>
+                </tr>
+                <tr>
+                    <td>secondary</td>
+                    <td>绿色</td>
+                </tr>
+                <tr>
+                    <td>danger</td>
+                    <td>红色</td>
+                </tr>
+                <tr>
+                    <td>dark</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>light</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td rowspan="4">样式</td>
+                    <td>outline</td>
+                    <td>边框按钮</td>
+                </tr>
+                <tr>
+                    <td>clear</td>
+                    <td>只有文本的按钮</td>
+                </tr>
+                <tr>
+                    <td>round</td>
+                    <td>圆角按钮</td>
+                </tr>
+                <tr>
+                    <td>block</td>
+                    <td>独占一行按钮</td>
+                </tr>
+                <tr>
+                    <td rowspan="3">按钮内部icon</td>
+                    <td>icon-left</td>
+                    <td>图标在左边</td>
+                </tr>
+                <tr>
+                    <td>icon-right</td>
+                    <td>图标在右边</td>
+                </tr>
+                <tr>
+                    <td>icon-only</td>
+                    <td>只有图标</td>
+                </tr>
+            </table>
+            <p>这里的<span class="code">ion-button</span>是angular中的指令，在angular中，组件是带有模板的指令。实现的原理大致如下：自定义一个指令，通过ElementRef拿到调用指令的DOM元素，对该元素添加一些样式。</p>
+            <pre class="code">import { ElementRef } from '';
+@Directive()
+export class ion-button {}</pre>
+            <h4>弹窗</h4>
+            <p>弹窗类包括alert、prompt、confirm，它们都是由 <span class="code">AlertController</span>类来生成。</p>
+            <pre class="code">import { AlertController } from 'ionic-angular';
+<span class="note">//实例化</span>
+constructor( public alertController : AlertController){}
+
+showAlert(){
+    let myAlert = this.alertController.create({
+        title:"注意",
+        message:"您要查找的信息不存在"
+    });
+    myAlert.present();
+}
+
+showConfirm(){
+    let myConfirm = this.alertController.create({
+        title:"确认窗口",
+        message:"确定要删除吗？",
+        buttons:[
+            {
+                text:'确定',
+                handler:()=>{ console.log("确定"); }
+            },
+            {
+                text:'取消',
+                handler:()=>{ console.log("取消"); }
+            }
+        ]
+    });
+    myConfirm.present();
+}
+
+showPrompt(){
+    let myPrompt = this.alertController.create({
+        title:"输入提示框",
+        message:"请输入要操作的数据",
+        inputs:[
+            {
+                type:"text",
+                placeholder:"输入"
+            }
+        ],
+        buttons:[
+            {
+                text:'确认',
+                handler:(<span class="note">data</span>)=>{
+                    console.log(data[0]); <span class="note">//data是一个数组</span>
+                }
+            }
+        ]
+    });
+    myPrompt.present();
+}</pre>
+            <h4>actionSheetController</h4>
+            <p><span class="code">Action Sheet</span>是一个自下而上弹出的窗口，其中包含多个选项。</p>
+            <pre class="code">import {ActionSheetController} from 'ionic-angular'
+constructor(public myASCtrl:ActionSheetController){}
+...             
+    let myAS = this.myASCtrl.create({
+        title:'',
+        buttons:[
+            {
+                text:'',
+                handler:()=>{},
+                role:'destructive/cancel'
+            },
+            {...}
+        ]
+    });
+    myAS.present();
+...</pre>
+            <p><span class="code">destrcutive、cancel</span>表示按钮的功能，在ios上destructive显示文本为红色，cancel和其他选项分离显示。</p>
+            <h4>悬浮式按钮(Floating Action Button,Fab)</h4>
+            <pre class="code">
+&lt;ion-fab right bottom>
+    &lt;button ion-fab>test&lt;/button>
+    &lt;ion-fab-list side="left/right/top/bottom">
+        &lt;button ion-fab>test&lt;/button>
+        &lt;button ion-fab>test&lt;/button>
+        &lt;button ion-fab>test&lt;/button>
+    &lt;/ion-fab-list>
+&lt;/ion-fab-list>
+            </pre>
+            <h4>LoadingController</h4>
+            <pre class="code"><span class="note">//导入loadingController</span>
+<span class="note">//实例化一个loadingController</span>
+showLoading(){
+    let loading = this.loadingController.create({
+        content:"正在加载数据...",
+        duration:3000 <span class="note">//持续时间</span>
+    });
+    loading.present();
+}</pre>
+        </div>
+    </li>
+</ul>

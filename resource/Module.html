@@ -1,0 +1,71 @@
+<h2>前端模块</h2>
+<button class="back">返回</button>
+<ul class="menu">
+    <li>
+        <p>模块的写法</p>
+        <div class="desc">
+            <h2>用闭包写模块</h2>
+            <h3>模块</h3>
+            <p>从本质上讲，模块就是将一部分代码组织在了一起，其内部的变量不能被外部随便访问，若要想操作它，必须通过模块提供的方法。说到这里，很容易想到这里“模块”的概念与java中的类(对象)非常类似，也就是将成员变量私有化，并提供访问和操作的API。</p>
+            <p>在js中，利用闭包可以写出“模块”。</p>
+            <pre class="code">
+<span class="note">//利用IIFE可以得到单例的效果</span>
+var counter = (function(){
+    var count = 0;
+    var add = function(){
+        count++;
+    }
+    return {
+        add: add,
+        getValue:function(){return count;}
+    }
+}();</pre>
+        </div>
+    </li>
+    <li>
+        <p>CommonJS规范</p>
+        <div class="desc">
+            <h2>CommonJS规范</h2>
+            <p>CommonJS规范的实现者有：Node.js、webpack。</p>
+            <pre class="code">require();<span class="note">//全局方法，用来导入模块</span>
+module<span class="note">//模块对象，代表模块本身</span>
+module.exports<span class="note">//模块的导出口</span>
+            </pre>
+
+            <pre class="code"><span class="note">//定义模块</span>
+var module = function(){
+    var exports = {}
+    return exports;
+};
+<span class="note">//向模块中添加属性</span>
+(function(module, exports) {
+    exports.upperCase = function (str) { return str.toUpperCase(); };
+}(module, module.exports))
+
+var f = module.exports.upperCase;
+f(abc);<span class="note">//ABC</span></pre>
+        </div>
+    </li>
+    <li>
+        <p>AMD规范</p>
+        <div class="desc">
+            <h2>AMD规范</h2>
+            <h3>AMD规范</h3>
+            <P>AMD(Ansynchronous Module Definition)，异步模块定义。加载模块时，采用异步的方式，因此，依赖该模块的语句需要放在回调函数中。写法如下：</P>
+            <pre class="code">require([module1,module2],callback);</pre>
+            <p>显然，异步加载模块的方式更适合浏览器，因为模块资源从服务器获取，那么浏览器的响应时间就会受到网速的影响。</p>
+            <h3>AMD规范的实现</h3>
+            <p>实现AMD规范的js库有：require.js和curl.js。</p>
+            <h3>require.js</h3>
+            <p>js代码放在同一个文件中有一个坏处，随着代码量的增加，会变得越来越难维护。因此，人们就想到了将不同功能的代码分散到几个js文件中去，便于维护，同时也增加了代码的复用性。</p>
+            <p>但是，随之而来的问题是--不同模块之间的依赖问题：模块的加载顺序受到模块之间依赖关系的影响。如果有一个机制，告诉程序，谁依赖于谁，能解决模块加载顺序就好了！</p>
+            <p>require.js就是用来解决该问题的。除了依赖性问题，<strong>由于require.js是异步加载的，因此，在加载模块时，不会导致浏览器失去响应。</strong></p>
+            <pre class="code">&lt;script src="js/require.js" defer async="true" data-main="js/main">&lt;/script>
+<span class="note">//defer兼容IE，async表示异步加载</span></pre>
+            <h4>定义模块</h4>
+            
+            <h3>AMD规范和CMD规范</h3>
+            <h3>AMD规范和CommonJS规范</h3>
+        </div>
+    </li>
+</ul>
