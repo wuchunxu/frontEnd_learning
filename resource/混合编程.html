@@ -104,10 +104,21 @@ import { HeartBeatService } from '';
             <h4>双向数据绑定</h4>
             <p>注意：先导入FormsModule</p>
             <pre class="code">&lt;input [(ngModel)] = "uname"/></pre>
+            <h4>路由和导航</h4>
+            <p>路由模块的功能：建立url和页面间的映射关系。Vue/Angular/路由模块的使用大致步骤：</p>
+            <pre class="code">
+<span class="note">//(1)安装路由模块，保证路由模块引入到项目中并可被使用</span>
+<span class="note">//(2)指定容器</span>
+routerView/routerOutlet/...
+<span class="note">//(3)配置路由词典（由路由对象所构成的数组）</span>
+    [
+        {path:'',component:***}
+    ]
+<span class="note">//(4)测试并访问</span></pre>
         </div>
     </li>
     <li>
-        <p>Ionic</p>
+        <p>安装Ionic</p>
         <div class="desc">
             <h2>Ionic</h2>
             <h3>Ionic简介</h3>
@@ -153,8 +164,14 @@ ionic serve -l <span class="note">//-l参数表示显示手机端</span>
                     <td></td>
                 </tr>
             </table>
-            <h3>ionic中的标签</h3>
-            <h4>button</h4>
+            
+        </div>
+    </li>
+    <li>
+        <p>使用Ionic</p>
+        <div class="desc">
+            <h2>使用Ionic</h2>
+            <h3>button</h3>
             <pre class="code">&lt;button <span class="note">ion-button</span>>&lt;/button>
 &lt;button <span class="note">ion-button color="primary"</span>>&lt;/button></pre>
             <table>
@@ -214,7 +231,7 @@ ionic serve -l <span class="note">//-l参数表示显示手机端</span>
             <pre class="code">import { ElementRef } from '';
 @Directive()
 export class ion-button {}</pre>
-            <h4>弹窗</h4>
+            <h3>弹窗</h3>
             <p>弹窗类包括alert、prompt、confirm，它们都是由 <span class="code">AlertController</span>类来生成。</p>
             <pre class="code">import { AlertController } from 'ionic-angular';
 <span class="note">//实例化</span>
@@ -267,7 +284,7 @@ showPrompt(){
     });
     myPrompt.present();
 }</pre>
-            <h4>actionSheetController</h4>
+            <h3>actionSheetController</h3>
             <p><span class="code">Action Sheet</span>是一个自下而上弹出的窗口，其中包含多个选项。</p>
             <pre class="code">import {ActionSheetController} from 'ionic-angular'
 constructor(public myASCtrl:ActionSheetController){}
@@ -286,7 +303,7 @@ constructor(public myASCtrl:ActionSheetController){}
     myAS.present();
 ...</pre>
             <p><span class="code">destrcutive、cancel</span>表示按钮的功能，在ios上destructive显示文本为红色，cancel和其他选项分离显示。</p>
-            <h4>悬浮式按钮(Floating Action Button,Fab)</h4>
+            <h3>悬浮式按钮(Floating Action Button,Fab)</h3>
             <pre class="code">
 &lt;ion-fab right bottom>
     &lt;button ion-fab>test&lt;/button>
@@ -297,7 +314,7 @@ constructor(public myASCtrl:ActionSheetController){}
     &lt;/ion-fab-list>
 &lt;/ion-fab-list>
             </pre>
-            <h4>LoadingController</h4>
+            <h3>LoadingController</h3>
             <pre class="code"><span class="note">//导入loadingController</span>
 <span class="note">//实例化一个loadingController</span>
 showLoading(){
@@ -307,6 +324,220 @@ showLoading(){
     });
     loading.present();
 }</pre>
+            <h3>栅格系统</h3>
+            <h4>基础用法</h4>
+            <pre class="code">
+&lt;ion-grid>
+    &lt;ion-row>
+        &lt;ion-col>&lt;/ion-col>
+        &lt;ion-col>&lt;/ion-col>
+    &lt;/ion-row>
+    &lt;ion-row>
+            &lt;ion-col>&lt;/ion-col>
+            &lt;ion-col>&lt;/ion-col>
+        &lt;/ion-row>
+&lt;/ion-grid>
+            </pre>
+            <h4>指定相关属性</h4>
+            <table>
+                <tr>
+                    <td>指定列宽</td>
+                    <td colspan="2">col-3</td>
+                </tr>
+                <tr>
+                    <td>所有列纵向对齐</td>
+                    <td colspan="2">align-items-start[/center/end]</td>
+                </tr>
+                <tr>
+                    <td>某一列纵向对齐</td>
+                    <td colspan="2">align-self-start[/center/end]</td>
+                </tr>
+                <tr>
+                    <td>一行中列横向对齐</td>
+                    <td colspan="2">justify-content-start[/center/end]</td>
+                </tr>
+                <tr>
+                    <td rowspan="3">列与列之间的偏移量</td>
+                    <td>offset-*</td>
+                    <td>设置当前列与左边列的之间的偏移量</td>
+                </tr>
+                <tr>
+                    <td>push</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>pull</td>
+                    <td></td>
+                </tr>
+            </table>
+            <h3>列表</h3>
+            <h4>基础用法</h4>
+            <pre class="code">&lt;ion-list>
+    &lt;ion-item>&lt;/ion-item>
+&lt;/ion-list></pre>
+            <h4>分组用法</h4>
+            <pre class="code">&lt;ion-item-groups>
+    &lt;ion-item-divider>A&lt;/ion-item-divider>
+    &lt;ion-item>apple&lt;/ion-item>
+    &lt;ion-item>abnormal&lt;/ion-item>
+    &lt;ion-item>abandon&lt;/ion-item>
+&lt;/ion-item-groups></pre>
+            <h4>位置的设定</h4>
+            <pre class="code">&lt;ion-list>
+    &lt;ion-item>
+        &lt;ion-icon <span class="note">item-start[/end]</span>&lt;/ion-icon>
+        &lt;<span class="note">ion-avatar</span> item-start[/end]&lt;/ion-avatar> <span class="note">//头像</span>
+        &lt;<span class="note">ion-thumbnail</span> item-start[/end]&lt;/ion-thumbnail> <span class="note">//缩略图</span>
+    &lt;/ion-item>
+&lt;/ion-list></pre>
+            <h4>可滑动的列表</h4>
+            <pre class="code">&lt;ion-list>
+    &lt;ion-sliding-item>
+        &lt;ion-item>&lt;/ion-item>
+        &lt;ion-item-options side="left[/right]">&lt;/ion-item-options>
+    &lt;/ion-sliding-item>
+&lt;/ion-list></pre>
+            <h3>表单</h3>
+            <p>根据label相对于表单元素的展示方式不同，分为：</p>
+            <table>
+                <tr>
+                    <td>fixed</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Floating</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>stacked</td>
+                    <td></td>
+                </tr>
+            </table>
+            <pre class="code">
+&lt;ion-list>
+    &lt;ion-item>
+        &lt;ion-label>同意&lt;/ion-label>
+        &lt;<span class="note">ion-checkbox</span>>&lt;/ion-checkbox>
+    &lt;/ion-item>
+&lt;/ion-list>
+&lt;ion-list radio-group>
+    &lt;ion-item>
+        &lt;ion-label>&lt;/ion-label>
+        &lt;<span class="note">ion-radio</span>>&lt;/ion-radio>
+    &lt;/ion-item>
+    &lt;ion-item>
+        &lt;ion-label>wifi&lt;/ion-label>
+        &lt;<span class="note">ion-toggle color="secondary"</span>>&lt;/ion-toggle>
+    &lt;/ion-item>
+    &lt;ion-item>
+        &lt;<span class="note">ion-range min="0" max="100" pin="true" step="10"</span>>
+            &lt;ion-label range-left>0&lt;/ion-label>
+            &lt;ion-label range-right>100&lt;/ion-label>
+        &lt;/ion-range>
+    &lt;/ion-item>
+&lt;/ion-list></pre>
+            <h3>ionSlides</h3>
+            <pre class="code">&lt;ion-slides>
+    &lt;ion-slide>&lt;/ion-slide>
+    &lt;ion-slide>&lt;/ion-slide>
+    &lt;ion-slide>&lt;/ion-slide>
+&lt;/ion-slides>
+            </pre>
+            <table>
+                <tr>
+                    <td>autoplay=1000</td>
+                    <td>自动播放</td>
+                </tr>
+                <tr>
+                    <td>speed=1000</td>
+                    <td>动画持续时间</td>
+                </tr>
+                <tr>
+                    <td>loop=true</td>
+                    <td>循环</td>
+                </tr>
+                <tr>
+                    <td>pager</td>
+                    <td>是否显示底部进度条</td>
+                </tr>
+                <tr>
+                    <td>paginationType</td>
+                    <td>bullets/fraction/progress</td>
+                </tr>
+            </table>
+            <h3>Toast</h3>
+            <pre class="code">...
+let toast = this.toastController.create({
+    message:"",
+    duration:2000,
+    position:"top", <span class="note">//middle/bottom</span>
+    showCloseButton:true,
+    closeButtonText:"关闭"
+});
+toast.present();</pre>
+            <h3>下拉刷新和无限滚动</h3>
+            <pre class="code">
+&lt;ion-refresher <span class="note">(ionRefresh)="refreshData($event)"</span>>
+    &lt;ion-refresher-content pullingText="下拉刷新" pullingIcon="arrow-dropdown"
+        refreshingText="正在刷新">&lt;/ion-refresher-content>
+&lt;/ion-refresher>
+&lt;ion-list>
+    &lt;ion-item *ngFor="let ele of list">{{ele}}&lt;/ion-item>
+&lt;/ion-list>
+
+refreshData(myRefresher){<span class="note">//ion-fresher的对象，就是那个$event</span>
+    <span class="note">//向数组的头部添加一条新数据</span>
+    this.list.unshift(100);
+    myRefresher.complete(); <span class="note">//刷新完成，结束刷新动作</span>
+}</pre>
+        <h5>infinite scroll</h5>
+        <pre class="code"><span class="note">//上划加载更多</span>
+&lt;ion-infinite-scroll (ionInfinite)="loadMore($event)">
+    &lt;ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="正在加载" >
+    &lt;/ion-infinite-scroll-content>
+&lt;/ion-infinite-scroll>
+
+loadMore(infiniter){
+    setTimeout(()=>{
+        this.list.push(200);
+        infiniter.complete();
+    },2000);
+}
+</pre>
+            <h3>路由和导航</h3>
+            <h4>方式一</h4>
+            <pre class="code"><span class="note">//引入目的地页面的类</span>
+import {Demo11MainPage} from '../../demo11-main/demo14-main'
+import {NavController} from 'ionic-angular'
+<span class="note">//准备NavController的实例</span>
+constructor(private myNavCtrl:NavController){}
+<span class="note">//定义一个方法用来做跳转</span>
+jump(){
+    <span class="note">//push可以理解成入栈</span>
+    this.myNavCtrl.push(Demo11MainPage);
+}
+            </pre>
+            <h4>方式二</h4>
+            <pre class="code"><span class="note">//引入目的地页面的类，保存在成员变量中</span>
+import {Demo11MainPage} from '../../demo11-main/demo14-main'
+...
+desPage;
+contructor(){
+    this.desPage = Demo14MainPage
+}
+
+&lt;any [navPush]="desPage">&lt;/any></pre>
+            <h4>传参</h4>
+            <pre class="code">this.navCtrl.push(Demo13Page,<span class="note">{id:2}</span>);
+<span class="note">//接收参数</span>
+constructor(public navParams:NavParams){
+    //this.navParams.data.id;
+    this.navParams.get("id");
+}
+</pre>
+            <p>如果是属性跳转，则用属性传参</p>
+            <pre class="code">&lt;button [navPush]="desPage" <span class="note">[navParams]="{id:2}"</span>>&lt;/button></pre>
+
         </div>
     </li>
 </ul>
