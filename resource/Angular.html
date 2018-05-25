@@ -231,6 +231,86 @@ export class Demo10Pipe implements PipeTransform {
         <p>服务</p>
         <div class="desc">
             <h2>Service</h2>
+            <h3>了解服务</h3>
+            <h4>为什么要用服务？</h4>
+            <p>在Angular中，组件最好只负责UI相关的逻辑，如果组件中参杂大量的<em>业务代码</em>或<em>数据处理逻辑</em>，会导致组件代码量过大，不便于维护。这时，应该将业务代码和数据处理逻辑封装到服务中。</p>
+            <h4>何时使用服务？</h4>
+            <table>
+                <tr>
+                    <td>1</td>
+                    <td>多个组件中重复的代码提取到服务中，从而实现代码的复用。</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>业务代码和数据处理逻辑应该封装到服务中，有利于后期更新和维护。</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>多个组件中注入同一个服务实例可以实现数据的共享。</td>
+                </tr>
+            </table>
+            <h4>常见的服务</h4>
+            <table>
+                <tr>
+                    <td>数据服务</td>
+                    <td>负责与服务器通信（数据）</td>
+                </tr>
+                <tr>
+                    <td>验证服务</td>
+                    <td>检查用户的服务（功能）</td>
+                </tr>
+                <tr>
+                    <td>日志服务</td>
+                    <td>跟踪错误（功能）</td>
+                </tr>
+            </table>
+            <h3>使用服务</h3>
+            <p>假设我现在需要完成一个通讯录编辑联系人的功能，那么我需要1)从服务器获取联系人信息；2)验证用户修改的数据；3)提交修改的数据到服务器。</p>
+            <h4>创建服务</h4>
+            <pre class="code">import { Injectable } from '@angular/core'; <span class="note">//导包</span>
+@Injectable() <span class="note">//装饰成可注入</span>
+export class ContactService{
+    <span class="note">//获取联系人数据</span>
+    getContactsData(){}
+    <span class="note">//更新联系人数据</span>
+    updateContacts(contact:Contact){}
+}</pre>
+            <h4>使用服务</h4>
+            <pre class="code">import { ContactService } from '...';
+export class SomeComponent{
+    constructor(private contactService:ContactService){}
+}</pre>
+            <h3>HTTP服务</h3>
+            <pre class="code"><span class="note">//(1)在根模块中导入HttpModule</span>
+//app.module.ts
+import { HttpModule } from '@angular/http';
+@NgModule({
+    imports:[HttpModule]
+})
+<span class="note">//(2)使用组件中导入服务类并声明引入</span>
+import { Http } from '@angular/http';
+
+export class ContactComponent{
+    constructor(http:Http){}
+}</pre>
+            <h3>封装一个完整的http请求服务</h3>
+            <pre class="code"><span class="note">//首先在根模块中导入HttpModule</span>
+import {Injectable } from '@angular/core';
+import { Http,Response } from '@angular/http';
+import { Obeservable } from 'rxjs/Rx';
+
+const URL = '';
+@Injectable()
+export class ContactService {
+    constructor( private http: Http){}
+
+    getContacts(): Obeservable&lt;any[]>{
+        return this.http.get(URL)
+                .map((res:Response)=>res.json().data || {}))
+                .catch(this.handleError);
+    }
+}
+</pre>
             <h3>创建http请求服务</h3>
             <p>使用vscode，快捷键</p>
             <pre class="code"><span class="note">//a-service-http</span>

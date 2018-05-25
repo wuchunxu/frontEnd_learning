@@ -537,7 +537,41 @@ constructor(public navParams:NavParams){
 </pre>
             <p>如果是属性跳转，则用属性传参</p>
             <pre class="code">&lt;button [navPush]="desPage" <span class="note">[navParams]="{id:2}"</span>>&lt;/button></pre>
-
+            <h3>模态窗</h3>
+            <h4>创建和显示</h4>
+            <pre class="code">import {ModelController} from 'ionic-angular';
+constructor(public myModalCtrl:ModalController){}
+let myModal =  this.myModalCtrl.create(要显示的页面类);
+//比如 this.myModalCtrl.create(Demo16ListPage)
+myModal.present();
+            </pre>
+            <h4>关闭和传参</h4>
+            <p>(1)找到模态窗中显示的页面类，比如Demo16ListPage</p>
+            <p>(2)import {ViewController} from 'ionic-angular'</p>
+            <p>(3)constructor(public myViewCtrl:ViewController){}</p>
+            <p>(4)this.myViewCtrl.dismiss()</p>
+            <h5>传参</h5>
+            <p>关闭模态窗时，可以传参给调用模态窗的页面</p>
+            <pre class="code">this.myViewCtrl.dismiss(1);</pre>
+            <h5>接收参数</h5>
+            <pre class="code">myModal.present();
+myModal.onDidDismiss((data)=>{
+    console.log('关闭时传来的值',data);
+})</pre>
+            <h3>滚动组件</h3>
+            <pre class="code">&lt;ion-scroll scrollX='true' scrollY="true">
+&lt;/ion-scroll>
+<span class="note">////注意事项：指定一个固定的高度</span></pre>
+            <h3>tabs</h3>
+            <p>一般情况下，是直接将ion-tabs写在模板中，不要把它放在ionContent中</p>
+            <pre class="code">&lt;ion-tabs>
+    &lt;ion-tab tabTitle="" tabIcon="" [root]="">&lt;/ion-tab>
+    &lt;ion-tab tabTitle="" tabIcon="" [root]="">&lt;/ion-tab>
+    &lt;ion-tab tabTitle="" tabIcon="" [root]="">&lt;/ion-tab>
+&lt;/ion-tabs></pre>
+            <h3>lifecycle</h3>
+            <h4>路由守卫</h4>
+            <h3></h3>
         </div>
     </li>
 </ul>

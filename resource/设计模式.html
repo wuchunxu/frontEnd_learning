@@ -1,0 +1,107 @@
+<h2>设计模式(Design Patterns)</h2>
+<button class="back">返回</button>
+<ul class="menu">
+    <li>
+        <p>观察者模式</p>
+        <div class="desc">
+            <h2>观察者模式(Obeserver Pattern)</h2>
+            <p>学习Angular的时候，Observable一直是我心中的一个梗。观察者模式到底是什么，让人感觉如此神秘，百度了很久，不能窥探其真实面目。直到我看到了《Javascript Patterns》，方知其“芳容”。我有一个错觉，英文书籍描述一个事物时，比中文更易懂，也许与后置定语有关吧。</p>
+            <h3>什么是观察者模式</h3>
+            <p><strong><em>观察者模式</em>广泛应用于客户端js编程</strong>。</p>
+            <p>什么？R U kidding me？</p>
+            <p>是的！所有浏览器事件（mouseover、keypress...）都是该模式的例子。观察者模式还有一个名字叫“订阅/发布者模式”。设计该模式的意图是促进<strong>松耦合(loose coupling)</strong>。什么意思呢？本来我们是用一个对象调用另一个对象的方法，但是现在，我们换了一个方式，改成“一个对象订阅另一个对象的某个活动并且会得到通知。”订阅者也就是观察者，而被观察者就是publisher或者subject。</p>
+            <h3>观察者模式的写法</h3>
+            <p>一个publisher需要如下成员：</p>            
+            <pre class="code">subscribers // Array
+subscribe()   //订阅，向数组中添加新订阅者
+unsubscribe() //取消订阅，从数组中移除订阅人
+publish()     //遍历数组，并调用订阅者提供的方法
+
+var publisher = {
+    subscribers: {
+        any: [] // event type: subscribers
+    },
+    subscribe: function (fn, type) {
+        type = type || 'any';
+        if (typeof this.subscribers[type] === "undefined") {
+            this.subscribers[type] = [];
+        }
+        this.subscribers[type].push(fn);
+    },
+    unsubscribe: function (fn, type) {
+        this.visitSubscribers('unsubscribe', fn, type);
+    },
+    publish: function (publication, type) {
+        this.visitSubscribers('publish', publication, type);
+    },
+    visitSubscribers: function (action, arg, type) {
+        var pubtype = type || 'any',
+            subscribers = this.subscribers[pubtype],
+            i,
+            max = subscribers.length;
+        for (i = 0; i < max; i += 1) {
+            if (action === 'publish') {
+                subscribers[i](arg);
+            } else {
+                if (subscribers[i] === arg) {
+                    subscribers.splice(i, 1);
+                }
+            }
+        }
+    }
+};
+
+function makePublisher(obj){
+    for(var prop in publisher){
+        if(publisher.hasOwnProperty(prop) && typeof publisher[prop] === "function"){
+            obj[prop] = publisher[prop];
+        }
+    }
+    obj.subscribers = { any: [] };
+}
+
+<span class="note">//创建paper对象</span>
+var paper = {
+    daily: function () {
+        this.publish("今日焦点");
+    },
+    monthly: function () {
+        this.publish("interesting analysis", "monthly");
+    }
+};
+<span class="note">//将paper对象变成一个publisher</span>
+makePublisher(paper);
+
+var Jay = {
+    drinkCoffee: function (paper) {
+        console.log('Just read ' + paper);
+    },
+    sundayPreNap: function (monthly) {
+        console.log('About to fall asleep reading this ' + monthly);
+    }
+};
+<span class="note">//订阅</span>
+paper.subscribe(Jay.drinkCoffee);
+paper.subscribe(Jay.sundayPreNap, 'monthly');
+<span class="note">//发布</span>
+paper.daily();
+paper.daily();
+paper.daily();
+paper.monthly();
+            </pre>
+            <p>如果看懂了这段代码，一定会拍案叫绝。好在哪里呢？</p>
+            <p>paper没有指定要调用谁的方法，也就是说并没有写死(hardcode)。这样做的好处是，对象之间具有低耦合度，(loose coupling)。不用改变源码就可以添加新的subscriber，而subscriber也可以随时取消订阅。</p>
+            <p>最后，让我们再看看这段代码更强大的威力--让Jay也成为publisher：</p>
+            <pre class="code">makePublisher(Jay);
+Jay.sendWeibo = function(msg){
+    this.publish(msg);
+}</pre>
+            <p>微博小秘决定关注（订阅）Jay，于是：</p>
+            <pre class="code">paper.readWeibo = function(msg){
+    alert("发送新闻，Jay发送新微博了"+msg);
+}
+Jay.subscribe(paper.readWeibo);
+Jay.sendWeibo("weibo好烦");</pre>
+        </div>
+    </li>
+</ul>
