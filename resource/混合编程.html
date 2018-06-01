@@ -231,6 +231,13 @@ ionic serve -l <span class="note">//-l参数表示显示手机端</span>
             <pre class="code">import { ElementRef } from '';
 @Directive()
 export class ion-button {}</pre>
+            <h3>card</h3>
+            <pre class="code">&lt;ion-card>
+    &lt;ion-card-header>header>&lt;/ion-card-header>
+        &lt;ion-card-content>
+            这是一个小卡片
+        &lt;/ion-card-content>
+&lt;/ion-card></pre>
             <h3>弹窗</h3>
             <p>弹窗类包括alert、prompt、confirm，它们都是由 <span class="code">AlertController</span>类来生成。</p>
             <pre class="code">import { AlertController } from 'ionic-angular';
@@ -571,7 +578,9 @@ myModal.onDidDismiss((data)=>{
 &lt;/ion-tabs></pre>
             <h3>lifecycle</h3>
             <h4>路由守卫</h4>
-            <h3></h3>
+            
+            <h3>隐藏根页面的tabs</h3>
+            <pre class="code">&lt;ion-tab tabsHideOnSubPages="true">&lt;/ion-tab></pre>
         </div>
     </li>
 </ul>
