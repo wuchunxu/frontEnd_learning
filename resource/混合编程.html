@@ -164,7 +164,15 @@ ionic serve -l <span class="note">//-l参数表示显示手机端</span>
                     <td></td>
                 </tr>
             </table>
-            
+            <h3>ionic打包</h3>
+            <p><a href="https://blog.csdn.net/qq_20264891/article/details/79319408" target="_blank">ionic打包</a></p>
+            <h3>生成签名</h3>
+            <pre class="code">//keytool.exe 和 jarsigner.exe 在java的bin目录中
+<span class="note">//生成签名文件</span>
+keytool -genkey -v -keystore <span class="note">wuchunxu.keystore</span> -alias <span class="note">szdc</span> -keyalg RSA -keysize 2048 -validity 10000
+<span class="note">//签名</span>
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore <span class="note">wuchunxu.keystore app.apk szdc</span>
+            </pre>
         </div>
     </li>
     <li>

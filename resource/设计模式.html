@@ -7,11 +7,14 @@
             <h2>观察者模式(Obeserver Pattern)</h2>
             <p>学习Angular的时候，Observable一直是我心中的一个梗。观察者模式到底是什么，让人感觉如此神秘，百度了很久，不能窥探其真实面目。直到我看到了《Javascript Patterns》，方知其“芳容”。我有一个错觉，英文书籍描述一个事物时，比中文更易懂，也许与后置定语有关吧。</p>
             <h3>什么是观察者模式</h3>
-            <p><strong><em>观察者模式</em>广泛应用于客户端js编程</strong>。</p>
+            <p>
+                <strong>
+                    <em>观察者模式</em>广泛应用于客户端js编程</strong>。</p>
             <p>什么？R U kidding me？</p>
-            <p>是的！所有浏览器事件（mouseover、keypress...）都是该模式的例子。观察者模式还有一个名字叫“订阅/发布者模式”。设计该模式的意图是促进<strong>松耦合(loose coupling)</strong>。什么意思呢？本来我们是用一个对象调用另一个对象的方法，但是现在，我们换了一个方式，改成“一个对象订阅另一个对象的某个活动并且会得到通知。”订阅者也就是观察者，而被观察者就是publisher或者subject。</p>
+            <p>是的！所有浏览器事件（mouseover、keypress...）都是该模式的例子。观察者模式还有一个名字叫“订阅/发布者模式”。设计该模式的意图是促进
+                <strong>松耦合(loose coupling)</strong>。什么意思呢？本来我们是用一个对象调用另一个对象的方法，但是现在，我们换了一个方式，改成“一个对象订阅另一个对象的某个活动并且会得到通知。”订阅者也就是观察者，而被观察者就是publisher或者subject。</p>
             <h3>观察者模式的写法</h3>
-            <p>一个publisher需要如下成员：</p>            
+            <p>一个publisher需要如下成员：</p>
             <pre class="code">subscribers // Array
 subscribe()   //订阅，向数组中添加新订阅者
 unsubscribe() //取消订阅，从数组中移除订阅人
@@ -102,6 +105,48 @@ Jay.sendWeibo = function(msg){
 }
 Jay.subscribe(paper.readWeibo);
 Jay.sendWeibo("weibo好烦");</pre>
+        </div>
+    </li>
+    <li>
+        <p>Angular中的Observable</p>
+        <div class="desc">
+            <h2>Observable</h2>
+            <h3>Observable类</h3>
+            <h4>subscriber()</h4>
+            <p>该方法定义了获取和生成数据的方式，在客户调用subscribe()时执行。</p>
+            <pre class="code"><span class="note">/*
+    创建Observable实例                
+*/</span>
+const locations = new Observable((observer)=>{
+    
+    const {next,error} = observer;<span class="note">//拿到observer对象中的next和error回调</span>
+    let watchId;
+    <span class="note">//生成数据</span>
+    if('geolocation' in navigator){
+        watchId = navigator.geolocation.watchPosition(next,error);
+    }else{
+        error('geolocation not available');
+    }
+    <span class="note">//返回一个对象，观察者可以通过该对象取消订阅</span>
+    return {
+        unsubscribe(){
+            navigator.geolocation.clearWatch(watchId);
+        }
+    };
+}
+const locationSubscription = locations.subscribe({
+    next(position){
+        console.log("当前位置：",position);
+    }
+    error(msg){
+        console.log("获取位置出错：",msg);
+    }
+});
+
+setTimeout(function(){
+    locationSubscription.unsubscribe();
+},1000*10);
+            </pre>
         </div>
     </li>
 </ul>
