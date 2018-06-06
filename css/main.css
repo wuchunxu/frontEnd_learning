@@ -613,4 +613,10 @@ table pre.code {
   background: #eee;
 }
 
+blockquote {
+  background: #fff;
+  border-left: 2px solid #41b883;
+  padding: 10px;
+}
+
 /*# sourceMappingURL=main.css.map */

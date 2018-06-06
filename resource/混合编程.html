@@ -171,8 +171,8 @@ ionic serve -l <span class="note">//-l参数表示显示手机端</span>
 <span class="note">//生成签名文件</span>
 keytool -genkey -v -keystore <span class="note">wuchunxu.keystore</span> -alias <span class="note">szdc</span> -keyalg RSA -keysize 2048 -validity 10000
 <span class="note">//签名</span>
-jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore <span class="note">wuchunxu.keystore app.apk szdc</span>
-            </pre>
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore <span class="note">wuchunxu.keystore app.apk szdc</span></pre>
+            <p>注意：如果jdk安装在C盘，那么签名需要在管理员的权限，用管理员打开cmd或者shell</p>
         </div>
     </li>
     <li>

@@ -20,4 +20,49 @@
             <p></p>
         </div>
     </li>
+    <li>
+        <p>性能优化</p>
+        <div class="desc">
+            <h2>性能优化</h2>
+            <h3>阻塞性</h3>
+            <blockquote>
+                执行JavaScirpt代码时，浏览器要暂停其他所有行为。此为阻塞性。
+            </blockquote>
+            <p>页面的下载和渲染必须停下来，等js执行完毕方可继续。这是页面生命周期的重要环节，因为js的执行可能导致页面发生变化。当浏览器读取到script时，浏览器不知道js将要对DOM做出怎么的操作，此时，如果继续做渲染工作的话，很有能与js的操作发生冲突，这是浏览器的设计所不允许的。</p>
+            <p><span class="code">&lt;script src="1.js">&lt;/script></span>也会使页面阻塞，因为页面不得不先下载js文件然后再执行，而下载页面的IO操作往往比较耗时。</p>
+            <p>尽管现在浏览器支持js的并行下载，但js的下载仍然会阻塞其他资源如img的下载。并且浏览器还是得等js加载并执行完毕才能继续其他工作。</p>
+            <p>所以，推荐将script标签放在页面的最下面，也就是<span class="code">&lt;/body></span>的上面。</p>
+            <h3>非阻塞的Scripts</h3>
+            <p>控制js文件的大小和数量是创建响应式web应用的第一步。但是随着功能的增多，控制代码量已经不太现实了。而且，加载一个很大的js文件只会导致浏览器较长时间的失去响应。面对这样的处境，我们应该以渐进式的方式增加一些不阻塞浏览器的script。</p>
+            <h4>Deffered Scripts</h4>
+            <pre class="code">&lt;script src="" defer>&lt;/script></pre>
+            <p>带有defer属性的script标签，浏览器解析到它时，不会立即执行。而是在window.onsload触发之前那一刻执行。</p>
+            <h4>动态创建script元素</h4>
+            <pre class="code">var script = document.createElement('script');
+script.type = 'text/javascript';
+script.src = 'file1.js';
+document.getElementByTagName('head')[0].appendChild(script);
+            </pre>
+            <p>上述代码，当元素添加到页面，即开始下载file1.js和执行（注意：该操作是非阻塞的）。如何知道script加载完毕了呢？</p>
+            <pre class="code">function loadScript(url,callback){
+    var script = document.create("script");
+    script.type = 'text/javascript';
+    if(script.readState){
+        script.onreadStateChange = function(){
+            if(script.readState=='loaded'||script.readState == 'complete'){
+                script.onreadStateChange = null;
+                callback();
+            }
+        }
+    }else{
+        script.onload = function(){
+            callback();
+        }
+    }
+    script.src = url;
+    document.getElementByTagName('head')[0].appendChild(script);
+}</pre>
+
+        </div>
+    </li>
 </ul>
