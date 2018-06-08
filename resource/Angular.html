@@ -22,7 +22,9 @@
             <p>不同的应用场景中，对象和类之间有不同的交互方式，这就是设计模式。设计模式是被人们反复使用、代码经验的总结。</p>
             <p>设计模式有：工厂模式、抽象工厂模式、建造者模式、原型模式、单例模式、适配器模式、桥接模式、组合模式、装饰模式、门面模式、享元模式、代理模式、责任链模式、命令模式、解析器模式、迭代器模式、中介模式、备忘录模式、观察者模式、状态模式、策略模式、模板模式、访问者模式、MVC模式</p>
             <h4>MVC模式</h4>
-            <p>MVC模式，即模型-视图-控制器模式。<strong>减少视图与具体数据的耦合，使得多个视图可以访问相同的数据。</strong></p>
+            <p>MVC模式，即模型-视图-控制器模式。
+                <strong>减少视图与具体数据的耦合，使得多个视图可以访问相同的数据。</strong>
+            </p>
 
         </div>
     </li>
@@ -34,7 +36,9 @@
             <p>AngularJS诞生于2009年，是一个用于开发单页面应用程序(SPA)的JS框架，易于构建页面的CRUD操作。</p>
             <p>基本操作思路与DOM及jQuery的“先查找元素再操作元素”不同，它是“创建数据、绑定数据、修改数据和更新数据”，一切操作以数据为中心。</p>
             <h3>七大核心概念</h3>
-            <p><strong>(1)模块、(2)指令、(3)组件、(4)模板、(5)数据绑定、(6)服务、(7)依赖注入</strong></p>
+            <p>
+                <strong>(1)模块、(2)指令、(3)组件、(4)模板、(5)数据绑定、(6)服务、(7)依赖注入</strong>
+            </p>
             <h4>模块</h4>
             <pre class="code">@ngModule({
     declaration:[],
@@ -55,7 +59,11 @@
             <h4>服务</h4>
             <p>用来封装常用的业务逻辑，也就是说，组件中不应该存在大量的业务逻辑，如果有，应该封装到服务中。</p>
             <h3>工作原理</h3>
-            <p>使用Angular扩展语法编写HTML模板，用<em>组件类</em>管理这些模板，用<em>服务</em>添加应用逻辑，用<em>模块</em>打包发布组件和服务。然后，我们通过<em>引导根模块</em>来启动该应用。</p>
+            <p>使用Angular扩展语法编写HTML模板，用
+                <em>组件类</em>管理这些模板，用
+                <em>服务</em>添加应用逻辑，用
+                <em>模块</em>打包发布组件和服务。然后，我们通过
+                <em>引导根模块</em>来启动该应用。</p>
             <p>Angular在浏览器中接管、展现应用的内容，并根据我们提供的操作指令响应用户的交互。</p>
             <h3>TypeScript</h3>
             <p>TypeScript的设计目标是开发大型应用，然后转译成JavaScript。</p>
@@ -82,7 +90,9 @@ src  工程目录
     > app.module.ts   根模块
             </span></pre>
             <h3>Angular架构</h3>
-            <div class="img"><img src="images/angular_frame.png" alt=""/></div>
+            <div class="img">
+                <img src="images/angular_frame.png" alt="" />
+            </div>
         </div>
     </li>
     <li>
@@ -97,7 +107,9 @@ src  工程目录
             <h2>模块</h2>
             <h3>模块是什么</h3>
             <blockquote>模块是组件之上的一层抽象。</blockquote>
-            <p>一个应用有且只有一个<span class="code">根模块(Root Module)</span>，其他模块叫<span class="code">特性模块(Feature Module)</span>，根模块是应用的入口，根模块中通过bootstrap元数据来指定应用的根组件。</p>
+            <p>一个应用有且只有一个
+                <span class="code">根模块(Root Module)</span>，其他模块叫
+                <span class="code">特性模块(Feature Module)</span>，根模块是应用的入口，根模块中通过bootstrap元数据来指定应用的根组件。</p>
             <h3>模块中元数据</h3>
             <pre class="code">@ngModule({
     declaration:[],<span class="note">//指定该模块中有哪些视图类</span>
@@ -106,7 +118,8 @@ src  工程目录
     providers:[] <span class="note">//指定模块依赖的服务</span>
 })</pre>
             <p>Angular中视图类包括：组件（Component）、指令（Directive）和管道（Pipe）。注意：视图类只能属于一个模块，如果想要在另外一个模块中使用，应该用“先导出，再导入”的方式。</p>
-            <p>指令是需要声明或导入才可以使用的。事实上，默认指令时通过 <span class="code">BrowserModule</span>引入的。</p>
+            <p>指令是需要声明或导入才可以使用的。事实上，默认指令时通过
+                <span class="code">BrowserModule</span>引入的。</p>
         </div>
     </li>
     <li>
@@ -115,7 +128,8 @@ src  工程目录
             <h2>组件(Component)</h2>
             <p>题外话，W3C为了统一组件化的标准方式，提出了Web Component标准。当前支持最好的是Chrome和Opera浏览器。Web Component以后可能会流行，这里，我们暂时先不考虑它。</p>
             <h3>了解组件</h3>
-            <blockquote>Angular中的组件是<strong>自描述</strong>的：1)可以和宿主元素交互；2)知道如何、何时渲染自己；3)可配置注入服务；4)有明确的Input和Output定义。</blockquote>
+            <blockquote>Angular中的组件是
+                <strong>自描述</strong>的：1)可以和宿主元素交互；2)知道如何、何时渲染自己；3)可配置注入服务；4)有明确的Input和Output定义。</blockquote>
             <p>组件和模块的关系</p>
             <h3>创建组件</h3>
             <pre class="code">
@@ -141,11 +155,83 @@ import { AppComponent }  from './app.component';
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }</pre>
-        <h3>组件之间的通信(交互)</h3>
-        <p>组件之间的通信有多种方式，<strong>非父子关系的组件可以通过服务来实现数据的交互。</strong></p>
-        <h4>父子组件之间的通信</h4>
-        <h5>父传子</h5>
-        <p>父组件通过子组件的输入属性(@Input装饰过的属性)将数据传递给子组件，子组件接收数据还可以进行拦截处理(“访问器属性”)。</p>
+            <h3>组件之间的通信(交互)(父子组件的通信)</h3>
+            <p>组件之间的通信有多种方式，
+                <strong>非父子关系的组件可以通过服务来实现数据的交互。</strong>
+            </p>
+            <h4>父传子</h4>
+            <p>父组件通过子组件的输入属性(@Input装饰过的属性)将数据传递给子组件，子组件接收数据还可以进行拦截处理(“访问器属性”)。</p>
+            <h5>ngOnChanges监听数据变化</h5>
+            <p>当父组件流入到子组件的数据发生变化时，通过
+                <span class="code">ngOnChanges</span>监听，并作出相应的处理。该方法接收一个对象参数，包含变化前的值和当前值。</p>
+            <pre class="code">ngOnChanges(changes:SimpleChanges){
+    let arr: Array&lt;string> = []; <span class="note">//let arr:string[] = [];</span>
+    for( let prop in changes){
+        <span class="note">//changes[prop].previousValue</span>
+        <span class="note">//changes[prop].currentValue</span>
+    }
+}</pre>
+            <h4>子传父</h4>
+            <h5>方式一：事件绑定的形式</h5>
+            <pre class="code"><span class="note">//子组件</span>
+<span class="note">@Output</span> onMyEvent = new <span class="note">EventEmitter&lt;boolean>()</span>;//装饰一个EventEmitter对象
+handleClick(){
+    this.onMyEvent.emit(); <span class="note">//子组件中点击某按钮时主动触发onMyEvent事件对象</span>
+}
+<span class="note">//父组件</span>
+&lt;child-component (onMyEvent)="doSomething($event)">&lt;/child-component>
+</pre>
+            <h5>方式二：父组件获取子组件的引用</h5>
+            <pre class="code"><span class="note">//(1)局部变量</span>
+&lt;child-component (click)="childRef.childFunction()" <span class="note">#childRef</span>>&lt;/child-component>
+
+<span class="note">//(2)@ViewChild</span>
+//父组件中
+@ViewChild(ChildComponent) child: ChildComponent; <span class="note">//用装饰器将子组件注入到父组件中，保存在child变量中</span></pre>
+            <p>通过#childRef，父组件获取到了子组件实例的引用，可以操作子组件的方法了（缺点是，只能在模板中使用，不能在类中使用）</p>
+            <h3>【高级用法】组件的内容嵌入（类似模板模式）</h3>
+            <p>ng-content的目的是为了实现组件的复用，什么意思呢？当我写了一个组件，有一部分是固定的，另一部分是可变的。那么，我可以将可变的那一部分用ng-content占位。在使用该组件时，在该组件的标签内添加的内容就会取代ng-content，这样类似一个插槽，插槽的内容是可变的。</p>
+            <p>ng-content可以有多个，设置选择器后，就具有了选择性。使用时，只有
+                <span class="note">.red</span>的标签才会取代该ng-content，实现了插槽的选择性。</p>
+            <pre class="code"><span class="note">...不变的代码</span>
+    &lt;ng-content select=".red">&lt;/ng-content>
+<span class="note">...不变的代码</span></pre>
+            <h3>组件的生命周期</h3>
+            <table>
+                <tr>
+                    <td>ngOnChanges</td>
+                    <td><p>ngOnInit之前或组件输入数据发生变化时触发。</p></td>
+                </tr>
+                <tr>
+                    <td>ngOnInit</td>
+                    <td><p>数据绑定属性的第一次数据流入之后触发。用来初始化组件。</p></td>
+                </tr>
+                <tr>
+                    <td>ngDoCheck</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>ngAfterContentInit</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>ngAfterContentChecked</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>ngAfterViewInit</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>ngAfterViewChecked</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>ngOnDestroy</td>
+                    <td><p>绑定的事件、计时器应该在组件销毁的时候被内存回收。</p></td>
+                </tr>
+            </table>
+            <p>注意：组件的构造函数做的事情应该尽可能简单，例如成员变量初始化。</p>
         </div>
     </li>
     <li>
@@ -153,11 +239,13 @@ export class AppModule { }</pre>
         <div class="desc">
             <h2>指令</h2>
             <h3>指令</h3>
-            <h4>循环指令(<span class="code">*ngFor</span>)</h4>
+            <h4>循环指令(
+                <span class="code">*ngFor</span>)</h4>
             <pre class="code">`&lt;ul>
     &lt;li <span class="note">*ngFor="let ele of list;let i = index"</span>>[{{i+1}}]{{ele}}&lt;/li>
 &lt;/ul>`</pre>
-            <h4>选择指令(<span class="code">*ngIf</span>)</h4>
+            <h4>选择指令(
+                <span class="code">*ngIf</span>)</h4>
             <pre class="code">&lt;ng-container *ngFor="let ele of books;let i=index">
     &lt;tr <span class="note">*ngIf="ele.price>50"</span>>
         &lt;td>{{i+1}}&lt;/td>
@@ -173,15 +261,20 @@ export class AppModule { }</pre>
     &lt;li <span class="note">*ngSwitchCase="'b'"</span>>B&lt;/li>
     &lt;li <span class="note">*ngSwitchCase="'c'"</span>>C&lt;/li>
 &lt;/ul></pre>
-            <h4>属性绑定(<span class="code">[myProp]</span>)</h4>
+            <h4>属性绑定(
+                <span class="code">[myProp]</span>)</h4>
             <pre class="code">&lt;a <span class="note">[href]="myLink"</span>>点我&lt;/a></pre>
-            <h4>style和class属性绑定(<span class="code">[ngStyle]、[ngClass]</span>)</h4>
+            <h4>style和class属性绑定(
+                <span class="code">[ngStyle]、[ngClass]</span>)</h4>
             <pre class="code">&lt;p [ngStyle]="{'opacity'=my_opacity}">{{city}}&lt;/p>
 &lt;p [ngClass]="{'red'=true}">{{city}}&lt;/p></pre>
-            <h4>事件绑定(<span class="code">(click)</span>)</h4>
+            <h4>事件绑定(
+                <span class="code">(click)</span>)</h4>
             <pre class="code">&lt;button <span class="note">(click)="handleClick()"</span>>点我&lt;/button></pre>
             <h4>双向数据绑定</h4>
-            <p>双向数据绑定需要导入表单模块<span class="code">FormsModule</span></p>
+            <p>双向数据绑定需要导入表单模块
+                <span class="code">FormsModule</span>
+            </p>
             <pre class="code">import {FormsModule} from '@angular/forms';
 @ngModule({
     imports:[FormsModule]
@@ -195,7 +288,8 @@ export class Demo05Component {
 &lt;input <span class="note">[(ngModel)]="city" (ngModelChange)="handleChange"</span>>
 &lt;p>{{city}}&lt;/p></pre>
             <h3>自定义指令</h3>
-            <p>自定义指定，首先导入angular核心包中的<span class="code">Directive</span>类，然后用装饰器将该类装饰成指令，并导出指令类。</p>
+            <p>自定义指定，首先导入angular核心包中的
+                <span class="code">Directive</span>类，然后用装饰器将该类装饰成指令，并导出指令类。</p>
             <pre class="code">import { <span class="note">Directive,ElementRef</span> } from '@angular/core'
 @Directive({
     selector:"<span class="note">[test]</span>"
@@ -220,11 +314,13 @@ export class TestDirective{
 <span class="note">//字符串切割</span>
 {{uname | <span class="note">slice:3:6}}</span></pre>
             <h4>日期管子</h4>
-            <p>angular中，管子传参用 <span class="code">:</span>表示</p>
+            <p>angular中，管子传参用
+                <span class="code">:</span>表示</p>
             <pre class="code">{{nowDate | date}}
 {{nowDate | <span class="note">date:'yyyy-MM-dd hh:mm:ss'</span>}}</pre>
             <h3>自定义管子</h3>
-            <p>快捷键<span class="code">a-p</span>，创建好pipe后，同样需要在根模块中声明</p>
+            <p>快捷键
+                <span class="code">a-p</span>，创建好pipe后，同样需要在根模块中声明</p>
             <pre class="code">import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({
     name: 'myuppercase'
@@ -246,7 +342,9 @@ export class Demo10Pipe implements PipeTransform {
             <h2>Service</h2>
             <h3>了解服务</h3>
             <h4>为什么要用服务？</h4>
-            <p>在Angular中，组件最好只负责UI相关的逻辑，如果组件中参杂大量的<em>业务代码</em>或<em>数据处理逻辑</em>，会导致组件代码量过大，不便于维护。这时，应该将业务代码和数据处理逻辑封装到服务中。</p>
+            <p>在Angular中，组件最好只负责UI相关的逻辑，如果组件中参杂大量的
+                <em>业务代码</em>或
+                <em>数据处理逻辑</em>，会导致组件代码量过大，不便于维护。这时，应该将业务代码和数据处理逻辑封装到服务中。</p>
             <h4>何时使用服务？</h4>
             <table>
                 <tr>
@@ -436,7 +534,8 @@ ngOnInit(){
             {path:"outbox",component:OutboxComponent}
         ]}
 ];</pre>
-            <p>url中：<span class="code">/mail/inbox</span>进行子路由的切换，注意这里与Vue的区别。</p>
+            <p>url中：
+                <span class="code">/mail/inbox</span>进行子路由的切换，注意这里与Vue的区别。</p>
             <h3>路由守卫</h3>
             <p>作用是拦截对某个组件的直接访问。</p>
             <h4>创建一个守卫服务(sendGuard.service.ts)</h4>

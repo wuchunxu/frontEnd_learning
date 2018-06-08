@@ -591,4 +591,28 @@ myModal.onDidDismiss((data)=>{
             <pre class="code">&lt;ion-tab tabsHideOnSubPages="true">&lt;/ion-tab></pre>
         </div>
     </li>
+    <li>
+        <p>phoneGap</p>
+        <div class="desc">
+            <h2>phoneGap</h2>
+            <h3>简介</h3>
+            <p>phoneGap是一个框架，基于前端技术，创建跨平台移动应用程序。与传统的框架区别在于，可以实现对底层的调用（比如GPS、手机振动、传感器）。</p>
+            <p>phoneGap被Adobe收购，核心代码开源成立的项目叫Cordova。phoneGap插件http://phonegap-plugins.com/，云端打包https://build.phonegap.com/</p>
+            <h3>环境搭建</h3>
+
+            <h3>常见的事件</h3>
+            deviceready 设备准备就绪
+  online/offline 网络状态的切换
+  batterycritical/status... 和电池状态相关的
+  pause/resume 程序的暂停和继续
+  backbutton/... 按键按下时对应的事件
+
+            <h3>phoneGap提供的API</h3>
+            <p>注意：所有插件的使用，都必须等phoneGap加载完毕，也就是触发deviceready事件</p>
+            <h4>device--获取设备软硬件信息</h4>
+            <pre class="code">var phoneName = device.name;</pre>
+            <h4>accele</h4>
+            <pre class="code">navigator.acc</pre>
+        </div>
+    </li>
 </ul>
