@@ -1,0 +1,142 @@
+<h2>再学JS</h2>
+<button class="back">返回</button>
+<ul class="menu">
+    <li>
+        <p>深入理解JS事件</p>
+        <div class="desc">
+            <h2>事件</h2>
+        </div>
+    </li>
+    <li>
+        <p>Promise</p>
+        <div class="desc">
+            <h2>Promise</h2>
+            <h3>JavaScript异步编程</h3>
+            <h3>认识Promise</h3>
+            <p>Promise的出现是为了解决回调地狱(异步的层层嵌套)。基本用法如下：</p>
+            <pre class="code">const promise = new Promise(function(resolve,reject){
+    <span class="note">//进行异步操作</span>
+});</pre>
+            <p></p>
+        </div>
+    </li>
+    <li>
+        <p>性能优化</p>
+        <div class="desc">
+            <h2>性能优化</h2>
+            <h3>阻塞性</h3>
+            <blockquote>
+                执行JavaScirpt代码时，浏览器要暂停其他所有行为。此为阻塞性。
+            </blockquote>
+            <p>页面的下载和渲染必须停下来，等js执行完毕方可继续。这是页面生命周期的重要环节，因为js的执行可能导致页面发生变化。当浏览器读取到script时，浏览器不知道js将要对DOM做出怎么的操作，此时，如果继续做渲染工作的话，很有能与js的操作发生冲突，这是浏览器的设计所不允许的。</p>
+            <p>
+                <span class="code">&lt;script src="1.js">&lt;/script></span>也会使页面阻塞，因为页面不得不先下载js文件然后再执行，而下载页面的IO操作往往比较耗时。</p>
+            <p>尽管现在浏览器支持js的并行下载，但js的下载仍然会阻塞其他资源如img的下载。并且浏览器还是得等js加载并执行完毕才能继续其他工作。</p>
+            <p>所以，推荐将script标签放在页面的最下面，也就是
+                <span class="code">&lt;/body></span>的上面。</p>
+            <h3>非阻塞的Scripts</h3>
+            <p>控制js文件的大小和数量是创建响应式web应用的第一步。但是随着功能的增多，控制代码量已经不太现实了。而且，加载一个很大的js文件只会导致浏览器较长时间的失去响应。面对这样的处境，我们应该以渐进式的方式增加一些不阻塞浏览器的script。</p>
+            <h4>Deffered Scripts</h4>
+            <pre class="code">&lt;script src="" defer>&lt;/script></pre>
+            <p>带有defer属性的script标签，浏览器解析到它时，不会立即执行。而是在window.onsload触发之前那一刻执行。</p>
+            <h4>动态创建script元素</h4>
+            <pre class="code">var script = document.createElement('script');
+script.type = 'text/javascript';
+script.src = 'file1.js';
+document.getElementByTagName('head')[0].appendChild(script);
+            </pre>
+            <p>上述代码，当元素添加到页面，即开始下载file1.js和执行（注意：该操作是非阻塞的）。如何知道script加载完毕了呢？</p>
+            <pre class="code">function loadScript(url,callback){
+    var script = document.create("script");
+    script.type = 'text/javascript';
+    if(script.readState){
+        script.onreadStateChange = function(){
+            if(script.readState=='loaded'||script.readState == 'complete'){
+                script.onreadStateChange = null;
+                callback();
+            }
+        }
+    }else{
+        script.onload = function(){
+            callback();
+        }
+    }
+    script.src = url;
+    document.getElementByTagName('head')[0].appendChild(script);
+}</pre>
+
+        </div>
+    </li>
+    <li>
+        <p>Set和Map</p>
+        <div class="desc">
+            <h2>Set</h2>
+            <p>Set和Map的特性？使用场景？</p>
+            <h3>Set和Map的特性</h3>
+            <blockquote>Set是不包含重复值的列表，Set通常的操作是检测是否包含某个值。
+                <br> Map是键值对的集合，通过键快速检索对应的值。使用场景是：缓存数据，以便快速检索。
+            </blockquote>
+            <p>长期以来JS中只有一种集合类型--Array，Array只能以number类型的值作为索引，若想要用其他类型的值来作为索引呢？在ES6之间，利用变通的方式来实现，因为js中Object就是键值对。
+                <strong>但是用这种方式有一些问题：(1)Object的值只能是string类型的</strong>
+            </p>
+            <pre class="code"><span class="note">/*
+    var set = {};创建对象会有原型，原型上面有属性，就不“干净”了
+*/</span>
+var set = Object.create(null);
+set.prop1 = true;
+<span class="note">//利用if就能判断是否存在</span>
+if(set.prop1){
+    //...
+}</pre>
+            <p>上面的使用没有问题，但是如果键为
+                <span class="code">5</span>和
+                <span class="code">"5"</span>就会冲突了！如果键为object类型，最终都会转换成字符串类型--[object Object]</p>
+
+            <h3>ES6中的Set和Map</h3>
+            <h4>Set</h4>
+            <pre class="code">let set = new Set(); <span class="note">//Set()构造器可接收任意可迭代类型</span>
+set.add(5);
+set.add("5");
+set.size; //2
+set.has("5");
+set.delete("5"); <span class="note">//删除单个值</span>
+set.clear(); <span class="note">//清空</span>
+set.forEach((val,key,own)=>{
+    <span class="note">//由于set没有索引，所以key和val相等</span>
+});
+var arr = [...set]; <span class="note">//将set转换为数组</span>
+           </pre>
+            <p>一个实用的使用场景：获得一个无重复值的数组</p>
+            <pre class="code">function eliminateDupicates(arr){
+    return [...new Set(arr)];
+}</pre>
+            <h4>Weak Set</h4>
+            <p>set中有一个对象（引用），但原来对象原来引用设为null时，该对象不会释放，因为set中还持有它的引用；使用Weak Set可以解决这个问题。注意：WeakSet只接收引用类型，不接受基本类型的值作为参数。</p>
+            <pre class="code">let set = new WeakSet();
+let obj = {};
+set.add(obj);
+set.has(obj);
+obj = null;
+set.has(obj);
+            </pre>
+            <p>WeakSet的注意点：(1)传入非对象的参数，会抛出错误；
+                (2)不可迭代，因此不能用for-of循环
+                (3)没有任何迭代器(像keys()与values())
+                (4)没有ForEach()
+                (5)没有size属性
+            </p>
+            <p>WeakSet用来追踪对象的引用，不做其他事情。</p>
+            <h3>Map</h3>
+            <pre class="code">let map = new Map();
+map.set("city","suzhou");
+map.set("year",2018);
+
+cosnole.log(map.get("city"));
+map.forEach((val,key,own)=>{});
+map.has("city");
+map.delete("city");
+map.clear();
+            </pre>
+        </div>
+    </li>
+</ul>
