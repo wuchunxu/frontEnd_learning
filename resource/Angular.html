@@ -290,15 +290,82 @@ handleClick(){
         </div>
     </li>
     <li>
+        <p>模板</p>
+        <div class="desc">
+            <h2>模板</h2>
+            <h3>属性绑定</h3>
+            <h4>DOM元素属性绑定</h4>
+            <pre class="code">&lt;div [title]="titleText">&lt;/div>
+<span class="note">//或者</span>
+&lt;div bind-title="titleText">&lt;/div>
+            </pre>
+            <h4>HTML标签特性的绑定</h4>
+            <p>我们常用的是DOM元素的属性进行绑定，但如果没有对应的DOM属性，则需要使用HTML标签特性进行绑定。</p>
+            <pre class="code">&lt;table>
+    &lt;tr>&lt;td <span class="note">[attr.colspan]="{{1+2}}"</span>>合并单元格&lt;/td>&lt;tr>
+&lt;/table></pre>
+            <h4>CSS类绑定</h4>
+            <p>CSS类class，既是DOM对象属性，又是HTML标签特性，所以可以用两种方式绑定。</p>
+            <pre class="code">&lt;div class="red font14" [class]="green">绿色字体&lt;/div>
+&lt;div [class.color-blue]="isBlue()">&lt;/div>
+            </pre>
+            <p>注意，CSS类绑定，这里的<span class="code">green</span>是一个对象，它会重写这个div中全部class。</p>
+            <h4>Style内联样式绑定</h4>
+            <pre class="code">&lt;button <span class="note">[style.background-color]="canClick ? 'blue' : 'gray'"</span>>&lt;/button>
+&lt;button <span class="note">[style.font-size.px]="isLarge?18:13"</span>>&lt;/button></pre>
+            <h4>属性绑定与插值表达式的关系</h4>
+            <pre class="code">&lt;div>{{username}}&lt;/div>
+<span class="note">//属性的方式，效果是一样的</span>
+&lt;div <span class="note">[innerHTML]="username"</span>>&lt;/div></pre>
+            <h3><span class="code">$event</span>事件对象</h3>
+            <p>若目标事件是原生的DOM事件，那么<span class="code">$event</span>是一个包含<span class="code">target</span>和<span class="code">target.value</span>属性的DOM事件对象</p>
+            <pre class="code">&lt;input [value]="currentUser.firstName" (input)="currentUser.firstName=$event.target.value"></pre>
+            <h3>双向数据绑定</h3>
+            <p>上述<span class="code">$event</span>的例子就是双向数据绑定。首先，我们用属性绑定将input的value绑定为currentUser对象的属性firstName，然后绑定<span class="code">input</span>事件，将输入的值更新到currentUser中</p>
+            <p>但是这样写，显得比较麻烦，Angular提供了<span class="code">ngModule</span>指令</p>
+            <pre class="code">&lt;input [(ngModule)]="currentUser.phoneNumber"></pre>
+        </div>
+    </li>
+    <li>
         <p>指令</p>
         <div class="desc">
             <h2>指令</h2>
-            <h3>指令</h3>
-            <h4>循环指令(
-                <span class="code">*ngFor</span>)</h4>
+            <h3>内置的指令</h3>
+            <h4><span class="code">ngClass</span></h4>
+            <pre class="code">setClasses(){
+    let classes = {
+        red: this.red,
+        font14:!this.font14,
+        title:this.isTitle
+    }
+    return classes;
+}
+
+&lt;div <span class="note">[ngClass]="setClasses()"</span>>&lt;/div> <span class="note">//这里要注意，ngClass绑定的是一个对象</span>
+</pre>
+            <h4>ngStyle</h4>
+            <p>ngStyle与ngClass类似，不同的是，ngClass控制着不同的class的集合</p>
+            <pre class="code">setStyles(){
+    let styles = {
+        'color':this.red ? 'red' : 'blue',
+        'font-size': isLarge? '18px' : '14px'
+    }
+    return styles;
+}
+&lt;div [ngStyle] = "setStyles()"&lt;/div></pre>
+            <h4>循环指令(<span class="code">*ngFor</span>)</h4>
             <pre class="code">`&lt;ul>
     &lt;li <span class="note">*ngFor="let ele of list;let i = index"</span>>[{{i+1}}]{{ele}}&lt;/li>
 &lt;/ul>`</pre>
+            <h4>【性能优化】<span class="code">ngFor</span>的性能优化</h4>
+            <p>当<span class="code">ngFor</span>需要迭代大量的数据时，若后端接口更新了其中一小部分，浏览器却要将所有的数据都删除，然后重新渲染，我们知道，操作DOM是很耗费性能的，因此，我们想方设法让浏览器只更新数据发生变化的DOM元素。</p>
+            <p>为解决该问题，angular给我们提供了一个接口，以让我们指定如何追踪添加或移除的数据。</p>
+            <pre class="code">&lt;div *ngFor="let contact of contacts;<span class="note">trackBy:trackByFn</span>"&lt;/div>
+
+trackByFn(index:number,contact:Contact){
+    return contact.id;//index
+}</pre>
+            <p>有了<span class="code">trackBy</span>，angular便知道以<span class="code">contact.id</span>为标准来决定是否要删除DOM，对于同一个id，angular会检查其属性是否发生变化，变化则更新，反之，不做处理。</p>
             <h4>选择指令(
                 <span class="code">*ngIf</span>)</h4>
             <pre class="code">&lt;ng-container *ngFor="let ele of books;let i=index">
@@ -319,10 +386,6 @@ handleClick(){
             <h4>属性绑定(
                 <span class="code">[myProp]</span>)</h4>
             <pre class="code">&lt;a <span class="note">[href]="myLink"</span>>点我&lt;/a></pre>
-            <h4>style和class属性绑定(
-                <span class="code">[ngStyle]、[ngClass]</span>)</h4>
-            <pre class="code">&lt;p [ngStyle]="{'opacity'=my_opacity}">{{city}}&lt;/p>
-&lt;p [ngClass]="{'red'=true}">{{city}}&lt;/p></pre>
             <h4>事件绑定(
                 <span class="code">(click)</span>)</h4>
             <pre class="code">&lt;button <span class="note">(click)="handleClick()"</span>>点我&lt;/button></pre>
@@ -342,6 +405,65 @@ export class Demo05Component {
 //demo05.component.html
 &lt;input <span class="note">[(ngModel)]="city" (ngModelChange)="handleChange"</span>>
 &lt;p>{{city}}&lt;/p></pre>
+            <h3>表单</h3>
+            <p>Angular对表单进行了封装和拓展，提供了<strong>(1)双向数据绑定、(2)校验规则、(3)自定义错误提示</strong>等。</p>
+            <p>构建表单的方式：(1)模板驱动、(2)模型驱动</p>
+            <h4>模板驱动</h4>
+            <p>使用模板表单内置指令和内置校验方式构建表单。</p>
+            <h4>表单指令</h4>
+            <table>
+                <tr>
+                    <td>NgForm</td>
+                    <td>
+                        <p>表单控制中心，所有表单指令需要在NgForm内部运行；</p>
+                        <p>需要在根模块中引入<span class="code">FormModule</span></p>
+                        <p>解析器遇到form标签会自动创建NgForm指令</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>NgModel</td>
+                    <td>
+                        <p>数据绑定</p>
+                        <p>控件状态跟踪</p>
+                        <p>校验</p>
+                        <p>注意：使用NgModel属性绑定，必须添加name属性，否则会出错</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>单选框radio</td>
+                    <td>
+                        <pre class="code">&lt;input type="radio" name="gender" [(ngModel)]="curContact.gender" value="female">
+&lt;input type="radio" name="gender" [(ngModel)]="curContact.gender" value="male">
+                        </pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>复选框</td>
+                    <td>与单选框类似写法</td>
+                </tr>
+                <tr>
+                    <td>单选下拉框</td>
+                    <td><pre class="code"><span class="note">//组件类</span>
+let interests:Array&lt;Object> = [
+    {value:'reading',display:'阅读'},
+    {value:'traveling',display:'旅游'},
+    {value:'sport',display:'运动'}
+];
+<span class="note">//template</span>
+&lt;select name="interestValue" [(ngModel)]="curContact.interestValue"> <span class="note">//绑定选中的值</span>
+    &lt;option *ngFor="let interest of interests" [value]="interest.value">{{interest.display}}&lt;/option> <span class="note">//选中后返回的是基本数据类型的值，可改成[ngValue]="interest"</span>
+&lt;/select>
+                    </pre></td>
+                </tr>
+                <tr>
+                    <td>多选下拉框</td>
+                    <td><p>多选下拉框添加上<span class="code">multiple</span>，然后将数据双向绑定到一个数组即可</p></td>
+                </tr>
+            </table>
+            <h4>模板局部变量</h4>
+            <p>局部变量使用范围：<strong>(1)当前元素、(2)兄弟元素、(3)子元素</strong></p>
+            <pre class="code">&lt;input type="text" name="contactName" <span class="note">#contactName</span>>
+&lt;p>{{contactName.value}}&lt;/p></pre>
             <h3>自定义指令</h3>
             <p>自定义指定，首先导入angular核心包中的
                 <span class="code">Directive</span>类，然后用装饰器将该类装饰成指令，并导出指令类。</p>
