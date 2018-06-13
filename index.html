@@ -9,7 +9,6 @@
 	<link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-	
 	<nav>
         <div class="logo">前端学习笔记</div>
         <ul class="navi-menu">
@@ -39,11 +38,11 @@
                 shower  = document.getElementById("shower"),
                 layer   = document.getElementById("layer");
             /*
-                初始化页面数据
+                需要将哪些数据渲染到页面中去
             */
             var pageData = {
                 "熟悉服务端": ["软件工程", "服务器和数据库", "PHP"],
-                "初入前端": ["HTML(未更新)", "JS基础", "Ajax", "CSS", "CSS3"],
+                "初入前端": ["JS基础", "Ajax", "CSS", "CSS3"],
                 "JS高级": ["JS内置类型", "Function", "面向对象", "ES5", "ES6","DOM", "BOM","jQuery"],
                 "HTML、CSS、JS进阶":["HTML5","Bootstrap","Node.js"],
                 "前端框架":["Vue","Angular","React"],
@@ -105,6 +104,20 @@
                                 if(!is_active) cur_li.addClass("active");
                             }
                         });
+                        //手风琴效果
+                        var accordions = menu.querySelectorAll("dl.accordion");
+                        for(var ele of accordions){
+                            ele.addEventListener("click",function(e){
+                                var tar = e.target;
+                                if(tar.is("dt")){
+                                    if(tar.hasClass("active")){
+                                        tar.removeClass("active");
+                                    }else{
+                                        tar.addClass("active");
+                                    }
+                                }
+                            });
+                        }
                     }
                 });
             }

@@ -619,4 +619,34 @@ blockquote {
   padding: 10px;
 }
 
+dl.accordion dt {
+  color: #fff;
+  font-family: 'Microsoft YaHei','黑体';
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 4px 8px;
+  background: #45ac90;
+  cursor: pointer;
+  margin-bottom: 3px;
+}
+dl.accordion dt:hover {
+  background: #41b883;
+}
+dl.accordion dt.active {
+  margin-bottom: 0;
+  background: linear-gradient(to left, #26a771, #0a975c);
+}
+dl.accordion dt.active + dd {
+  display: block;
+}
+dl.accordion dd {
+  display: none;
+  background: #eee;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+dl.accordion dd pre.code {
+  background: #ccc;
+}
+
 /*# sourceMappingURL=main.css.map */

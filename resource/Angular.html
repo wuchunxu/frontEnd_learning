@@ -2,33 +2,6 @@
 <button class="back">返回</button>
 <ul class="menu">
     <li>
-        <p>软件的设计原则和模式</p>
-        <div class="desc">
-            <h2>软件的设计原则和模式</h2>
-            <h3>设计原则</h3>
-            <h4>简单原则</h4>
-            <h4>避免重复原则</h4>
-            <h4>单一责任原则</h4>
-            <h4>开闭原则</h4>
-            <p>(1)对扩展开放，对修改关闭</p>
-            <p>(2)可变性不应该散落在代码的各个角落，而应该被封装到一个对象中</p>
-            <p>(3)一种可变性不应当与另外一种可变性混合在一起</p>
-            <h4>高聚合低耦合原则(High Cohesion & Low Coupling)</h4>
-            <p>内聚：度量一个类独立王城某项工作的能力</p>
-            <p>耦合：度量系统内或系统之间依赖关系的复杂度</p>
-            <h4>迪米特法则(Law of Demeter)</h4>
-            <p>一个对象或者模块应该尽可能减少与其他对象或模块之间的通信</p>
-            <h3>软件的设计模式</h3>
-            <p>不同的应用场景中，对象和类之间有不同的交互方式，这就是设计模式。设计模式是被人们反复使用、代码经验的总结。</p>
-            <p>设计模式有：工厂模式、抽象工厂模式、建造者模式、原型模式、单例模式、适配器模式、桥接模式、组合模式、装饰模式、门面模式、享元模式、代理模式、责任链模式、命令模式、解析器模式、迭代器模式、中介模式、备忘录模式、观察者模式、状态模式、策略模式、模板模式、访问者模式、MVC模式</p>
-            <h4>MVC模式</h4>
-            <p>MVC模式，即模型-视图-控制器模式。
-                <strong>减少视图与具体数据的耦合，使得多个视图可以访问相同的数据。</strong>
-            </p>
-
-        </div>
-    </li>
-    <li>
         <p>了解Angular</p>
         <div class="desc">
             <h2>Angular</h2>
@@ -70,7 +43,7 @@
             <h3>安装</h3>
             <h4>angular-cli</h4>
             <pre class="code">npm install -g @angular/cli
-ng new my-app
+ng new my-app --style=scss
 cd my-app
 ng serve --open</pre>
             <h4>quick start安装</h4>
@@ -93,6 +66,16 @@ src  工程目录
             <div class="img">
                 <img src="images/angular_frame.png" alt="" />
             </div>
+        </div>
+    </li>
+    <li>
+        <p>使用Angular</p>
+        <div class="desc">
+            <h2>使用Angular</h2>
+            <h3>命令行指令</h3>
+            <pre class="code">
+                ng generate component HeroForm <span class="note">//生成组件HeroForm</span>
+            </pre>
         </div>
     </li>
     <li>
@@ -200,11 +183,15 @@ handleClick(){
             <table>
                 <tr>
                     <td>ngOnChanges</td>
-                    <td><p>ngOnInit之前或组件输入数据发生变化时触发。</p></td>
+                    <td>
+                        <p>ngOnInit之前或组件输入数据发生变化时触发。</p>
+                    </td>
                 </tr>
                 <tr>
                     <td>ngOnInit</td>
-                    <td><p>数据绑定属性的第一次数据流入之后触发。用来初始化组件。</p></td>
+                    <td>
+                        <p>数据绑定属性的第一次数据流入之后触发。用来初始化组件。</p>
+                    </td>
                 </tr>
                 <tr>
                     <td>ngDoCheck</td>
@@ -228,7 +215,9 @@ handleClick(){
                 </tr>
                 <tr>
                     <td>ngOnDestroy</td>
-                    <td><p>绑定的事件、计时器应该在组件销毁的时候被内存回收。</p></td>
+                    <td>
+                        <p>绑定的事件、计时器应该在组件销毁的时候被内存回收。</p>
+                    </td>
                 </tr>
             </table>
             <p>注意：组件的构造函数做的事情应该尽可能简单，例如成员变量初始化。</p>
@@ -251,7 +240,9 @@ handleClick(){
                 </tr>
             </table>
             <h4>如何监测这些异步操作导致的数据变化呢？</h4>
-            <p>为了捕获异步事件，Angular引入了<em>ngZone</em>服务。ngZone基于Zone实现，在Angular中注册的事件都会运行在ngZone上，而ngZone提供了一些钩子函数。当异步操作<em>发生、完成或抛出异常</em>时，会有对应的钩子进行捕获，我们通过这些钩子函数就可以进行相应的处理。</p>
+            <p>为了捕获异步事件，Angular引入了
+                <em>ngZone</em>服务。ngZone基于Zone实现，在Angular中注册的事件都会运行在ngZone上，而ngZone提供了一些钩子函数。当异步操作
+                <em>发生、完成或抛出异常</em>时，会有对应的钩子进行捕获，我们通过这些钩子函数就可以进行相应的处理。</p>
             <p>ngZone提供了一些可被订阅的自定义事件：（观察者模式）</p>
             <table>
                 <tr>
@@ -309,7 +300,8 @@ handleClick(){
             <pre class="code">&lt;div class="red font14" [class]="green">绿色字体&lt;/div>
 &lt;div [class.color-blue]="isBlue()">&lt;/div>
             </pre>
-            <p>注意，CSS类绑定，这里的<span class="code">green</span>是一个对象，它会重写这个div中全部class。</p>
+            <p>注意，CSS类绑定，这里的
+                <span class="code">green</span>是一个对象，它会重写这个div中全部class。</p>
             <h4>Style内联样式绑定</h4>
             <pre class="code">&lt;button <span class="note">[style.background-color]="canClick ? 'blue' : 'gray'"</span>>&lt;/button>
 &lt;button <span class="note">[style.font-size.px]="isLarge?18:13"</span>>&lt;/button></pre>
@@ -317,12 +309,19 @@ handleClick(){
             <pre class="code">&lt;div>{{username}}&lt;/div>
 <span class="note">//属性的方式，效果是一样的</span>
 &lt;div <span class="note">[innerHTML]="username"</span>>&lt;/div></pre>
-            <h3><span class="code">$event</span>事件对象</h3>
-            <p>若目标事件是原生的DOM事件，那么<span class="code">$event</span>是一个包含<span class="code">target</span>和<span class="code">target.value</span>属性的DOM事件对象</p>
+            <h3>
+                <span class="code">$event</span>事件对象</h3>
+            <p>若目标事件是原生的DOM事件，那么
+                <span class="code">$event</span>是一个包含
+                <span class="code">target</span>和
+                <span class="code">target.value</span>属性的DOM事件对象</p>
             <pre class="code">&lt;input [value]="currentUser.firstName" (input)="currentUser.firstName=$event.target.value"></pre>
             <h3>双向数据绑定</h3>
-            <p>上述<span class="code">$event</span>的例子就是双向数据绑定。首先，我们用属性绑定将input的value绑定为currentUser对象的属性firstName，然后绑定<span class="code">input</span>事件，将输入的值更新到currentUser中</p>
-            <p>但是这样写，显得比较麻烦，Angular提供了<span class="code">ngModule</span>指令</p>
+            <p>上述
+                <span class="code">$event</span>的例子就是双向数据绑定。首先，我们用属性绑定将input的value绑定为currentUser对象的属性firstName，然后绑定
+                <span class="code">input</span>事件，将输入的值更新到currentUser中</p>
+            <p>但是这样写，显得比较麻烦，Angular提供了
+                <span class="code">ngModule</span>指令</p>
             <pre class="code">&lt;input [(ngModule)]="currentUser.phoneNumber"></pre>
         </div>
     </li>
@@ -330,9 +329,40 @@ handleClick(){
         <p>指令</p>
         <div class="desc">
             <h2>指令</h2>
+            <h3>什么是指令</h3>
+            <blockquote>指令作用在特定的DOM元素上，用来拓展该元素的功能，添加新的行为。</blockquote>
+            <h3>指令分类</h3>
+            <table>
+                <tr>
+                    <td>属性指令</td>
+                    <td>
+                        <p>用来改变元素的外观和行为</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>结构指令</td>
+                    <td>
+                        <p>改变DOM树的结构</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>组件</td>
+                    <td>
+                        <p>组件继承自指令，是指令的子类</p>
+                        <p>将自身模板视图插入到DOM中，是对HTML元素的扩展</p>
+                    </td>
+                </tr>
+            </table>
             <h3>内置的指令</h3>
-            <h4><span class="code">ngClass</span></h4>
-            <pre class="code">setClasses(){
+            <p>内置指令包括
+                <strong>(1)通用指令、(2)路由指令、(3)表单指令</strong>。</p>
+            <h4>通用指令</h4>
+            <p>通用指令有
+                <strong style="font-style:italic;">NgClass、NgStyle、NgIf、NgSwitch-NgSwitchCase-NgSwitchDefault、NgFor、NgTemplateOutlet、NgPlural-NgPluralCase</strong>，封装在CommonModule中，但由于BrowserModule模块包含了CommonModule，所以我们无需再次引入而直接使用。</p>
+            <dl class="accordion">
+                <dt>ngClass</dt>
+                <dd>
+                    <pre class="code">setClasses(){
     let classes = {
         red: this.red,
         font14:!this.font14,
@@ -341,11 +371,12 @@ handleClick(){
     return classes;
 }
 
-&lt;div <span class="note">[ngClass]="setClasses()"</span>>&lt;/div> <span class="note">//这里要注意，ngClass绑定的是一个对象</span>
-</pre>
-            <h4>ngStyle</h4>
-            <p>ngStyle与ngClass类似，不同的是，ngClass控制着不同的class的集合</p>
-            <pre class="code">setStyles(){
+&lt;div <span class="note">[ngClass]="setClasses()"</span>>&lt;/div> <span class="note">//这里要注意，ngClass绑定的是一个对象</span></pre>
+                </dd>
+                <dt>ngStyle</dt>
+                <dd>
+                    <p>ngStyle与ngClass类似，不同的是，ngClass控制着不同的class的集合</p>
+                    <pre class="code">setStyles(){
     let styles = {
         'color':this.red ? 'red' : 'blue',
         'font-size': isLarge? '18px' : '14px'
@@ -353,22 +384,28 @@ handleClick(){
     return styles;
 }
 &lt;div [ngStyle] = "setStyles()"&lt;/div></pre>
-            <h4>循环指令(<span class="code">*ngFor</span>)</h4>
-            <pre class="code">`&lt;ul>
+                </dd>
+                <dt>ngFor</dt>
+                <dd>
+                    <pre class="code">`&lt;ul>
     &lt;li <span class="note">*ngFor="let ele of list;let i = index"</span>>[{{i+1}}]{{ele}}&lt;/li>
 &lt;/ul>`</pre>
-            <h4>【性能优化】<span class="code">ngFor</span>的性能优化</h4>
-            <p>当<span class="code">ngFor</span>需要迭代大量的数据时，若后端接口更新了其中一小部分，浏览器却要将所有的数据都删除，然后重新渲染，我们知道，操作DOM是很耗费性能的，因此，我们想方设法让浏览器只更新数据发生变化的DOM元素。</p>
-            <p>为解决该问题，angular给我们提供了一个接口，以让我们指定如何追踪添加或移除的数据。</p>
-            <pre class="code">&lt;div *ngFor="let contact of contacts;<span class="note">trackBy:trackByFn</span>"&lt;/div>
+                    <strong>性能优化</strong>
+                    <p>当
+                        <span class="code">ngFor</span>需要迭代大量的数据时，若后端接口更新了其中一小部分，浏览器却要将所有的数据都删除，然后重新渲染，我们知道，操作DOM是很耗费性能的，因此，我们想方设法让浏览器只更新数据发生变化的DOM元素。</p>
+                    <p>为解决该问题，angular给我们提供了一个接口，以让我们指定如何追踪添加或移除的数据。</p>
+                    <pre class="code">&lt;div *ngFor="let contact of contacts;<span class="note">trackBy:trackByFn</span>"&lt;/div>
 
 trackByFn(index:number,contact:Contact){
     return contact.id;//index
 }</pre>
-            <p>有了<span class="code">trackBy</span>，angular便知道以<span class="code">contact.id</span>为标准来决定是否要删除DOM，对于同一个id，angular会检查其属性是否发生变化，变化则更新，反之，不做处理。</p>
-            <h4>选择指令(
-                <span class="code">*ngIf</span>)</h4>
-            <pre class="code">&lt;ng-container *ngFor="let ele of books;let i=index">
+                    <p>有了
+                        <span class="code">trackBy</span>，angular便知道以
+                        <span class="code">contact.id</span>为标准来决定是否要删除DOM，对于同一个id，angular会检查其属性是否发生变化，变化则更新，反之，不做处理。</p>
+                </dd>
+                <dt>ngIf</dt>
+                <dd>
+                    <pre class="code">&lt;ng-container *ngFor="let ele of books;let i=index">
     &lt;tr <span class="note">*ngIf="ele.price>50"</span>>
         &lt;td>{{i+1}}&lt;/td>
         &lt;td>{{ele.name}}&lt;/td>
@@ -376,13 +413,21 @@ trackByFn(index:number,contact:Contact){
         &lt;td>{{ele.price}}&lt;/td>
     &lt;/tr>
 &lt;/ng-container></pre>
-            <p>注意：一个标签内只能放一个指令，如果需要放置多个指令，把多余的放到ng-container标签中</p>
-            <h4>多重分支</h4>
-            <pre class="code">&lt;ul <span class="note">[ngSwitch]="str"</span>>
+                    <p>注意：一个标签内只能放一个指令，如果需要放置多个指令，把多余的放到ng-container标签中</p>
+                </dd>
+
+                <dt>多重分支</dt>
+                <dd>
+                    <pre class="code">&lt;ul <span class="note">[ngSwitch]="str"</span>>
     &lt;li <span class="note">*ngSwitchCase="'a'"</span>>A&lt;/li>
     &lt;li <span class="note">*ngSwitchCase="'b'"</span>>B&lt;/li>
     &lt;li <span class="note">*ngSwitchCase="'c'"</span>>C&lt;/li>
 &lt;/ul></pre>
+                </dd>
+            </dl>
+
+
+
             <h4>属性绑定(
                 <span class="code">[myProp]</span>)</h4>
             <pre class="code">&lt;a <span class="note">[href]="myLink"</span>>点我&lt;/a></pre>
@@ -406,7 +451,8 @@ export class Demo05Component {
 &lt;input <span class="note">[(ngModel)]="city" (ngModelChange)="handleChange"</span>>
 &lt;p>{{city}}&lt;/p></pre>
             <h3>表单</h3>
-            <p>Angular对表单进行了封装和拓展，提供了<strong>(1)双向数据绑定、(2)校验规则、(3)自定义错误提示</strong>等。</p>
+            <p>Angular对表单进行了封装和拓展，提供了
+                <strong>(1)双向数据绑定、(2)校验规则、(3)自定义错误提示</strong>等。</p>
             <p>构建表单的方式：(1)模板驱动、(2)模型驱动</p>
             <h4>模板驱动</h4>
             <p>使用模板表单内置指令和内置校验方式构建表单。</p>
@@ -416,7 +462,9 @@ export class Demo05Component {
                     <td>NgForm</td>
                     <td>
                         <p>表单控制中心，所有表单指令需要在NgForm内部运行；</p>
-                        <p>需要在根模块中引入<span class="code">FormModule</span></p>
+                        <p>需要在根模块中引入
+                            <span class="code">FormModule</span>
+                        </p>
                         <p>解析器遇到form标签会自动创建NgForm指令</p>
                     </td>
                 </tr>
@@ -443,7 +491,8 @@ export class Demo05Component {
                 </tr>
                 <tr>
                     <td>单选下拉框</td>
-                    <td><pre class="code"><span class="note">//组件类</span>
+                    <td>
+                        <pre class="code"><span class="note">//组件类</span>
 let interests:Array&lt;Object> = [
     {value:'reading',display:'阅读'},
     {value:'traveling',display:'旅游'},
@@ -453,17 +502,24 @@ let interests:Array&lt;Object> = [
 &lt;select name="interestValue" [(ngModel)]="curContact.interestValue"> <span class="note">//绑定选中的值</span>
     &lt;option *ngFor="let interest of interests" [value]="interest.value">{{interest.display}}&lt;/option> <span class="note">//选中后返回的是基本数据类型的值，可改成[ngValue]="interest"</span>
 &lt;/select>
-                    </pre></td>
+                    </pre>
+                    </td>
                 </tr>
                 <tr>
                     <td>多选下拉框</td>
-                    <td><p>多选下拉框添加上<span class="code">multiple</span>，然后将数据双向绑定到一个数组即可</p></td>
+                    <td>
+                        <p>多选下拉框添加上
+                            <span class="code">multiple</span>，然后将数据双向绑定到一个数组即可</p>
+                    </td>
                 </tr>
             </table>
             <h4>模板局部变量</h4>
-            <p>局部变量使用范围：<strong>(1)当前元素、(2)兄弟元素、(3)子元素</strong></p>
+            <p>局部变量使用范围：
+                <strong>(1)当前元素、(2)兄弟元素、(3)子元素</strong>
+            </p>
             <pre class="code">&lt;input type="text" name="contactName" <span class="note">#contactName</span>>
 &lt;p>{{contactName.value}}&lt;/p></pre>
+
             <h3>自定义指令</h3>
             <p>自定义指定，首先导入angular核心包中的
                 <span class="code">Directive</span>类，然后用装饰器将该类装饰成指令，并导出指令类。</p>
@@ -476,6 +532,33 @@ export class TestDirective{
         console.log("test指令被调用");
         console.log(this.eleRef.nativeElement);
         <span class="note">this.eleRef.nativeElement.style.background= "green";</span>
+    }
+}</pre>
+        </div>
+    </li>
+    <li>
+        <p>表单</p>
+        <div class="desc">
+            <h2>表单</h2>
+            <h3>构建表单的方式</h3>
+            <h3>验证表单</h3>
+            <h4>模板驱动验证</h4>
+            <h4>模型驱动验证</h4>
+            <h5>FormGroup类</h5>
+            <p>FormGroup将FormControl的值聚合在一个对象里，以name属性为键，其属性valid由所有child的reduce结果决定。Angular中构建表单3个最重要的对象是：FormGroup、FormControl和FormArray。</p>
+            <pre class="code">const form = new FormGroup({
+    uname: new FormControl('',[Validators.minLength(4)),validateUserName],
+    upwd: new FormControl('',Validators.minLength(6)),
+    upwdConfirm:new FormControl('',Validators.minLength(6))
+},upwdEqual);
+function upwdEqual(g:FormGroup){
+    return g.get("upwd").value===g.get.('upwdConfirm').value?null:{'密码不一致':true}
+}
+</pre>
+            <h5>自定义验证器</h5>
+            <pre class="code">export function forbiddenName(reg:RegExp):ValidatorFn{
+    return (c:AbstractControl):{[key:string]:any}=>{
+        return reg.test(c.value)?{'敏感词':{value:c.value}}:null
     }
 }</pre>
         </div>
