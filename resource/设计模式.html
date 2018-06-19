@@ -176,4 +176,57 @@ setTimeout(function(){
             </pre>
         </div>
     </li>
+    <li>
+        <p>工厂模式</p>
+        <div class="desc">
+            <h2>工厂模式</h2>
+            <pre class="code"><span class="note">//parent constructor</span>
+function CarMaker(){}
+<span class="note">//添加一个方法</span>
+CarMaker.prototype.drive = function(){
+    return "轰~轰~，我有"+this.doors+"车门";
+}
+<span class="note">//静态工厂方法</span>
+CarMaker.factory = function(type){
+    var carType = type,
+        newcar;
+    <span class="note">//检查参数</span>
+    if(typeof CarMaker[carType] !== "function"){
+        throw {
+            name:'Error',
+            message:carType + '不存在'
+        };
+    }
+    if(typeof CarMaker[carType].prototype.drive !== 'function'){
+        <span class="note">//原型继承</span>
+        CarMaker[carType].prototype = new CarMaker();
+    }
+    newcar = new CarMaker[carType]();
+    return newcar;
+}
+CarMaker.Compact = function(){
+    this.doors = 4;
+}
+CarMaker.Convertible = function(){
+    this.doors = 2;
+}
+CarMaker.SUV = function(){
+    this.doors = 24;
+}
+</pre>
+        <pre class="code">
+class CarMaker{
+
+    constructor(){}
+
+    drive(){
+        return "轰~轰~，我有"+this.doors+"车门";
+    }
+    static factory(type){
+        
+    }
+}
+        </pre>
+        </div>
+    </li>
 </ul>

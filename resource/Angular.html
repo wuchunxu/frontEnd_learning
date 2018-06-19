@@ -85,7 +85,7 @@ src  工程目录
         </div>
     </li>
     <li>
-        <p>模块(Module)</p>
+        <p>模块</p>
         <div class="desc">
             <h2>模块</h2>
             <h3>模块是什么</h3>
@@ -106,7 +106,7 @@ src  工程目录
         </div>
     </li>
     <li>
-        <p>组件(Component)</p>
+        <p>组件</p>
         <div class="desc">
             <h2>组件(Component)</h2>
             <p>题外话，W3C为了统一组件化的标准方式，提出了Web Component标准。当前支持最好的是Chrome和Opera浏览器。Web Component以后可能会流行，这里，我们暂时先不考虑它。</p>
@@ -323,6 +323,12 @@ handleClick(){
             <p>但是这样写，显得比较麻烦，Angular提供了
                 <span class="code">ngModule</span>指令</p>
             <pre class="code">&lt;input [(ngModule)]="currentUser.phoneNumber"></pre>
+            <h3>模板局部变量</h3>
+            <p>局部变量使用范围：
+                <strong>(1)当前元素、(2)兄弟元素、(3)子元素</strong>
+            </p>
+            <pre class="code">&lt;input type="text" name="contactName" <span class="note">#contactName</span>>
+&lt;p>{{contactName.value}}&lt;/p></pre>
         </div>
     </li>
     <li>
@@ -387,9 +393,9 @@ handleClick(){
                 </dd>
                 <dt>ngFor</dt>
                 <dd>
-                    <pre class="code">`&lt;ul>
+                    <pre class="code">&lt;ul>
     &lt;li <span class="note">*ngFor="let ele of list;let i = index"</span>>[{{i+1}}]{{ele}}&lt;/li>
-&lt;/ul>`</pre>
+&lt;/ul></pre>
                     <strong>性能优化</strong>
                     <p>当
                         <span class="code">ngFor</span>需要迭代大量的数据时，若后端接口更新了其中一小部分，浏览器却要将所有的数据都删除，然后重新渲染，我们知道，操作DOM是很耗费性能的，因此，我们想方设法让浏览器只更新数据发生变化的DOM元素。</p>
@@ -425,102 +431,45 @@ trackByFn(index:number,contact:Contact){
 &lt;/ul></pre>
                 </dd>
             </dl>
-
-
-
-            <h4>属性绑定(
-                <span class="code">[myProp]</span>)</h4>
-            <pre class="code">&lt;a <span class="note">[href]="myLink"</span>>点我&lt;/a></pre>
-            <h4>事件绑定(
-                <span class="code">(click)</span>)</h4>
-            <pre class="code">&lt;button <span class="note">(click)="handleClick()"</span>>点我&lt;/button></pre>
-            <h4>双向数据绑定</h4>
-            <p>双向数据绑定需要导入表单模块
-                <span class="code">FormsModule</span>
-            </p>
-            <pre class="code">import {FormsModule} from '@angular/forms';
-@ngModule({
-    imports:[FormsModule]
-})
-export class Demo05Component {
-    constructor(){}
-    city:string = "";
-    handleChange(){ console.log(this.city);}
-}
-//demo05.component.html
-&lt;input <span class="note">[(ngModel)]="city" (ngModelChange)="handleChange"</span>>
-&lt;p>{{city}}&lt;/p></pre>
-            <h3>表单</h3>
+            <h4>表单指令</h4>
             <p>Angular对表单进行了封装和拓展，提供了
                 <strong>(1)双向数据绑定、(2)校验规则、(3)自定义错误提示</strong>等。</p>
-            <p>构建表单的方式：(1)模板驱动、(2)模型驱动</p>
-            <h4>模板驱动</h4>
-            <p>使用模板表单内置指令和内置校验方式构建表单。</p>
-            <h4>表单指令</h4>
             <table>
                 <tr>
-                    <td>NgForm</td>
-                    <td>
-                        <p>表单控制中心，所有表单指令需要在NgForm内部运行；</p>
-                        <p>需要在根模块中引入
-                            <span class="code">FormModule</span>
-                        </p>
-                        <p>解析器遇到form标签会自动创建NgForm指令</p>
-                    </td>
+                    <td rowspan="3">FormModule中</td>
+                    <td>ngForm指令</td>
                 </tr>
                 <tr>
-                    <td>NgModel</td>
-                    <td>
-                        <p>数据绑定</p>
-                        <p>控件状态跟踪</p>
-                        <p>校验</p>
-                        <p>注意：使用NgModel属性绑定，必须添加name属性，否则会出错</p>
-                    </td>
+                    <td>ngModel指令</td>
                 </tr>
                 <tr>
-                    <td>单选框radio</td>
-                    <td>
-                        <pre class="code">&lt;input type="radio" name="gender" [(ngModel)]="curContact.gender" value="female">
-&lt;input type="radio" name="gender" [(ngModel)]="curContact.gender" value="male">
-                        </pre>
-                    </td>
+                    <td>ngModelGroup</td>
                 </tr>
                 <tr>
-                    <td>复选框</td>
-                    <td>与单选框类似写法</td>
+                    <td rowspan="5">ReactiveFormModule中</td>
+                    <td>FormControl指令</td>
                 </tr>
                 <tr>
-                    <td>单选下拉框</td>
-                    <td>
-                        <pre class="code"><span class="note">//组件类</span>
-let interests:Array&lt;Object> = [
-    {value:'reading',display:'阅读'},
-    {value:'traveling',display:'旅游'},
-    {value:'sport',display:'运动'}
-];
-<span class="note">//template</span>
-&lt;select name="interestValue" [(ngModel)]="curContact.interestValue"> <span class="note">//绑定选中的值</span>
-    &lt;option *ngFor="let interest of interests" [value]="interest.value">{{interest.display}}&lt;/option> <span class="note">//选中后返回的是基本数据类型的值，可改成[ngValue]="interest"</span>
-&lt;/select>
-                    </pre>
-                    </td>
+                    <td>FormGroup指令</td>
                 </tr>
                 <tr>
-                    <td>多选下拉框</td>
-                    <td>
-                        <p>多选下拉框添加上
-                            <span class="code">multiple</span>，然后将数据双向绑定到一个数组即可</p>
-                    </td>
+                    <td>FormControlName</td>
+                </tr>
+                <tr>
+                    <td>FormGroupName</td>
+                </tr>
+                <tr>
+                    <td>FormArrayName</td>
+                </tr>
+                <tr>
+                    <td>InternalFormsSharedModule中</td>
+                    <td><p>该模块已经包含在上述两个模块中，其中的指令无需主动使用</p></td>
                 </tr>
             </table>
-            <h4>模板局部变量</h4>
-            <p>局部变量使用范围：
-                <strong>(1)当前元素、(2)兄弟元素、(3)子元素</strong>
-            </p>
-            <pre class="code">&lt;input type="text" name="contactName" <span class="note">#contactName</span>>
-&lt;p>{{contactName.value}}&lt;/p></pre>
-
-            <h3>自定义指令</h3>
+            <p>表单指令具体使用记录在下一个模块--表单中。</p>
+            <h4>路由指令</h4>
+            <p>路由指令包括：RouterLink、RouterOutlet、RouterLinkActive。具体内容在路由中。</p>
+            <h3>自定义指令(待完善)</h3>
             <p>自定义指定，首先导入angular核心包中的
                 <span class="code">Directive</span>类，然后用装饰器将该类装饰成指令，并导出指令类。</p>
             <pre class="code">import { <span class="note">Directive,ElementRef</span> } from '@angular/core'
@@ -540,31 +489,80 @@ export class TestDirective{
         <p>表单</p>
         <div class="desc">
             <h2>表单</h2>
-            <h3>构建表单的方式</h3>
-            <h3>验证表单</h3>
-            <h4>模板驱动验证</h4>
-            <h4>模型驱动验证</h4>
-            <h5>FormGroup类</h5>
-            <p>FormGroup将FormControl的值聚合在一个对象里，以name属性为键，其属性valid由所有child的reduce结果决定。Angular中构建表单3个最重要的对象是：FormGroup、FormControl和FormArray。</p>
-            <pre class="code">const form = new FormGroup({
+            <p>在学习Angular表单之前，有必要回忆一下我们以前是如何使用表单的：
+            首先，我们在HTML中写好必要的标签，然后在JS中查找并获取我们想要的DOM元素，从中提取用户输入的值，验证之后提交到服务器或者提示用户输入有误。虽然HTML5中可以通过属性的方式进行一些值的验证，比如邮箱、minlength等，但是，功能比较简陋，不能达到我们的需求，我们需要自定义一些验证。</p>
+            <p>在不使用框架的情况下，通过DOM来完成表单数据的处理和提交的过程是比较繁琐的。我们不希望每次都这么干，显然很浪费时间。</p>
+            <h3>模板驱动构建表单</h3>
+            <p>Angular对表单的增强体现在<strong>双向数据绑定、校验规则、自定义提示上。</strong>接下来，将围绕这3点展开。<strong>表单中的数据通过指令与组件中数据实现交互。</strong></p>
+            <dl class="accordion">
+                <dt>NgForm</dt>
+                <dd>
+                    <p>(1)【What】ngForm指令是表单的控制中心，使用该指令需要在根模块中引入<span class="code">FormModule</span>模块。</p>
+                    <p>(2)【How】angular会在<span class="code">&lt;form>&lt;/form></span>上自动添加一个ngForm指令，我们可以通过模板局部变量拿到ngForm指令的引用</p>
+                    <pre class="code">&lt;form #myForm="ngForm">&lt;/form></pre>
+                    <p>(3)【功能】控制带有ngModel和name属性的元素</p>
+                    <p>(4)有自己的valid属性，所有FormControl都为真时才为真</p>
+                </dd>
+                <dt>NgModel</dt>
+                <dd>
+                    <p>NgModel指令实现了表单控件的<em>数据绑定</em>，并提供<em>状态跟踪</em>和<em>校验功能</em>。</p>
+                    <strong>(1)数据绑定</strong>
+                    <pre class="code">&lt;input type="text" name="uname" [ngModel]="user.uname">
+<span class="note">//双向数据绑定</span>
+&lt;input type="text" name="uname" [(ngModel)]="user.uname"></pre>
+                    <p>注意，必须要有name属性，否则会出错。因为，NgForm会创建一个容器存放FormControl，而FormControl的键就是name属性的值，如果没有会出错。</p>
+                    <strong>(2)状态跟踪</strong>
+                    <p>ngModel和ngForm有5个状态属性，分别为valid(值有效)、pristine(值未改变)、dirty(值改变)、touched(被碰过了)、untouched(没有碰过)</p>
+                    <pre class="code"><span class="note">//通过模板局部变量，我们可以查看到控件的class属性值</span>
+&lt;input #spy>{{spy.className}}</pre>
+                    <p>结合ngModel的状态属性，显示/隐藏提示信息</p>
+                    <pre class="code">&lt;input ... #name="ngModel" name="uname">
+&lt;div *ngIf="name.dirty && !name.valid">用户名不能为空&lt;/div></pre>
+                    <strong>(3)校验功能</strong>
+                    <pre class="code">&lt;input name="uname" required minlength="4" appForbiddenName="bob" [(ngModel)]="user.uname" #name="ngModel">
+<span class="note">//提示信息</span>
+&lt;div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+    &lt;div *ngIf="name.errors.required">用户名不能为空！&lt;/div>
+    &lt;div *ngIf="name.errors.minlength">用户名不能少于4个字符！&lt;/div>
+    &lt;div *ngIf="name.errors.forbiddenName">用户名存在非法字符&lt;/div>
+&lt;/div></pre>                   
+                </dd>
+                <dt>自定义验证器</dt>
+                <dd>
+                    <pre class="code"><span class="note">//forbiddenName.directive.ts</span>
+export function forbiddenName(reg:RegExp):ValidatorFn{
+    return (c:AbstractControl):{[key:string]:any}=>{
+        return reg.test(c.value)?{'敏感词':{value:c.value}}:null
+    }
+}</pre>
+                </dd>
+                <dt>ngSubmit事件</dt>
+                <dd>
+                    <p>ngSubmit事件响应表单的submit按钮。</p>
+                    <pre class="code">&lt;form #myForm="ngForm" (ngSubmit)="doSubmit()">
+    &lt;button type="submit" [disabled]="!myForm.valid">&lt;/button>
+&lt;/form></pre>
+                </dd>
+            </dl>
+            <h3>模型驱动构建表单(待完善)</h3>
+            <dl class="accordion">
+                <dt>FormGroup类</dt>
+                <dd>
+                    <p>FormGroup将FormControl的值聚合在一个对象里，以name属性为键，其属性valid由所有child的reduce结果决定。Angular中构建表单3个最重要的对象是：FormGroup、FormControl和FormArray。</p>
+                    <pre class="code">const form = new FormGroup({
     uname: new FormControl('',[Validators.minLength(4)),validateUserName],
     upwd: new FormControl('',Validators.minLength(6)),
     upwdConfirm:new FormControl('',Validators.minLength(6))
 },upwdEqual);
 function upwdEqual(g:FormGroup){
     return g.get("upwd").value===g.get.('upwdConfirm').value?null:{'密码不一致':true}
-}
-</pre>
-            <h5>自定义验证器</h5>
-            <pre class="code">export function forbiddenName(reg:RegExp):ValidatorFn{
-    return (c:AbstractControl):{[key:string]:any}=>{
-        return reg.test(c.value)?{'敏感词':{value:c.value}}:null
-    }
 }</pre>
+                </dd>
+            </dl>
         </div>
     </li>
     <li>
-        <p>管子pipe(过滤器)</p>
+        <p>管道</p>
         <div class="desc">
             <h2>pipe</h2>
             <h3>angular提供的管子</h3>
@@ -703,30 +701,7 @@ header("Access-Control-Allow-Credentials:true");</pre>
         </div>
     </li>
     <li>
-        <p>组件之间的通信</p>
-        <div class="desc">
-            <h2>组件之间的通信</h2>
-            <h3>父传子</h3>
-            <p>父组件在子组件标签中绑定属性</p>
-            <pre class="code">
-import {Input} from '@angular/core';
-@Input() msg:string="";//表示msg是接收过来的</pre>
-            <h3>子→父</h3>
-            <pre class="code"><span class="note">//父组件</span>
-import {Input} from '@angular/core';
-...
-&lt;son (childToParent)="handleMsg($event)">&lt;/son>
-<span class="note">//子组件</span>
-import {Output,EventEmitter} from '@angular/core';
-...
-@Output() childToParent = new EventEmitter();<span class="note">//声明一个output，为EventEmitter对象</span>
-private sendMsg():void{
-    this.childToParent.emit();
-}</pre>
-        </div>
-    </li>
-    <li>
-        <p>路由(Router)</p>
+        <p>路由</p>
         <div class="desc">
             <h2>路由</h2>
             <h3>创建和配置路由模块</h3>
