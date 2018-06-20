@@ -454,4 +454,59 @@ export default Toggle;</pre>
             </dl>
         </div>
     </li>
+    <li>
+        <p>列表和键</p>
+        <div class="desc">
+            <h2>列表和键</h2>
+            <h3>列表</h3>
+            <p>在angular和vue中，列表是通过ngFor或v-for指令在模板中生成的。而在React中，给我个人的感觉是，将列表从纯数据加工成列表后再插入，函数的味道更重一些。</p>
+            <pre class="code"><span class="note">//封装NumberList组件</span>
+function NumberList(props){
+    const numbers = props.numbers;
+    let lis = <span class="note">numbers.map((ele,index)=>&lt;li key={index.toString()}>{ele}&lt;/li>)</span>;
+    return &lt;ul>{lis}&lt;/ul>;
+}
+const numbers = [2,4,6,8,10];
+ReactDOM.render(
+    &lt;NumberList <span class="note">numbers={numbers}</span>/>,
+    document.getElementById('root')
+);</pre>
+            <p>在这里，我们体会一下组件的好处。组件就是一个函数，它像一个工厂，数据作为原料投入进去，经过处理后，返回要显示的视图对象，最后渲染到DOM中去。这样，就解决了硬编码的问题，实现了数据和样式的分离，让组件可以重用。感觉好美妙！</p>
+            <p><i>学习3大框架让我有一种这样的感觉，我在品尝几道菜，它们各自有各自美妙的地方，值得回味。重用！解耦！</i></p>
+            <h3>键</h3>
+            <blockquote>
+                键(Keys)是用来帮助React标识哪一项被修改、添加或移除的。
+            </blockquote>
+            <h4>如何选择key</h4>
+            <p>多数情况，可以使用数据的id作为key；但如果没有稳定的id，可退一步使用数组的索引。注意：如果列表可能会重排序，则不建议用索引作为key，这样会导致性能问题。</p>
+        </div>
+    </li>
+    <li>
+        <p>表单</p>
+        <div class="desc">
+            <h2>表单</h2>
+            <pre class="code">import React,{Component} from 'react';
+class MyForm extends Component{
+    constructor(props){
+        super(props);
+        <span class="note">this.state = {value:""};</span>
+        this.handleChange = this.handleChange.bind(this);
+    }
+    <span class="note">handleChange(e){
+        this.setState({
+            value:e.target.value
+        });
+    }</span>
+    render(){
+        return (&lt;form>
+            &lt;label htmlFor="uname">用户名&lt;/label>
+            &lt;input <span class="note">value={this.state.value} onChange={this.handleChange}</span>/>
+            {this.state.value}
+        &lt;/form>);
+    }
+}
+
+export default MyForm;</pre>
+        </div>
+    </li>
 </ul>
