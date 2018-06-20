@@ -10,8 +10,9 @@
             <h4>ReactJS</h4>
             <p>ReactJS是一个js库，专注用来实现UI，由Facebook公司开发。</p>
             <h3>Why React?</h3>
-            <h4>大量的DOM操作，带来浏览器的性能瓶颈</h4>
-            <p>VDOM(Virtual DOM)虚拟DOM</p>
+            <h4>虚拟DOM</h4>
+            <p>大量的DOM操作，带来浏览器的性能瓶颈</p>
+            <h4>单向数据流</h4>
             <h4>维护大量的代码，成本越来越高</h4>
             <p>解决方案：单向数据流</p>
             <h3>何时使用React?</h3>
@@ -26,15 +27,15 @@
                 </tr>
                 <tr>
                     <td>React</td>
-                    <td>ReactJS核心库用来实现UI层，主要考虑频繁的操作DOM</td>
+                    <td>ReactJS核心库用来实现UI层，主要考虑频繁的操作DOM，关注浏览器性能问题</td>
                 </tr>
             </table>
             <p>awesome react</p>
-            <h3>如何使用React</h3>
+            <h3>使用React</h3>
             <h4>直接引入对应js文件</h4>
             <h4>采用命令行的方式</h4>
             <pre class="code"><span class="note">//安装工具</span>
-npm install create-react-app
+npm install -g create-react-app
 <span class="note">//创建app</span>
 create-react-app myapp
 <span class="note">//安装依赖</span>
@@ -243,5 +244,214 @@ ReactDOM.render(
             </table>
         </div>
     </li>
+    <li>
+        <p>JSX</p>
+        <div class="desc">
+            <h2>JSX</h2>
+            <h3>JSX基础知识</h3>
+            <p>JSX是JavaScript的一种扩展语法</p>
+            <h4>可以嵌入表达式</h4>
+            <pre class="code">const user = {
+    firstname:"Wu",
+    lastname:"Chunxu"
+};
+<span class="note">//如果JSX表达式换行，建议加上括号</span>            
+const element = (<span class="note">&lt;h1>Hello,{user.firstname+user.lastname}&lt;/h1></span>);
 
+ReactDOM.render(
+    element, 
+    document.getElementById('root')
+);</pre>
+            <p>JSX编译后变成js对象。我们可以这么理解，JSX语法只是为了简化js生成DOM元素对象，那么，我们就可以把JSX当作js对象。它可以作为参数、返回值或者赋值给某个变量。</p>
+            <h4>属性中插入表达式</h4>
+            <p>属性的值如果是一个变量，那么就要用到表达式，JSX语法规定，js表达式写在<span class="code">{}</span>内，而普通的字符串则写在引号<span class="code">""</span>内</p>
+            <pre class="code">const element = &lt;img src=<span class="note">{user.avatarUrl}</span>>&lt;/img>;</pre>
+            <h4>jsx默认防止注入攻击(XSS)</h4>
+            <h4>JSX的写法偏向于JavaScript</h4>
+            <p>因此，html中的属性要采用js中的驼峰写法。</p>
+            <pre class="code">const element = (
+    &lt;h1 <span class="note">className="greeting"</span>>Hello World&lt;/h1>
+);</pre>
+            <h3>元素渲染</h3>
+            <p>像下面element元素，它编译后只是一个普通的对象，非常容易创建，ReactDOM负责更新DOM。</p>
+            <pre class="code"><span class="note">//html文件中应该有一个根DOM节点，它的内容由ReactDOM来管理。单纯用React构建的应用只有一个根，而将React嵌入到现有的app则可能有多个根DOM节点。</span>
+&lt;div id="root">&lt;/div>
+        
+const element = &lt;h1>Hello,world&lt;/h1>
+ReactDOM.render(
+    element,
+    document.getElementById('root')
+);</pre>
+            <h4>更新已经渲染的元素</h4>
+            <pre class="code">function tick(){
+    const element = (
+        &lt;div>
+            &lt;h1>Hello,world&lt;/h1>
+            &lt;h2>现在是{new Date().toLocaleTimeString()}&lt;/h2>
+        &lt;/div>
+    );
+    ReactDOM.render(
+        element, 
+        document.getElementById('root')
+    );
+}
+setInterval(tick,1000); <span class="note">//每隔1秒钟，重新渲染</span></pre>
+            <p>要特别注意的是，React元素是immutable，一旦创建无法修改(包括子元素和属性)，只能重新渲染。ReactDOM会检查当前元素与之前版本的差异，只对有必要更新的DOM进行更新。</p>
+            <p>Angular中也可以使用immutable特性</p>
+        </div>
+    </li>
+    <li>
+        <p>组件</p>
+        <div class="desc">
+            <h2>组件和属性</h2>
+            <h3>组件</h3>
+            <p>组件类似JavaScript中的函数，接收输入(props)，返回React元素，用以描述屏幕要显示的内容。</p>
+            <dl class="accordion">
+                <dt>定义组件</dt>
+                <dd>
+                    <p>组件是一个类，在ES6之前没有类的概念，也可以用构造函数的写法。</p>
+                    <strong>函数式组件写法</strong>
+                    <pre class="code">function Welcome(props){
+    return &lt;h1>Hello,{props.name}&lt;/h1>
+}</pre>
+                    <strong>ES6类的写法</strong>
+                    <pre class="code">import React,{Component} from 'react';
+import ReactDOM from 'react-dom';
+
+class Welcome extends Component{
+    render(){
+        return &lt;h1>Hello,{this.props.name}&lt;/h1>
+    }
+}</pre>
+                </dd>
+                <dt>使用组件</dt>
+                <dd>
+                    <p>在使用组件时，JSX的属性会被封装在一个对象中，如下例，会被封装到{name:"wuchunxu"},这个对象名为props</p>
+                    <pre class="code">ReactDOM.render(
+    &lt;div> <span class="note">//必须有根标签</span>
+        &lt;Welcome name="Tom"/>,
+        &lt;Welcome name="Jerry" /> <span class="note">//空标签必须闭合</span>
+    &lt;/div>,
+    document.getElementById("root")
+);</pre>
+                </dd>
+            </dl>
+            <h3>属性</h3>
+            <p>属性就是参数，用来传递值。注意：<strong>组件无法修改props对象，所有的组件必须是纯函数(不能修改输入)。</strong></p>
+        </div>
+    </li>
+    <li>
+        <p>状态</p>
+        <div class="desc">
+            <h2>状态</h2>
+            <h3>State</h3>
+            <dl class="accordion">
+                <dt>什么是状态</dt>
+                <dd>
+                    <p>与props不同，state用来表示自身的状态，它是私有的，其父组件或子组件都不知道它是否有state属性，更不知道state里面的值。父组件可以通过属性的形式将state里的值传递给子组件，但是子组件并不知道这个值从何而来。</p>
+                    <p>React中这种传递方式是单向数据流。state由某一特定组件所有，只能向下传递。</p>
+                    <pre class="code">import React,{Component} from 'react';
+
+class Clock extends Component{
+    <span class="note">//组件通过属性接收来自父组件的数据</span>
+    constructor(props){
+        super(props);
+        this.state = {date:new Date()};
+    }
+    <span class="note">//当组件挂载到DOM中，调用该钩子函数，让浏览器设置一个定时器</span>
+    componentDidMount(){
+        this.timer = setInterval(()=>{
+            this.setState({
+                date:new Date()
+            });
+        },1000);
+    }
+    <span class="note">//组件卸载之前，清除定时器，释放内存</span>
+    componentWillUnmount(){
+        clearInterval(this.timer);
+        this.timer = null;
+    }
+    render(){
+        return &lt;h1>Hello,现在是{this.state.date.toLocaleTimeString()}&lt;/h1>
+    }
+}
+export default Clock;</pre>
+                </dd>
+                <dt>State注意事项</dt>
+                <dd>
+                    <strong>(1)不可以直接修改state的值，用setState()方法完成。</strong>
+                    <pre class="code">this.state.comment="hello"; <span class="note">//错误</span>
+this.setState({comment:"Hello"});</pre>
+                    <strong>(2)状态异步更新</strong>
+                    <pre class="code"><span class="note">//如果increment是异步更新的，那么下面设置就可能出错</span>
+this.setState({
+    counter:this.state.counter + this.prop.increment
+});</pre>
+                    <p>解决办法是通过回调函数的形式：</p>
+                    <pre class="code">this.setState((prevState,props)=>{
+    return {
+        counter:prevState.counter + props.increment
+    }
+});</pre>
+                    <strong>(3)状态更新会被合并</strong>
+                </dd>
+            </dl>
+        </div>
+    </li>
+    <li>
+        <p>事件</p>
+        <div class="desc">
+            <h2>事件</h2>
+            <h3>React中的事件</h3>
+            <dl class="accordion">
+                <dt>事件写成驼峰形式</dt>
+                <dd>
+                    <pre class="code"><span class="note">//html</span>
+&lt;button <span class="note">onclick</span>="handleClick()">按钮&lt;/button>
+<span class="note">//React</span>
+&lt;button <span class="note">onClick</span>={handleClick}按钮&lt;/button></pre>
+                </dd>
+                <dt>不能通过return false来阻止默认行为</dt>
+                <dd>
+                    <p>必须用preventDefault()方法来阻止默认行为</p>
+                    <pre class="code">function Link(){
+    function handleClick(e){
+        e.preventDefault(); <span class="note">//这里e是合成事件，因此不必担心浏览器兼容性问题</span>
+    }
+    return &lt;a href="#" onClick={handleClick}>;
+}</pre>
+                </dd>
+                <dt>绑定事件注意事项</dt>
+                <dd>
+                    <p><strong>(1)ES6中，类方法里的this默认没有指向，需要手动绑定</strong></p>
+                    <p><strong>(2)注意：异步数据的更新需要用异步的方式更改state值</strong></p>
+                    <pre class="code">import React,{ Component} from 'react';
+class Toggle extends Component{
+    constructor(props){
+        super(props);
+        this.state = { isToggleOn:false };
+        this.handleClick = this.handleClick.bind(this); <span class="note">//必须绑定this，或者定义handleClick时用箭头函数</span>
+    }
+    handleClick(){
+        <span class="note">//点击事件是异步数据，得用异步的方式</span>
+        this.setState(<span class="note">(prevState)=>({
+            isToggleOn:!prevState.isToggleOn
+        })</span>);
+    }
+    render(){
+        return &lt;button onClick={this.handleClick}>{this.state.isToggleOn ? 'ON':'OFF'}&lt;/button>
+    }
+}
+export default Toggle;</pre>
+                </dd>
+                <dt>事件处理函数的传参</dt>
+                <dd>
+                    <pre class="code">&lt;button onClick={e=>this.deleteRow(id,e)}删除&lt;button>
+&lt;button onClick={this.deleteRow.bind(this,id)}删除&lt;/button></pre>
+                    <p>上面两行代码的效果是一样的。第一个用了ES6的箭头函数语法，使处理函数里的this保持和外界一致。注意：这里的e事件对象必须显式进行传递。</p>
+                    <p>第二个采用了ES5中bind()函数，bind()将this绑定为参数中的对象，并返回一个新的函数，那么这里返回绑定了正确this的函数绑定到onClick上。</p>
+                </dd>
+            </dl>
+        </div>
+    </li>
 </ul>
