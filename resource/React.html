@@ -509,4 +509,239 @@ class MyForm extends Component{
 export default MyForm;</pre>
         </div>
     </li>
+    <li>
+        <p>Refs和DOM</p>
+        <div class="desc">
+            <h2>Refs和DOM</h2>
+
+        </div>
+    </li>
+    <li>
+        <p>React与其他库一起使用</p>
+        <div class="desc">
+            <h2>React与其他库整合使用</h2>
+            <blockquote>
+                <p>在我还不知道React如何与jQuery一起使用时，这项技术对我来说简直就是魔法。然而，当认真对待，去深究所谓的“魔法”时，我发现“魔法”不过是大脑偷懒的产物罢了--因为我不想去探究原理，就用“魔法”一词搪塞自己。</p>
+                <p>当然，大自然创造人类这件艺术品时，基于一个很容易理解的原理--最低耗能。如果大脑觉得某个事物对自己无关紧要，那么大脑就要“偷懒”了。</p>
+            </blockquote>
+            <h3>React是如何工作的？</h3>
+            <p>如果把React抽象并简化来看，React实际就是用js创建DOM元素，然后按需要插入DOM树中。所有的数据更新服务，都交给js处理，处理后与之前的状态比较，对有数据变化的DOM进行刷新，同样，最低能耗原理。</p>
+            <p>既然React是将</p>
+
+            <h3>React中如何使用Echarts?</h3>
+            <pre class="code"><span class="note">//安装echarts到项目中</span>
+npm install echarts --save
+<span class="note">//引入需要用到的组件</span>
+import React,{Component} from 'react';
+import echarts from 'echarts/lib/echarts';
+import 'echarts/lib/chart/bar';//引入柱状图
+import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/title';
+
+class EchartsDemo extends Component{
+    <span class="note">//组件渲染之后使用echarts</span>
+    componentDidMount(){
+        let myChart = echarts.init(document.getElementById('main'));
+        myChart.setOption({
+            title:{text:'Echarts入门'},
+            tooltip:{},
+            xAxis:{
+                data:['衬衫','羊毛衫','雪纺衫','裤子','高跟鞋','袜子']
+            },
+            yAxis:{},
+            series:[{
+                name:'销量',
+                type:'bar',
+                data:[5,20,36,10,10,20]
+            }]
+        });
+    }
+
+    render(){
+        return (
+            &lt;div id="main" style={{width:400,height:400}}>&lt;/div>
+        );
+    }
+}
+export default EchartsDemo;</pre>
+        </div>
+    </li>
+    <li>
+        <p>React封装组件</p>
+        <div class="desc">
+            <h2>React封装组件</h2>
+            <h3>轮播图</h3>
+            <dl class="accordion">
+                <dt>carousel.js</dt>
+                <dd>
+                    <pre class="code">import React,{Component} from 'react';
+import './carousel.css';
+class Carousel extends Component {
+
+    constructor(props){
+        super(props);
+        <span class="note">//初始化激活的item为第一个</span>
+        this.state = {items:props.items,active:0};
+        this.next = this.next.bind(this);
+        this.prev = this.prev.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+        this.go = this.go.bind(this);
+        this.stop = this.stop.bind(this);
+    }
+
+    componentDidMount(){
+        <span class="note">//组件挂载到DOM中后，开启定时器</span>
+        this.go();
+    }
+
+    componentWillUnmount(){
+        this.stop();
+        this.timer = null;
+    }
+    go(){
+        this.timer = setInterval(this.next,2000);
+    }
+
+    stop(){
+        clearInterval(this.timer);
+    }
+    
+    changeItem(changeIndex){
+        <span class="note">//切换图片实际操作的是当前激活的item的索引，所以，我们只需要操作索引就够了</span>
+        let curIndex = this.state.active,
+            maxIndex = this.state.items.length - 1;
+        
+        <span class="note">//图片如何切换，只要得到一个active的结果即可，做成回调</span>
+        this.setState({
+            active:changeIndex(curIndex,maxIndex)
+        });
+        this.blockTimer = setTimeout(()=>{
+            this.block = false;
+            this.blockTimer = null;
+        },500);
+    }
+
+    prev(){
+        this.changeItem((curIndex,maxIndex)=>{
+            return (curIndex<=0) ? maxIndex : curIndex-1;
+        });
+    }
+
+    next(){
+        this.changeItem((curIndex,maxIndex)=>{
+            return (curIndex>=maxIndex) ? 0 : curIndex+1;
+        });
+    }
+    
+    handleClick(event){
+        
+        if(!this.block) {<span class="note">//只有锁打开时才执行</span>
+            
+            var title = event.target.getAttribute("data-title");
+            if(title=="prev"){
+                this.prev();
+            }else if(title=="next"){
+                this.next();
+            }
+            this.block = true;
+        }
+    }
+
+    render(){
+        let items = this.state.items;
+        let active = this.state.active;
+        if(Array.isArray(items)){
+            <span class="note">//map遍历，将数据制作成展示用的li</span>
+            let lis = items.map((ele,i)=>{
+                    return (
+                        &lt;li key={i} className={(i==active)?"active":""}>
+                            &lt;img src={require('./'+ele.url)}/>
+                        &lt;/li>
+                    );
+                });
+            <span class="note">//返回carousel的虚拟DOM对象</span>
+            return (
+                &lt;div className="carousel" onMouseEnter={()=>{this.stop()}} onMouseLeave={()=>{this.go()}}>
+                    &lt;ul className="items">{lis}&lt;/ul>
+                    &lt;ul className="indicators">&lt;/ul>
+                    &lt;span className="prev" onClick={this.handleClick} data-title="prev">&lt;&lt;/span>
+                    &lt;span className="next" onClick={this.handleClick} data-title="next">&gt;&lt;/span>
+                &lt;/div>
+            );
+        }
+        return null;
+    }
+}
+
+export default Carousel;</pre>
+                </dd>
+                <dt>carousel.css</dt>
+                <dd>
+                    <pre class="code">.carousel {
+    position: relative;
+    width: 800px;
+    height: 480px;
+    overflow: hidden;
+    border-radius: 10px;
+    border:5px solid rgba(0,0,0,.3);
+}
+.carousel .items{
+    width: 100%;
+    height: 100%;
+}
+.carousel .items li {
+    height:100%;
+    position:absolute;
+    top:0;
+    left:0;
+    opacity: 0;
+    z-index:1;
+    transition: opacity .5s ease;
+}
+.carousel .items li.active {
+    opacity: 1;
+    z-index:5;
+}
+.carousel .items li img {
+    height:100%;
+}
+
+.carousel .prev,.carousel .next {
+    width: 40px;
+    height: 60px;
+    background-color: rgba(0,0,0,.3);
+    position: absolute;
+    top:48%;
+    color:#fff;
+    line-height: 60px;
+    text-align: center;
+    font-weight:bolder;
+    font-family:"calibri";
+    z-index:10;
+    font-size: 20px;
+    transition:all .5s ease;
+
+}
+.carousel .prev:hover,.carousel .next:hover{
+    background-color:rgba(0,0,0,.5);
+    cursor:pointer;
+}
+.carousel .prev {
+    left:-40px;
+
+}
+.carousel:hover .prev{
+    left:0;
+}
+.carousel .next {
+    right:-40px;
+}
+.carousel:hover .next{
+    right:0;
+}
+                    </pre>
+                </dd>
+            </dl>
+        </div>
+    </li>
 </ul>
