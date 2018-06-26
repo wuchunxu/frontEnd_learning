@@ -472,7 +472,6 @@ ReactDOM.render(
     document.getElementById('root')
 );</pre>
             <p>在这里，我们体会一下组件的好处。组件就是一个函数，它像一个工厂，数据作为原料投入进去，经过处理后，返回要显示的视图对象，最后渲染到DOM中去。这样，就解决了硬编码的问题，实现了数据和样式的分离，让组件可以重用。感觉好美妙！</p>
-            <p><i>学习3大框架让我有一种这样的感觉，我在品尝几道菜，它们各自有各自美妙的地方，值得回味。重用！解耦！</i></p>
             <h3>键</h3>
             <blockquote>
                 键(Keys)是用来帮助React标识哪一项被修改、添加或移除的。
@@ -742,6 +741,136 @@ export default Carousel;</pre>
                     </pre>
                 </dd>
             </dl>
+        </div>
+    </li>
+    <li>
+        <p>路由</p>
+        <div class="desc">
+            <h2>路由</h2>
+            <dl class="accordion">
+                <dt>激活的Link</dt>
+                <dd>
+                    <p>Link与a不同之处在于，Link知道它自身是否处于激活状态，因此可以用css标识出来。下例<span class="code">activeStyle</span>用来指定链接处于激活状态的样式(行内样式)，<span class="code">activeClassName</span>则用来引用CSS文件中的样式。</p>
+                    <pre class="code">// modules/App.js
+&lt;li>&lt;Link to="/about" <span class="note">activeStyle={{ color: 'red' }}</span>>About&lt;/Link>&lt;/li>
+&lt;li>&lt;Link to="/repos" <span class="note">activeClassName="active"</span>>Repos&lt;/Link>&lt;/li></pre>
+                    <p>如果我们不想每次都指定Link的样式，可以将Link封装成组件，在组件内定义好激活的样式，而<span class="code">to=""</span>参数通过prop属性传入到组件内。</p>
+                    <pre class="code">import React,{Component} from 'react';
+import { Link } from 'react-router';
+
+class NavLink extends Component {
+    render(){
+        <span class="note">//this.props是父组件传来的参数，是一个数组，这里将它打散(spread)</span>
+        return &lt;Link <span class="note">{...this.props}</span>  className="link" activeClassName="active"/>
+    }
+}
+
+export default NavLink;
+
+<span class="note">//使用NavLink组件</span>
+&lt;li className="nav">&lt;<span class="note">NavLink to="/about">About&lt;/NavLink></span>&lt;/li>
+&lt;li className="nav">&lt;NavLink to="/repo">Repo&lt;/NavLink>&lt;/li></pre>
+                </dd>
+                <dt>Url参数</dt>
+                <dd>
+                    <p>设置<span class="code">Link</span>:</p>
+                    <pre class="code">import React,{Component} from 'react';
+import NavLink from './NavLink';
+class Repos extends Component {
+    render(){
+        return (
+            &lt;div>
+                &lt;h2>Repo&lt;/h2>
+                &lt;ul>
+                    &lt;li><span class="note">&lt;NavLink to="repos/reactjs/react-router">React Router&lt;/NavLink></span>&lt;/li> <span class="note">//(1)点击会改变url，然后该url去匹配设置好的路由</span>
+                    &lt;li>&lt;NavLink to="repos/facebook/react">React&lt;/NavLink>&lt;/li>
+                &lt;/ul>
+                <span class="note">{this.props.children}//(4)父组件通过this.props.children拿到子节点，渲染出来</span>
+            &lt;/div>
+        );
+    }
+}
+export default Repos;</pre>
+                    <p>在根组件中<strong>配置路由。这里使用了路由的嵌套，也就是子路由。</strong></p>
+                    <pre class="code">render(
+    (
+        &lt;Router history={hashHistory}>
+            &lt;Route path="/" component={App}>
+                &lt;Route path="about" component={About}/>
+                <span class="note">{/*(2)根据设置的路由去找组件Repo*/}</span>
+                <span class="note">&lt;Route path="repos" component={Repos}>
+                    &lt;Route path=":username/:repoName" component={Repo}/>
+                &lt;/Route></span>
+            &lt;/Route>
+        &lt;/Router>
+    ),document.getElementById('app')
+)</pre>
+                    <p>Repo.js</p>
+                    <pre class="code">import React,{Component} from 'react';
+class Repo extends Component {
+    render(){
+        return (
+            &lt;div>
+                <span class="note">//(3)匹配到Repo组件，但不能在父组件中直接渲染，我把它理解成一个参数，需要父组件处理
+                    &lt;h2>{this.props.params.username+" "+this.props.params.repoName}&lt;/h2></span>
+            &lt;/div>
+        )
+    }
+}
+export default Repo;</pre>
+                </dd>
+                <dt>小知识点：this.props.children</dt>
+                <dd>
+                    <p><span class="code">this.props.children</span>指向该组件的所有子节点。需要注意的是，它的值可能有3种，<strong>若当前组件没有子节点，则为undefined；若有1个子节点，则为object；而若有2个及以上的子节点，则为Array</strong>。最好的处理方式是使用<span class="code">React.Children</span>工具。</p>
+                    <pre class="code">
+return (&lt;ul>
+        {
+            <span class="note">React.Children.map(this.props.children,function(value,key){
+                return &lt;li>{key}:{value}&lt;/li>
+            });</span>
+        }
+    &lt;/ul>)</pre>
+                </dd>
+                <dt>Index Routes</dt>
+                <dd>
+                    <p>Index Routes用来匹配目录为<span class="code">/</span>的情况。</p>
+                    <pre class="code">import React,{Component} from 'react';
+class Home extends Component {
+    render(){
+        return (
+            &lt;h2>主页&lt;/h2>
+        );
+    }
+}
+export default Home;</pre>
+                    <p>配置路由：</p>
+                    <pre class="code">render((
+    &lt;Router history={hashHistory}>
+        &lt;Route path="/" component={App}>
+            <span class="note">&lt;IndexRoute component={Home}/></span>
+            &lt;Route path="about" component={About}/>
+        &lt;/Route>
+    &lt;/Router>
+),document.getElementById('app'))</pre>
+                </dd>
+                <dt>Index Link</dt>
+                <dd>
+                    <p>设置主页的路由时，如果使用普通的Link，指向Home组件的<span class="code">/</span>会处于一直激活状态，因为它是根目录。<strong>(1)使用<span class="code">IndexLink</span>可以解决该问题：</strong></p>
+                    <pre class="code">&lt;li className="nav"><span class="note">&lt;IndexLink to="/" activeClassName="active">Home&lt;/IndexLink></span>&lt;/li></pre>
+                    <p><strong>(2)或者在Link上添加属性onlyActiveOnIndex={true}</strong></p>
+                    <pre class="code">&lt;NavLink to="/" <span class="note">onlyActiveOnIndex={true}</span>>Home&lt;/NavLink></pre>
+                </dd>
+                <dt>干净的url</dt>
+                <dd>
+                    <p>先前我们的url使用了hack技术--hash。现在浏览器允许js在不发送http请求的情况下操作url。</p>
+                    <pre class="code">&lt;Router history={browserHistory}>&lt;/Router></pre>
+                    <p>这样做需要配置一下服务器，在package.json中修改：</p>
+                    <pre class="code">"scripts": {
+    "start": "webpack-dev-server --inline --content-base . <span class="note">--history-api-fallback</span>"
+}</pre>
+                </dd>
+            </dl>
+            
         </div>
     </li>
 </ul>
