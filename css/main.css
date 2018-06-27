@@ -113,6 +113,8 @@ nav .navi-menu li .detail {
   border-radius: 10px;
   padding: 5px 10px;
   background: #fff;
+  font-weight: bold;
+  color: #333;
 }
 .content h2 .line {
   width: 85%;
@@ -143,6 +145,7 @@ nav .navi-menu li .detail {
   height: 100px;
   box-sizing: border-box;
   padding-top: 25px;
+  font-weight: bold;
 }
 .content .item .click-layer {
   position: absolute;
@@ -282,7 +285,7 @@ nav .navi-menu li .detail {
   text-align: center;
   color: #fff;
   font-size: 28px;
-  font-weight: 100;
+  font-weight: bold;
   padding: 10px 0 15px;
 }
 #shower table {
@@ -339,6 +342,7 @@ nav .navi-menu li .detail {
   display: none;
 }
 #shower .menu > li.active > :first-child {
+  color: #5eb761;
   background: #f7f0de;
   box-shadow: 0 0 6px #666;
 }
@@ -351,8 +355,10 @@ nav .navi-menu li .detail {
   background: #eee;
   border-radius: 5px;
   margin-bottom: 1px;
+  font-weight: bold;
 }
 #shower .menu > li > :first-child:hover {
+  color: #5eb761;
   background: #f7f0de;
   box-shadow: 0 0 6px #666;
 }
@@ -421,7 +427,6 @@ nav .navi-menu li .detail {
   margin: 10px 0;
 }
 #shower .desc em {
-  font-family: consolas,"楷体";
   font-style: normal;
   color: red;
 }
@@ -455,7 +460,8 @@ nav .navi-menu li .detail {
   text-indent: 2em;
   font-size: 15px;
   margin-bottom: 10px;
-  font-family: consolas,"宋体";
+  color: #333;
+  font-family: "consolas","宋体";
 }
 #shower .desc table p {
   margin-bottom: 0px;
@@ -621,7 +627,7 @@ blockquote {
 
 dl.accordion dt {
   color: #fff;
-  font-family: 'Microsoft YaHei','黑体';
+  font-family: 'Roboto','Microsoft YaHei','黑体';
   font-weight: bold;
   border-radius: 5px;
   padding: 4px 8px;
