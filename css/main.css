@@ -491,7 +491,7 @@ nav .navi-menu li .detail {
     height: 100%;
     border-radius: 0;
     box-shadow: none;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.8);
     padding: 0;
   }
   #shower > .back {
@@ -575,6 +575,11 @@ nav .navi-menu li .detail {
   }
   #shower .menu .desc table th, #shower .menu .desc table td {
     text-align: center;
+  }
+  #shower .menu .desc dl.accordion > dt {
+    padding: 0 40px;
+    height: 40px;
+    line-height: 40px;
   }
 }
 /*行内式代码样式*/
