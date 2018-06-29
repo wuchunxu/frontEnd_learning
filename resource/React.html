@@ -873,4 +873,58 @@ export default Home;</pre>
             
         </div>
     </li>
+    <li>
+        <p>函数式编程</p>
+        <div class="desc">
+            <h2>函数式编程</h2>
+            <h3>不可变性</h3>
+            <h4>为什么要不可变</h4>
+            <p>在修改服务器配置文件时，我们通常会先备份，再修改，因为万一搞砸了，还能恢复回去。从该例子我们可以看出，原始数据的重要性。再一个情况，同一个数据共享时，如果该数据可以随意修改，那么该数据不可信任了，多人协作就会难以进行。从这里，我们可以看到数据不可变性的重要性。</p>
+            <h4>不可变的代码写法</h4>
+            <p>要操作某个数据时，先拷贝一份，在副本上进行操作。</p>
+            <pre class="code">let color_lawn = {
+    title:"lawn",
+    color:"#00ff00",
+    rating:0
+}
+<span class="note">//ES5写法</span>
+var rateColor = function(color,rating){
+    return Object.assign({},color,{rating:rating});
+}
+<span class="note">//ES6写法</span>
+const rateColor = <span class="note">(color,rating)=>({
+    ...color,
+    rating
+})</span>
+<span class="note">//数组</span>
+const addColor = (title,list)=>[...list,{title}]
+</pre>
+            <h3>纯函数</h3>
+            <p>纯函数(1)至少接收一个参数；(2)必须返回一个值；(3)不能修改外环境和参数</p>
+            <h3>数据的转换</h3>
+            <p>ES5为Array新增了API，其中就有不少是“干净的”操作(不影响原数组)。</p>
+            <h4>Array.prototype.reduce--数组的过滤</h4>
+            <p>按照以前的思路，我们可能会用for循环遍历，if判断，找到目标值并用splice()将其删除。这里，按“不可变的原则”，我们可以使用reduce：</p>
+            <pre class="code">const colors = ['blue','red','green','yellow'];
+const removeColor = (remove,arr)=>{
+    return arr.filter(color=>color !== remove) <span class="note">//只要不是去除对象就留下</span>
+}
+console.log(removeColor('yellow',colors).join(','));
+            </pre>
+            <h4>Array.prototype.map</h4>
+            <p><strong>需求：创建纯函数，修改对象数组中的某个对象。</strong></p>
+            <pre class="code">let colors=[
+    {name:"red"},
+    {name:'green'},
+    {name:'yellow'}
+];
+<span class="note">//创建纯函数</span>
+const editColors = (oldName,name,arr)=>
+    arr.map(ele=>ele.name===oldName?({...ele,name}):ele)
+
+console.log(editColors('yellow','blue',colors));</pre>
+
+        </div>
+        
+    </li>
 </ul>

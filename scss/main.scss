@@ -234,8 +234,11 @@ nav {
 }
 //**************phone*****************
 //**************pad*******************
+/*
 @media screen and (min-width:768px) and (max-width:991px){
+     
 	.content {
+        margin-bottom:0;
 		width: 100%;
 		padding:0 0 0 2%;
 		.item {
@@ -246,7 +249,7 @@ nav {
 		}
 	}
 }
-
+*/
 
 //**************pad*******************
 #layer {
@@ -400,9 +403,9 @@ nav {
 		min-height:480px;
 		left:22%;
 		top:64px;
-		//background-image: url('../images/paper.png');
+		background-image: url('../images/paper.png');
         //background-size: cover;
-        background-color:rgba(255,255,255, 0.5);
+        //background-color:rgba(255,255,255, 0.5);
 		border-radius:5px;
 		padding:20px;
 		box-sizing:border-box;
@@ -655,11 +658,14 @@ pre {
 		margin:10px 15px;
 		margin-bottom: 15px;
 		color:#333;
-		background: rgba(255,255,255,.4);
+        //background: rgba(255,255,255,.4);
+        background:#fff;
 		border-radius: 8px;
 		padding: 10px 20px;
-		line-height: 1.6em;
-
+        line-height: 1.6em;
+        // &:hover{
+        //     background:url(../images/paper.png)!important;
+        // }
 	}
 	.note {
 		color: green;
