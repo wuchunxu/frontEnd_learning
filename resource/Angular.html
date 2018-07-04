@@ -717,7 +717,7 @@ import {CartComponent,...} from ...<span class="note">//导入组件</span>
 const routes:Routes = [
     {path:"cart",component:CartComponent},
     {path:"pay",component:PayComponent},
-    {path:"",redirectTo:"pay"},
+    {path:"",redirectTo:"pay",<span class="note">pathMatch:'full'</span>},
     {path:"**",component:FileNotFoundComponent}<span class="note">//404</span>
 ];
 @NgModule({
@@ -780,6 +780,14 @@ return true;//允许直接访问</pre>
             <h4>在路由模块中给指定路径添加守卫</h4>
             <pre class="code">{path:"manager",component:ManagerComponent,<span class="note">canActivated:[sendGuard]</span>}</pre>
 
+        </div>
+    </li>
+    <li>
+        <p>小技巧</p>
+        <div class="desc">
+            <h2>小技巧</h2>
+            <h3>图片路径问题</h3>
+            <p>图片需要放在assets文件夹下，路径以index.html为基准，相对路径。</p>
         </div>
     </li>
 </ul>
