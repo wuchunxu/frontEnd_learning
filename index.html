@@ -125,8 +125,11 @@
                 监听在shower的点击事件上，如果点击返回，则隐藏模态弹窗
             */
             shower.onclick = function(e){
-                e.preventDefault();
-                if(e.target.hasClass("back")) hideModal();
+                
+                if(e.target.hasClass("back")){
+                    e.preventDefault();
+                    hideModal();
+                } 
             }
             /*
                 点击遮罩层，隐藏弹窗

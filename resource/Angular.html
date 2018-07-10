@@ -69,13 +69,51 @@ src  工程目录
         </div>
     </li>
     <li>
-        <p>使用Angular</p>
+        <p>Angular使用及问题汇总</p>
         <div class="desc">
             <h2>使用Angular</h2>
-            <h3>命令行指令</h3>
+            <h3>CMD快捷指令</h3>
             <pre class="code">
-                ng generate component HeroForm <span class="note">//生成组件HeroForm</span>
+ng generate component HeroForm <span class="note">//快速生成组件HeroForm</span>
             </pre>
+            <h3>打包</h3>
+            <pre class="code">ng build --prod --aot</pre>
+            <h3>问题解决</h3>
+            <dl class="accordion">
+                <dt>angular刷新出现404</dt>
+                <dd>
+                    <p>原因是服务器无法识别组件的路径，解决方案是将404重定向到index.html</p>
+                    <table>
+                        <tr>
+                            <td>Apache</td>
+                            <td>
+                                <pre class="code">RewriteEngine On  
+# 如果请求的是现有资源，则按原样执行
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]  
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d  
+RewriteRule ^ - [L]
+    
+# 如果请求的资源不存在，则使用index.html
+RewriteRule ^ /index.html</pre>
+                                <p>【下载】将<a href="files/htaccess.rar" download="htaccess.rar" target="_blank">htaccess.rar</a>下载解压，放在网站根目录下，隐藏显示。</p>
+                                </td>
+                        </tr>
+                    </table>
+                    <h5></h5>
+                    
+                    
+                    <h5>Tomcat</h5>
+                    <p>在web.xml中添加：</p>
+                    <pre class="code">&lt;error-page>
+    &lt;error-code>404&lt;/error-code>
+    &lt;location>/&lt;/location>
+&lt;/error-page></pre>
+                </dd>
+                    
+            </dl>
+            
+           
+                
         </div>
     </li>
     <li>
@@ -788,6 +826,9 @@ return true;//允许直接访问</pre>
             <h2>小技巧</h2>
             <h3>图片路径问题</h3>
             <p>图片需要放在assets文件夹下，路径以index.html为基准，相对路径。</p>
+            <h3>Photoshop</h3>
+            <h4>去掉不和谐的部分</h4>
+            <p>索套工具选中，然后内容识别填充(shift+F5)，模式为正常。</p>
         </div>
     </li>
 </ul>

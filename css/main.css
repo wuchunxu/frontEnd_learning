@@ -660,4 +660,16 @@ dl.accordion dd pre.code {
   background: #fff;
 }
 
+a[download] {
+  display: inline-block;
+  padding: 4px;
+  background: #42a77d;
+  color: #fff;
+  border-radius: 6px;
+  margin: 0 4px;
+}
+a[download]:hover {
+  background: #0a975c;
+}
+
 /*# sourceMappingURL=main.css.map */

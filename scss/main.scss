@@ -719,3 +719,14 @@ dl.accordion{
         }
     }
 }
+a[download]{
+    display: inline-block;
+    padding:4px;
+    background: #42a77d;
+    color:#fff;
+    border-radius: 6px;
+    margin: 0 4px;
+    &:hover {
+        background: #0a975c;
+    }
+}
