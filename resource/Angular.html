@@ -109,7 +109,43 @@ RewriteRule ^ /index.html</pre>
     &lt;location>/&lt;/location>
 &lt;/error-page></pre>
                 </dd>
-                    
+                <dt>不同组件之间样式不能共用</dt>
+                <dd>
+                    <p>【问题描述】：当我动态创建一个组件到容器中时，我希望该组件能够使用容器提供的CSS样式。</p>
+                    <p>【原因】：<strong>该问题涉及到样式的封装。</strong>从Chrome浏览器查看到，元素后面都会携带一个类似<span class="code">_ngcontent-c1</span>这样的属性。而打包后的class变成了<span class="code">.red[ngcontent-c1]</span>。也就是说，angular默认通过添加自定义属性的方式，将组件的样式进行了封装，这样做的好处是，组件里的样式和外界无冲突。但有时候我偏偏希望新创建的元素能够能使用容器组件的样式。</p>
+                    <p>样式封装的形式，可以配置更改。总共有3种：</p>
+                    <table>
+                        <tr>
+                            <td>Native</td>
+                            <td><pre class="code">#shadow-root (open)
+    &lt;style>h1 { color: #f50; }&lt;/style>
+    &lt;h1>test&lt;/h1></pre></td>
+                        </tr>
+                        <tr>
+                            <td>Emulated</td>
+                            <td><pre class="code">#shadow-root (open)
+    &lt;style><span class="note">h1[_ngcontent-c1]</span> { color: #f50; }&lt;/style>
+    &lt;h1 <span class="note">_ngcontent-c1</span>>test&lt;/h1></pre></td>
+                        </tr>
+                        <tr>
+                            <td>None</td>
+                            <td><pre class="code">&lt;style>h1 { color: #f50; }&lt;/style>
+&lt;h1>test&lt;/h1></pre></td>
+                        </tr>
+                    </table>
+                    <p>【解决办法】：
+                        <pre class="code">@Component({
+    template: `&lt;h1>test&lt;/h1>`,
+    styles: [`h1 { color: #f50; }`],
+    <span class="note">encapsulation: ViewEncapsulation.None</span>
+    })
+                        </pre>
+                    </p>
+                </dd>
+                <dt>插入新元素，默认使用自定义标签，如何去除呢？</dt>
+                <dd>
+                    <p>【问题原因】：该问题涉及到选择器selector的配置问题。事实上，除了类似<span class="code">'app-component'</span>这样的自定义标签选择器外，我们还可以使用如下的方式：<span class="code">'.class'、'[attribute]'、'[attribute=value]'、'select01,select02'</span></p>
+                </dd>
             </dl>
             
            

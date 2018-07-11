@@ -714,8 +714,13 @@ dl.accordion{
         background:#eee;
         padding:10px 20px;
         border-radius:5px;
+        
         pre.code{
             background:#fff;
+        }
+        table pre.code {
+            background:#eee;
+            margin:4px;
         }
     }
 }

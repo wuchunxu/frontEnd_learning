@@ -58,7 +58,30 @@
 			<p>常用的关系型数据库有Oracle、DB2、Microsoft SQL Server、Microsoft Access、MySQL。</p>
 			<p>非关系型数据库（NoSql）有：Redis、<a href="javascript:void(0);" onclick="getResource('resource/MongoDB.html')">MongoDB</a></p>
 		</div>
-	</li>
+    </li>
+    <li>
+        <p>服务器的配置及问题</p>
+        <div class="desc">
+            <h2>服务器的配置及问题</h2>
+            <h3>Apache</h3>
+            <h3>Tomcat</h3>
+            <dl class="accordion">
+                <dt>虚拟主机/自定义根目录</dt>
+                <dd>
+                    <p>在Path里添加Context：</p>
+                    <pre class="code"><span class="note">//tomcat/conf/server.xml</span>
+&lt;Path> 
+    &lt;Context path="" docBase="D:\xampp\htdocs" debug="0" />
+&lt;/Path></pre>
+                </dd>
+                <dt>中文乱码/不识别中文</dt>
+                <dd>
+                    <pre class="code"><span class="note">//tomcat/conf/server.xml</span>
+&lt;Connector port="8080" protocol="HTTP/1.1" <span class="note">URIEncoding="utf-8"</span> connectionTimeout="20000" redirectPort="8443" /></pre>
+                </dd>
+            </dl>
+        </div>
+    </li>
 	<li>
 		<p>MySQL</p>
 		<div class="desc">

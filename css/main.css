@@ -659,6 +659,10 @@ dl.accordion dd {
 dl.accordion dd pre.code {
   background: #fff;
 }
+dl.accordion dd table pre.code {
+  background: #eee;
+  margin: 4px;
+}
 
 a[download] {
   display: inline-block;
