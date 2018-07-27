@@ -147,9 +147,6 @@ RewriteRule ^ /index.html</pre>
                     <p>【问题原因】：该问题涉及到选择器selector的配置问题。事实上，除了类似<span class="code">'app-component'</span>这样的自定义标签选择器外，我们还可以使用如下的方式：<span class="code">'.class'、'[attribute]'、'[attribute=value]'、'select01,select02'</span></p>
                 </dd>
             </dl>
-            
-           
-                
         </div>
     </li>
     <li>
@@ -865,6 +862,28 @@ return true;//允许直接访问</pre>
             <h3>Photoshop</h3>
             <h4>去掉不和谐的部分</h4>
             <p>索套工具选中，然后内容识别填充(shift+F5)，模式为正常。</p>
+        </div>
+    </li>
+    <li>
+        <p>Angular进阶</p>
+        <div class="desc">
+            <h2>Angular进阶</h2>
+            <dl class="accordion">
+                <dt>如何动态创建组件</dt>
+                <dd>
+                    <h5>#1. 首先创建一个组件类</h5>
+                    <h5>#2. 指定一个容器，用来存放动态创建的组件</h5>
+                    <pre class="code">&lt;ng-template #new-component>&lt;/ng-template>
+<span class="note">//通过模板局部变量，拿到引用</span></pre>
+                    <p>接下来，我们需要在组件类中操作该容器。而模板局部变量不能在组件类中使用。</p>
+                    <h5>#3. @ViewChild装饰器，让组件类可以操作模板中定义的容器。</h5>
+                    <pre class="code">@ViewChild("new-component",<span class="note">{read:ViewContainerRef}</span>)
+container:ViewContainerRef;
+<span class="note">//如果没有第二个查询参数，则默认返回组件实例</span>
+<span class="note">//ViewContainerRef类型表示可以添加视图的容器</span>
+                    </pre>
+                </dd>
+            </dl>
         </div>
     </li>
 </ul>

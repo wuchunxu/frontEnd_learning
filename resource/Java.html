@@ -146,4 +146,259 @@ public class jdbc02 {
         </dl>
         </div>
     </li>
+    <li>
+        <p>JSP</p>
+        <div class="desc">
+            <h2>JSP</h2>
+            <h3>JSP基础知识</h3>
+            <p>所谓JSP（Java Server Page），就是用来在HTML文本中嵌入java代码，java代码经过计算动态生成一些数据，再插入到html中。不过这样写的坏处是，数据与表现层(html)耦合了，既不便于观察，也不利于维护。</p>
+            <table>
+                <tr>
+                    <td>JSP脚本</td>
+                    <td><pre class="code">&lt;% 
+    String username = "wuchunxu";
+    out.println(username); 
+%&gt;</pre></td>
+                </tr>
+                <tr>
+                    <td>JSP声明</td>
+                    <td>
+                        <p>声明的代码写在这里，后面可以调用。</p>
+                        <span class="code">&lt;%! String username = "wuchunxu" %&gt;</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>JSP表达式</td>
+                    <td>
+                        <p>欢迎<span class="code">&lt;%=username %&gt;</span></p>
+                        <p>angular中<span class="code">欢迎{{username}}</span>也是这个味儿！</p>
+                    </td>
+                </tr>
+            </table>
+           <h3>JSP页面的生命周期</h3>
+            <h3>小例子(jsp 九九乘法表)</h3>
+            <pre class="code">&lt;%! 
+    public String timesTable(){
+    
+        StringBuilder sb = new StringBuilder();
+        
+        for(int i=1;i<10;i++){
+            for(int j=1;j&lt;i+1;j++){
+                sb.append(j+"*"+i+"="+i*j);
+                sb.append("&nbsp;&nbsp;&nbsp;&nbsp;");
+            }
+            sb.append("&lt;br&gt;");
+        }
+        
+        return sb.toString();
+    }
+%>
+    
+&lt;br>
+&lt;h1>九九乘法表&lt;/h1>
+&lt;hr/>
+<%=timesTable() %>
+&lt;hr/>
+<%=timesTable() %></pre>
+            <h3>JSP内置对象</h3>
+            <p>JSP内置对象是WEB容器创建的一组对象</p>
+            <dl class="accordion">
+                <dt>out</dt>
+                <dd>
+                    <table>
+                        <tr>
+                            <td>void println()</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>vold clear();</td>
+                            <td>flush()之后调用会抛异常</td>
+                        </tr>
+                        <tr>
+                            <td>void clearBuffer();</td>
+                            <td>flush()之后调用不抛异常</td>
+                        </tr>
+                        <tr>
+                            <td>void flush();</td>
+                            <td>将缓冲区内容输出</td>
+                        </tr>
+                        <tr>
+                            <td>int getBufferSize();</td>
+                            <td>获取缓冲区大小</td>
+                        </tr>
+                        <tr>
+                            <td>int getRemaining();</td>
+                            <td>剩余大小</td>
+                        </tr>
+                        <tr>
+                            <td>boolean isAutoFlush();</td>
+                            <td>void close();</td>
+                        </tr>
+                    </table>
+                </dd>
+                <dt>request</dt>
+                <dd>
+                    <table>
+                        <tr>
+                            <td>String getParameter(String name)</td>
+                            <td>返回name对应的值</td>
+                        </tr>
+                        <tr>
+                            <td>String[] getParameterValues()</td>
+                            <td>返回包含参数name的所有值的数组</td>
+                        </tr>
+                        <tr>
+                            <td>void setAttribute(String,Object)</td>
+                            <td>加入键值对</td>
+                        </tr>
+                        <tr>
+                            <td>Object getAttribute(String name)</td>
+                            <td>返回指定属性的属性值</td>
+                        </tr>
+                        <tr>
+                            <td>String getContentType()</td>
+                            <td>得到请求体的MIME类型</td>
+                        </tr>
+                        <tr>
+                            <td>String getProtocol()</td>
+                            <td>协议类型及版本号</td>
+                        </tr>
+                        <tr>
+                            <td>String getServerName()</td>
+                            <td>返回接受请求的服务器主机名</td>
+                        </tr>
+                        <tr>
+                            <td>setCharacterEncoding("utf-8")</td>
+                            <td>接收前设置</td>
+                        </tr>
+                    </table>
+                </dd>
+                <dt>response</dt>
+                <dd>
+                    <table>
+                        <tr>
+                            <td>String getCharacterEncoding()</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>void setContentType(String type)</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>PrintWriter getWriter()</td>
+                            <td>返回一个可以像客户端输出字符的对象</td>
+                        </tr>
+                        <tr>
+                            <td>sendRedirect(java.lang.String location)</td>
+                            <td>重定向
+                                <pre class="code">response.sendRedirect("index.jsp");</pre>
+                            </td>
+                        </tr>
+                    </table>
+                    <h5>请求转发和请求重定向的区别</h5>
+                    <table>
+                        <tr>
+                            <td>请求重定向</td>
+                            <td><p>客户端行为，response.sendRedirect(),本质上将等于两次请求，前一次的request不会保存，地址栏url会改变。</p></td>
+                        </tr>
+                        <tr>
+                            <td>请求转发</td>
+                            <td><p>服务器行为，request.getRequestDispatcher().forword(request,response);是一次请求，转发后request会保存，地址栏url不变</p></td>
+                        </tr>
+                    </table>
+                </dd>
+                <dt>session</dt>
+                <dd>
+                    <h5>session对象的常用方法</h5>
+                    <table>
+                        <tr>
+                            <td><p>long getCreationTime()</p></td>
+                            <td>返回session创建的时间</td>
+                        </tr>
+                        <tr>
+                            <td><p>String getId();</p></td>
+                            <td>返回Session创建时JSP引擎为它设置的唯一id</td>
+                        </tr>
+                        <tr>
+                            <td><p>Object setAttribute(String name,Object value);</p></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><p>Object getAttribute(String name);</p></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><p>String[] getValueNames();</p></td>
+                            <td>返回所有可用的属性</td>
+                        </tr>
+                        <tr>
+                            <td><p>int getMaxInactiveInterval();</p></td>
+                            <td>返回session取消的间隔时长，单位是second</td>
+                        </tr>
+                        <tr>
+                            <td><p>session.invalidate();</p></td>
+                            <td>清除session对象。tomcat默认session过期时间为半小时，在web.xml中可以重新设置。文档中单位是minute。</td>
+                        </tr>
+                    </table>
+                </dd>
+                <dt>application</dt>
+                <dd>
+                    <p>(1)application对象实现了用户间数据的共享，存放全局变量。</p>
+                    <p>(2)开始于服务器的启动，终止于服务器关闭。</p>
+                    <p>(3)application对象是ServletContext类的实例</p>
+                    <h5>常用方法</h5>
+                    <table>
+                        <tr>
+                            <td>void setAttribute(String name,Object value);</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Object getAttribute(String name);</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Enumeration getAttributeNames();</td>
+                            <td>返回所有可用属性的枚举。</td>
+                        </tr>
+                        <tr>
+                            <td>String getServerInfo();</td>
+                            <td>返回JSP引擎名及版本号</td>
+                        </tr>
+                    </table>
+                </dd>
+                <dt>Page</dt>
+                <dd>
+                    <h5>什么是？</h5>
+                    <p>page对象指向当前页面本身，它是java.lang.Object类的实例。</p>
+                </dd>
+                <dt>pageContext</dt>
+                <dd>
+                    <p>该对象允许你访问jsp页面内所有对象；也可以访问本页面所在的session</p>
+                </dd>
+                <dt>exception</dt>
+                <dd></dd>
+                <dt>config</dt>
+                <dd></dd>
+            </dl>
+            <h3>JavaBean</h3>
+            <p>JavaBean是符合某种特定规范的Java类。(联想到js中有CommonJS规范)。使用JavaBean的好处是解决代码的重复编写，减少代码的冗余，功能区分明确，提高了代码的维护性。</p>
+            <h4>JavaBean设计原则</h4>
+            <p>(1)公有类；(2)public的无参构造方法；(3)属性私有化；(4)getter和setter访问器</p>
+            <h3>JSP动作</h3>
+            <p>JSP动作元素(action elements)，为请求处理阶段提供信息。它使用XML语法。</p>
+            <h4>JSP动作元素分类</h4>
+            <table>
+                <tr>
+                    <td>与存取JavaBean有关</td>
+                    <td>
+                        <pre class="code">&lt;jsp:useBean>&lt;jsp:setProperty>&lt;jsp:getProperty></pre>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </li>
+    <li>
+        <p>Servlet</p>
+        <div class="desc"></div>
+    </li>
 </ul>
