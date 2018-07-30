@@ -395,10 +395,126 @@ public class jdbc02 {
                     </td>
                 </tr>
             </table>
+            <h3>如何在jsp中使用JavaBean</h3>
+            <h4>当作普通java类，创建JavaBean实例</h4>
+            <p>(1)首先，在Java Resource目录的src下创建Java类，类的编写遵循JavaBean的原则</p>
+            <p>(2)jsp中导包:</p>
+            <pre class="code"><span class="note"><%@ page import="com.po.User"  %></span></pre>
+            <p>(3)初始化和使用</p>
+            <pre class="code"><% 
+    User user = new User();
+    user.setUname("admin");
+    user.setPassword("123456");
+%>
+用户名：<%= user.getUname()%>
+&lt;br/>
+密码： <%= user.getPassword() %></pre>
+            <h4>使用动作标签</h4>
+            <p>(1)创建实例</p>
+            <pre class="code"><span class="note">//注意：无需手动引入User类</span>
+&lt;jsp:useBean id="user" class="com.po.User" scope="page"/></pre>
+            <p>(2)给实例化的JavaBean对象属性赋值</p>
+            <p>下面property="*"表示匹配前端传递过来的所有信息，如果指定某个属性，如uname，表示只匹配uname，也就是uname会调用setUname()方法。</p>
+            <pre class="code">&lt;jsp:setProperty name="user" property="*" />
+用户名:<%= user.getUname() %>&lt;br/>
+密码:<%= user.getPassword() %></pre>
+            <p>(3)获取属性的值</p>
+            <pre class="code">用户名:&lt;jsp:getProperty name="user" property="uname" /></pre>
+            <h3>JavaBean作用域</h3>
+            <table>
+                <tr>
+                    <td>page</td>
+                    <td>仅在当前页面有效</td>
+                </tr>
+                <tr>
+                    <td>request</td>
+                    <td>HttpRequest.getAttribute();方法获取JavaBean对象</td>
+                </tr>
+                <tr>
+                    <td>session</td>
+                    <td>HttpSession.getAttribute();方法获取JavaBean对象</td>
+                </tr>
+                <tr>
+                    <td>application</td>
+                    <td>application.getAttribute();方法获取JavaBean对象</td>
+                </tr>
+            </table>
+            <h3>Cookie</h3>
+            <pre class="code">Cookie cookie = new Cookie(String key,Object value);
+response.addCookie(cookie); <span class="note">//写入cookie对象</span>
+
+<span class="note">//读取Cookie对象</span>
+Cookie[] cookies = request.getCookies();
+            </pre>
+            <h3>include</h3>
+            <h4>include指令</h4>
+            <pre class="code">&lt;%@ include file="xxx.jsp" %></pre>
+            <h4>include动作</h4>
+            <pre class="code">&lt;jsp:include page="xxx.jsp" flush="false" /></pre>
+            <h4>include指令和动作的区别</h4>
+            <table>
+                <tr>
+                    <th></th>
+                    <th>include指令</th>
+                    <th>jsp:include动作</th>
+                </tr>
+                <tr>
+                    <td>语法格式</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>发生作用的时间</td>
+                    <td>页面转换期间</td>
+                    <td>请求期间</td>
+                </tr>
+                <tr>
+                    <td>包含的内容</td>
+                    <td>文件的实际内容(代码)</td>
+                    <td>页面的输出</td>
+                </tr>
+                <tr>
+                    <td>编译时间</td>
+                    <td>较慢</td>
+                    <td>较快</td>
+                </tr>
+                <tr>
+                    <td>执行时间</td>
+                    <td>稍快</td>
+                    <td>较慢</td>
+                </tr>
+            </table>
+            <h3>forward动作</h3>
+            <pre class="code">&lt;jsp:forward page="url">
+<span class="note">//等同于：</span>
+request.getRequestDispatcher("url").forward(request,response);
+            </pre>
+            <h3>param动作</h3>
+            <pre class="code">&lt;jsp:param name="" value=""></pre>
         </div>
     </li>
     <li>
         <p>Servlet</p>
-        <div class="desc"></div>
+        <div class="desc">
+            <h2>Servlet</h2>
+            <h3>编写一个Servlet</h3>
+            <p>(1)继承HttpServlet；(2)重写doGet()或doPost()方法；(3)在web.xml中注册Servlet</p>
+            <h3>如何设置Servlet容器启动时自动加载某些Servlet</h3>
+            <pre class="code">&lt;servlet>
+    ...
+    <span class="note">&lt;load-on-startup>1&lt;/load-on-startup></span>
+&lt;/servlet></pre>
+            <p>数字越小，表示加载的优先级越高</p>
+            <h3>路径</h3>
+            <h4>web.xml</h4>
+            <pre class="code">&lt;servlet>
+    &lt;servlet-name>MyServlet&lt;/servlet-name>
+    &lt;servlet-class>servlet.MyServlet&lt;/servlet-class>
+&lt;/servlet>
+&lt;servlet-mapping>
+    &lt;servlet-name>MyServlet&lt;/servlet-name>
+    &lt;url-pattern><span class="note">/servlet/MyServlet</span>&lt;/url-pattern> <span class="note">//这里"/"表示项目的根目录，不能省略</span>
+&lt;/servlet-mapping></pre>
+        </div>
     </li>
 </ul>
