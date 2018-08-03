@@ -681,9 +681,22 @@ table pre.code {
 }
 
 blockquote {
-    background:#fff;
+    background:#efefef;
     border-left:2px solid $theme_color_1;
     padding:10px;
+    color:#000;
+    font-weight: 500;
+    font-family: 'Consolas','等线','黑体','宋体';
+}
+.comment {
+    //width:auto;
+    display:block;
+    background:#fff;
+    border:1px dashed $theme_color_1;
+    padding: 10px;
+    border-radius: 10px;
+    font-family: "楷体","仿宋";
+    font-size: 16px;
 }
 dl.accordion{
     dt{
