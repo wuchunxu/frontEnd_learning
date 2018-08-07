@@ -602,6 +602,17 @@ request.getRequestDispatcher("url").forward(request,response);
                 <dt>基于Java</dt>
                 <dd></dd>
             </dl>
+            <h4>配置并使用容器</h4>
+            <p>Spring容器也是java对象，在web应用程序中使用声明的方法来实例化是较好的选择。(通过web.xml)</p>
+
+            <h3>注入依赖的方式</h3>
+            <h4>setter注入</h4>
+            <p>类符合javaBean规范，有标准的setter方法</p>
+            <pre class="code">private UserDao:userDao;
+public void setUserDao(UserDao userDao){
+    this.userDao = userDao;
+}
+            </pre>
         </div>
     </li>
 </ul>

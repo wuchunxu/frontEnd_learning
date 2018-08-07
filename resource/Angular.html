@@ -146,6 +146,24 @@ RewriteRule ^ /index.html</pre>
                 <dd>
                     <p>【问题原因】：该问题涉及到选择器selector的配置问题。事实上，除了类似<span class="code">'app-component'</span>这样的自定义标签选择器外，我们还可以使用如下的方式：<span class="code">'.class'、'[attribute]'、'[attribute=value]'、'select01,select02'</span></p>
                 </dd>
+                <dt>使用echarts一直无法编译成功module Not found</dt>
+                <dd>
+                    <p>原因是安装的ngx-echarts是老版本，可能与angular6不匹配。解决方法是指定要安装的版本，默认安装的是旧版本，十分尴尬。这个问题找了半天，拿之前的工程和现在的比较才找到了答案。我纳闷的是，为什么以前默认安装新版本，但是现在却装的旧版本。</p>
+                    <p>【安装依赖的包】</p>
+                    <pre class="code">npm i echarts --save
+<span class="note">npm i ngx-echarts@3.1.0 --save</span></pre>
+                    <p>【配置路径】angular.json文件的build下添加echarts的路径：</p>
+                    <pre class="code">"scripts": [
+    "node_modules/echarts/dist/echarts.min.js"
+]</pre>
+                    <p>【导入模块】然后在根模块下导入NgxEchartsModule</p>
+                    <pre class="code">import {NgxEchartsModule } from 'ngx-echarts';
+imports: [
+    BrowserModule,NgxEchartsModule
+  ],</pre>
+                    <p>【使用】</p>
+                    <pre class="code">&lt;div <span class="note">echarts [options]="option"</span> style="height:400px;width:60%;">&lt;/div></pre>
+                </dd>
             </dl>
         </div>
     </li>
