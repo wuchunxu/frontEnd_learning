@@ -2,6 +2,100 @@
 <button class="back">返回</button>
 <ul class="menu">
     <li>
+        <p>函数式编程</p>
+        <div class="desc">
+            <h2>函数式编程</h2>
+            <h3>了解函数式编程--WHAT,WHY</h3>
+            <blockquote>在Javascript中，函数是第一类公民。</blockquote>
+            <p>说实话，这句话不太好理解。我暂时的理解是，
+                <strong>JavaScript中函数可以赋值给变量，那么函数就可以当作变量来使用了。比如，函数可以当作参数进行传递，也可以作为结果返回</strong>(说到这里，我想到了闭包，闭包形成的很自然啊)。</p>
+            <p>函数式是一种编程范式，与面向对象技术不同。为什么要用函数式，可以先了解一下“命令式”和“声明式”编程方式的区别。像ES5中，Array.prototype.map、reduce函数就是函数式，它们的参数是一个回调函数，用来定义遍历数组的操作。用map与for循环的区别是，前者更关注对数组元素的具体操作，不用考虑如何遍历了。</p>
+            <p>函数式将具体实现过程进行了封装。小函数联合使用可以封装成大的函数，就像“搭积木”。这一点来看，模块的封装也是类似的道理。</p>
+            <h3>使用ES6语法</h3>
+            <h4>使用const可以保证函数定义后不会被重写</h4>
+            <pre class="code">const log = (msg)=>console.log(msg) ;</pre>
+            <h3>函数式编程的基本概念</h3>
+            <h4>不可变性</h4>
+            <p>不可变性的工作机制是，不改变原数据，在拷贝上修改。</p>
+            <pre class="code">let color_lawn = {
+    title:"lawn",
+    color:"#00ff00",
+    rating:0
+}
+<span class="note">//ES5写法</span>
+var rateColor = function(color,rating){
+    return Object.assign({},color,{rating:rating});
+}
+<span class="note">//ES6写法</span>
+const rateColor = <span class="note">(color,rating)=>({
+    ...color,
+    rating
+})</span>
+<span class="note">//数组</span>
+const addColor = (title,list)=>[...list,{title}]</pre>
+            <h3>纯函数</h3>
+            <p>纯函数(1)至少接收一个参数；(2)必须返回一个值；(3)不能修改外环境和参数</p>
+            <h3>数据的转换</h3>
+            <p>ES5为Array新增了API，其中就有不少是“干净的”操作(不影响原数组)。</p>
+            <h4>Array.prototype.filter--数组的过滤</h4>
+            <p>按照以前的思路，我们可能会用for循环遍历，if判断，找到目标值并用splice()将其删除。这里，按“不可变的原则”，我们可以使用filter：</p>
+            <pre class="code">const colors = ['blue','red','green','yellow'];
+    const removeColor = (remove,arr)=>{
+        return arr.filter(color=>color !== remove) <span class="note">//只要不是去除对象就留下</span>
+    }
+    console.log(removeColor('yellow',colors).join(','));
+                </pre>
+            <h4>Array.prototype.map</h4>
+            <p>
+                <strong>需求：创建纯函数，修改对象数组中的某个对象。</strong>
+            </p>
+            <pre class="code">let colors=[
+        {name:"red"},
+        {name:'green'},
+        {name:'yellow'}
+    ];
+    <span class="note">//创建纯函数</span>
+    const editColors = (oldName,name,arr)=>
+        arr.map(ele=>ele.name===oldName?({...ele,name}):ele)
+    
+    console.log(editColors('yellow','blue',colors));</pre>
+            <h4>对象转换成数组</h4>
+            <pre class="code">const colors = {
+    "red":"#FF3030",
+    "green":"66CD00",
+    "blue":"63B8FF"
+};
+<span class="note">//将该对象转换成数组</span>
+const = colorsArray = <span class="note">Object.keys(colors)</span>.map(key=>{
+    name:key,
+    value:colors[key]
+})</pre>
+            <h4>Array.prototype.reduce</h4>
+            <pre class="code"><span class="note">//利用reduce求最大值</span>
+const nums = [2,1,6,22,16,5,5,10];
+const max = nums.reduce(
+    (max,num)=>(num>max)?num:max
+,0)</pre>
+            <h3>高阶函数</h3>
+            <h4>WHAT</h4>
+            <p>高阶函数是可以操作其他函数的函数。可以将函数当作参数传入，也可以返回一个函数，或者两着都有。</p>
+            <h3>函数的合成</h3>
+            <p>函数式编程通常将具体的业务逻辑拆分成小型的
+                <strong>纯函数</strong>，最终再整合到一起构成应用。像jQuery中的链式调用就是合成的一种方式，不过还有更优雅的：</p>
+            <pre class="code">const compose = (...fns) =>
+    (arg) => fns.reduce(
+        (result,fn)=>fn(result),
+        arg
+    )</pre>
+        </div>
+    </li>
+    <li>
+        <p>React运行机制</p>
+        <div class="desc">
+            <h2>React运行机制</h2>
+        </div>
+    </li>
+    <li>
         <p>了解React</p>
         <div class="desc">
             <h2>React</h2>
@@ -77,6 +171,7 @@ npm start</pre>
             </table>
         </div>
     </li>
+
     <li>
         <p>组件</p>
         <div class="desc">
@@ -95,15 +190,21 @@ ReactDOM.render(
             <table>
                 <tr>
                     <td>1</td>
-                    <td><p>变量必须是全驼峰形式，如果是myHeader，则无法显示</p></td>
+                    <td>
+                        <p>变量必须是全驼峰形式，如果是myHeader，则无法显示</p>
+                    </td>
                 </tr>
                 <tr>
                     <td>2</td>
-                    <td><p>返回的结果，必须有一个顶层的标签</p></td>
+                    <td>
+                        <p>返回的结果，必须有一个顶层的标签</p>
+                    </td>
                 </tr>
                 <tr>
                     <td>3</td>
-                    <td><p>组件类在渲染模板的时候，返回的第一个元素是不允许直接换行的</p></td>
+                    <td>
+                        <p>组件类在渲染模板的时候，返回的第一个元素是不允许直接换行的</p>
+                    </td>
                 </tr>
             </table>
 
@@ -216,7 +317,8 @@ ReactDOM.render(
 );</pre>
             <h4>注意事项</h4>
             <p>不允许在组件的render方法中执行任何和状态相关的操作</p>
-            <p>如何修改状态：<span class="code">this.setState({count:1})</span>该方法通知react框架，对比当前VDOM和DOM，找到真正需要更新的元素，以求最大程度减少操作DOM的次数</p>
+            <p>如何修改状态：
+                <span class="code">this.setState({count:1})</span>该方法通知react框架，对比当前VDOM和DOM，找到真正需要更新的元素，以求最大程度减少操作DOM的次数</p>
             <h3>组件的生命周期</h3>
             <p>自定义组件的生命周期主要由三种状态进行管理，它们负责通知组件当前所处的状态，应该执行生命周期中哪个步骤，是否可以更新state。</p>
             <h4>钩子函数</h4>
@@ -264,7 +366,9 @@ ReactDOM.render(
 );</pre>
             <p>JSX编译后变成js对象。我们可以这么理解，JSX语法只是为了简化js生成DOM元素对象，那么，我们就可以把JSX当作js对象。它可以作为参数、返回值或者赋值给某个变量。</p>
             <h4>属性中插入表达式</h4>
-            <p>属性的值如果是一个变量，那么就要用到表达式，JSX语法规定，js表达式写在<span class="code">{}</span>内，而普通的字符串则写在引号<span class="code">""</span>内</p>
+            <p>属性的值如果是一个变量，那么就要用到表达式，JSX语法规定，js表达式写在
+                <span class="code">{}</span>内，而普通的字符串则写在引号
+                <span class="code">""</span>内</p>
             <pre class="code">const element = &lt;img src=<span class="note">{user.avatarUrl}</span>>&lt;/img>;</pre>
             <h4>jsx默认防止注入攻击(XSS)</h4>
             <h4>JSX的写法偏向于JavaScript</h4>
@@ -337,7 +441,9 @@ class Welcome extends Component{
                 </dd>
             </dl>
             <h3>属性</h3>
-            <p>属性就是参数，用来传递值。注意：<strong>组件无法修改props对象，所有的组件必须是纯函数(不能修改输入)。</strong></p>
+            <p>属性就是参数，用来传递值。注意：
+                <strong>组件无法修改props对象，所有的组件必须是纯函数(不能修改输入)。</strong>
+            </p>
         </div>
     </li>
     <li>
@@ -423,8 +529,12 @@ this.setState({
                 </dd>
                 <dt>绑定事件注意事项</dt>
                 <dd>
-                    <p><strong>(1)ES6中，类方法里的this默认没有指向，需要手动绑定</strong></p>
-                    <p><strong>(2)注意：异步数据的更新需要用异步的方式更改state值</strong></p>
+                    <p>
+                        <strong>(1)ES6中，类方法里的this默认没有指向，需要手动绑定</strong>
+                    </p>
+                    <p>
+                        <strong>(2)注意：异步数据的更新需要用异步的方式更改state值</strong>
+                    </p>
                     <pre class="code">import React,{ Component} from 'react';
 class Toggle extends Component{
     constructor(props){
@@ -519,7 +629,7 @@ export default MyForm;</pre>
         <p>React与其他库一起使用</p>
         <div class="desc">
             <h2>React与其他库整合使用</h2>
-            
+
             <h3>React是如何工作的？</h3>
             <p>如果把React抽象并简化来看，React实际就是用js创建DOM元素，然后按需要插入DOM树中。所有的数据更新服务，都交给js处理，处理后与之前的状态比较，对有数据变化的DOM进行刷新，同样，最低能耗原理。</p>
             <p>既然React是将</p>
@@ -747,11 +857,14 @@ export default Carousel;</pre>
             <dl class="accordion">
                 <dt>激活的Link</dt>
                 <dd>
-                    <p>Link与a不同之处在于，Link知道它自身是否处于激活状态，因此可以用css标识出来。下例<span class="code">activeStyle</span>用来指定链接处于激活状态的样式(行内样式)，<span class="code">activeClassName</span>则用来引用CSS文件中的样式。</p>
+                    <p>Link与a不同之处在于，Link知道它自身是否处于激活状态，因此可以用css标识出来。下例
+                        <span class="code">activeStyle</span>用来指定链接处于激活状态的样式(行内样式)，
+                        <span class="code">activeClassName</span>则用来引用CSS文件中的样式。</p>
                     <pre class="code">// modules/App.js
 &lt;li>&lt;Link to="/about" <span class="note">activeStyle={{ color: 'red' }}</span>>About&lt;/Link>&lt;/li>
 &lt;li>&lt;Link to="/repos" <span class="note">activeClassName="active"</span>>Repos&lt;/Link>&lt;/li></pre>
-                    <p>如果我们不想每次都指定Link的样式，可以将Link封装成组件，在组件内定义好激活的样式，而<span class="code">to=""</span>参数通过prop属性传入到组件内。</p>
+                    <p>如果我们不想每次都指定Link的样式，可以将Link封装成组件，在组件内定义好激活的样式，而
+                        <span class="code">to=""</span>参数通过prop属性传入到组件内。</p>
                     <pre class="code">import React,{Component} from 'react';
 import { Link } from 'react-router';
 
@@ -770,7 +883,8 @@ export default NavLink;
                 </dd>
                 <dt>Url参数</dt>
                 <dd>
-                    <p>设置<span class="code">Link</span>:</p>
+                    <p>设置
+                        <span class="code">Link</span>:</p>
                     <pre class="code">import React,{Component} from 'react';
 import NavLink from './NavLink';
 class Repos extends Component {
@@ -788,7 +902,9 @@ class Repos extends Component {
     }
 }
 export default Repos;</pre>
-                    <p>在根组件中<strong>配置路由。这里使用了路由的嵌套，也就是子路由。</strong></p>
+                    <p>在根组件中
+                        <strong>配置路由。这里使用了路由的嵌套，也就是子路由。</strong>
+                    </p>
                     <pre class="code">render(
     (
         &lt;Router history={hashHistory}>
@@ -818,7 +934,10 @@ export default Repo;</pre>
                 </dd>
                 <dt>小知识点：this.props.children</dt>
                 <dd>
-                    <p><span class="code">this.props.children</span>指向该组件的所有子节点。需要注意的是，它的值可能有3种，<strong>若当前组件没有子节点，则为undefined；若有1个子节点，则为object；而若有2个及以上的子节点，则为Array</strong>。最好的处理方式是使用<span class="code">React.Children</span>工具。</p>
+                    <p>
+                        <span class="code">this.props.children</span>指向该组件的所有子节点。需要注意的是，它的值可能有3种，
+                        <strong>若当前组件没有子节点，则为undefined；若有1个子节点，则为object；而若有2个及以上的子节点，则为Array</strong>。最好的处理方式是使用
+                        <span class="code">React.Children</span>工具。</p>
                     <pre class="code">
 return (&lt;ul>
         {
@@ -830,7 +949,8 @@ return (&lt;ul>
                 </dd>
                 <dt>Index Routes</dt>
                 <dd>
-                    <p>Index Routes用来匹配目录为<span class="code">/</span>的情况。</p>
+                    <p>Index Routes用来匹配目录为
+                        <span class="code">/</span>的情况。</p>
                     <pre class="code">import React,{Component} from 'react';
 class Home extends Component {
     render(){
@@ -852,9 +972,15 @@ export default Home;</pre>
                 </dd>
                 <dt>Index Link</dt>
                 <dd>
-                    <p>设置主页的路由时，如果使用普通的Link，指向Home组件的<span class="code">/</span>会处于一直激活状态，因为它是根目录。<strong>(1)使用<span class="code">IndexLink</span>可以解决该问题：</strong></p>
+                    <p>设置主页的路由时，如果使用普通的Link，指向Home组件的
+                        <span class="code">/</span>会处于一直激活状态，因为它是根目录。
+                        <strong>(1)使用
+                            <span class="code">IndexLink</span>可以解决该问题：</strong>
+                    </p>
                     <pre class="code">&lt;li className="nav"><span class="note">&lt;IndexLink to="/" activeClassName="active">Home&lt;/IndexLink></span>&lt;/li></pre>
-                    <p><strong>(2)或者在Link上添加属性onlyActiveOnIndex={true}</strong></p>
+                    <p>
+                        <strong>(2)或者在Link上添加属性onlyActiveOnIndex={true}</strong>
+                    </p>
                     <pre class="code">&lt;NavLink to="/" <span class="note">onlyActiveOnIndex={true}</span>>Home&lt;/NavLink></pre>
                 </dd>
                 <dt>干净的url</dt>
@@ -867,61 +993,8 @@ export default Home;</pre>
 }</pre>
                 </dd>
             </dl>
-            
-        </div>
-    </li>
-    <li>
-        <p>函数式编程</p>
-        <div class="desc">
-            <h2>函数式编程</h2>
-            <h3>不可变性</h3>
-            <h4>为什么要不可变</h4>
-            <p>在修改服务器配置文件时，我们通常会先备份，再修改，因为万一搞砸了，还能恢复回去。从该例子我们可以看出，原始数据的重要性。再一个情况，同一个数据共享时，如果该数据可以随意修改，那么该数据不可信任了，多人协作就会难以进行。从这里，我们可以看到数据不可变性的重要性。</p>
-            <h4>不可变的代码写法</h4>
-            <p>要操作某个数据时，先拷贝一份，在副本上进行操作。</p>
-            <pre class="code">let color_lawn = {
-    title:"lawn",
-    color:"#00ff00",
-    rating:0
-}
-<span class="note">//ES5写法</span>
-var rateColor = function(color,rating){
-    return Object.assign({},color,{rating:rating});
-}
-<span class="note">//ES6写法</span>
-const rateColor = <span class="note">(color,rating)=>({
-    ...color,
-    rating
-})</span>
-<span class="note">//数组</span>
-const addColor = (title,list)=>[...list,{title}]
-</pre>
-            <h3>纯函数</h3>
-            <p>纯函数(1)至少接收一个参数；(2)必须返回一个值；(3)不能修改外环境和参数</p>
-            <h3>数据的转换</h3>
-            <p>ES5为Array新增了API，其中就有不少是“干净的”操作(不影响原数组)。</p>
-            <h4>Array.prototype.reduce--数组的过滤</h4>
-            <p>按照以前的思路，我们可能会用for循环遍历，if判断，找到目标值并用splice()将其删除。这里，按“不可变的原则”，我们可以使用reduce：</p>
-            <pre class="code">const colors = ['blue','red','green','yellow'];
-const removeColor = (remove,arr)=>{
-    return arr.filter(color=>color !== remove) <span class="note">//只要不是去除对象就留下</span>
-}
-console.log(removeColor('yellow',colors).join(','));
-            </pre>
-            <h4>Array.prototype.map</h4>
-            <p><strong>需求：创建纯函数，修改对象数组中的某个对象。</strong></p>
-            <pre class="code">let colors=[
-    {name:"red"},
-    {name:'green'},
-    {name:'yellow'}
-];
-<span class="note">//创建纯函数</span>
-const editColors = (oldName,name,arr)=>
-    arr.map(ele=>ele.name===oldName?({...ele,name}):ele)
-
-console.log(editColors('yellow','blue',colors));</pre>
 
         </div>
-        
     </li>
+
 </ul>
