@@ -89,52 +89,31 @@ const max = nums.reduce(
     )</pre>
         </div>
     </li>
-    <li>
+    <!-- <li>
         <p>React运行机制</p>
         <div class="desc">
             <h2>React运行机制</h2>
         </div>
-    </li>
+    </li> -->
     <li>
         <p>了解React</p>
         <div class="desc">
             <h2>React</h2>
-            <h3>概述</h3>
-            <p>React包括ReactJS、ReactNative、ReactVR</p>
-            <h4>ReactJS</h4>
-            <p>ReactJS是一个js库，专注用来实现UI，由Facebook公司开发。</p>
-            <h3>Why React?</h3>
-            <h4>虚拟DOM</h4>
-            <p>大量的DOM操作，带来浏览器的性能瓶颈</p>
-            <h4>单向数据流</h4>
-            <h4>维护大量的代码，成本越来越高</h4>
-            <p>解决方案：单向数据流</p>
-            <h3>何时使用React?</h3>
-            <table>
-                <tr>
-                    <td>Vue</td>
-                    <td>渐进式JS框架，可以实现数据操作非常频繁的SPA</td>
-                </tr>
-                <tr>
-                    <td>Angular</td>
-                    <td>实现非常频繁数据操作的SPA，定位大型商业项目</td>
-                </tr>
-                <tr>
-                    <td>React</td>
-                    <td>ReactJS核心库用来实现UI层，主要考虑频繁的操作DOM，关注浏览器性能问题</td>
-                </tr>
-            </table>
-            <p>awesome react</p>
-            <h3>使用React</h3>
-            <h4>直接引入对应js文件</h4>
-            <h4>采用命令行的方式</h4>
-            <pre class="code"><span class="note">//安装工具</span>
-npm install -g create-react-app
-<span class="note">//创建app</span>
-create-react-app myapp
-<span class="note">//安装依赖</span>
-npm install
-npm start</pre>
+            <h3>cli安装React</h3>
+            <pre class="code">npm install -g create-react-app <span class="note">//安装工具</span>
+
+create-react-app myapp <span class="note">//创建app</span></pre>
+            <h3>react中使用scss</h3> 
+            <h4>安装sass-loader</h4>
+            <pre class="code">npm i sass-loader node-sass --save-dev</pre>
+            <h4>修改webpack文件</h4>
+            <p>在node_modules/react-scripts/config目录下找到webpack.config.dev.js文件，</p>
+            <pre class="code"><span class="note">{
+    test:/\.scss$/,
+    loaders:['style-loader','css-loader','sass-loader']
+},</span>
+            
+exclude: [/\.(js|jsx|mjs)$/, /\.html$/, /\.json$/,<span class="note">/\.scss$/</span>],</pre>
             <h3>Hello React</h3>
             <pre class="code">
 &lt;script type="text/babel">
@@ -150,25 +129,6 @@ npm start</pre>
             <p>全称：JavaScriptXML，允许在js中调用标签</p>
             <p>如果遇到&lt;，且首字母小写，则以html解析；如果是大小，则是一个组件</p>
             <p>如果遇到{，就会用js来解析并执行花括号中的表达式，并将结果输出到对应标签</p>
-            <h3>React 5大核心概念</h3>
-            <table>
-                <tr>
-                    <td>jsx</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>ref</td>
-                    <td>实现对子组件或元素本身的引用</td>
-                </tr>
-                <tr>
-                    <td>state</td>
-                    <td>1)管理数据； 2)数据绑定</td>
-                </tr>
-                <tr>
-                    <td>props</td>
-                    <td>属性，用来传值</td>
-                </tr>
-            </table>
         </div>
     </li>
 
@@ -207,8 +167,6 @@ ReactDOM.render(
                     </td>
                 </tr>
             </table>
-
-            <h3>复合组件</h3>
             <p>复合组件不是一个新概念，只不过是允许在一个组件中调用其他组件</p>
             <h3>进阶知识</h3>
             <p>每个组件类实例化之后，都有一个props属性，而props对应的数据是一个对象，对象的属性和调用组件时传的属性是一一对应的。但是，有一个例外，this.props.children</p>
@@ -319,31 +277,6 @@ ReactDOM.render(
             <p>不允许在组件的render方法中执行任何和状态相关的操作</p>
             <p>如何修改状态：
                 <span class="code">this.setState({count:1})</span>该方法通知react框架，对比当前VDOM和DOM，找到真正需要更新的元素，以求最大程度减少操作DOM的次数</p>
-            <h3>组件的生命周期</h3>
-            <p>自定义组件的生命周期主要由三种状态进行管理，它们负责通知组件当前所处的状态，应该执行生命周期中哪个步骤，是否可以更新state。</p>
-            <h4>钩子函数</h4>
-            <table>
-                <tr>
-                    <td>componentWillMount</td>
-                    <td>挂载之前</td>
-                </tr>
-                <tr>
-                    <td>componentDidMount</td>
-                    <td>挂载完成</td>
-                </tr>
-                <tr>
-                    <td>componentWillUpdate</td>
-                    <td>更新前</td>
-                </tr>
-                <tr>
-                    <td>componentDidUpdate</td>
-                    <td>更新后</td>
-                </tr>
-                <tr>
-                    <td>componentWillUnmount</td>
-                    <td>卸载/删除之前</td>
-                </tr>
-            </table>
         </div>
     </li>
     <li>
@@ -447,7 +380,82 @@ class Welcome extends Component{
         </div>
     </li>
     <li>
-        <p>状态</p>
+        <p>属性 Props</p>
+        <div class="desc">
+            <h2>Props</h2>
+            <h3>什么是属性？</h3>
+
+            <h3>安全性相关</h3>
+            <p>组件实质上是一个函数，它接收参数，并返回JSX元素。由于JS不是强类型语言，不能限制参数的类型和数量，使用组件，在运行时才发现出错。为了解决该问题，React提供了属性验证和默认属性。</p>
+            <h4>属性验证和属性默认值</h4>
+            <pre class="code"><span class="note">//类的写法</span>
+class Summary extend React.Component {
+    <span class="note">//属性验证器，静态的，属于类</span>
+    static propTypes = {
+        ingredients:Proptypes.number,
+        steps: Proptypes.number,
+        <span class="note">//自定义属性验证</span>
+        title:(props,propName)=>
+            (typeof props[propName] != 'string')?
+                new Error('标题必须为字符串'):
+                    props[propName].length>20 ? 
+                        new Error('标题不能超过20个字符'):
+                        null
+    }
+    <span class="note">//默认值</span>
+    static defaultProps = {
+        ingredients : 0,
+        steps: 0,
+        title : "[recipe]"
+    }
+}
+    
+<span class="note">//函数的写法</span>
+const Summary = (<span class="note">{ingredients=0,steps=0,title='[recipe]'}</span>)=>
+    return (...)
+<span class="note">
+Summary.propTypes = {
+
+}</span>
+            </pre>
+            <p>默认属性如果是函数：</p>
+            <pre class="code">static defaultProps = {
+    <span class="note">onClick:f=>f</span> //占位符，被js调用，但没有任何动作
+}</pre>
+            <table>
+                <tr>
+                    <th>类型</th>
+                    <th>验证器</th>
+                </tr>
+                <tr>
+                    <td>数组</td>
+                    <td>React.PropTypes.array</td>
+                </tr>
+                <tr>
+                    <td>布尔类型</td>
+                    <td>React.PropTypes.bool</td>
+                </tr>
+                <tr>
+                    <td>函数</td>
+                    <td>React.PropTypes.func</td>
+                </tr>
+                <tr>
+                    <td>数字</td>
+                    <td>React.PropTypes.number</td>
+                </tr>
+                <tr>
+                    <td>对象</td>
+                    <td>React.PropTypes.object</td>
+                </tr>
+                <tr>
+                    <td>字符串</td>
+                    <td>React.PropTypes.string</td>
+                </tr>
+            </table>
+        </div>
+    </li>
+    <li>
+        <p>状态 State</p>
         <div class="desc">
             <h2>状态</h2>
             <h3>State</h3>
@@ -502,6 +510,259 @@ this.setState({
                     <strong>(3)状态更新会被合并</strong>
                 </dd>
             </dl>
+            <h3>组件树</h3>
+            <p>《React学习手册》书中多次强调，<strong>我们应该尽可能编写无状态的函数式组件</strong>。状态越多越混乱，越难以管理。比较好的做法是，<strong>将数据保存在根组件App中，通过属性一层一层传递给子孙组件，而后代组件通过翻转数据流将增、删、改的结果反映到根组件，从而保证数据的唯一性。</strong></p>
+            <pre class="code">class App extends Component {
+    constructor(props){
+        super(props); <span class="note">//初始化组件</span>
+        this.state = { <span class="note">//初始化状态数据</span>
+            colors:[]
+        }
+        this.addColor = this.addColor.bind(this);
+        this.removeColor = this.removeColor.bind(this);
+        this.rateColor = this.rateColor.bind(this);
+    }
+    <span class="note">//增</span>
+    addColor(title,color){
+        const colors = [
+            ...this.state.colors,
+            {
+                id:v4(),
+                title,
+                color,
+                rating:0
+            }
+        ]
+    }
+    <span class="note">//删</span>
+    removeColor(id){
+        <span class="note">//小技巧，利用filter进行函数式操作--删除数据</span>
+        const colors = this.state.colors.filter(
+            color => color.id !== id
+        )
+        this.setState(<span class="note">{colors}</span>);
+    }
+    <span class="note">//改</span>
+    rateColor(id,rating){
+        const colors = this.state.colors.map(color=>
+            (id === color.id)?
+                {
+                    ...color,
+                    rating
+                }:
+                color
+        )
+        this.setState({colors})
+    }
+    render(){
+        const {addColor,rateColor,removeColor} = this;
+        const {colors} = this.state;
+        return (
+            &lt;div className="app">
+                &lt;AddColorForm onNewColor={addColor} />
+                &lt;ColorList colors={colors} onRate={rateColor} onRemove={removeColor} />
+            &lt;/div>
+        )
+    }
+}</pre>
+        </div>
+    </li>
+    <li>
+        <p>生命周期</p>
+        <div class="desc">
+            <h2>生命周期</h2>
+            <p>了解组件的生命周期将帮助我们<strong>重新审视如何使用它载入数据、集成第三方JavaScript库以及改进组件的性能。</strong></p>
+            <h3>挂载生命周期</h3>
+            <table>
+                <tr>
+                    <td>constructor(props)</td>
+                    <td>
+                        <p>构造函数不是生命周期方法，但是它是state初始化的地方</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>componentWillMount()</td>
+                    <td>
+                        <p>DOM渲染之前触发，用来初始化第三方脚本库、启动动画、请求数据(在组件被渲染之前需要执行的动作)</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>render()</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>componentDidMount()</td>
+                    <td>
+                        <p>用来创建API请求，调用setState()方法会启动更新生命周期</p>
+                        <p>初始化需要用到DOM的第三方JavaScript库</p>
+                        <p>启动定时器</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>componentWillUnmount()</td>
+                    <td>
+                        <p>这里用来清理后台进程，如timer定时器</p>
+                    </td>
+                </tr>
+
+            </table>
+            <h3>更新生命周期</h3>
+            <P>更新生命周期会在每次调用setState()方法时启动。</P>
+            <table>
+                <tr>
+                    <td><strong>componentWillReceiveProps(nextProps)</strong></td>
+                    <td>
+                        <p>当新的属性传给组件后调用</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>shouldComponentUpdate(nextProps,nextState)</td>
+                    <td>
+                        <p>更新生命周期的守卫，它是一个谓词函数。</p>
+                        <p>在组件更新之前触发，新属性当作参数传入，旧属性仍然在当前props中。</p>
+                        <p>可以比较新属性和旧属性中某个值是否相等，从而判断是否更新组件。</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>componentWillUpdate(nextProps,nextState)</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>componentDidUpdate(prevProps,prevState)</td>
+                    <td>
+                        <p>更新操作发生之后触发，也就是render()方法之后。</p>
+                        <p>之前的状态作为参数传入，因此，可以用来比较，可以显示变化，比如：某值变大了(反应变化)</p>
+                    </td>
+                </tr>
+            </table>
+            <h3>React和其他库一起使用</h3>
+            <dl class="accordion">
+                <dt>React如何发送请求？</dt>
+                <dd>
+                    <p><strong>使用Fetch发送请求</strong></p>
+                    <pre class="code">npm i isomorphic-fetch --save
+
+import fetch from 'isomorphic-fetch';
+
+class CountryList extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            countryNames:[],
+            loading:false
+        };
+    }
+    componentDidMount(){
+        this.setState({loading:true}); //设置loading状态
+        <span class="note">fetch('url')
+            .then(res=>res.json())
+            .then(json=>json.map(country=>country.name))
+            .then(countryNames=>
+                this.setState({coutryNames,loading:false})
+            )</span>
+    }
+    render(){
+        ...
+    }
+}</pre>
+                </dd>
+                <dt>React中如何使用Echarts?</dt>
+                <dd>
+                    <pre class="code"><span class="note">//安装echarts到项目中</span>
+npm install echarts --save
+<span class="note">//引入需要用到的组件</span>
+import React,{Component} from 'react';
+import echarts from 'echarts/lib/echarts';
+import 'echarts/lib/chart/bar';//引入柱状图
+import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/title';
+
+class EchartsDemo extends Component{
+    <span class="note">//组件渲染之后使用echarts</span>
+    componentDidMount(){
+        let myChart = echarts.init(document.getElementById('main'));
+        myChart.setOption({
+            title:{text:'Echarts入门'},
+            tooltip:{},
+            xAxis:{
+                data:['衬衫','羊毛衫','雪纺衫','裤子','高跟鞋','袜子']
+            },
+            yAxis:{},
+            series:[{
+                name:'销量',
+                type:'bar',
+                data:[5,20,36,10,10,20]
+            }]
+        });
+    }
+
+    render(){
+        return (
+            &lt;div id="main" style={{width:400,height:400}}>&lt;/div>
+        );
+    }
+}
+export default EchartsDemo;</pre>
+                </dd>
+            </dl>
+        </div>
+    </li>
+    <li>
+        <p>Redux</p>
+        <div class="desc">
+            <h2>Redux</h2>
+            <h3>Flux</h3>
+            <p>Flux为React创建UI提供数据。</p>
+            <p>在Flux应用中，State数据交由组件外部的Store进行管理(存储和修改)。</p>
+            
+            <h4>【例子】：点击提交按钮后发生了什么？</h4>
+            <table>
+                <tr>
+                    <td>1</td>
+                    <td><p>点击提交按钮时，会创建一个Action，它提供一组操作指令和需要变更的目标数据。</p></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><p>Action由Dispatcher分发到相应的Store中。</p></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td><p>Store接收Action后修改State和更新View。</p></td>
+                </tr>
+            </table>
+            <h3>Redux</h3>
+            <p>所有的数据存放在一个不可变的对象中（state树），这样可以保证真实单一的数据源。</p>
+            <p>不可变对象意味着，更新数据需要更新(替换)整个state对象。而具体需要更新哪些部分，则由Action提供。</p>
+            <h4>Action</h4>
+            <blockquote>Action是一个JavaScript对象，充当信使的角色--提供如何更新state树的信息。一个不恰当的比喻：mRNA。</blockquote>
+            <pre class="code">{
+    type:'RATE_COLOR', <span class="note">//Action至少包含一个属性type，【做什么】</span>
+    id:'a5685c39...', <span class="note">//用来指明要修改的目标，它是Action的有效载荷数据【目标】</span>
+    rating:4 <span class="note">//指明如何修改，有效载荷数据(payload)【怎么做】</span>
+}</pre>
+            <h4>Reducer</h4>
+            <blockquote>Reducer是一类函数，负责加工信息。具体地，传入当前State和Action，加工并返回一个新的State。一个不恰当的比喻：rRNA。</blockquote>
+            <pre class="code"></pre>
+            <h4>Store</h4>
+            <blockquote>
+                    Store用来保存和更新State。Store将当前State和Action传递给单个Reducer来更新State。<br>
+                    (单个reducer意味着需要将若干个小的reducer装配组合成一个大的reducer。)
+            </blockquote>
+            <pre class="code">import { createStore,combineReducers } from 'redux';
+import {color} from './reducers';  <span class="note">//所有的reducer存放在一个模块里</span>
+
+const store = createStore(
+    combineReducers({colors,sort}),  <span class="note">//组合reducer</span>
+    initialState <span class="note">//初始化的state树，该参数可以为空</span>
+);  <span class="note">//reducer是store的一个零件，作为参数传入</span>
+            </pre>
+            <p>Store是数据的控制中心，负责存储和更新。<span class="code">store.dispatch(action)</span></p>
+            <table>
+                <tr>
+                    <td>store.getState()</td>
+                    <td>返回当前状态State</td>
+                </tr>
+            </table>
         </div>
     </li>
     <li>
@@ -588,6 +849,11 @@ ReactDOM.render(
             </blockquote>
             <h4>如何选择key</h4>
             <p>多数情况，可以使用数据的id作为key；但如果没有稳定的id，可退一步使用数组的索引。注意：如果列表可能会重排序，则不建议用索引作为key，这样会导致性能问题。</p>
+            <h3>创建唯一的id</h3>
+            <pre class="code">npm i uuid --save  <span class="note">//安装uuid库</span>
+import {v4} from 'uuid'
+
+id:v4()</pre>
         </div>
     </li>
     <li>
@@ -618,60 +884,14 @@ class MyForm extends Component{
 export default MyForm;</pre>
         </div>
     </li>
-    <li>
+    <!-- <li>
         <p>Refs和DOM</p>
         <div class="desc">
             <h2>Refs和DOM</h2>
-
+            <p>Ref允许父组件获取到子组件或子元素的引用，这样，父组件就可以获取到子元素中的值了。</p>
         </div>
-    </li>
-    <li>
-        <p>React与其他库一起使用</p>
-        <div class="desc">
-            <h2>React与其他库整合使用</h2>
-
-            <h3>React是如何工作的？</h3>
-            <p>如果把React抽象并简化来看，React实际就是用js创建DOM元素，然后按需要插入DOM树中。所有的数据更新服务，都交给js处理，处理后与之前的状态比较，对有数据变化的DOM进行刷新，同样，最低能耗原理。</p>
-            <p>既然React是将</p>
-
-            <h3>React中如何使用Echarts?</h3>
-            <pre class="code"><span class="note">//安装echarts到项目中</span>
-npm install echarts --save
-<span class="note">//引入需要用到的组件</span>
-import React,{Component} from 'react';
-import echarts from 'echarts/lib/echarts';
-import 'echarts/lib/chart/bar';//引入柱状图
-import 'echarts/lib/component/tooltip';
-import 'echarts/lib/component/title';
-
-class EchartsDemo extends Component{
-    <span class="note">//组件渲染之后使用echarts</span>
-    componentDidMount(){
-        let myChart = echarts.init(document.getElementById('main'));
-        myChart.setOption({
-            title:{text:'Echarts入门'},
-            tooltip:{},
-            xAxis:{
-                data:['衬衫','羊毛衫','雪纺衫','裤子','高跟鞋','袜子']
-            },
-            yAxis:{},
-            series:[{
-                name:'销量',
-                type:'bar',
-                data:[5,20,36,10,10,20]
-            }]
-        });
-    }
-
-    render(){
-        return (
-            &lt;div id="main" style={{width:400,height:400}}>&lt;/div>
-        );
-    }
-}
-export default EchartsDemo;</pre>
-        </div>
-    </li>
+    </li> -->
+    
     <li>
         <p>React封装组件</p>
         <div class="desc">
@@ -996,5 +1216,85 @@ export default Home;</pre>
 
         </div>
     </li>
+    <li>
+        <p>React+Ant Design</p>
+        <div class="desc">
+            <h2>Ant Design</h2>
+            <h3>create-react-app下安装和配置ant design</h3>
+            <pre class="code"><span class="note">//1.下载antd组件包</span>
+npm i antd --save
 
+<span class="note">//2.引入自定义配置解决方案</span>
+npm i react-app-rewired
+
+<span class="note">//3.修改package.json配置文件</span>
+"scripts":{
+    "start": "react-app-rewired start", <span class="note">//原：react-scripts</span>
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test --env=jsdom",
+}
+
+<span class="note">//4.项目根目录新建文件：config-overrides.js</span>
+module.exports = function override(config, env) {
+    // do stuff with the webpack config...
+    return config;
+  };
+
+<span class="note">//5.引入babel-plugin-import，用于按需加载组件和样式文件</span>
+npm i babel-pugin-import --save-dev
+
+<span class="note">//6.修改config-overrides.js</span>
+const { injectBabelPlugin } = require('react-app-rewired');
+
+module.exports = function override(config, env) {
+    
+    config = injectBabelPlugin(
+        ['import',{libraryName:'antd',libraryDirectory:'es',style:'css'}],
+        config,
+    );
+    
+    return config;
+  };
+</pre>
+        <p>上述是所有的配置工作，下面是使用：</p>
+        <pre class="code">import {Button} from 'antd';</pre>
+        <h3>自定义主题</h3>
+        <pre class="code"><span class="note">//安装react-app-rewire的less插件</span>
+npm i react-app-rewire-less
+
+<span class="note">//修改配置文件</span>
+const { injectBabelPlugin } = require('react-app-rewired');
+<span class="note">const rewireLess = require('react-app-rewire-less');</span>
+
+  module.exports = function override(config, env) {
+    config = injectBabelPlugin(
+        <span class="note">['import', { libraryName: 'antd', libraryDirectory: 'es', style: true }],</span> // change importing css to less
+      config,
+    );
+    <span class="note">
+    config = rewireLess.withLoaderOptions({
+        modifyVars: { "@primary-color": "#1DA57A" },<span class="code">//这里配置主题</span>
+        javascriptEnabled: true,
+    })(config, env);
+    </span>
+    return config;
+  };</pre>
+        <p>配置主题主要是修改通用的变量</p>
+        <pre class="code">@primary-color: #1890ff;                         // 全局主色
+@link-color: #1890ff;                            // 链接色
+@success-color: #52c41a;                         // 成功色
+@warning-color: #faad14;                         // 警告色
+@error-color: #f5222d;                           // 错误色
+@font-size-base: 14px;                           // 主字号
+@heading-color: rgba(0, 0, 0, .85);              // 标题色
+@text-color: rgba(0, 0, 0, .65);                 // 主文本色
+@text-color-secondary : rgba(0, 0, 0, .45);      // 次文本色
+@disabled-color : rgba(0, 0, 0, .25);            // 失效色
+@border-radius-base: 4px;                        // 组件/浮层圆角
+@border-color-base: #d9d9d9;                     // 边框色
+@box-shadow-base: 0 2px 8px rgba(0, 0, 0, .15);  // 浮层阴影</pre>
+            <p><a href="https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less">更多变量名点击这里</a></p>
+        </div>
+
+    </li>
 </ul>
