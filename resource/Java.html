@@ -536,6 +536,29 @@ request.getRequestDispatcher("url").forward(request,response);
         <p>Spring</p>
         <div class="desc">
             <h2>Spring</h2>
+            <h3>MVC</h3>
+            <table>
+                <tr>
+                    <td>View</td>
+                    <td>
+                        <p>视图层，负责显示</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Controller</td>
+                    <td>
+                        <p>负责接收请求(request)和响应(response)</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Model</td>
+                    <td>
+                        <p>与数据源（持久层）直接交互</p>
+                        <p>通常还分为业务层和DAO层</p>
+                    </td>
+                </tr>
+            </table>
+            <p></p>
             <h3>一些基本概念</h3>
             <h4>容器</h4>
             <p><strong>容器是一种环境，在该环境中，所有组件都被创建和装配，并且提供了所需的中间件服务。</strong>例如，Servlet容器负责创建和管理web层的组件(Servlet、JSP、Filter)。EJB容器负责管理业务层的EHB组件。容器提供的服务有：</p>
@@ -566,9 +589,21 @@ request.getRequestDispatcher("url").forward(request,response);
             <p>实现控制反转有2种形式：依赖查找和依赖注入。依赖注入用的更多，当谈到控制反转，基本上就是依赖注入。</p>
             <h4>依赖注入</h4>
             <p>依赖注入的方式有2个：构造函数注入和setter方法注入。</p>
-            <h3>使用Spring</h3>
+            <h3>配置和使用Spring</h3>
             <p>Spring的核心是IoC容器，它的职责包括：对象的实例化、初始化、装配以及在对象的生命周期中提供其他Spring功能。这些被管理的对象叫Bean。</p>
-            <h4>配置元数据</h4>
+            <h4>创建spring项目</h4>
+            <p>1. 首先创建maven项目，选上Create a simple project，package选war。</p>
+            <p>2. 手动添加web.xml：右键项目，点击java EE Tools 其中点击Genertate Deployment Descriptor Stub </p>
+            <p>3. 从maven仓库下载spring包</p>
+            <pre class="code">&lt;dependencies>
+    &lt;dependency>
+        &lt;groupId>org.springframework&lt;/groupId>
+        &lt;artifactId>spring-webmvc&lt;/artifactId>
+        &lt;version>3.2.8.RELEASE&lt;/version>
+    &lt;/dependency>
+&lt;/dependencies>
+            </pre>
+            <h4>配置Spring(配置元数据)</h4>
             <p>Spring要想管理这些Bean，需要知道：(1)有哪些Bean可以管理；(2)如何管理。这些信息就是元数据。配置元数据的方式包括：(1)基于XML、(2)基于注解(annotation)、(3)基于Java。</p>
             <dl class="accordion">
                 <dt>基于XML</dt>
@@ -604,7 +639,7 @@ request.getRequestDispatcher("url").forward(request,response);
             </dl>
             <h4>配置并使用容器</h4>
             <p>Spring容器也是java对象，在web应用程序中使用声明的方法来实例化是较好的选择。(通过web.xml)</p>
-
+            
             <h3>注入依赖的方式</h3>
             <h4>setter注入</h4>
             <p>类符合javaBean规范，有标准的setter方法</p>

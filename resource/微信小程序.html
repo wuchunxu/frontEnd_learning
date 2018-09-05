@@ -1,0 +1,76 @@
+<h2>微信小程序</h2>
+<button class="back">返回</button>
+<ul class="menu">
+    <li>
+        <p>基本知识</p>
+        <div class="desc">
+            <h2>基本知识</h2>
+            <h3>项目目录结构</h3>
+            <pre class="code">
+<span class="code">pages</span> <span class="note">//存放项目中所有的页面文件</span>
+  <span class="code">|==index</span>
+    |--index.js
+    |--index.json
+    |--index.wxml
+    |--index.wxss
+  <span class="code">|==logs</span>
+    |--logs.js
+    |--logs.json
+    |--logs.wxml
+    |--logs.wxss
+<span class="code">|==utils</span>
+  |--util.js
+app.js <span class="note">//类似angular/react中的class，管理生命周期，声明全局变量</span>
+app.json <span class="note">//全局配置文件，必须有</span>
+app.wxss <span class="note">//css文件微信方言版</span>
+project.config.json <span class="note">//工程开发的配置文件，比如是否支持ES6</span>
+            </pre>
+            <h3>模板(.wxml)</h3>
+            <table>
+                <tr>
+                    <th>序号</th>
+                    <th>描述</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>
+                        <p>不直接使用html标签，取而代之的是使用封装好的组件，就像React中的组件</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>
+                        <p>js不直接操作DOM，单纯用来管理数据(状态),<span class="code">this.setData({msg:'hello weixin'})</span></p>
+                        <p>状态与DOM的对应需要用到模板中的指令<span class="code">wx:if</span>等</p>
+                        <p>数据绑定用<span class="code">{{}}</span>类似angular</p>
+                    </td>
+                </tr>
+            </table>
+            <h3>样式文件(.wxss)</h3>
+            <table>
+                <tr>
+                    <th>特性</th>
+                    <th>描述</th>
+                </tr>
+                <tr>
+                    <td>新尺寸单位<span class="code">rpx</span></td>
+                    <td>
+                        <p>为了解决手机设备宽度与像素比不统一的问题(最终结果会有一点偏差)</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>作用域</td>
+                    <td>
+                        <p>有全局和局部之分,局部样式文件仅对当前页面有效</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>与css的交集</td>
+                    <td>
+                        <p>WXSS 仅支持部分 CSS 选择器</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </li>
+</ul>

@@ -46,7 +46,7 @@
                 "JS高级": ["JS内置类型", "Function", "面向对象", "ES5", "ES6","DOM", "BOM","jQuery"],
                 "HTML、CSS、JS进阶":["HTML5","Bootstrap","Node.js"],
                 "前端框架":["Vue","Angular","React"],
-                "前端进阶之路":["模块化","混合编程","设计模式","再学JS","Python"]
+                "其他":["混合编程","微信小程序","模块化","设计模式","再学JS","Python"]
             }
             
             function showModal(){
@@ -150,7 +150,7 @@
                 var html = "";
                 var i = 1;
                 for(var prop in data){
-                    html += `<section><h2><div class="line"></div><span class="title">阶段${i}:${prop}</span></h2>`;
+                    html += `<section><h2><div class="line"></div><span class="title">${prop}</span></h2>`;
                     html += `<div class="clear">`;
                     for(var ele of data[prop]){
                         html += `<div class="item">

@@ -1067,7 +1067,128 @@ export default Carousel;</pre>
 }
                     </pre>
                 </dd>
+                
             </dl>
+            <h3>翻页更新组件</h3>
+            <dl class="accordion">
+                <dt>RotateFresh.js</dt>
+                <dd>
+<pre class="code">import React, { Component } from 'react';
+import './rotatefresh.scss';
+
+class RotateFresh extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            data01: '0',
+            data02: '0',
+            front: '0',
+            active: false
+        }
+    }
+    
+    shouldComponentUpdate({newValue}){
+        const {front} = this.state;
+        return newValue !== front;
+    }
+
+    componentWillUpdate({ newValue }) {
+        const { front, data01, active } = this.state;
+        <span class="note">/*
+            完成一次翻滚更新流程：
+            1) 将新值更新到背部--若前面是data01，则表示data02在后面，反之，data01在后面
+            2) 触发一次翻滚效果
+            3) 将font值设置成新值
+            */</span>
+        this.setState(
+            (front === data01) ?
+            { 
+                data02: newValue,
+                front: newValue,
+                active: !active
+            } : 
+            { 
+                data01: newValue,
+                front: newValue,
+                active: !active 
+            }
+        ); 
+    }
+
+    render() {
+        const { data01, data02, active } = this.state;
+        return (
+            //注意多个class之间的空格
+            &lt;div className={`rotater${active ? ' active' : ''}`}>
+                &lt;div>{data01}&lt;/div>
+                &lt;div>{data02}&lt;/div>
+            &lt;/div>
+        )
+    }
+}
+export default RotateFresh;</pre>
+                </dd>
+                <dt>rotatefresh.scss</dt>
+                <dd>
+                    <pre class="code">.rotater {
+    position:relative;
+    float:left;
+    width: 80px; //滚动数字容器的宽度，原80px
+    height: 70px;
+    &>div{
+        display:inline-block;
+        // border:1px solid #fff; //边框，测试用
+        position: absolute;
+        left: 0;
+        height: 0;
+        width: 80px; // 滚动数字的宽度在这里，80px
+        height: 70px;
+        line-height: 70px;
+        color: #ffcc33; // 滚动数字的颜色
+        transition: .8s ease-in-out;
+        backface-visibility: hidden;
+        -webkit-backface-visibility:hidden;	/* Chrome 和 Safari */
+        -moz-backface-visibility:hidden; 	/* Firefox */
+        -ms-backface-visibility:hidden; 	/* Internet Explorer */
+        &:first-child{
+            z-index: 2;
+            transform: rotateX(0);
+            -ms-transform:rotateX(0); 	/* IE 9 */
+            -moz-transform:rotateX(0); 	/* Firefox */
+            -webkit-transform:rotateX(0); /* Safari 和 Chrome */
+            -o-transform:rotateX(0); 	/* Opera */
+        }
+        &:last-child{
+            z-index: 1;
+            transform: rotateX(180deg);
+            -ms-transform:rotateX(180deg); 	/* IE 9 */
+            -moz-transform:rotateX(180deg); 	/* Firefox */
+            -webkit-transform:rotateX(180deg); /* Safari 和 Chrome */
+            -o-transform:rotateX(180deg); 	/* Opera */
+        }
+    }
+    
+    &.active > div:first-child {
+        transform: rotateX(180deg);
+        -ms-transform:rotateX(180deg); 	/* IE 9 */
+        -moz-transform:rotateX(180deg); 	/* Firefox */
+        -webkit-transform:rotateX(180deg); /* Safari 和 Chrome */
+        -o-transform:rotateX(180deg); 	/* Opera */
+    }
+    &.active > div:last-child{
+        transform: rotateX(0);
+        -ms-transform:rotateX(0); 	/* IE 9 */
+        -moz-transform:rotateX(0); 	/* Firefox */
+        -webkit-transform:rotateX(0); /* Safari 和 Chrome */
+        -o-transform:rotateX(0); 	/* Opera */
+    }
+}
+                    </pre>
+                </dd>
+            </dl>
+            <p>使用RotateFresh组件：</p>
+            <pre class="code">&lt;RotateFresh <span class="note">newValue={value}</span>/></pre>
         </div>
     </li>
     <li>
@@ -1241,7 +1362,7 @@ module.exports = function override(config, env) {
   };
 
 <span class="note">//5.引入babel-plugin-import，用于按需加载组件和样式文件</span>
-npm i babel-pugin-import --save-dev
+npm i babel-plugin-import --save-dev
 
 <span class="note">//6.修改config-overrides.js</span>
 const { injectBabelPlugin } = require('react-app-rewired');
