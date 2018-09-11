@@ -96,12 +96,11 @@ const max = nums.reduce(
         </div>
     </li> -->
     <li>
-        <p>了解React</p>
+        <p>React日常使用</p>
         <div class="desc">
             <h2>React</h2>
             <h3>cli安装React</h3>
             <pre class="code">npm install -g create-react-app <span class="note">//安装工具</span>
-
 create-react-app myapp <span class="note">//创建app</span></pre>
             <h3>react中使用scss</h3> 
             <h4>安装sass-loader</h4>
@@ -114,21 +113,21 @@ create-react-app myapp <span class="note">//创建app</span></pre>
 },</span>
             
 exclude: [/\.(js|jsx|mjs)$/, /\.html$/, /\.json$/,<span class="note">/\.scss$/</span>],</pre>
-            <h3>Hello React</h3>
-            <pre class="code">
-&lt;script type="text/babel">
-    ReactDOM.render(
-        &lt;h1>Hello React&lt;/h1>,
-        document.getElementById("example")
-    );
-&lt;/script></pre>
-            <h4>Babel</h4>
-            <p>将ES6或者jsx编译成ES5/js</p>
-            <h4>ReactDOM.render(要渲染的元素,容器);</h4>
-            <h4>JSX</h4>
-            <p>全称：JavaScriptXML，允许在js中调用标签</p>
-            <p>如果遇到&lt;，且首字母小写，则以html解析；如果是大小，则是一个组件</p>
-            <p>如果遇到{，就会用js来解析并执行花括号中的表达式，并将结果输出到对应标签</p>
+            <h3>设置Proxy</h3>
+            <pre class="code"><span class="note">//在package.json里添加：</span>
+"proxy": {
+    "/": {
+        "target": "http://20.255.48.2:9003",
+        "changeOrigin": true,
+        "secure": false
+    }
+}</pre>
+            <h3>兼容IE9-IE10</h3>
+            <p>React自带的babel编译只是将ES6、ES7..等语法的代码转换成ES5，但是没有ES6及以后的API，所以要polyfill。</p>
+            <pre class="code">npm i babel-polyfill --save
+<span class="note">//在根文件最上面导入polyfill,一定要在组件之前导入，否则组件中用到新API读取不到polyfill</span>
+import 'babel-polyfill';
+            </pre>
         </div>
     </li>
 
@@ -1067,7 +1066,6 @@ export default Carousel;</pre>
 }
                     </pre>
                 </dd>
-                
             </dl>
             <h3>翻页更新组件</h3>
             <dl class="accordion">
