@@ -2,23 +2,43 @@
 <button class="back">返回</button>
 <ul class="menu">
     <li>
-        <p>初识Vue</p>
+        <p>Vue的使用日常</p>
         <div class="desc">
-            <h2>Vue</h2>
-            <h3>框架和库的区别</h3>
-            <p>框架(framework)，基于项目的构建，更多的关注数据。</p>
-            <p>而库(library)，基于某个点，更多的关注DOM的操作，如jQuery函数库。</p>
-            <h3>Vue概述</h3>
-            <p>Vue是一款渐进式的JavaScript框架，具有完善的中文文档手册，上手容易，体积非常小，采用MVVM的设置模式。</p>
-            <h3>安装使用</h3>
-            <p>方式1：script标签引入vue.js</p>
-            <p>方式2：通过命令行安装（脚手架安装，全家桶安装）</p>
-            <h3>插值表达式</h3>
-            <pre class="code">{{expression}}</pre>
-            <h3>MVVM模式</h3>
-            <div class="img">
-                <img src="images/mvvm.png" alt="">
-            </div>
+            <h2>Vue的使用日常</h2>
+            <h3>vue-cli的安装和使用</h3>
+            <h4>全局安装vue-cli构建工具</h4>
+            <pre class="code">npm i -g vue-cli</pre>
+            <h4>创建一个新的vue项目</h4>
+            <pre class="code">vue init webpack myapp
+npm i <span class="note">//安装依赖</span>
+npm start <span class="note">//npm run dev</span></pre>
+            <h4>打包</h4>
+            <pre class="code">npm run build</pre>
+            <h3>ESlint</h3>
+            <h4>去掉一些很烦的“假错误”提示</h4>
+            <p>在<span class="code">.eslintrc.js</span>配置文件中添加自己的规则：(这里的数字：0表示不不处理，1表示警告，2表示错误并退出)</p>
+            <pre class="code">rules: {
+    // allow async-await
+    'generator-star-spacing': 'off',
+    // allow debugger during development
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    "space-before-function-paren": [0, "always"],<span class="note">//括号前面是否要空格</span>
+    "quotes": [0, "single"],<span class="note">//单双引号</span>
+    "semi": [0, "always"],<span class="note">//语句强制分号结尾</span>
+            
+    }</pre>
+            <h3>使用scss</h3>
+            <h4>安装node-sass和样式类加载器</h4>
+            <pre class="code">npm i node-sass --save-dev <span class="note">//安装sass</span>
+npm i sass-loader style-loader css-loader --save-dev <span class="note">//安装加载器</span></pre>
+            <h4>配置文件中指定加载器(vue2.x)</h4>
+            <p>在<span class="note">build/webpack.base.conf.js</span>中添加：</p>
+            <pre class="code">{
+    test: /\.scss$/,
+    loaders: ["style", "css", "sass"]
+}</pre>
+            <h4>使用--在style标签添加参数(vue2.x)</h4>
+            <pre class="code">&lt;style <span class="note">lang="scss"</span> scoped="scoped">&lt;/style></pre>
         </div>
     </li>
     <li>
@@ -138,82 +158,7 @@ new Vue({
             <h4>注意事项</h4>
             <p>(1)每个组件只能有一个根标签</p>
             <p>(2)组件创建位置一定要在实例化一个vue对象之前。</p>
-            <h3>组件的生命周期(lifecycle)</h3>
-            <h4>生命周期钩子函数</h4>
-            <table>
-                <tr>
-                    <td>beforeCreate</td>
-                    <td>基本初始化，未初始化数据</td>
-                </tr>
-                <tr>
-                    <td>created</td>
-                    <td>初始化data中的数据</td>
-                </tr>
-                <tr>
-                    <td>beforeMount</td>
-                    <td>挂载前</td>
-                </tr>
-                <tr>
-                    <td>mounted</td>
-                    <td>挂载完成</td>
-                </tr>
-                <tr>
-                    <td>beforeUpdate</td>
-                    <td>更新前</td>
-                </tr>
-                <tr>
-                    <td>updated</td>
-                    <td>更新完成</td>
-                </tr>
-                <tr>
-                    <td>beforeDestroy</td>
-                    <td>销毁前</td>
-                </tr>
-                <tr>
-                    <td>destroyed</td>
-                    <td>销毁完成</td>
-                </tr>
-            </table>
-            
-            <h3>组件的相关属性</h3>
-            <table>
-                <tr>
-                    <td>templates</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>data</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>methods</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>directives</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>filters</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>components</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>lifecycle hook(8个)</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>watch</td>
-                    <td>用来监听数据的变化(v-model)</td>
-                </tr>
-                <tr>
-                    <td>computed</td>
-                    <td>计算属性，常用于一些复杂的业务逻辑，带有缓存功能</td>
-                </tr>
-            </table>
+           
             <h3>组件之间的通信</h3>
             <p>每个组件有自己的作用域，不同的组件不可以随便获取到对象的数据。不同组件之间传递消息的方式也不同。</p>
             <h4>父子通信(父-->子)</h4>
@@ -371,6 +316,90 @@ Vue.component("child",{
             msg: "Hello Vue"
         }
     });</pre>
+        </div>
+    </li>
+    <li>
+        <p>生命周期</p>
+        <div class="desc">
+            <h2>生命周期</h2>
+            <h3>生命周期钩子函数</h3>
+            <table>
+                <tr>
+                    <td>beforeCreate</td>
+                    <td>基本初始化，未初始化数据</td>
+                </tr>
+                <tr>
+                    <td>created</td>
+                    <td>初始化data中的数据</td>
+                </tr>
+                <tr>
+                    <td>beforeMount</td>
+                    <td>挂载前</td>
+                </tr>
+                <tr>
+                    <td>mounted</td>
+                    <td>挂载完成</td>
+                </tr>
+                <tr>
+                    <td>beforeUpdate</td>
+                    <td>更新前</td>
+                </tr>
+                <tr>
+                    <td>updated</td>
+                    <td>更新完成</td>
+                </tr>
+                <tr>
+                    <td>beforeDestroy</td>
+                    <td>销毁前</td>
+                </tr>
+                <tr>
+                    <td>destroyed</td>
+                    <td>销毁完成</td>
+                </tr>
+            </table>
+            <h3>请求数据</h3>
+            <pre class="code"><span class="note">//安装axios</span>
+npm install --save axios vue-axios</pre>
+            <img style="width:100%;" src="./images/vue-lifecycle.png" alt="">
+            <h3>组件的相关属性</h3>
+            <table>
+                <tr>
+                    <td>templates</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>data</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>methods</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>directives</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>filters</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>components</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>lifecycle hook(8个)</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>watch</td>
+                    <td>用来监听数据的变化(v-model)</td>
+                </tr>
+                <tr>
+                    <td>computed</td>
+                    <td>计算属性，常用于一些复杂的业务逻辑，带有缓存功能</td>
+                </tr>
+            </table>
         </div>
     </li>
     <li>
@@ -547,27 +576,6 @@ new Vue({
 .then((data)=>{
     console.log(data.body);
 });</pre>
-        </div>
-    </li>
-    <li>
-        <p>CLI的使用</p>
-        <div class="desc">
-            <h2>使用命令行搭建Vue项目</h2>
-            <h3>安装vue</h3>
-            <p>下载tpls包，在该包内安装依赖的node包<span class="code">npm install</span>，然后启动项目<span class="code">npm start</span></p>
-            <h3>了解项目文件结构</h3>
-            <pre class="code">
-TPLS
-    > build
-    > config
-    > node_modules
-    > src
-        > assets
-        > components
-            > todo
-            </pre>
-            <p>用CLI写Vue项目时，与之前学习的引入<span class="code">vue.js</span>是有所不同的。</p>
-
         </div>
     </li>
 </ul>
