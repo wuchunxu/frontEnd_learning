@@ -39,6 +39,21 @@ npm i sass-loader style-loader css-loader --save-dev <span class="note">//安装
 }</pre>
             <h4>使用--在style标签添加参数(vue2.x)</h4>
             <pre class="code">&lt;style <span class="note">lang="scss"</span> scoped="scoped">&lt;/style></pre>
+            <h3>设置代理(跨域开发)</h3>
+            <p>在config/index.js文件中：</p>
+            <pre class="code">dev:{
+    <span class="note">proxyTable: {
+        "/": {
+            "target": "http://20.255.48.2:9002",
+            "changeOrigin": true,
+            "secure": false
+        }
+    },</span>    
+}</pre>
+            <h3>设置favicon.ico</h3>
+            <p>将favicon.ico文件放在static文件夹下，然后设置：</p>
+            <pre class="code">&lt;link rel="shortcut icon" type="image/x-icon" href="./static/favicon.ico" rel="external nofollow" /></pre>
+            
         </div>
     </li>
     <li>
@@ -398,6 +413,78 @@ npm install --save axios vue-axios</pre>
                 <tr>
                     <td>computed</td>
                     <td>计算属性，常用于一些复杂的业务逻辑，带有缓存功能</td>
+                </tr>
+            </table>
+        </div>
+    </li>
+    <li>
+        <p>数据流动</p>
+        <div class="desc">
+            <h2>数据流动</h2>
+            <h3>父组件到子组件的数据流动</h3>
+            <blockquote>
+                <p>不管是Angular、React还是Vue，通常，父组件向子组件传递数据都是通过属性来完成的。</p>
+            </blockquote>
+            <h4>流程</h4>
+            <table>
+                <tr>
+                    <td>父组件data中存放数据</td>
+                    <td>
+                        <pre class="code">data(){
+    return {
+        data4kid:'data for child component'
+    }                            
+}</pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>模板中，通过v-bind将数据传给子组件</td>
+                    <td>
+                        <pre class="code">&lt;child v-bind:dataFromDad="data4kid"/></pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>子组件的“登记本”上需要记录父组件传递哪些数据</td>
+                    <td>
+                        <pre class="code">props:['dataFromDad']</pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>子组件使用已登记的数据</td>
+                    <td>
+                        <pre class="code">{{this.dataFromDad}}</pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>监听“登记本”上数据的变化</td>
+                    <td>
+                        <pre class="code">watch:{
+    dataFromDad(){
+        console.log('数据更新了：'+this.dataFromDad)
+    }                            
+}</pre>
+                    </td>
+                </tr>
+            </table>
+           
+            <table>
+                <tr>
+                    <td>Angular</td>
+                    <td>
+                        <p>ngOnChanges(changes:SimpleChanges){}钩子函数监听了Input()数据的变化</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>React</td>
+                    <td>
+                        <p>无需手动监控，原因不清楚，可能和immutable有关。</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Vue</td>
+                    <td>
+                        <p>在watch中声明监听属性的变化。从这一点来看，Vue更像Angular</p>
+                    </td>
                 </tr>
             </table>
         </div>
