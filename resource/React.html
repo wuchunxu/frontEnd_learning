@@ -107,6 +107,7 @@ create-react-app myapp <span class="note">//创建app</span></pre>
             <pre class="code">npm i sass-loader node-sass --save-dev</pre>
             <h4>修改webpack文件</h4>
             <p>在node_modules/react-scripts/config目录下找到webpack.config.dev.js文件，</p>
+            <p>直接在node_modules中修改配置文件会导致项目移植出问题，所以需要将配置文件从node_modules中暴露出来，<span class="code">npm run eject</span></p>
             <pre class="code"><span class="note">{
     test:/\.scss$/,
     loaders:['style-loader','css-loader','sass-loader']
@@ -124,10 +125,21 @@ exclude: [/\.(js|jsx|mjs)$/, /\.html$/, /\.json$/,<span class="note">/\.scss$/</
 }</pre>
             <h3>兼容IE9-IE10</h3>
             <p>React自带的babel编译只是将ES6、ES7..等语法的代码转换成ES5，但是没有ES6及以后的API，所以要polyfill。</p>
+            <h4>第一种：babel-polyfill</h4>
             <pre class="code">npm i babel-polyfill --save
-<span class="note">//在根文件最上面导入polyfill,一定要在组件之前导入，否则组件中用到新API读取不到polyfill</span>
+<span class="note">//在根文件index.js最上面导入polyfill</span>
 import 'babel-polyfill';
             </pre>
+            <h4>【推荐】第二种：core-js</h4>
+            <pre class="code">npm i core-js --save
+import 'core-js/es6/map';
+import 'core-js/es6/set';
+
+<span class="note">//polyfill requestAnimationFrame</span>
+npm i raf --save;
+import 'raf/polyfill';</pre>
+            <h4>使用antd中Layout布局，只能兼容到IE10</h4>
+            <p>使用了Flex布局，仅支持到IE10，<span class="code">-ms-</span></p>
         </div>
     </li>
 
@@ -1197,7 +1209,7 @@ export default Home;</pre>
             <pre class="code"><span class="note">//1.下载antd组件包</span>
 npm i antd --save
 
-<span class="note">//2.引入自定义配置解决方案</span>
+<span class="note">//2.引入自定义配置解决方案，注意，如果使用scss而将配置文件eject出来的话，该操作会出问题</span>
 npm i react-app-rewired
 
 <span class="note">//3.修改package.json配置文件</span>
@@ -1253,19 +1265,19 @@ const { injectBabelPlugin } = require('react-app-rewired');
     return config;
   };</pre>
         <p>配置主题主要是修改通用的变量</p>
-        <pre class="code">@primary-color: #1890ff;                         // 全局主色
-@link-color: #1890ff;                            // 链接色
-@success-color: #52c41a;                         // 成功色
-@warning-color: #faad14;                         // 警告色
-@error-color: #f5222d;                           // 错误色
-@font-size-base: 14px;                           // 主字号
-@heading-color: rgba(0, 0, 0, .85);              // 标题色
-@text-color: rgba(0, 0, 0, .65);                 // 主文本色
-@text-color-secondary : rgba(0, 0, 0, .45);      // 次文本色
-@disabled-color : rgba(0, 0, 0, .25);            // 失效色
-@border-radius-base: 4px;                        // 组件/浮层圆角
-@border-color-base: #d9d9d9;                     // 边框色
-@box-shadow-base: 0 2px 8px rgba(0, 0, 0, .15);  // 浮层阴影</pre>
+        <pre class="code">'@primary-color': '#1890ff',                         // 全局主色
+'@link-color': '#1890ff',                            // 链接色
+'@success-color': '#52c41a',                         // 成功色
+'@warning-color': '#faad14',                         // 警告色
+'@error-color': '#f5222d',                           // 错误色
+'@font-size-base': '14px',                           // 主字号
+'@heading-color': 'rgba(0, 0, 0, .85)',              // 标题色
+'@text-color': 'rgba(0, 0, 0, .65)',                 // 主文本色
+'@text-color-secondary' : 'rgba(0, 0, 0, .45)',      // 次文本色
+'@disabled-color' : 'rgba(0, 0, 0, .25)',            // 失效色
+'@border-radius-base': '4px',                        // 组件/浮层圆角
+'@border-color-base': '#d9d9d9',                     // 边框色
+'@box-shadow-base': '0 2px 8px rgba(0, 0, 0, .15)'  // 浮层阴影</pre>
             <p><a href="https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less">更多变量名点击这里</a></p>
         </div>
 
