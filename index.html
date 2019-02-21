@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE-edge">
-	<title>wuchunxu的前端笔记</title>
-	<link rel="stylesheet" href="css/base.css">
-	<link rel="stylesheet" href="css/main.css">
+    <title>wuchunxu的前端笔记</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
+
 <body>
-	<nav>
+    <nav>
         <div class="logo colorful">前端学习笔记</div>
         <ul class="navi-menu">
             <li>
@@ -19,45 +21,45 @@
                 </div>
             </li>
         </ul>
-	</nav>
-	<div class="header-filter"></div>
+    </nav>
+    <div class="header-filter"></div>
 
-	<main>
-		 <div class="content"></div>
-	</main>
-	<div id="shower">
+    <main>
+        <div class="content"></div>
+    </main>
+    <div id="shower">
 
     </div>
-	<div id="layer"></div>
-	<script src="js/util.js"></script>
-	<script>
+    <div id="layer"></div>
+    <script src="js/util.js"></script>
+    <script>
         var getResource = null;//定义全局，供其他地方使用
         (function () {
             //获取页面内容载体、弹窗和遮罩层
             var content = document.getElementsByClassName("content")[0],
-                shower  = document.getElementById("shower"),
-                layer   = document.getElementById("layer");
+                shower = document.getElementById("shower"),
+                layer = document.getElementById("layer");
             /*
                 需要将哪些数据渲染到页面中去
             */
             var pageData = {
-                "熟悉服务端": ["软件工程", "服务器和数据库", "PHP","Java"],
+                "熟悉服务端": ["软件工程", "服务器和数据库", "PHP", "Java"],
                 "初入前端": ["JS基础", "Ajax", "CSS", "CSS3"],
-                "JS高级": ["JS内置类型", "Function", "面向对象", "ES5", "ES6","DOM", "BOM","jQuery"],
-                "HTML、CSS、JS进阶":["HTML5","Bootstrap","Node.js"],
-                "前端框架":["Vue","Angular","React"],
-                "其他":["混合编程","微信小程序","模块化","设计模式","再学JS","Python"]
+                "JS高级": ["JS内置类型", "Function", "面向对象", "ES5", "ES6", "DOM", "BOM", "jQuery"],
+                "HTML、CSS、JS进阶": ["HTML5", "Bootstrap", "Node.js"],
+                "前端框架": ["Vue", "Angular", "React"],
+                "其他": ["混合编程", "微信小程序", "模块化", "设计模式", "再学JS", "Python"]
             }
-            
-            function showModal(){
+
+            function showModal() {
                 shower.style.display = "block";
                 layer.style.display = "block";
             }
-            function hideModal(){
+            function hideModal() {
                 shower.style.display = "none";
                 layer.style.display = "none";
             }
-            Element.prototype.is = function (tagName){
+            Element.prototype.is = function (tagName) {
                 return this.tagName.toUpperCase() === tagName.toUpperCase();
             }
             var loading = '<button class="back">返回</button><svg xmlns="http://www.w3.org/2000/svg" width="80px" height="80px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="loading"> <defs> <clipPath ng-attr-id="{{config.cpid}}" x="0" y="0" width="100" height="100" id="lds-colorbar-cpid-9d2a9cfa91489"><path d="M81.3,58.7H18.7c-4.8,0-8.7-3.9-8.7-8.7v0c0-4.8,3.9-8.7,8.7-8.7h62.7c4.8,0,8.7,3.9,8.7,8.7v0C90,54.8,86.1,58.7,81.3,58.7z"/></clipPath></defs><path fill="none" ng-attr-stroke="{{config.cf}}" stroke-width="2.7928" d="M82,63H18c-7.2,0-13-5.8-13-13v0c0-7.2,5.8-13,13-13h64c7.2,0,13,5.8,13,13v0C95,57.2,89.2,63,82,63z" stroke="#5d5d5d"/><g ng-attr-clip-path="url(#{{config.cpid}})" clip-path="url(#lds-colorbar-cpid-9d2a9cfa91489)"><g transform="translate(67.017 0)"><rect x="-100" y="0" width="25" height="100" ng-attr-fill="{{config.c1}}" fill="#f47e60"/><rect x="-75" y="0" width="25" height="100" ng-attr-fill="{{config.c2}}" fill="#f8b26a"/><rect x="-50" y="0" width="25" height="100" ng-attr-fill="{{config.c3}}" fill="#abbd81"/><rect x="-25" y="0" width="25" height="100" ng-attr-fill="{{config.c4}}" fill="#849b87"/><rect x="0" y="0" width="25" height="100" ng-attr-fill="{{config.c1}}" fill="#f47e60"/><rect x="25" y="0" width="25" height="100" ng-attr-fill="{{config.c2}}" fill="#f8b26a"/><rect x="50" y="0" width="25" height="100" ng-attr-fill="{{config.c3}}" fill="#abbd81"/><rect x="75" y="0" width="25" height="100" ng-attr-fill="{{config.c4}}" fill="#849b87"/><animateTransform attributeName="transform" type="translate" calcMode="linear" values="0;100" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"/></g></g></svg>';
@@ -70,29 +72,29 @@
                         shower.innerHTML = data;
                         var menu = shower.getElementsByClassName("menu")[0];
                         //给弹窗中ul设置点击事件
-                        menu.addEventListener("click",function(e){
+                        menu.addEventListener("click", function (e) {
                             var tar = e.target;
                             var lis = menu.querySelectorAll(".menu>li");
-                            
-                            if( tar.is("p") && tar.parentNode.is("li") ){
+
+                            if (tar.is("p") && tar.parentNode.is("li")) {
                                 var cur_li = tar.parentNode;
                                 //记录当前li的激活状态
                                 var is_active = cur_li.hasClass("active");
                                 //将所有的li去除激活状态
-                                [].forEach.call(lis,ele=>ele.removeClass("active"));
+                                [].forEach.call(lis, ele => ele.removeClass("active"));
                                 //如果当前li没有激活，则设置为active
-                                if(!is_active) cur_li.addClass("active");
+                                if (!is_active) cur_li.addClass("active");
                             }
                         });
                         //手风琴效果
                         var accordions = menu.querySelectorAll("dl.accordion");
-                        for(var ele of accordions){
-                            ele.addEventListener("click",function(e){
+                        for (var ele of accordions) {
+                            ele.addEventListener("click", function (e) {
                                 var tar = e.target;
-                                if(tar.is("dt")){
-                                    if(tar.hasClass("active")){
+                                if (tar.is("dt")) {
+                                    if (tar.hasClass("active")) {
                                         tar.removeClass("active");
-                                    }else{
+                                    } else {
                                         tar.addClass("active");
                                     }
                                 }
@@ -104,12 +106,12 @@
             /*
                 监听在shower的点击事件上，如果点击返回，则隐藏模态弹窗
             */
-            shower.onclick = function(e){
-                
-                if(e.target.hasClass("back")){
+            shower.onclick = function (e) {
+
+                if (e.target.hasClass("back")) {
                     e.preventDefault();
                     hideModal();
-                } 
+                }
             }
             /*
                 点击遮罩层，隐藏弹窗
@@ -118,23 +120,23 @@
             /*
                 监听页面加载的内容，如果是item，则加载资源
             */
-           content.onclick = function(e){
+            content.onclick = function (e) {
                 var tar = e.target;
-                if(tar.hasClass("click-layer")){
+                if (tar.hasClass("click-layer")) {
                     var url = `resource/${tar.dataset.title}.html`;
                     getResource(url);
                 }
-           }
+            }
 
-            function loadPage(data){
+            function loadPage(data) {
                 var html = "";
                 var i = 1;
-                for(var prop in data){
+                for (var prop in data) {
                     html += `<section><h2><div class="line"></div><span class="title">${prop}</span></h2>`;
                     html += `<div class="clear">`;
-                    for(var ele of data[prop]){
+                    for (var ele of data[prop]) {
                         html += `<div class="item">
-                                    <p><img src="images/icon/${ele}.png"></p>
+                                    <p><img src="images/icon/软件工程.png" data-url="images/icon/${ele}.png"></p>
                                         <p>${ele}</p>
                                         <div class="click-layer" data-title="${ele}"></div>
                                     </div>`;
@@ -145,23 +147,43 @@
                 content.innerHTML = html;
             }
             loadPage(pageData);
-            
+
         })();
 
         var li = document.querySelector(".navi-menu>li");
-        li.onclick = function(e){
+        li.onclick = function (e) {
             e.preventDefault();
             var tar = e.target;
             var detail = tar.nextElementSibling;
-            if(tar.dataset.toggle=="dropdown"){
-                if(this.hasClass("active")){
+            if (tar.dataset.toggle == "dropdown") {
+                if (this.hasClass("active")) {
                     this.removeClass("active");
-                }else{
+                } else {
                     this.addClass("active");
                 }
             }
         }
-       
+
+        var items = null;
+        window.onload = function () {
+            items = document.querySelectorAll('.item');
+            lazyload();
+            
+        }
+        function lazyload(){
+            // 判断items是否在视野之内
+            items.forEach(function (ele) {
+                if (ele.offsetTop < window.innerHeight + window.scrollY) {
+                    var img = ele.querySelector('p>img');
+                    img.setAttribute('src',img.getAttribute('data-url'));
+                }
+            });
+        }
+        window.onscroll = function () {
+            lazyload();
+        }
+
     </script>
 </body>
+
 </html>
