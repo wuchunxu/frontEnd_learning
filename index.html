@@ -173,22 +173,35 @@
         function lazyload() {
             // 判断items是否在视野之内
             if (Array.isArray(items) && items.length > 0) {
-                items.forEach(function (ele, i,arr) {
+                items.forEach(function (ele, i, arr) {
                     if (ele.offsetTop < window.innerHeight + window.scrollY) {
                         var img = ele.querySelector('p>img');
                         img.setAttribute('src', img.getAttribute('data-url'));
-                        ele.setAttribute('loaded','true');
+                        ele.setAttribute('loaded', 'true');
                     }
                 });
-                items = items.filter(ele=>ele.getAttribute('loaded')!=='true');
-                if(items.length === 0){
+                items = items.filter(ele => ele.getAttribute('loaded') !== 'true');
+                if (items.length === 0) {
                     window.onscroll = null;
                 }
             }
 
         }
+
+        // 节流函数
+        function throttle(action,frequence){
+            setTimeout(() => {
+                   action();
+                    ready = true;
+                }, frequence);
+        }
+
+        var ready = true;
         window.onscroll = function () {
-            lazyload();
+            if (ready) {
+                ready = false;
+                throttle(lazyload,500);
+            }
         }
 
     </script>
